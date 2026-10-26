@@ -1,0 +1,109 @@
+{
+  "schema": 1,
+  "pass": true,
+  "failures": [],
+  "accepted_pcm_callbacks": 1875,
+  "max_callback_work_seconds": 2.133333333333333e-05,
+  "max_entry_minus_native_seconds": 0.015968375,
+  "sample_gap_context": [],
+  "notifications": [
+    {
+      "index": 0,
+      "host_time": 2057632840,
+      "object": 92,
+      "selector": 1735354734,
+      "scope": 1735159650,
+      "element": 0
+    },
+    {
+      "index": 1,
+      "host_time": 2537891670,
+      "object": 92,
+      "selector": 1735354734,
+      "scope": 1735159650,
+      "element": 0
+    }
+  ],
+  "listeners": [
+    {
+      "object": 92,
+      "selector": 1870030194,
+      "scope": 1735159650,
+      "element": 0,
+      "available": true,
+      "added": true,
+      "add_status": 0,
+      "remove_status": 0
+    },
+    {
+      "object": 92,
+      "selector": 1735354734,
+      "scope": 1735159650,
+      "element": 0,
+      "available": true,
+      "added": true,
+      "add_status": 0,
+      "remove_status": 0
+    },
+    {
+      "object": 92,
+      "selector": 1818850926,
+      "scope": 1735159650,
+      "element": 0,
+      "available": true,
+      "added": true,
+      "add_status": 0,
+      "remove_status": 0
+    },
+    {
+      "object": 92,
+      "selector": 1853059700,
+      "scope": 1735159650,
+      "element": 0,
+      "available": true,
+      "added": true,
+      "add_status": 0,
+      "remove_status": 0
+    },
+    {
+      "object": 92,
+      "selector": 1718839674,
+      "scope": 1735159650,
+      "element": 0,
+      "available": true,
+      "added": true,
+      "add_status": 0,
+      "remove_status": 0
+    },
+    {
+      "object": 94,
+      "selector": 1885762592,
+      "scope": 1735159650,
+      "element": 0,
+      "available": true,
+      "added": true,
+      "add_status": 0,
+      "remove_status": 0
+    },
+    {
+      "object": 93,
+      "selector": 1885762592,
+      "scope": 1735159650,
+      "element": 0,
+      "available": true,
+      "added": true,
+      "add_status": 0,
+      "remove_status": 0
+    }
+  ],
+  "lifecycle": {
+    "start_request": 2057542405,
+    "start_return": 2057741928,
+    "stop_request": 2537871617,
+    "stop_return": 2537900167,
+    "destroy_request": 2537900170,
+    "destroy_return": 2537902386
+  },
+  "dropped_notifications": 0,
+  "note": "Diagnostic integrity only. No scheduling performance limit or PCM acceptance threshold is changed."
+}

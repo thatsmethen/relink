@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "source_report": "/Users/runner/work/ravelink/ravelink/build/rust-hal-system/tone-writer.json",
+  "clock": {
+    "callback_count": 3750,
+    "sample_gaps": [
+      {
+        "after_sample": 1631740.0,
+        "delta_frames": 616.0
+      }
+    ],
+    "host_reversals": 0,
+    "measured_sample_rate": 48000.0,
+    "pass": false
+  },
+  "frames": 1920000,
+  "mode": "play",
+  "failures": [
+    "sample clock or callback continuity failed"
+  ],
+  "pass": false
+}

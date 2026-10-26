@@ -1,0 +1,6 @@
+{
+  "schema": 1,
+  "test": "one byte flipped in the first HAL part; all other parts retain original bytes",
+  "corrupted_part_rejected_before_reconstruction": true,
+  "original_files_unmodified": true
+}

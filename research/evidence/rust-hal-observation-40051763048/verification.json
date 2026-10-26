@@ -1,0 +1,13 @@
+{
+  "verified_original_archives": [
+    "original-workflow-logs.zip",
+    "original-hal.zip",
+    "original-runtime.zip"
+  ],
+  "all_original_manifest_members_verified": true,
+  "compact_original_text_bytes_verified": true,
+  "derived_diagnosis_reproduced": true,
+  "overall_run_conclusion": "FAIL",
+  "native_runtime_job_conclusion": "PASS",
+  "no_audio_or_network_operations": true
+}

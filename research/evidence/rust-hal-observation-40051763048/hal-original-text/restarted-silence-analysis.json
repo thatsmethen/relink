@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "source_report": "/Users/runner/work/ravelink/ravelink/build/rust-hal-system/restarted-silence.json",
+  "clock": {
+    "callback_count": 282,
+    "sample_gaps": [],
+    "host_reversals": 0,
+    "measured_sample_rate": 47999.99999999999,
+    "pass": true
+  },
+  "frames": 144000,
+  "mode": "silence",
+  "failures": [],
+  "peak": 0.0,
+  "pass": true
+}

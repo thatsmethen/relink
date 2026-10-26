@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "source_report": "/Users/runner/work/ravelink/ravelink/build/rust-runtime-system/source-writer.json",
+  "clock": {
+    "callback_count": 5625,
+    "sample_gaps": [],
+    "host_reversals": 0,
+    "measured_sample_rate": 48000.0,
+    "pass": true
+  },
+  "frames": 2880000,
+  "mode": "play",
+  "failures": [],
+  "pass": true
+}

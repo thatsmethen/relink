@@ -1,0 +1,323 @@
+{
+  "hal": {
+    "all_processes_exited_zero_without_timeout": true,
+    "cleanup": {
+      "attempt": 3,
+      "devices": {
+        "au.textual.ravelink.cable.1": {
+          "amplitude": 0.125,
+          "channels": 2,
+          "complete": true,
+          "destroy_status": 0,
+          "device_id": 0,
+          "ended_monotonic_ns": 0,
+          "events": 0,
+          "fault": 0,
+          "frames": 0,
+          "host_time_denom": 3,
+          "host_time_numer": 125,
+          "left_hz": 440,
+          "matches": 0,
+          "mode": "discover",
+          "ready": false,
+          "right_hz": 997,
+          "sample_rate": 48000,
+          "schema": 1,
+          "started_monotonic_ns": 0,
+          "status": 0,
+          "stop_status": 0,
+          "target_frames": 0,
+          "uid": "au.textual.ravelink.cable.1"
+        },
+        "au.textual.ravelink.cable.2": {
+          "amplitude": 0.125,
+          "channels": 2,
+          "complete": true,
+          "destroy_status": 0,
+          "device_id": 0,
+          "ended_monotonic_ns": 0,
+          "events": 0,
+          "fault": 0,
+          "frames": 0,
+          "host_time_denom": 3,
+          "host_time_numer": 125,
+          "left_hz": 440,
+          "matches": 0,
+          "mode": "discover",
+          "ready": false,
+          "right_hz": 997,
+          "sample_rate": 48000,
+          "schema": 1,
+          "started_monotonic_ns": 0,
+          "status": 0,
+          "stop_status": 0,
+          "target_frames": 0,
+          "uid": "au.textual.ravelink.cable.2"
+        }
+      },
+      "pass": true,
+      "removed_only": "/Library/Audio/Plug-Ins/HAL/RustRaveLink.driver"
+    },
+    "failed_original_observations": [
+      {
+        "clock": {
+          "callback_count": 3750,
+          "host_reversals": 0,
+          "measured_sample_rate": 48000.0,
+          "pass": false,
+          "sample_gaps": [
+            {
+              "after_sample": 1631740.0,
+              "delta_frames": 616.0
+            }
+          ]
+        },
+        "failures": [
+          "sample clock or callback continuity failed"
+        ],
+        "frames": 1920000,
+        "mode": "play",
+        "pass": false,
+        "schema": 1,
+        "source_report": "/Users/runner/work/ravelink/ravelink/build/rust-hal-system/tone-writer.json"
+      }
+    ],
+    "gaps": [
+      {
+        "current": {
+          "after_pcm_host_time": 2853445123,
+          "callback_index_zero_based": 3140,
+          "current_flags": 7,
+          "current_host_time": 2853436534,
+          "current_present": true,
+          "current_sample_time": 1632390,
+          "entry_host_time": 2853444299,
+          "entry_minus_output_seconds": -0.009643791666666665,
+          "exit_host_time": 2853445262,
+          "frames": 512,
+          "index": 3140,
+          "native_host_time": 2853675750,
+          "sample_time": 1632868.0,
+          "work_seconds": 4.012499999999999e-05
+        },
+        "current_callback_index_zero_based": 3140,
+        "missing_frames": 616.0,
+        "native_host_interval_seconds": 0.023499999999999997,
+        "overload_notifications": [
+          {
+            "element": 0,
+            "host_time": 2853148200,
+            "index": 1,
+            "object": 92,
+            "relative_to_previous_entry_seconds": 0.0007299166666666666,
+            "scope": 1735159650,
+            "selector": 1870030194
+          }
+        ],
+        "previous": {
+          "after_pcm_host_time": 2853130877,
+          "callback_index_zero_based": 3139,
+          "current_flags": 7,
+          "current_host_time": 2853096029,
+          "current_present": true,
+          "current_sample_time": 1631709,
+          "entry_host_time": 2853130682,
+          "entry_minus_output_seconds": 0.0007888333333333332,
+          "exit_host_time": 2853130903,
+          "frames": 512,
+          "index": 3139,
+          "native_host_time": 2853111750,
+          "sample_time": 1631740.0,
+          "work_seconds": 9.208333333333333e-06
+        },
+        "previous_entry_after_reader_stop_seconds": {
+          "reader-a": 13.299686541666665,
+          "reader-b": 13.134604791666666
+        },
+        "sample_interval_seconds_at_48000": 0.0235
+      }
+    ],
+    "pass": false
+  },
+  "limits": [
+    "Derived chronology only; original acceptance results and thresholds are unchanged.",
+    "The overload notification and sample gap do not establish which scheduling, host or processing condition caused the missed deadline.",
+    "The two jobs ran on different hosted machines; their host clocks cannot be cross-correlated.",
+    "This source used native macOS capture and CPAL output. The subsequently authored native output owners are not tested by this run.",
+    "No rerun, threshold adjustment, publication, local device access or repaired observation."
+  ],
+  "overall_conclusion": "FAIL",
+  "runtime": {
+    "acknowledgement_seconds": [
+      0.02125233333333333,
+      0.025108999999999996,
+      0.02623045833333333,
+      0.022852208333333332
+    ],
+    "all_processes_exited_zero_without_timeout": true,
+    "capture_first_fault": null,
+    "capture_lifecycle": [
+      {
+        "callbacks_in_flight": 0,
+        "host_time": 6910395142,
+        "phase": "CreateRequested",
+        "status": null
+      },
+      {
+        "callbacks_in_flight": 0,
+        "host_time": 6910443711,
+        "phase": "CreateReturned",
+        "status": 0
+      },
+      {
+        "callbacks_in_flight": 0,
+        "host_time": 6911566042,
+        "phase": "StartRequested",
+        "status": null
+      },
+      {
+        "callbacks_in_flight": 0,
+        "host_time": 6912993083,
+        "phase": "StartReturned",
+        "status": 0
+      },
+      {
+        "callbacks_in_flight": null,
+        "host_time": 7475051880,
+        "phase": "HandleCancelled",
+        "status": null
+      },
+      {
+        "callbacks_in_flight": 0,
+        "host_time": 7471917497,
+        "phase": "GatesRevoked",
+        "status": null
+      },
+      {
+        "callbacks_in_flight": 0,
+        "host_time": 7471917500,
+        "phase": "StopRequested",
+        "status": null
+      },
+      {
+        "callbacks_in_flight": 0,
+        "host_time": 7471953456,
+        "phase": "StopReturned",
+        "status": 0
+      },
+      {
+        "callbacks_in_flight": 0,
+        "host_time": 7471953457,
+        "phase": "DestroyRequested",
+        "status": null
+      },
+      {
+        "callbacks_in_flight": 0,
+        "host_time": 7471955564,
+        "phase": "DestroyReturned",
+        "status": 0
+      },
+      {
+        "callbacks_in_flight": 0,
+        "host_time": 7471955566,
+        "phase": "ListenersRemovalRequested",
+        "status": null
+      },
+      {
+        "callbacks_in_flight": 0,
+        "host_time": 7471990126,
+        "phase": "ListenersRemovalReturned",
+        "status": 0
+      },
+      {
+        "callbacks_in_flight": 0,
+        "host_time": 7471990136,
+        "phase": "QuiescenceChecked",
+        "status": null
+      },
+      {
+        "callbacks_in_flight": 0,
+        "host_time": 7471990138,
+        "phase": "OwnerCompleted",
+        "status": null
+      }
+    ],
+    "capture_packets_seen": 2181,
+    "cleanup": {
+      "attempt": 3,
+      "devices": {
+        "au.textual.ravelink.cable.1": {
+          "amplitude": 0.125,
+          "channels": 2,
+          "complete": true,
+          "destroy_status": 0,
+          "device_id": 0,
+          "ended_monotonic_ns": 0,
+          "events": 0,
+          "fault": 0,
+          "frames": 0,
+          "host_time_denom": 3,
+          "host_time_numer": 125,
+          "left_hz": 440,
+          "matches": 0,
+          "mode": "discover",
+          "ready": false,
+          "right_hz": 997,
+          "sample_rate": 48000,
+          "schema": 1,
+          "started_monotonic_ns": 0,
+          "status": 0,
+          "stop_status": 0,
+          "target_frames": 0,
+          "uid": "au.textual.ravelink.cable.1"
+        },
+        "au.textual.ravelink.cable.2": {
+          "amplitude": 0.125,
+          "channels": 2,
+          "complete": true,
+          "destroy_status": 0,
+          "device_id": 0,
+          "ended_monotonic_ns": 0,
+          "events": 0,
+          "fault": 0,
+          "frames": 0,
+          "host_time_denom": 3,
+          "host_time_numer": 125,
+          "left_hz": 440,
+          "matches": 0,
+          "mode": "discover",
+          "ready": false,
+          "right_hz": 997,
+          "sample_rate": 48000,
+          "schema": 1,
+          "started_monotonic_ns": 0,
+          "status": 0,
+          "stop_status": 0,
+          "target_frames": 0,
+          "uid": "au.textual.ravelink.cable.2"
+        }
+      },
+      "pass": true,
+      "removed_only": "/Library/Audio/Plug-Ins/HAL/RustRaveLink.driver"
+    },
+    "native_shutdown_observed": true,
+    "pass": true,
+    "phase_passes": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "result": {
+      "error": null,
+      "pass": true,
+      "schema": 1
+    },
+    "stop_response_seconds": 0.03500816666666667,
+    "stopped_tail_peak": 0.0,
+    "terminal_fault": 0,
+    "terminal_first_fault": null
+  },
+  "schema": 1,
+  "source_revision": "91d73e4cf0ecf820d93a68f73d59f1cb09d00b13"
+}

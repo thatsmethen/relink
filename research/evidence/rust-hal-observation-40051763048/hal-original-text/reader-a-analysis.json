@@ -1,0 +1,44 @@
+{
+  "schema": 1,
+  "source_report": "/Users/runner/work/ravelink/ravelink/build/rust-hal-system/reader-a.json",
+  "clock": {
+    "callback_count": 1875,
+    "sample_gaps": [],
+    "host_reversals": 0,
+    "measured_sample_rate": 48000.00000000001,
+    "pass": true
+  },
+  "frames": 960000,
+  "mode": "record",
+  "failures": [],
+  "channels": [
+    {
+      "frequency_hz": 440,
+      "amplitude": 0.12499999974753212,
+      "phase_radians": 1.9268434942005184,
+      "rms": 0.08838834746984237,
+      "residual_rms": 9.025069654909382e-08
+    },
+    {
+      "frequency_hz": 997,
+      "amplitude": 0.12499999999597018,
+      "phase_radians": 2.2954570322189873,
+      "rms": 0.08838834764548091,
+      "residual_rms": 4.615031798851337e-08
+    }
+  ],
+  "wrong_channel_amplitude": [
+    3.7697941622480073e-17,
+    1.7332404802767974e-13
+  ],
+  "longest_stereo_zero_run": 0,
+  "interior_frames": 768000,
+  "trim_seconds": 2.0,
+  "criteria": {
+    "relative_amplitude_error": 0.01,
+    "residual_relative_to_peak": 0.001,
+    "wrong_channel_relative_peak": 0.005,
+    "forbidden_zero_run_frames": 8
+  },
+  "pass": true
+}

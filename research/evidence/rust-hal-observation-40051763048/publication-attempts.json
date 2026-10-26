@@ -1,0 +1,55 @@
+{
+  "schema": 1,
+  "kind": "transcribed publication transport observations; not original API responses or original workflow evidence",
+  "recorded_at_utc": "2026-10-24T05:27:36.724037+00:00",
+  "source_revision": "91d73e4cf0ecf820d93a68f73d59f1cb09d00b13",
+  "tag": "evidence-native-pcm-40051763048",
+  "explicit_draft_release_id": 422528575,
+  "attempts": [
+    {
+      "sequence": 1,
+      "client": "gh release create with all assets",
+      "result": "HTTP 408: Upload body timed out due to inactivity",
+      "reported_asset": "original-runtime.zip",
+      "temporary_draft_id": 422520279,
+      "followup": "temporary release subsequently returned HTTP 404; lightweight tag remained"
+    },
+    {
+      "sequence": 2,
+      "client": "gh release upload, one archive",
+      "asset": "original-runtime.zip",
+      "result": "HTTP 408: Upload body timed out due to inactivity",
+      "draft_asset_inventory_after_failure": []
+    },
+    {
+      "sequence": 3,
+      "client": "Python urllib HTTP/1.1, 90 second socket timeout",
+      "asset": "original-runtime.zip",
+      "result": "URLError: The write operation timed out"
+    },
+    {
+      "sequence": 4,
+      "client": "curl HTTP/1.1 IPv4, Expect 100-continue, 120 second absolute timeout",
+      "asset": "original-runtime.zip",
+      "result": "curl exit 28: Operation timed out",
+      "last_http_status": 100,
+      "reported_upload_bytes": 2359296,
+      "elapsed_seconds": 120.005157
+    },
+    {
+      "sequence": 5,
+      "client": "curl HTTP/1.1 IPv4, 128 KiB/s limit, 60 second low-speed timeout, 600 second absolute timeout",
+      "asset": "original-runtime.zip",
+      "result": "HTTP 408: Upload body timed out due to inactivity",
+      "last_http_status": 408,
+      "reported_upload_bytes": 5767168,
+      "elapsed_seconds": 365.720412,
+      "curl_exit_code": 0,
+      "note": "curl transport exit 0 does not imply HTTP success; HTTP 408 was treated as failure"
+    }
+  ],
+  "no_further_large_attempts_after_current": true,
+  "original_archives_modified": false,
+  "workflow_rerun": false,
+  "publication_complete": false
+}

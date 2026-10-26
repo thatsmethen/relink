@@ -1,0 +1,70 @@
+{
+  "schema": 2,
+  "recorded_at_utc": "2026-10-26T00:42:24.686327+00:00",
+  "kind": "publication metadata projection; original historical state and reports remain preserved",
+  "status": "PUBLIC_ANONYMOUS_ROUNDTRIP_VERIFIED",
+  "release": {
+    "id": 422528575,
+    "html_url": "https://github.com/thatsmethen/relink/releases/tag/evidence-native-pcm-40051763048",
+    "tag_name": "evidence-native-pcm-40051763048",
+    "name": "Evidence 40051763048: overall FAIL, HAL FAIL, separate runtime PASS",
+    "prerelease": true,
+    "draft": false,
+    "published_at": "2026-10-26T00:40:36Z"
+  },
+  "tag": {
+    "type": "commit",
+    "revision": "91d73e4cf0ecf820d93a68f73d59f1cb09d00b13",
+    "tagger_metadata": "none: lightweight tag"
+  },
+  "source_tree": "f42729259cbade01f60b64b2b5726de83f4c4cf6",
+  "public_roundtrip_report": {
+    "name": "public-verification-parts.json",
+    "bytes": 17971,
+    "sha256": "6143495d44fcd6d7df71d558386e4a253bd54e161ad0987cce76da7eb2ee27d6"
+  },
+  "transport": {
+    "large_zip_parts": 35,
+    "maximum_part_bytes": 524288,
+    "total_release_assets": 40,
+    "original_archives_reconstructed_byte_exact": true
+  },
+  "original_workflow_outcomes": {
+    "overall": "FAIL",
+    "installed-hal": "FAIL",
+    "installed-runtime-capture": "PASS"
+  },
+  "runtime_output_boundary": "CPAL output; this observation does not exercise the subsequently authored native output owners",
+  "historical_custody": {
+    "prior_manifest": "pre-parts-publication-SHA256SUMS.json",
+    "prior_files_verified": 125,
+    "prior_path_mapping": {
+      "README.md": "pre-parts-publication-README.md"
+    },
+    "all_other_prior_files_unchanged": true,
+    "original_collection_snapshot_unchanged": true
+  },
+  "failed_historical_placeholder_removed": {
+    "id": 671348342,
+    "name": "original-runtime.zip",
+    "created_at": "2026-10-24T05:16:34Z",
+    "state": "starter",
+    "digest": null,
+    "accepted_assets_removed": false
+  },
+  "audio_rerun_or_threshold_changes": false,
+  "raw_public_api_bodies_retained_locally": {
+    "public-release-api.json": {
+      "bytes": 66927,
+      "sha256": "b3c0699e07097e7a5f7811814e318e025fdcf45775a8a6046b08c7d9f431713b"
+    },
+    "public-tag-api.json": {
+      "bytes": 423,
+      "sha256": "1c84b2163fca41a8f93793d36c179bee14d42b425300175caf68d71060ce1e74"
+    },
+    "public-source-commit-api.json": {
+      "bytes": 1194,
+      "sha256": "a57a951eea219c53f8ca22aa9e50c7e4d9ff239f6b220e285185879fe05a67d3"
+    }
+  }
+}

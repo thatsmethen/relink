@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "observed_at_utc": "2026-10-24T05:27:36.724037+00:00",
+  "kind": "metadata projection; original API response bytes retained locally",
+  "status": "DRAFT_NOT_PUBLISHED_UPLOAD_TRANSPORT_FAILED",
+  "public_roundtrip_verification": "NOT_PERFORMED: original archives could not be uploaded",
+  "draft": {
+    "id": 422528575,
+    "tag_name": "evidence-native-pcm-40051763048",
+    "name": "Evidence 40051763048: overall FAIL, HAL FAIL, separate runtime PASS",
+    "draft": true,
+    "prerelease": true
+  },
+  "draft_assets": [],
+  "tag": {
+    "type": "commit",
+    "revision": "91d73e4cf0ecf820d93a68f73d59f1cb09d00b13",
+    "tagger_metadata": "none: lightweight tag"
+  },
+  "anonymous_public_release_api_status": 404,
+  "raw_api_responses": {
+    "draft": {
+      "bytes": 4545,
+      "sha256": "a980fea21fdc14ffc1ac667faabf2014b9c1f8ffa683cd09ff89ab854fd8c7e2"
+    },
+    "tag": {
+      "bytes": 423,
+      "sha256": "1c84b2163fca41a8f93793d36c179bee14d42b425300175caf68d71060ce1e74"
+    }
+  },
+  "no_more_large_upload_attempts": true,
+  "original_workflow_outcomes": {
+    "overall": "FAIL",
+    "installed-hal": "FAIL",
+    "installed-runtime-capture": "PASS"
+  }
+}

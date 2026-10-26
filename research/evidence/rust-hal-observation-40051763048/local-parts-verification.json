@@ -1,0 +1,43 @@
+{
+  "schema": 1,
+  "all_parts_verified": true,
+  "all_reconstructed_original_archive_hashes_match": true,
+  "archives": [
+    {
+      "name": "original-hal.zip",
+      "bytes": 10532207,
+      "sha256": "71549c6f84f6cc8b3b2183e0e70b45a4df4a9169667b5b37bd15eadf9111788f"
+    },
+    {
+      "name": "original-runtime.zip",
+      "bytes": 7048981,
+      "sha256": "4c89e5a29ac31a564c35e550a7a3f9e3764b2f1f4cc025a07c302e329a4a5979"
+    },
+    {
+      "name": "original-workflow-logs.zip",
+      "bytes": 13648,
+      "sha256": "67b25b835f09ad5210e3551832d600ec93d67e89a5d527ab5ad6914f0e63fd79"
+    },
+    {
+      "name": "collection-evidence-40051763048.zip",
+      "bytes": 219361,
+      "sha256": "5212dd5a2df55ecafd98f55c832e7e01e87d64272450196fc90ecd9394a10ae0"
+    }
+  ],
+  "bundled_original_offline_verifier": {
+    "verified_original_archives": [
+      "original-workflow-logs.zip",
+      "original-hal.zip",
+      "original-runtime.zip"
+    ],
+    "all_original_manifest_members_verified": true,
+    "compact_original_text_bytes_verified": true,
+    "derived_diagnosis_reproduced": true,
+    "overall_run_conclusion": "FAIL",
+    "native_runtime_job_conclusion": "PASS",
+    "no_audio_or_network_operations": true
+  },
+  "bulk_pcm_extracted": false,
+  "network_or_audio_operations": false,
+  "original_outcomes_changed": false
+}

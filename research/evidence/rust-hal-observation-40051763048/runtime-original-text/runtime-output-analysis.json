@@ -1,0 +1,150 @@
+{
+  "schema": 1,
+  "pass": true,
+  "failures": [],
+  "criteria": {
+    "relative_amplitude_error": 0.01,
+    "frequency_error_ppm": 2500.0,
+    "recurrence_peak_relative": 0.005,
+    "recurrence_rms_relative": 0.0005,
+    "mean_relative": 0.001,
+    "control_ack_seconds": 0.25,
+    "transition_seconds": 0.25,
+    "steady_leading_margin_seconds": 0.25,
+    "steady_trailing_margin_seconds": 0.05,
+    "transition_envelope_window_seconds": 0.02,
+    "transition_envelope_relative_tolerance": 0.08,
+    "forbidden_zero_run_frames": 8
+  },
+  "clock": {
+    "callback_count": 3000,
+    "sample_gaps": [],
+    "host_reversals": 0,
+    "measured_sample_rate": 48000.0,
+    "pass": true
+  },
+  "phases": [
+    {
+      "pass": true,
+      "begin_frame": 45276,
+      "end_frame": 322143,
+      "channels": [
+        {
+          "expected_hz": 440.0,
+          "measured_hz": 439.88822309841737,
+          "expected_peak": 0.06264840420340903,
+          "rms_equivalent_peak": 0.0626467383635753,
+          "relative_amplitude_error": 2.6590299544096102e-05,
+          "frequency_error_ppm": 254.0384126877848,
+          "recurrence_peak_relative": 4.306835901676731e-06,
+          "recurrence_rms_relative": 1.278001963607178e-06,
+          "mean_relative": 2.4497736242937807e-05,
+          "pass": true
+        },
+        {
+          "expected_hz": 997.0,
+          "measured_hz": 996.7467477004599,
+          "expected_peak": 0.06264840420340903,
+          "rms_equivalent_peak": 0.06264878680598333,
+          "relative_amplitude_error": 6.107139984936684e-06,
+          "frequency_error_ppm": 254.01434256777657,
+          "recurrence_peak_relative": 1.4134067417167872e-05,
+          "recurrence_rms_relative": 6.363153941963601e-06,
+          "mean_relative": 3.836532784301943e-05,
+          "pass": true
+        }
+      ],
+      "longest_stereo_zero_run": 0,
+      "phase": 0,
+      "acknowledgement_seconds": 0.02125233333333333,
+      "detected_response_seconds": -0.04999195833333333
+    },
+    {
+      "pass": true,
+      "begin_frame": 337748,
+      "end_frame": 611421,
+      "channels": [
+        {
+          "expected_hz": 440.0,
+          "measured_hz": 439.96207411142166,
+          "expected_peak": 0.03139858039386975,
+          "rms_equivalent_peak": 0.03139832342201966,
+          "relative_amplitude_error": 8.18418689211565e-06,
+          "frequency_error_ppm": 86.19520131436519,
+          "recurrence_peak_relative": 3.268264533696499e-06,
+          "recurrence_rms_relative": 6.039219812128476e-07,
+          "mean_relative": 3.4459849526693224e-05,
+          "pass": true
+        },
+        {
+          "expected_hz": 997.0,
+          "measured_hz": 996.9140596638283,
+          "expected_peak": 0.03139858039386975,
+          "rms_equivalent_peak": 0.03139871400259814,
+          "relative_amplitude_error": 4.255247425536817e-06,
+          "frequency_error_ppm": 86.19893297057146,
+          "recurrence_peak_relative": 9.82503082223915e-06,
+          "recurrence_rms_relative": 2.685080780065074e-06,
+          "mean_relative": 4.810454924772525e-06,
+          "pass": true
+        }
+      ],
+      "longest_stereo_zero_run": 0,
+      "phase": 1,
+      "acknowledgement_seconds": 0.025108999999999996,
+      "detected_response_seconds": 0.02500933333333333
+    },
+    {
+      "pass": true,
+      "peak": 0.0,
+      "begin_frame": 627081,
+      "end_frame": 806469,
+      "phase": 2,
+      "acknowledgement_seconds": 0.02623045833333333,
+      "detected_response_seconds": 0.029990166666666665
+    },
+    {
+      "pass": true,
+      "begin_frame": 821966,
+      "end_frame": 1099946,
+      "channels": [
+        {
+          "expected_hz": 440.0,
+          "measured_hz": 439.99791998645463,
+          "expected_peak": 0.06264840420340903,
+          "rms_equivalent_peak": 0.0626468903929536,
+          "relative_amplitude_error": 2.416359162985917e-05,
+          "frequency_error_ppm": 4.727303512197523,
+          "recurrence_peak_relative": 2.3964402761794516e-06,
+          "recurrence_rms_relative": 4.18207091631412e-07,
+          "mean_relative": 3.5211026710953355e-07,
+          "pass": true
+        },
+        {
+          "expected_hz": 997.0,
+          "measured_hz": 996.99529110667,
+          "expected_peak": 0.06264840420340903,
+          "rms_equivalent_peak": 0.06264871381928706,
+          "relative_amplitude_error": 4.9421191484422944e-06,
+          "frequency_error_ppm": 4.723062517530963,
+          "recurrence_peak_relative": 5.663571370308237e-06,
+          "recurrence_rms_relative": 1.4853415503432348e-06,
+          "mean_relative": 1.3044772576760158e-05,
+          "pass": true
+        }
+      ],
+      "longest_stereo_zero_run": 0,
+      "phase": 3,
+      "acknowledgement_seconds": 0.022852208333333332,
+      "detected_response_seconds": 0.024994916666666665
+    }
+  ],
+  "unmuted_zero_runs": [
+    0,
+    0
+  ],
+  "stopped_tail_peak": 0.0,
+  "stop_response_seconds": 0.03500816666666667,
+  "observed_rendered_frames_per_second": 48022.6550150873,
+  "note": "Runtime telemetry is polled off callback; independent recorder CSV contains each native capture callback timestamp."
+}
