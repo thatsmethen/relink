@@ -1,0 +1,54 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-10-26T01:03:02.892417+00:00",
+  "kind": "later publication metadata projection; collection-time metadata remains unchanged",
+  "status": "PUBLIC_ANONYMOUS_ROUNDTRIP_VERIFIED",
+  "release": {
+    "id": 423760033,
+    "html_url": "https://github.com/thatsmethen/relink/releases/tag/evidence-native-output-40249452671",
+    "tag_name": "evidence-native-output-40249452671",
+    "name": "Evidence 40249452671: native macOS output \u2014 HAL and runtime PASS",
+    "prerelease": true,
+    "draft": false,
+    "published_at": "2026-10-26T01:00:41Z"
+  },
+  "tag": {
+    "type": "commit",
+    "revision": "f47df76d100da25c5e98d261d92792a1d507d5f1",
+    "tagger_metadata": "none: lightweight tag"
+  },
+  "source_tree": "92fe31337e7f59f40d25cde9c84a2c125da38d16",
+  "public_verification": {
+    "name": "public-verification.json",
+    "bytes": 18476,
+    "sha256": "d1f4c8c625eaf051742289d92cfb791ca040b6c99a28c26215b51b497ac7a622"
+  },
+  "total_release_assets": 39,
+  "original_large_zip_parts": 35,
+  "maximum_part_bytes": 524288,
+  "source_repository_required": "Local clone containing exact f47df76d100da25c5e98d261d92792a1d507d5f1, used without checkout or fetch for the unchanged verifier analyzers.",
+  "original_collection_files_preserved": 115,
+  "original_manifest_files_verified": 121,
+  "original_pcm_report_recomputed_exactly": true,
+  "unchanged_original_outcomes": {
+    "overall": "PASS",
+    "installed-hal": "PASS",
+    "installed-runtime-capture": "PASS"
+  },
+  "scope": "Native macOS CoreAudio output owner; one short hosted virtual-cable observation. No production, physical drift, multi-output or installed Windows qualification.",
+  "raw_public_api_bodies_retained_locally": {
+    "public-release-api.json": {
+      "bytes": 66288,
+      "sha256": "cf9ebc437db23162472fdb5a078d8824119f0a7a21ef9181f6822e4c59db5897"
+    },
+    "public-tag-api.json": {
+      "bytes": 433,
+      "sha256": "463db68c821b9ef528141c6019182d1947447950ad185b5cc1680f921c9df7e8"
+    },
+    "public-source-commit-api.json": {
+      "bytes": 1164,
+      "sha256": "3654d63e6892be5b2d696503b0debf34cb95dc13e5cdeb4c65060681d4aa583c"
+    }
+  },
+  "audio_rerun_or_acceptance_changes": false
+}

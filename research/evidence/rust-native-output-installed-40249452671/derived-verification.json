@@ -1,0 +1,188 @@
+{
+  "all_observed_runtime_faults_absent": true,
+  "analyzer_sources": {
+    "drivers/macos/tests/analyze_runtime.py": {
+      "bytes": 13821,
+      "sha256": "6742811826f6fef7dc243b688a10eafa6c669a3cf0a9bb5eb5ea14b1887fab43"
+    },
+    "drivers/macos/tests/analyze_system.py": {
+      "bytes": 9472,
+      "sha256": "6f2e070cf855d18fb45a7686e79c1f7da6627061079f44ebe32b0ed8b76cfe0f"
+    }
+  },
+  "criteria": {
+    "control_ack_seconds": 0.25,
+    "forbidden_zero_run_frames": 8,
+    "frequency_error_ppm": 2500.0,
+    "mean_relative": 0.001,
+    "recurrence_peak_relative": 0.005,
+    "recurrence_rms_relative": 0.0005,
+    "relative_amplitude_error": 0.01,
+    "steady_leading_margin_seconds": 0.25,
+    "steady_trailing_margin_seconds": 0.05,
+    "transition_envelope_relative_tolerance": 0.08,
+    "transition_envelope_window_seconds": 0.02,
+    "transition_seconds": 0.25
+  },
+  "driver_cleanup": {
+    "hal": {
+      "attempt": 3,
+      "both_owned_devices_absent": true,
+      "pass": true
+    },
+    "runtime": {
+      "attempt": 3,
+      "both_owned_devices_absent": true,
+      "pass": true
+    }
+  },
+  "hal_conclusion": "PASS",
+  "independent_reader_clock": {
+    "callback_count": 3000,
+    "host_reversals": 0,
+    "measured_sample_rate": 48000.0,
+    "pass": true,
+    "sample_gaps": []
+  },
+  "limits": "One short hosted macOS virtual-cable run. No physical drift, sustained reliability, multi-output or native Windows qualification; input OwnerCompleted has its earlier implementation semantics.",
+  "native_output_callbacks_seen": 2187,
+  "native_output_lifecycle": [
+    {
+      "callbacks_in_flight": 0,
+      "host_time": 3071286527,
+      "phase": "ReservationAcquired",
+      "status": null
+    },
+    {
+      "callbacks_in_flight": 0,
+      "host_time": 3071299989,
+      "phase": "CreateRequested",
+      "status": null
+    },
+    {
+      "callbacks_in_flight": 0,
+      "host_time": 3071383405,
+      "phase": "CreateReturned",
+      "status": 0
+    },
+    {
+      "callbacks_in_flight": 0,
+      "host_time": 3071423900,
+      "phase": "Ready",
+      "status": null
+    },
+    {
+      "callbacks_in_flight": 0,
+      "host_time": 3071445080,
+      "phase": "StartRequested",
+      "status": null
+    },
+    {
+      "callbacks_in_flight": 0,
+      "host_time": 3072188829,
+      "phase": "StartReturned",
+      "status": 0
+    },
+    {
+      "callbacks_in_flight": null,
+      "host_time": 3631680395,
+      "phase": "HandleCancelled",
+      "status": null
+    },
+    {
+      "callbacks_in_flight": 1,
+      "host_time": 3631680787,
+      "phase": "GatesRevoked",
+      "status": null
+    },
+    {
+      "callbacks_in_flight": 1,
+      "host_time": 3631680793,
+      "phase": "StopRequested",
+      "status": null
+    },
+    {
+      "callbacks_in_flight": 0,
+      "host_time": 3631882106,
+      "phase": "StopReturned",
+      "status": 0
+    },
+    {
+      "callbacks_in_flight": 0,
+      "host_time": 3631882111,
+      "phase": "DestroyRequested",
+      "status": null
+    },
+    {
+      "callbacks_in_flight": 0,
+      "host_time": 3631906269,
+      "phase": "DestroyReturned",
+      "status": 0
+    },
+    {
+      "callbacks_in_flight": 0,
+      "host_time": 3631906276,
+      "phase": "ListenerRemovalRequested",
+      "status": null
+    },
+    {
+      "callbacks_in_flight": 0,
+      "host_time": 3631946540,
+      "phase": "ListenerRemovalReturned",
+      "status": 0
+    },
+    {
+      "callbacks_in_flight": 0,
+      "host_time": 3631946547,
+      "phase": "QuiescenceChecked",
+      "status": null
+    },
+    {
+      "callbacks_in_flight": 0,
+      "host_time": 3631946815,
+      "phase": "OwnerCompleted",
+      "status": null
+    }
+  ],
+  "native_output_progress_count": 2186,
+  "native_output_shutdown_proven": true,
+  "native_timing_rows": 347,
+  "original_pcm_analysis_recomputed_exactly": true,
+  "overall_conclusion": "PASS",
+  "phases": [
+    {
+      "acknowledgement_seconds": 0.011726083333333331,
+      "detected_response_seconds": -0.049994874999999994,
+      "pass": true,
+      "phase": 0
+    },
+    {
+      "acknowledgement_seconds": 0.024899166666666663,
+      "detected_response_seconds": 0.03499295833333333,
+      "pass": true,
+      "phase": 1
+    },
+    {
+      "acknowledgement_seconds": 0.02558183333333333,
+      "detected_response_seconds": 0.04000041666666666,
+      "pass": true,
+      "phase": 2
+    },
+    {
+      "acknowledgement_seconds": 0.02157745833333333,
+      "detected_response_seconds": 0.03000325,
+      "pass": true,
+      "phase": 3
+    }
+  ],
+  "run_id": 40249452671,
+  "runtime_conclusion": "PASS",
+  "schema": 1,
+  "source_revision": "f47df76d100da25c5e98d261d92792a1d507d5f1",
+  "stop_response_seconds": 0.024993249999999998,
+  "stopped_tail_peak": 0.0,
+  "unmuted_zero_runs": [
+    0,
+    0
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "control_kind": "offline wrapper transport control, not public download proof",
+  "artifacts_outside_source_checkout": true,
+  "explicit_local_source_clone": true,
+  "unchanged_original_verifier_passed": {
+    "original_archives_verified": 3,
+    "original_manifest_files_verified": 121,
+    "pcm_analysis_recomputed_exactly": true,
+    "native_output_cleanup_gate_verified": true,
+    "overall_result": "PASS",
+    "audio_or_network_operations": false
+  },
+  "corrupted_one_byte_rejected": true,
+  "original_archives_unmodified": true
+}

@@ -1,0 +1,462 @@
+{
+  "README.md": {
+    "bytes": 5277,
+    "sha256": "7ebebef66be293cad75a56f5d33879557e523d5a5c0b92a1321ee21fa69c147f"
+  },
+  "collect.py": {
+    "bytes": 7988,
+    "sha256": "7f469401f4cffaec2d2f301ac98fed711877180905a501b3560af6c6a73f25b2"
+  },
+  "collected-at.json": {
+    "bytes": 61,
+    "sha256": "d8a1587a9aeef6bf7dbc95cbea229e60c1488636c9d520c323aea91693cfb7c9"
+  },
+  "collection.json": {
+    "bytes": 6065,
+    "sha256": "e5c94c019f1d7f84a4e602e2bd0ccc30ca69e5a2c591ad1f1cfa31c6b247887a"
+  },
+  "derived-verification.json": {
+    "bytes": 4779,
+    "sha256": "51e4e2e5545f6cf62b2463e6cbd82f4b70cabe57152177a0d1b04934e10eef60"
+  },
+  "hal-original-text/acceptance.json": {
+    "bytes": 16332,
+    "sha256": "d23e2a79cc1465b6054f04aecef5731fc14767cd794ce1115c4e6d8ccf322734"
+  },
+  "hal-original-text/before-cable-1-discovery.json": {
+    "bytes": 389,
+    "sha256": "2aa323e041cbb6ae371b2f95ac754994a444d0b8cdca44354851bc6c2b41562c"
+  },
+  "hal-original-text/before-cable-1-discovery.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "hal-original-text/before-cable-2-discovery.json": {
+    "bytes": 389,
+    "sha256": "8296f53ae3f142ebea7560a3cc3f0600d41df023c094251cc06ac4e8138a06a0"
+  },
+  "hal-original-text/before-cable-2-discovery.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "hal-original-text/build-driver.log": {
+    "bytes": 586,
+    "sha256": "12c7316fbb1655afe0e22e8fe3c45c7f02f5686b389153961e26aa1249562038"
+  },
+  "hal-original-text/build-sha256.txt": {
+    "bytes": 747,
+    "sha256": "d018d3b2b0978b31f3c87e792e34855af362da4edd15d56780982e4934ab1084"
+  },
+  "hal-original-text/cleanup-attempt-0-cable-1-0-discovery.json": {
+    "bytes": 389,
+    "sha256": "2aa323e041cbb6ae371b2f95ac754994a444d0b8cdca44354851bc6c2b41562c"
+  },
+  "hal-original-text/cleanup-attempt-0-cable-1-0-discovery.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "hal-original-text/cleanup-attempt-0-cable-2-0-discovery.json": {
+    "bytes": 389,
+    "sha256": "8296f53ae3f142ebea7560a3cc3f0600d41df023c094251cc06ac4e8138a06a0"
+  },
+  "hal-original-text/cleanup-attempt-0-cable-2-0-discovery.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "hal-original-text/cleanup-attempt-0-remove.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "hal-original-text/cleanup-attempt-0-restart.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "hal-original-text/cleanup-attempt-0.json": {
+    "bytes": 1351,
+    "sha256": "ec6ee45d68021129088258b66dbbb6a937211cae5b8688d8c66116dfb9aa635b"
+  },
+  "hal-original-text/cleanup-attempt-3-cable-1-0-discovery.json": {
+    "bytes": 389,
+    "sha256": "2aa323e041cbb6ae371b2f95ac754994a444d0b8cdca44354851bc6c2b41562c"
+  },
+  "hal-original-text/cleanup-attempt-3-cable-1-0-discovery.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "hal-original-text/cleanup-attempt-3-cable-2-0-discovery.json": {
+    "bytes": 389,
+    "sha256": "8296f53ae3f142ebea7560a3cc3f0600d41df023c094251cc06ac4e8138a06a0"
+  },
+  "hal-original-text/cleanup-attempt-3-cable-2-0-discovery.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "hal-original-text/cleanup-attempt-3.json": {
+    "bytes": 1351,
+    "sha256": "1f3e53157cb14be98036db79a7fd477435ed1daff00dfc540625beab51b8c801"
+  },
+  "hal-original-text/cleanup.json": {
+    "bytes": 1351,
+    "sha256": "1f3e53157cb14be98036db79a7fd477435ed1daff00dfc540625beab51b8c801"
+  },
+  "hal-original-text/custody-manifest.json": {
+    "bytes": 10550,
+    "sha256": "a42db8a6b553258f401741c5a5a96fd885620d9c2f8ed155328fb92808620084"
+  },
+  "hal-original-text/environment.txt": {
+    "bytes": 464,
+    "sha256": "5515bc48042ed31e5c7d957d9416d811e575abfd58c9c53f77ba111bae9acf33"
+  },
+  "hal-original-text/independent-readers.json": {
+    "bytes": 148,
+    "sha256": "3e21a242af489823f934ea9bf2dbb5deb9db3e54196c09f073a4047e2f580c68"
+  },
+  "hal-original-text/install-restart.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "hal-original-text/install.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "hal-original-text/installation-owner.json": {
+    "bytes": 1747,
+    "sha256": "5694759b14860514ef772a1a817885d31477b6823a767ae63e6f0d441853fba4"
+  },
+  "hal-original-text/installed-cable-1-0-discovery.json": {
+    "bytes": 390,
+    "sha256": "90e5c68366dae8ca73929f06b6408dc8991791036996d8c1c264ed0c548ca452"
+  },
+  "hal-original-text/installed-cable-1-0-discovery.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "hal-original-text/installed-cable-2-0-discovery.json": {
+    "bytes": 391,
+    "sha256": "3d3b4b541df78b6e32783e118dd09ea74ae74ea604663c586d32d1a0367c6276"
+  },
+  "hal-original-text/installed-cable-2-0-discovery.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "hal-original-text/installed-devices.json": {
+    "bytes": 1134,
+    "sha256": "e92b17c1354c4ed15e1f730c71047a994171f8a4e07d228da054c74a7411c89f"
+  },
+  "hal-original-text/observer-controls.txt": {
+    "bytes": 6139,
+    "sha256": "380e0e7e4f5c2c6126d75f7dc05b18d885dc5d419228c0d5eb65f9ad220dc263"
+  },
+  "hal-original-text/ownership.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "hal-original-text/permissions.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "hal-original-text/reader-a-analysis.json": {
+    "bytes": 1106,
+    "sha256": "157dd6c30a16340bfbbd682cd45284f88668dd8ed1d71ffa3e7cec42b868369f"
+  },
+  "hal-original-text/reader-a-diagnostics-analysis.json": {
+    "bytes": 2367,
+    "sha256": "b21a439006da4084d49734a0eb1411bad72f9f4b8cf354ae4bb098b3b0a13724"
+  },
+  "hal-original-text/reader-a-diagnostics.json": {
+    "bytes": 386594,
+    "sha256": "43a330df66a1a32be59190a70f883d19400e3a05ee944bf8fa54804dae5fc3f0"
+  },
+  "hal-original-text/reader-a.json": {
+    "bytes": 422,
+    "sha256": "9e3d94c73252ebc2af3ac73f79c424d536ed8bfef0bd4a7cc8ed9f166d15f629"
+  },
+  "hal-original-text/reader-a.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "hal-original-text/reader-a.ready.json": {
+    "bytes": 56,
+    "sha256": "48e09be7f51a3d0fa4874a25095048d8a4802627e5848e136bc4d943d289cd27"
+  },
+  "hal-original-text/reader-b-analysis.json": {
+    "bytes": 1114,
+    "sha256": "f991d4528f62cf6253fc344d6cb8d8f2c482a051255ae36dee194e0c28904fcd"
+  },
+  "hal-original-text/reader-b-diagnostics-analysis.json": {
+    "bytes": 2376,
+    "sha256": "dee8dacbd446663fcd95868254f20701de1e6ef38160c58ede94bbfc01aae30d"
+  },
+  "hal-original-text/reader-b-diagnostics.json": {
+    "bytes": 386630,
+    "sha256": "b7513e237647ebdd21cbd5d0a5f237f8c0363f7f93506d4de88f44a494d1dbdb"
+  },
+  "hal-original-text/reader-b.json": {
+    "bytes": 422,
+    "sha256": "16953e80644c60b9bcbb1ccb50ada29d5badfd45bf1f122a28beb206c9e37589"
+  },
+  "hal-original-text/reader-b.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "hal-original-text/reader-b.ready.json": {
+    "bytes": 56,
+    "sha256": "7cf3d5056fc2880750c45c5639ff93e2c287a374d818c3e7771d465c971bb1ad"
+  },
+  "hal-original-text/restarted-silence-analysis.json": {
+    "bytes": 365,
+    "sha256": "06906b5e36a1bbd10b8e830ddcc590c87c864a061b4e8f7b33a96da389d14828"
+  },
+  "hal-original-text/restarted-silence-diagnostics-analysis.json": {
+    "bytes": 2376,
+    "sha256": "54667705a2ac7ae7a7439a70b22d5fd159aa110816240d755aa407e1c322b849"
+  },
+  "hal-original-text/restarted-silence-diagnostics.json": {
+    "bytes": 59502,
+    "sha256": "54952f47bd141e96a7ebbad998354aee261b17c080824ae10399332b5c287f21"
+  },
+  "hal-original-text/restarted-silence.json": {
+    "bytes": 421,
+    "sha256": "5190b927baacbb91aae18d9e842b5ebbf61f413a78571a233be4ed57fe5eb9f9"
+  },
+  "hal-original-text/restarted-silence.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "hal-original-text/restarted-silence.ready.json": {
+    "bytes": 57,
+    "sha256": "9eda00c72faf5266e0b0d5b4aaa99907b131ba7c375186d425643982aaffc7cf"
+  },
+  "hal-original-text/tone-writer-analysis.json": {
+    "bytes": 333,
+    "sha256": "8f09c8f8642ed6a117ebb938225628ac9495f5b34882484e041a4d9db89b3e8d"
+  },
+  "hal-original-text/tone-writer-diagnostics-analysis.json": {
+    "bytes": 2377,
+    "sha256": "672dc87940c03cdf4d59aa02fc4ae9b9a0cadb6478572ff9fd56e6f0fc2d965e"
+  },
+  "hal-original-text/tone-writer.json": {
+    "bytes": 422,
+    "sha256": "9975b58f7b0324996bf053010039b031ba3d32b683b5552975be81651cc511b9"
+  },
+  "hal-original-text/tone-writer.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "hal-original-text/tone-writer.ready.json": {
+    "bytes": 57,
+    "sha256": "06cbeb62fef50d92bebb9bdf76d71635466959345737d19001961e6878309d83"
+  },
+  "original-local-files.json": {
+    "bytes": 950,
+    "sha256": "4886ed5dbb1ad6a1308f064e3aadb6f4178d358580e11d0c32383f2b86d8f191"
+  },
+  "run-metadata.json": {
+    "bytes": 7928,
+    "sha256": "a51a1f1a974b759dd9b9c74d82fc3ba6c943d48e18c2f9c36a4fa81ab370e1bc"
+  },
+  "runtime-original-text/before-cable-1-discovery.json": {
+    "bytes": 389,
+    "sha256": "2aa323e041cbb6ae371b2f95ac754994a444d0b8cdca44354851bc6c2b41562c"
+  },
+  "runtime-original-text/before-cable-1-discovery.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "runtime-original-text/before-cable-2-discovery.json": {
+    "bytes": 389,
+    "sha256": "8296f53ae3f142ebea7560a3cc3f0600d41df023c094251cc06ac4e8138a06a0"
+  },
+  "runtime-original-text/before-cable-2-discovery.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "runtime-original-text/build-driver.log": {
+    "bytes": 586,
+    "sha256": "faffe1fd77e898fe8c126eee6267f1a0c71afc9d34e5ca8be5ab29cc627bb877"
+  },
+  "runtime-original-text/build-runtime.log": {
+    "bytes": 2073,
+    "sha256": "2938a1c71dc7839cd021bd2175f30c64df95baff54de472738a4a586b01b028f"
+  },
+  "runtime-original-text/build-sha256.txt": {
+    "bytes": 1299,
+    "sha256": "6ad3211c67082ddbcad17a6d8eaacf6943d2d3c864c3fd9fef2a99fcbf133f1d"
+  },
+  "runtime-original-text/cleanup-attempt-0-cable-1-0-discovery.json": {
+    "bytes": 389,
+    "sha256": "2aa323e041cbb6ae371b2f95ac754994a444d0b8cdca44354851bc6c2b41562c"
+  },
+  "runtime-original-text/cleanup-attempt-0-cable-1-0-discovery.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "runtime-original-text/cleanup-attempt-0-cable-2-0-discovery.json": {
+    "bytes": 389,
+    "sha256": "8296f53ae3f142ebea7560a3cc3f0600d41df023c094251cc06ac4e8138a06a0"
+  },
+  "runtime-original-text/cleanup-attempt-0-cable-2-0-discovery.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "runtime-original-text/cleanup-attempt-0-remove.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "runtime-original-text/cleanup-attempt-0-restart.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "runtime-original-text/cleanup-attempt-0.json": {
+    "bytes": 1351,
+    "sha256": "ec6ee45d68021129088258b66dbbb6a937211cae5b8688d8c66116dfb9aa635b"
+  },
+  "runtime-original-text/cleanup-attempt-3-cable-1-0-discovery.json": {
+    "bytes": 389,
+    "sha256": "2aa323e041cbb6ae371b2f95ac754994a444d0b8cdca44354851bc6c2b41562c"
+  },
+  "runtime-original-text/cleanup-attempt-3-cable-1-0-discovery.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "runtime-original-text/cleanup-attempt-3-cable-2-0-discovery.json": {
+    "bytes": 389,
+    "sha256": "8296f53ae3f142ebea7560a3cc3f0600d41df023c094251cc06ac4e8138a06a0"
+  },
+  "runtime-original-text/cleanup-attempt-3-cable-2-0-discovery.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "runtime-original-text/cleanup-attempt-3.json": {
+    "bytes": 1351,
+    "sha256": "1f3e53157cb14be98036db79a7fd477435ed1daff00dfc540625beab51b8c801"
+  },
+  "runtime-original-text/cleanup.json": {
+    "bytes": 1351,
+    "sha256": "1f3e53157cb14be98036db79a7fd477435ed1daff00dfc540625beab51b8c801"
+  },
+  "runtime-original-text/custody-manifest.json": {
+    "bytes": 9156,
+    "sha256": "44cfbfb210317083f4499607dbd1321c98e61b6baa2ab4625fef8352a11ad0ac"
+  },
+  "runtime-original-text/environment.txt": {
+    "bytes": 465,
+    "sha256": "a21eb3e35b7fb12628360aeb3c82d7605956ba601734c7e36f9405002a28b2f9"
+  },
+  "runtime-original-text/install-restart.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "runtime-original-text/install.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "runtime-original-text/installation-owner.json": {
+    "bytes": 1747,
+    "sha256": "5694759b14860514ef772a1a817885d31477b6823a767ae63e6f0d441853fba4"
+  },
+  "runtime-original-text/installed-cable-1-0-discovery.json": {
+    "bytes": 390,
+    "sha256": "90e5c68366dae8ca73929f06b6408dc8991791036996d8c1c264ed0c548ca452"
+  },
+  "runtime-original-text/installed-cable-1-0-discovery.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "runtime-original-text/installed-cable-2-0-discovery.json": {
+    "bytes": 390,
+    "sha256": "678144e806fa78b8f0866c37ff682513d72e9f514196f4588650a56492b25d3e"
+  },
+  "runtime-original-text/installed-cable-2-0-discovery.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "runtime-original-text/installed-devices.json": {
+    "bytes": 1133,
+    "sha256": "875ae3544dda903dbd6aea493c491ea90849084173816c6e3b292765a620e6d0"
+  },
+  "runtime-original-text/observer-controls.txt": {
+    "bytes": 6139,
+    "sha256": "450a50e358f5ec7b1977f6f6c9e60b02fed4a82f60c7a3039aa551e8f984526e"
+  },
+  "runtime-original-text/ownership.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "runtime-original-text/permissions.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "runtime-original-text/runtime-acceptance.json": {
+    "bytes": 12944,
+    "sha256": "0ed0e76e4680f5f4558821d3f59429acf2b71e08c61f5dbd9209e3ce15d70769"
+  },
+  "runtime-original-text/runtime-events.jsonl": {
+    "bytes": 1097,
+    "sha256": "40b13f8929ef04746aff4fe15d40a9cf645edd79eaaad52e93df92f41cec4730"
+  },
+  "runtime-original-text/runtime-output-analysis.json": {
+    "bytes": 5139,
+    "sha256": "171ea83c2949bf44826efb94e6f952813e267d695e9ebdf81bc53f733ecbe2da"
+  },
+  "runtime-original-text/runtime-reader-diagnostics-analysis.json": {
+    "bytes": 2365,
+    "sha256": "f57e00679760e0bfd47e95dd6042c5ddeda317aee4ee70efa7f47674e1fb908e"
+  },
+  "runtime-original-text/runtime-reader.json": {
+    "bytes": 424,
+    "sha256": "3927d2b51a23c8a3263c5b8662e2e2637c1256b90b085a4d81d9fa43d6112abd"
+  },
+  "runtime-original-text/runtime-reader.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "runtime-original-text/runtime-reader.ready.json": {
+    "bytes": 57,
+    "sha256": "17f78bddb3de6423eba85eade532fd5088ca90c94027c991a78c2bd04dbd2f72"
+  },
+  "runtime-original-text/runtime-result.json": {
+    "bytes": 75,
+    "sha256": "cdfbffdbd9529b1524d2e6bc22e3ad5015d0f9ba7a6d2fea890649b39ed60171"
+  },
+  "runtime-original-text/runtime.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "runtime-original-text/runtime.ready.json": {
+    "bytes": 84,
+    "sha256": "d26557a673b34619347d10c0f25cb1bbfaef8555f01097ffb2c7fa9481e1b27a"
+  },
+  "runtime-original-text/source-writer-analysis.json": {
+    "bytes": 339,
+    "sha256": "b686e6cc3605298609950118a88edd8cfb8ee6e33deb696fc9c6c8e1b4986bd2"
+  },
+  "runtime-original-text/source-writer-diagnostics-analysis.json": {
+    "bytes": 2378,
+    "sha256": "ed02ad34b98ceff5a1b706e0d41da69bf9b06f61eb68d29c27306b6c292f019a"
+  },
+  "runtime-original-text/source-writer.json": {
+    "bytes": 422,
+    "sha256": "992e688584886be93c21751d5d49b5eaf41e62f27c373921f23139f5d337e127"
+  },
+  "runtime-original-text/source-writer.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "runtime-original-text/source-writer.ready.json": {
+    "bytes": 57,
+    "sha256": "53b98836cdddf8be89013dce3315ccbfe7da60ea212ce86f862a3037ae0d1a86"
+  },
+  "runtime-terminal-original.json": {
+    "bytes": 4857,
+    "sha256": "169a3137b9fe8b8baa3a8d711da9037f80860501bcedb91ef1c5430b8b506a16"
+  },
+  "source-workflow.yml": {
+    "bytes": 5311,
+    "sha256": "a1aeef812ec762019fcd0a1880506b8556ab0fa969c3f656919a93fe6ade9247"
+  },
+  "verify.py": {
+    "bytes": 8068,
+    "sha256": "2d3988ee7778c31cc2e27df72fe3fe3cb83f6140168ef47e92317b19e5aadbf4"
+  }
+}
