@@ -1,0 +1,534 @@
+{
+  "source_revision": "b864bc6430b6ccc5b6b861395a2071be29c0a096",
+  "run_id": 40272244069,
+  "attempt": 1,
+  "verification_python": "3.12.4 (v3.12.4:8e8a4baf65, Jun  6 2024, 17:33:18) [Clang 13.0.0 (clang-1300.0.29.30)]",
+  "verification_platform": "macOS-27.0-arm64-arm-64bit",
+  "jobs": {
+    "hal": {
+      "custody": {
+        "label": "hal",
+        "artifact_id": 12628639271,
+        "archive": "hal.zip",
+        "bytes": 10535660,
+        "sha256": "3ad0dc51e356764e455396352f41ffe339d43339e38d3f46fea34b593820c5c5",
+        "manifest_files_verified": 65,
+        "expanded_bytes": 18531080,
+        "manifest_sha256": "713414dc2a8dfec7b187379ee14ffd4ad6c30a9db28432163a6494d62b1c6027"
+      },
+      "original_acceptance_pass": true,
+      "original_cleanup_pass": true,
+      "both_cable_UIDs_absent_after_cleanup": true,
+      "pcm": {
+        "reader-a.wav": {
+          "bytes": 7680044,
+          "sha256": "efa940344e32274d992b452c158bd73af0eb599fc456a9b8cb44eeb84bb35ec5"
+        },
+        "reader-b.wav": {
+          "bytes": 7680044,
+          "sha256": "0a0b12f6dbac4659291c0fc8dd2aaa89ff6b035220be788855462c8b62449ad0"
+        },
+        "restarted-silence.wav": {
+          "bytes": 1152044,
+          "sha256": "db4049ff10a9b4097359dac7c8c8441f9f6a620176298fe95203edbd6037b755"
+        }
+      },
+      "reanalyzed": {
+        "tone-writer": {
+          "pass": true,
+          "exact_original_result_except_source_path": true,
+          "result": {
+            "schema": 1,
+            "source_report": "/Users/textual/projects/notify/relink/build/ci-40272244069/extracted/hal/tone-writer.json",
+            "clock": {
+              "callback_count": 3750,
+              "sample_gaps": [],
+              "host_reversals": 0,
+              "measured_sample_rate": 48000.0,
+              "pass": true
+            },
+            "frames": 1920000,
+            "mode": "play",
+            "failures": [],
+            "pass": true
+          }
+        },
+        "reader-a": {
+          "pass": true,
+          "exact_original_result_except_source_path": true,
+          "result": {
+            "schema": 1,
+            "source_report": "/Users/textual/projects/notify/relink/build/ci-40272244069/extracted/hal/reader-a.json",
+            "clock": {
+              "callback_count": 1875,
+              "sample_gaps": [],
+              "host_reversals": 0,
+              "measured_sample_rate": 48000.00000000001,
+              "pass": true
+            },
+            "frames": 960000,
+            "mode": "record",
+            "failures": [],
+            "channels": [
+              {
+                "frequency_hz": 440,
+                "amplitude": 0.12499999974753279,
+                "phase_radians": 1.9268434942004466,
+                "rms": 0.08838834746984243,
+                "residual_rms": 8.978366965767403e-08
+              },
+              {
+                "frequency_hz": 997,
+                "amplitude": 0.12499999999592327,
+                "phase_radians": 2.2954570322188483,
+                "rms": 0.08838834764544794,
+                "residual_rms": 4.648907564798033e-08
+              }
+            ],
+            "wrong_channel_amplitude": [
+              1.497004277777566e-17,
+              1.5577903180745818e-13
+            ],
+            "longest_stereo_zero_run": 0,
+            "interior_frames": 768000,
+            "trim_seconds": 2.0,
+            "criteria": {
+              "relative_amplitude_error": 0.01,
+              "residual_relative_to_peak": 0.001,
+              "wrong_channel_relative_peak": 0.005,
+              "forbidden_zero_run_frames": 8
+            },
+            "pass": true
+          }
+        },
+        "reader-b": {
+          "pass": true,
+          "exact_original_result_except_source_path": true,
+          "result": {
+            "schema": 1,
+            "source_report": "/Users/textual/projects/notify/relink/build/ci-40272244069/extracted/hal/reader-b.json",
+            "clock": {
+              "callback_count": 1875,
+              "sample_gaps": [],
+              "host_reversals": 0,
+              "measured_sample_rate": 48000.00000000001,
+              "pass": true
+            },
+            "frames": 960000,
+            "mode": "record",
+            "failures": [],
+            "channels": [
+              {
+                "frequency_hz": 440,
+                "amplitude": 0.1249999997475323,
+                "phase_radians": 1.9268434942004107,
+                "rms": 0.08838834746984242,
+                "residual_rms": 8.994180922479124e-08
+              },
+              {
+                "frequency_hz": 997,
+                "amplitude": 0.12499999999590673,
+                "phase_radians": 2.2954570322186436,
+                "rms": 0.0883883476454357,
+                "residual_rms": 4.5445691603011443e-08
+              }
+            ],
+            "wrong_channel_amplitude": [
+              1.9788812529561898e-17,
+              1.6479040249532704e-13
+            ],
+            "longest_stereo_zero_run": 0,
+            "interior_frames": 768000,
+            "trim_seconds": 2.0,
+            "criteria": {
+              "relative_amplitude_error": 0.01,
+              "residual_relative_to_peak": 0.001,
+              "wrong_channel_relative_peak": 0.005,
+              "forbidden_zero_run_frames": 8
+            },
+            "pass": true
+          }
+        },
+        "restarted-silence": {
+          "pass": true,
+          "exact_original_result_except_source_path": true,
+          "result": {
+            "schema": 1,
+            "source_report": "/Users/textual/projects/notify/relink/build/ci-40272244069/extracted/hal/restarted-silence.json",
+            "clock": {
+              "callback_count": 282,
+              "sample_gaps": [],
+              "host_reversals": 0,
+              "measured_sample_rate": 47999.99999999999,
+              "pass": true
+            },
+            "frames": 144000,
+            "mode": "silence",
+            "failures": [],
+            "peak": 0.0,
+            "pass": true
+          }
+        },
+        "independent-readers": {
+          "pass": true,
+          "exact_original_result_except_source_path": true,
+          "result": {
+            "pass": true,
+            "overlap_frames": 753448,
+            "maximum_difference": 0.0,
+            "differing_samples_above_1e-6": 0,
+            "relative_start_frames": 14552.0
+          }
+        },
+        "tone-writer-diagnostics": {
+          "pass": true,
+          "exact_original_result_except_source_path": true
+        },
+        "reader-a-diagnostics": {
+          "pass": true,
+          "exact_original_result_except_source_path": true
+        },
+        "reader-b-diagnostics": {
+          "pass": true,
+          "exact_original_result_except_source_path": true
+        },
+        "restarted-silence-diagnostics": {
+          "pass": true,
+          "exact_original_result_except_source_path": true
+        }
+      },
+      "frozen_sources_matching_CI_build_hashes": {
+        "drivers/macos/tests/analyze_diagnostics.py": "39e626866d67400a18d328996ff45ef715b7e94e0c96f27b53de016546e9bc20",
+        "drivers/macos/tests/run_system.py": "a2267be06fb6082baa7b8ea2e4a2dab075fa252c8277495193aad86f20c4fea4"
+      },
+      "archived_observer_build_hash_verified": true,
+      "reported_driver_binary_sha256": "91d754e7a949233f8b7e88e5d4fa826d26255cd6b94bb01ffd6f52de82b748fe"
+    },
+    "runtime": {
+      "custody": {
+        "label": "runtime",
+        "artifact_id": 12628504402,
+        "archive": "runtime.zip",
+        "bytes": 7180935,
+        "sha256": "b180cfd0ebff7048b7b2b3fe1d57e2863d56ee6283ef6770a97420aa4462329a",
+        "manifest_files_verified": 56,
+        "expanded_bytes": 15248008,
+        "manifest_sha256": "9c571c3e5be0d00cb91ce1b94f018ba4ed7da9c3059724a73394974353e4f1dc"
+      },
+      "original_acceptance_pass": true,
+      "original_cleanup_pass": true,
+      "both_cable_UIDs_absent_after_cleanup": true,
+      "pcm": {
+        "runtime-reader.wav": {
+          "bytes": 12288044,
+          "sha256": "2dcdde8fcffa3b3b84883bf5b32847b6d63c180b1ca406e56c96914d4f7c0590"
+        }
+      },
+      "reanalyzed": {
+        "source-writer": {
+          "pass": true,
+          "exact_original_result_except_source_path": true,
+          "result": {
+            "schema": 1,
+            "source_report": "/Users/textual/projects/notify/relink/build/ci-40272244069/extracted/runtime/source-writer.json",
+            "clock": {
+              "callback_count": 5625,
+              "sample_gaps": [],
+              "host_reversals": 0,
+              "measured_sample_rate": 48000.0,
+              "pass": true
+            },
+            "frames": 2880000,
+            "mode": "play",
+            "failures": [],
+            "pass": true
+          }
+        },
+        "runtime-output": {
+          "pass": true,
+          "exact_original_result_except_source_path": true,
+          "result": {
+            "schema": 1,
+            "pass": true,
+            "failures": [],
+            "criteria": {
+              "relative_amplitude_error": 0.01,
+              "frequency_error_ppm": 2500.0,
+              "recurrence_peak_relative": 0.005,
+              "recurrence_rms_relative": 0.0005,
+              "mean_relative": 0.001,
+              "control_ack_seconds": 0.25,
+              "transition_seconds": 0.25,
+              "steady_leading_margin_seconds": 0.25,
+              "steady_trailing_margin_seconds": 0.05,
+              "transition_envelope_window_seconds": 0.02,
+              "transition_envelope_relative_tolerance": 0.08,
+              "forbidden_zero_run_frames": 8
+            },
+            "clock": {
+              "callback_count": 3000,
+              "sample_gaps": [],
+              "host_reversals": 0,
+              "measured_sample_rate": 48000.0,
+              "pass": true
+            },
+            "phases": [
+              {
+                "pass": true,
+                "begin_frame": 50959,
+                "end_frame": 332096,
+                "channels": [
+                  {
+                    "expected_hz": 440.0,
+                    "measured_hz": 439.99634723751626,
+                    "expected_peak": 0.06264840420340903,
+                    "rms_equivalent_peak": 0.0626484580847874,
+                    "relative_amplitude_error": 8.60059869968563e-07,
+                    "frequency_error_ppm": 8.301732917548321,
+                    "recurrence_peak_relative": 1.8927519975562147e-06,
+                    "recurrence_rms_relative": 3.1514823650545105e-07,
+                    "mean_relative": 1.9224672752230796e-05,
+                    "pass": true
+                  },
+                  {
+                    "expected_hz": 997.0,
+                    "measured_hz": 996.9917186716578,
+                    "expected_peak": 0.06264840420340903,
+                    "rms_equivalent_peak": 0.06264881259428642,
+                    "relative_amplitude_error": 6.518775419519507e-06,
+                    "frequency_error_ppm": 8.306247083367246,
+                    "recurrence_peak_relative": 3.6691054649920353e-06,
+                    "recurrence_rms_relative": 5.058263998745905e-07,
+                    "mean_relative": 4.98640490863019e-05,
+                    "pass": true
+                  }
+                ],
+                "longest_stereo_zero_run": 0,
+                "phase": 0,
+                "acknowledgement_seconds": 0.044969166666666664,
+                "detected_response_seconds": -0.04999270833333333
+              },
+              {
+                "pass": true,
+                "begin_frame": 348615,
+                "end_frame": 628899,
+                "channels": [
+                  {
+                    "expected_hz": 440.0,
+                    "measured_hz": 440.00144325057744,
+                    "expected_peak": 0.03139858039386975,
+                    "rms_equivalent_peak": 0.031399498266737186,
+                    "relative_amplitude_error": 2.9232941614563296e-05,
+                    "frequency_error_ppm": 3.280114948767121,
+                    "recurrence_peak_relative": 1.664285805532287e-06,
+                    "recurrence_rms_relative": 3.059806744932076e-07,
+                    "mean_relative": 9.429131653962026e-05,
+                    "pass": true
+                  },
+                  {
+                    "expected_hz": 997.0,
+                    "measured_hz": 997.0032711905607,
+                    "expected_peak": 0.03139858039386975,
+                    "rms_equivalent_peak": 0.03139899789471345,
+                    "relative_amplitude_error": 1.3296806366983861e-05,
+                    "frequency_error_ppm": 3.2810336616506675,
+                    "recurrence_peak_relative": 1.861580861789992e-06,
+                    "recurrence_rms_relative": 3.403409824883063e-07,
+                    "mean_relative": 3.4294037047145354e-06,
+                    "pass": true
+                  }
+                ],
+                "longest_stereo_zero_run": 0,
+                "phase": 1,
+                "acknowledgement_seconds": 0.04415266666666666,
+                "detected_response_seconds": 0.030001166666666662
+              },
+              {
+                "pass": true,
+                "peak": 0.0,
+                "begin_frame": 645458,
+                "end_frame": 827046,
+                "phase": 2,
+                "acknowledgement_seconds": 0.044988625,
+                "detected_response_seconds": 0.035006166666666665
+              },
+              {
+                "pass": true,
+                "begin_frame": 843497,
+                "end_frame": 1120633,
+                "channels": [
+                  {
+                    "expected_hz": 440.0,
+                    "measured_hz": 439.99756617702707,
+                    "expected_peak": 0.06264840420340903,
+                    "rms_equivalent_peak": 0.0626494878253332,
+                    "relative_amplitude_error": 1.729687991166622e-05,
+                    "frequency_error_ppm": 5.5314158475816555,
+                    "recurrence_peak_relative": 1.8839103664195157e-06,
+                    "recurrence_rms_relative": 3.121989397045624e-07,
+                    "mean_relative": 0.00011759170862399215,
+                    "pass": true
+                  },
+                  {
+                    "expected_hz": 997.0,
+                    "measured_hz": 996.9944900684158,
+                    "expected_peak": 0.06264840420340903,
+                    "rms_equivalent_peak": 0.06264799534500437,
+                    "relative_amplitude_error": 6.526238135814448e-06,
+                    "frequency_error_ppm": 5.526511117626143,
+                    "recurrence_peak_relative": 2.915994518554209e-06,
+                    "recurrence_rms_relative": 4.286447628395759e-07,
+                    "mean_relative": 2.3251704459070757e-05,
+                    "pass": true
+                  }
+                ],
+                "longest_stereo_zero_run": 0,
+                "phase": 3,
+                "acknowledgement_seconds": 0.04272379166666666,
+                "detected_response_seconds": 0.03000370833333333
+              }
+            ],
+            "unmuted_zero_runs": [
+              0,
+              0
+            ],
+            "stopped_tail_peak": 0.0,
+            "stop_response_seconds": 0.024989666666666664,
+            "observed_rendered_frames_per_second": 47992.65992633423,
+            "note": "Runtime telemetry is polled off callback; independent recorder CSV contains each native capture callback timestamp."
+          }
+        },
+        "source-writer-diagnostics": {
+          "pass": true,
+          "exact_original_result_except_source_path": true
+        },
+        "runtime-reader-diagnostics": {
+          "pass": true,
+          "exact_original_result_except_source_path": true
+        }
+      },
+      "frozen_sources_matching_CI_build_hashes": {
+        "drivers/macos/tests/analyze_runtime.py": "6742811826f6fef7dc243b688a10eafa6c669a3cf0a9bb5eb5ea14b1887fab43",
+        "drivers/macos/tests/run_runtime.py": "b71f769defc61beffc5c9875181d1b57c10858b1f357266eec388237afe18c06",
+        "drivers/macos/tests/analyze_diagnostics.py": "39e626866d67400a18d328996ff45ef715b7e94e0c96f27b53de016546e9bc20",
+        "drivers/macos/tests/run_system.py": "a2267be06fb6082baa7b8ea2e4a2dab075fa252c8277495193aad86f20c4fea4"
+      },
+      "archived_observer_build_hash_verified": true,
+      "reported_driver_binary_sha256": "91d754e7a949233f8b7e88e5d4fa826d26255cd6b94bb01ffd6f52de82b748fe",
+      "native_record_summary": {
+        "records": 228,
+        "records_with_runtime_fault_or_error": 0,
+        "last_observation": "post-stop-final",
+        "last_running": false,
+        "last_native_output_shutdown_proven": true,
+        "last_native_shutdown_observed": true,
+        "last_output_lifecycle": [
+          {
+            "callbacks_in_flight": 0,
+            "host_time": 9335258110,
+            "phase": "ReservationAcquired",
+            "status": null
+          },
+          {
+            "callbacks_in_flight": 0,
+            "host_time": 9335266812,
+            "phase": "CreateRequested",
+            "status": null
+          },
+          {
+            "callbacks_in_flight": 0,
+            "host_time": 9335299301,
+            "phase": "CreateReturned",
+            "status": 0
+          },
+          {
+            "callbacks_in_flight": 0,
+            "host_time": 9335328931,
+            "phase": "Ready",
+            "status": null
+          },
+          {
+            "callbacks_in_flight": 0,
+            "host_time": 9335336778,
+            "phase": "StartRequested",
+            "status": null
+          },
+          {
+            "callbacks_in_flight": 0,
+            "host_time": 9335653099,
+            "phase": "StartReturned",
+            "status": 0
+          },
+          {
+            "callbacks_in_flight": null,
+            "host_time": 9911110360,
+            "phase": "HandleCancelled",
+            "status": null
+          },
+          {
+            "callbacks_in_flight": 0,
+            "host_time": 9911110633,
+            "phase": "GatesRevoked",
+            "status": null
+          },
+          {
+            "callbacks_in_flight": 0,
+            "host_time": 9911110634,
+            "phase": "StopRequested",
+            "status": null
+          },
+          {
+            "callbacks_in_flight": 0,
+            "host_time": 9911487501,
+            "phase": "StopReturned",
+            "status": 0
+          },
+          {
+            "callbacks_in_flight": 0,
+            "host_time": 9911487506,
+            "phase": "DestroyRequested",
+            "status": null
+          },
+          {
+            "callbacks_in_flight": 0,
+            "host_time": 9911501943,
+            "phase": "DestroyReturned",
+            "status": 0
+          },
+          {
+            "callbacks_in_flight": 0,
+            "host_time": 9911501947,
+            "phase": "ListenerRemovalRequested",
+            "status": null
+          },
+          {
+            "callbacks_in_flight": 0,
+            "host_time": 9911533524,
+            "phase": "ListenerRemovalReturned",
+            "status": 0
+          },
+          {
+            "callbacks_in_flight": 0,
+            "host_time": 9911533532,
+            "phase": "QuiescenceChecked",
+            "status": null
+          },
+          {
+            "callbacks_in_flight": 0,
+            "host_time": 9911534062,
+            "phase": "OwnerCompleted",
+            "status": null
+          }
+        ],
+        "note": "Recorded telemetry summary, separate from unchanged PCM analyzer results."
+      }
+    }
+  },
+  "pass": true,
+  "limits": [
+    "One already-completed disposable macOS arm64 run at the exact source revision.",
+    "Generated CI tones and fixed protocol only; no local device or recording operation occurred.",
+    "Does not qualify later working-tree changes, Windows routing, application capture, physical clocks, or production release.",
+    "Original failed run40270207703 remains unchanged."
+  ]
+}

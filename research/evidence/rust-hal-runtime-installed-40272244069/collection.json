@@ -1,0 +1,14 @@
+{
+  "collectedUTC": "2026-10-26T05:28:08.434226+00:00",
+  "source_revision": "b864bc6430b6ccc5b6b861395a2071be29c0a096",
+  "run_id": 40272244069,
+  "run_attempt": 1,
+  "repository": "thatsmethen/relink",
+  "local_archive_directory": "build/ci-40272244069",
+  "local_extraction_directory": "build/ci-40272244069/extracted",
+  "archive_download_method": "gh api repos/thatsmethen/relink/actions/artifacts/<artifact_id>/zip; exact response bytes retained",
+  "artifacts_expireUTC": "2026-11-25; see original-artifacts.json for exact timestamps",
+  "no_CI_rerun_or_dispatch": true,
+  "no_local_device_or_recording_operation": true,
+  "original_failed40270207703_unchanged": true
+}

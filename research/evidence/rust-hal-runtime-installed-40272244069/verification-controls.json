@@ -1,0 +1,16 @@
+{
+  "checkedUTC": "2026-10-26T05:30:37.788279+00:00",
+  "compact_originals_verified": 24,
+  "same_length_corrupt_archive_rejected_before_extraction": true,
+  "original_raw_files_unchanged": true,
+  "verifier_sha256": "d4d804105966b5f3b8bb13fe22d587171d5e58143c939cb07766a3d0527c6181",
+  "source_revision": "b864bc6430b6ccc5b6b861395a2071be29c0a096",
+  "reproduction_equality_gate": {
+    "offline_controls": 3,
+    "passed": 3,
+    "changed_numeric_result_rejected": true,
+    "relocated_source_report_allowed": true,
+    "unchanged_full_analysis_passed": true,
+    "derived_result_unchanged": true
+  }
+}

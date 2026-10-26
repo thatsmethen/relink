@@ -1,0 +1,12 @@
+{
+  "source_revision": "b864bc6430b6ccc5b6b861395a2071be29c0a096",
+  "acquisition": "git show <source_revision>:<original repository path>; unmodified bytes",
+  "sha256": {
+    "analyze_runtime.py": "6742811826f6fef7dc243b688a10eafa6c669a3cf0a9bb5eb5ea14b1887fab43",
+    "rust-hal.yml": "47b932461cb6dd02e6a55780ceb9372c36308153edc9578951c6ea8be2ed576e",
+    "run_runtime.py": "b71f769defc61beffc5c9875181d1b57c10858b1f357266eec388237afe18c06",
+    "analyze_diagnostics.py": "39e626866d67400a18d328996ff45ef715b7e94e0c96f27b53de016546e9bc20",
+    "analyze_system.py": "6f2e070cf855d18fb45a7686e79c1f7da6627061079f44ebe32b0ed8b76cfe0f",
+    "run_system.py": "a2267be06fb6082baa7b8ea2e4a2dab075fa252c8277495193aad86f20c4fea4"
+  }
+}

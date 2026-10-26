@@ -1,0 +1,44 @@
+{
+  "schema": 1,
+  "source_report": "/Users/runner/work/relink/relink/build/rust-hal-system/reader-a.json",
+  "clock": {
+    "callback_count": 1875,
+    "sample_gaps": [],
+    "host_reversals": 0,
+    "measured_sample_rate": 48000.00000000001,
+    "pass": true
+  },
+  "frames": 960000,
+  "mode": "record",
+  "failures": [],
+  "channels": [
+    {
+      "frequency_hz": 440,
+      "amplitude": 0.12499999974753279,
+      "phase_radians": 1.9268434942004466,
+      "rms": 0.08838834746984243,
+      "residual_rms": 8.978366965767403e-08
+    },
+    {
+      "frequency_hz": 997,
+      "amplitude": 0.12499999999592327,
+      "phase_radians": 2.2954570322188483,
+      "rms": 0.08838834764544794,
+      "residual_rms": 4.648907564798033e-08
+    }
+  ],
+  "wrong_channel_amplitude": [
+    1.497004277777566e-17,
+    1.5577903180745818e-13
+  ],
+  "longest_stereo_zero_run": 0,
+  "interior_frames": 768000,
+  "trim_seconds": 2.0,
+  "criteria": {
+    "relative_amplitude_error": 0.01,
+    "residual_relative_to_peak": 0.001,
+    "wrong_channel_relative_peak": 0.005,
+    "forbidden_zero_run_frames": 8
+  },
+  "pass": true
+}

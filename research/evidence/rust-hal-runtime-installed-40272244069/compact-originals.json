@@ -1,0 +1,170 @@
+[
+  {
+    "file": "original/hal-acceptance.json",
+    "artifact": "hal",
+    "member": "acceptance.json",
+    "bytes": 16335,
+    "sha256": "489d19a50a921a2b5bdab7c2f9ceb3dfe95241912fb600afd2bf393401250014"
+  },
+  {
+    "file": "original/hal-cleanup.json",
+    "artifact": "hal",
+    "member": "cleanup.json",
+    "bytes": 1647,
+    "sha256": "b6bdfb11bd07982f1cb4396ef159e9ffa85bc35d7df4cadaf3c3107ac31651e4"
+  },
+  {
+    "file": "original/hal-custody-manifest.json",
+    "artifact": "hal",
+    "member": "custody-manifest.json",
+    "bytes": 10551,
+    "sha256": "713414dc2a8dfec7b187379ee14ffd4ad6c30a9db28432163a6494d62b1c6027"
+  },
+  {
+    "file": "original/hal-independent-readers.json",
+    "artifact": "hal",
+    "member": "independent-readers.json",
+    "bytes": 149,
+    "sha256": "154008cea1a14d3b5973a2206ec9a0898132ff8481c2c7038dde9e9b3babeadb"
+  },
+  {
+    "file": "original/hal-reader-a-analysis.json",
+    "artifact": "hal",
+    "member": "reader-a-analysis.json",
+    "bytes": 1113,
+    "sha256": "7eec3c2c2ffce638b76b99534820fa4cdbdfc00158bb67ceff228aef93e5edc1"
+  },
+  {
+    "file": "original/hal-reader-b-analysis.json",
+    "artifact": "hal",
+    "member": "reader-b-analysis.json",
+    "bytes": 1113,
+    "sha256": "432aef590576fe26b890c328932bbbb8ac643a44adc117b083ec7ce6efb198dc"
+  },
+  {
+    "file": "original/hal-restarted-silence-analysis.json",
+    "artifact": "hal",
+    "member": "restarted-silence-analysis.json",
+    "bytes": 365,
+    "sha256": "06906b5e36a1bbd10b8e830ddcc590c87c864a061b4e8f7b33a96da389d14828"
+  },
+  {
+    "file": "original/hal-tone-writer-analysis.json",
+    "artifact": "hal",
+    "member": "tone-writer-analysis.json",
+    "bytes": 333,
+    "sha256": "8f09c8f8642ed6a117ebb938225628ac9495f5b34882484e041a4d9db89b3e8d"
+  },
+  {
+    "file": "original/hal-reader-a.json",
+    "artifact": "hal",
+    "member": "reader-a.json",
+    "bytes": 539,
+    "sha256": "bafa784a87671c3254f0c7687f006b133bbf11d6c7f5e686253d1c129a379b3f"
+  },
+  {
+    "file": "original/hal-reader-b.json",
+    "artifact": "hal",
+    "member": "reader-b.json",
+    "bytes": 539,
+    "sha256": "8efeb460b8bd1fd37e6a27ec968efbab9548755cd7c43fde67c1cf73bf82d966"
+  },
+  {
+    "file": "original/hal-restarted-silence.json",
+    "artifact": "hal",
+    "member": "restarted-silence.json",
+    "bytes": 538,
+    "sha256": "0a22f29ad49af3618db8a52b4829165f911650ce2017de704868dcae29c78762"
+  },
+  {
+    "file": "original/hal-tone-writer.json",
+    "artifact": "hal",
+    "member": "tone-writer.json",
+    "bytes": 539,
+    "sha256": "3fa415613be3fb6f096e9779c346d4b743ed79ab245842b73fe70790540d1aff"
+  },
+  {
+    "file": "original/hal-environment.txt",
+    "artifact": "hal",
+    "member": "environment.txt",
+    "bytes": 464,
+    "sha256": "3d84d2e1f7c277064759f991c296713d468d96186db663ee8f36b457cc2fcfbd"
+  },
+  {
+    "file": "original/hal-build-sha256.txt",
+    "artifact": "hal",
+    "member": "build-sha256.txt",
+    "bytes": 743,
+    "sha256": "8cf288bc295c50533c3f90ed58003558478bc0c4293e99e726a485793a5af535"
+  },
+  {
+    "file": "original/runtime-runtime-acceptance.json",
+    "artifact": "runtime",
+    "member": "runtime-acceptance.json",
+    "bytes": 12936,
+    "sha256": "5c960e972a974d23cde4c6feb2b4a6ae78fcea8a77fb55daabb41602269c60c0"
+  },
+  {
+    "file": "original/runtime-cleanup.json",
+    "artifact": "runtime",
+    "member": "cleanup.json",
+    "bytes": 1647,
+    "sha256": "b6bdfb11bd07982f1cb4396ef159e9ffa85bc35d7df4cadaf3c3107ac31651e4"
+  },
+  {
+    "file": "original/runtime-custody-manifest.json",
+    "artifact": "runtime",
+    "member": "custody-manifest.json",
+    "bytes": 9156,
+    "sha256": "9c571c3e5be0d00cb91ce1b94f018ba4ed7da9c3059724a73394974353e4f1dc"
+  },
+  {
+    "file": "original/runtime-runtime-output-analysis.json",
+    "artifact": "runtime",
+    "member": "runtime-output-analysis.json",
+    "bytes": 5133,
+    "sha256": "4fab0219e3ea13fe2f26da13834255f6cc3487643c8fc0e351835ba6d923935e"
+  },
+  {
+    "file": "original/runtime-runtime-result.json",
+    "artifact": "runtime",
+    "member": "runtime-result.json",
+    "bytes": 75,
+    "sha256": "cdfbffdbd9529b1524d2e6bc22e3ad5015d0f9ba7a6d2fea890649b39ed60171"
+  },
+  {
+    "file": "original/runtime-source-writer-analysis.json",
+    "artifact": "runtime",
+    "member": "source-writer-analysis.json",
+    "bytes": 339,
+    "sha256": "b686e6cc3605298609950118a88edd8cfb8ee6e33deb696fc9c6c8e1b4986bd2"
+  },
+  {
+    "file": "original/runtime-runtime-reader.json",
+    "artifact": "runtime",
+    "member": "runtime-reader.json",
+    "bytes": 542,
+    "sha256": "6f7761b250112b04c47b24a587039e8c936afc374721c985e0fdd97558df72a2"
+  },
+  {
+    "file": "original/runtime-source-writer.json",
+    "artifact": "runtime",
+    "member": "source-writer.json",
+    "bytes": 539,
+    "sha256": "13bf71b93bfd72ed56fb5d494976dfb79b9d9e2a1c0b9644142da331441c47fc"
+  },
+  {
+    "file": "original/runtime-environment.txt",
+    "artifact": "runtime",
+    "member": "environment.txt",
+    "bytes": 464,
+    "sha256": "002bbb0f244cc1683fb06699353c0fb321a4f1213a9ae9db74fcd39db1f89923"
+  },
+  {
+    "file": "original/runtime-build-sha256.txt",
+    "artifact": "runtime",
+    "member": "build-sha256.txt",
+    "bytes": 1293,
+    "sha256": "92b15e93430a7893c6d923b9aa77388c7211f62f434ce29ffad43df5827bc745"
+  }
+]

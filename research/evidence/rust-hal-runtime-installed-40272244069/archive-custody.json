@@ -1,0 +1,16 @@
+[
+  {
+    "label": "hal",
+    "artifact_id": 12628639271,
+    "archive": "hal.zip",
+    "bytes": 10535660,
+    "sha256": "3ad0dc51e356764e455396352f41ffe339d43339e38d3f46fea34b593820c5c5"
+  },
+  {
+    "label": "runtime",
+    "artifact_id": 12628504402,
+    "archive": "runtime.zip",
+    "bytes": 7180935,
+    "sha256": "b180cfd0ebff7048b7b2b3fe1d57e2863d56ee6283ef6770a97420aa4462329a"
+  }
+]

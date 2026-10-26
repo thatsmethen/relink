@@ -1,0 +1,94 @@
+name: Original Rust HAL installed acceptance
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'crates/relink-hal/**'
+      - 'crates/relink-audio/**'
+      - 'crates/relink-core/**'
+      - 'drivers/macos/**'
+      - '.github/workflows/rust-hal.yml'
+      - 'Cargo.lock'
+      - 'rust-toolchain.toml'
+permissions:
+  contents: read
+defaults:
+  run:
+    shell: bash
+jobs:
+  installed-hal:
+    runs-on: macos-15
+    timeout-minutes: 12
+    env:
+      RAVELINK_OBSERVER_DIAGNOSTICS: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pinned Rust
+        run: rustup toolchain install 1.91.1 --profile minimal
+      - name: Build original driver bundle and independent observer
+        run: |
+          mkdir -p build/rust-hal-system
+          sh drivers/macos/build-bundle.sh > build/rust-hal-system/build-driver.log 2>&1
+          xcrun clang -std=c11 -O2 -Wall -Wextra -Werror drivers/macos/tests/system-probe.c -framework CoreAudio -framework CoreFoundation -o build/rust-hal-system/system-probe
+          shasum -a 256 drivers/macos/tests/system-probe.c drivers/macos/tests/probe-diagnostics.h drivers/macos/tests/analyze_diagnostics.py drivers/macos/tests/OBSERVER-DIAGNOSTICS.md drivers/macos/tests/run_system.py build/rust-hal-system/system-probe dist/macos/ReLink.driver/Contents/MacOS/ReLinkHAL > build/rust-hal-system/build-sha256.txt
+          sw_vers > build/rust-hal-system/environment.txt
+          uname -a >> build/rust-hal-system/environment.txt
+          xcrun --show-sdk-version >> build/rust-hal-system/environment.txt
+          rustc -vV >> build/rust-hal-system/environment.txt
+      - name: Observer and analyzer controls without audio
+        run: python3 -m unittest discover -s drivers/macos/tests -p 'test_*.py' -v 2>&1 | tee build/rust-hal-system/observer-controls.txt
+      - name: Install, observe independent clients, verify silence after restart, remove
+        run: python3 drivers/macos/tests/run_system.py run
+      - name: Ensure owned driver cleanup
+        if: always()
+        run: python3 drivers/macos/tests/run_system.py cleanup
+      - name: Hash original evidence including failed observations
+        if: always()
+        run: python3 drivers/macos/tests/run_system.py manifest
+      - name: Preserve original observations and failed results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: original-rust-hal-${{ github.run_id }}-${{ github.run_attempt }}
+          path: build/rust-hal-system/
+          if-no-files-found: error
+          retention-days: 30
+  installed-runtime-capture:
+    runs-on: macos-15
+    timeout-minutes: 12
+    env:
+      RAVELINK_OBSERVER_DIAGNOSTICS: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pinned Rust
+        run: rustup toolchain install 1.91.1 --profile minimal
+      - name: Build original dual-cable driver, actual runtime client and independent observer
+        run: |
+          mkdir -p build/rust-runtime-system
+          sh drivers/macos/build-bundle.sh > build/rust-runtime-system/build-driver.log 2>&1
+          cargo build -p relink-audio --release --example runtime-capture-probe --locked > build/rust-runtime-system/build-runtime.log 2>&1
+          xcrun clang -std=c11 -O2 -Wall -Wextra -Werror drivers/macos/tests/system-probe.c -framework CoreAudio -framework CoreFoundation -o build/rust-runtime-system/system-probe
+          shasum -a 256 crates/relink-audio/examples/runtime-capture-probe.rs target/release/examples/runtime-capture-probe drivers/macos/tests/system-probe.c drivers/macos/tests/probe-diagnostics.h drivers/macos/tests/analyze_diagnostics.py drivers/macos/tests/OBSERVER-DIAGNOSTICS.md drivers/macos/tests/run_system.py drivers/macos/tests/run_runtime.py build/rust-runtime-system/system-probe dist/macos/ReLink.driver/Contents/MacOS/ReLinkHAL drivers/macos/tests/analyze_runtime.py drivers/macos/tests/RUNTIME-ACCEPTANCE.md > build/rust-runtime-system/build-sha256.txt
+          sw_vers > build/rust-runtime-system/environment.txt
+          uname -a >> build/rust-runtime-system/environment.txt
+          xcrun --show-sdk-version >> build/rust-runtime-system/environment.txt
+          rustc -vV >> build/rust-runtime-system/environment.txt
+      - name: Fixed runtime analyzer and ownership controls without audio
+        run: python3 -m unittest discover -s drivers/macos/tests -p 'test_*.py' -v 2>&1 | tee build/rust-runtime-system/observer-controls.txt
+      - name: Install, capture Cable1 through actual mixer into Cable2, verify live controls and stop
+        run: python3 drivers/macos/tests/run_runtime.py run
+      - name: Ensure owned driver cleanup and both device UIDs absent
+        if: always()
+        run: python3 drivers/macos/tests/run_runtime.py cleanup
+      - name: Hash original evidence including failed observations
+        if: always()
+        run: python3 drivers/macos/tests/run_runtime.py manifest
+      - name: Preserve original runtime PCM, timestamps and failed results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: original-rust-runtime-${{ github.run_id }}-${{ github.run_attempt }}
+          path: build/rust-runtime-system/
+          if-no-files-found: error
+          retention-days: 30

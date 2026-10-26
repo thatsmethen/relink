@@ -1,0 +1,429 @@
+{
+  "schema": 1,
+  "observer_diagnostics_enabled": true,
+  "pass": true,
+  "exceptions": [],
+  "processes": [
+    {
+      "name": "source-writer",
+      "mode": "play",
+      "exit_code": 0,
+      "timed_out": false,
+      "deadline_seconds": 75.0,
+      "completion_observed_seconds": 60.14048491699998,
+      "supervision_finished_seconds": 60.1409185,
+      "term_sent": false,
+      "kill_sent": false,
+      "supervision_error": null
+    },
+    {
+      "name": "runtime",
+      "mode": "capture-mix",
+      "exit_code": 0,
+      "timed_out": false,
+      "deadline_seconds": 50.0,
+      "completion_observed_seconds": 24.148660915999983,
+      "supervision_finished_seconds": 24.14898191599997,
+      "term_sent": false,
+      "kill_sent": false,
+      "supervision_error": null
+    },
+    {
+      "name": "runtime-reader",
+      "mode": "record",
+      "exit_code": 0,
+      "timed_out": false,
+      "deadline_seconds": 47.0,
+      "completion_observed_seconds": 32.22461754200003,
+      "supervision_finished_seconds": 32.224705708000045,
+      "term_sent": false,
+      "kill_sent": false,
+      "supervision_error": null
+    }
+  ],
+  "observations": [
+    {
+      "schema": 1,
+      "pass": true,
+      "failures": [],
+      "accepted_pcm_callbacks": 5625,
+      "max_callback_work_seconds": 0.00020712499999999998,
+      "max_entry_minus_native_seconds": -0.005331083333333333,
+      "sample_gap_context": [],
+      "notifications": [
+        {
+          "index": 0,
+          "host_time": 9327934999,
+          "object": 92,
+          "selector": 1735354734,
+          "scope": 1735159650,
+          "element": 0
+        },
+        {
+          "index": 1,
+          "host_time": 10768373731,
+          "object": 92,
+          "selector": 1735354734,
+          "scope": 1735159650,
+          "element": 0
+        }
+      ],
+      "listeners": [
+        {
+          "object": 92,
+          "selector": 1870030194,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        },
+        {
+          "object": 92,
+          "selector": 1735354734,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        },
+        {
+          "object": 92,
+          "selector": 1818850926,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        },
+        {
+          "object": 92,
+          "selector": 1853059700,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        },
+        {
+          "object": 92,
+          "selector": 1718839674,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        },
+        {
+          "object": 94,
+          "selector": 1885762592,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        },
+        {
+          "object": 93,
+          "selector": 1885762592,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        }
+      ],
+      "lifecycle": {
+        "start_request": 9327308354,
+        "start_return": 9330730277,
+        "stop_request": 10768228689,
+        "stop_return": 10768570798,
+        "destroy_request": 10768570811,
+        "destroy_return": 10768580618
+      },
+      "dropped_notifications": 0,
+      "note": "Diagnostic integrity only. No scheduling performance limit or PCM acceptance threshold is changed."
+    },
+    {
+      "schema": 1,
+      "pass": true,
+      "failures": [],
+      "accepted_pcm_callbacks": 3000,
+      "max_callback_work_seconds": 4.5375e-05,
+      "max_entry_minus_native_seconds": 0.01604783333333333,
+      "sample_gap_context": [],
+      "notifications": [
+        {
+          "index": 0,
+          "host_time": 9349592390,
+          "object": 100,
+          "selector": 1735354734,
+          "scope": 1735159650,
+          "element": 0
+        },
+        {
+          "index": 1,
+          "host_time": 10117725791,
+          "object": 100,
+          "selector": 1735354734,
+          "scope": 1735159650,
+          "element": 0
+        }
+      ],
+      "listeners": [
+        {
+          "object": 100,
+          "selector": 1870030194,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        },
+        {
+          "object": 100,
+          "selector": 1735354734,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        },
+        {
+          "object": 100,
+          "selector": 1818850926,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        },
+        {
+          "object": 100,
+          "selector": 1853059700,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        },
+        {
+          "object": 100,
+          "selector": 1718839674,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        },
+        {
+          "object": 102,
+          "selector": 1885762592,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        },
+        {
+          "object": 101,
+          "selector": 1885762592,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        }
+      ],
+      "lifecycle": {
+        "start_request": 9349155538,
+        "start_return": 9349769031,
+        "stop_request": 10117680065,
+        "stop_return": 10117766098,
+        "destroy_request": 10117766102,
+        "destroy_return": 10117777302
+      },
+      "dropped_notifications": 0,
+      "note": "Diagnostic integrity only. No scheduling performance limit or PCM acceptance threshold is changed."
+    },
+    {
+      "schema": 1,
+      "source_report": "/Users/runner/work/relink/relink/build/rust-runtime-system/source-writer.json",
+      "clock": {
+        "callback_count": 5625,
+        "sample_gaps": [],
+        "host_reversals": 0,
+        "measured_sample_rate": 48000.0,
+        "pass": true
+      },
+      "frames": 2880000,
+      "mode": "play",
+      "failures": [],
+      "pass": true
+    },
+    {
+      "schema": 1,
+      "pass": true,
+      "failures": [],
+      "criteria": {
+        "relative_amplitude_error": 0.01,
+        "frequency_error_ppm": 2500.0,
+        "recurrence_peak_relative": 0.005,
+        "recurrence_rms_relative": 0.0005,
+        "mean_relative": 0.001,
+        "control_ack_seconds": 0.25,
+        "transition_seconds": 0.25,
+        "steady_leading_margin_seconds": 0.25,
+        "steady_trailing_margin_seconds": 0.05,
+        "transition_envelope_window_seconds": 0.02,
+        "transition_envelope_relative_tolerance": 0.08,
+        "forbidden_zero_run_frames": 8
+      },
+      "clock": {
+        "callback_count": 3000,
+        "sample_gaps": [],
+        "host_reversals": 0,
+        "measured_sample_rate": 48000.0,
+        "pass": true
+      },
+      "phases": [
+        {
+          "pass": true,
+          "begin_frame": 50959,
+          "end_frame": 332096,
+          "channels": [
+            {
+              "expected_hz": 440.0,
+              "measured_hz": 439.99634723751626,
+              "expected_peak": 0.06264840420340903,
+              "rms_equivalent_peak": 0.0626484580847874,
+              "relative_amplitude_error": 8.60059869968563e-07,
+              "frequency_error_ppm": 8.301732917548321,
+              "recurrence_peak_relative": 1.8927519975562147e-06,
+              "recurrence_rms_relative": 3.1514823650545105e-07,
+              "mean_relative": 1.9224672752230796e-05,
+              "pass": true
+            },
+            {
+              "expected_hz": 997.0,
+              "measured_hz": 996.9917186716578,
+              "expected_peak": 0.06264840420340903,
+              "rms_equivalent_peak": 0.06264881259428642,
+              "relative_amplitude_error": 6.518775419519507e-06,
+              "frequency_error_ppm": 8.306247083367246,
+              "recurrence_peak_relative": 3.6691054649920353e-06,
+              "recurrence_rms_relative": 5.058263998745905e-07,
+              "mean_relative": 4.98640490863019e-05,
+              "pass": true
+            }
+          ],
+          "longest_stereo_zero_run": 0,
+          "phase": 0,
+          "acknowledgement_seconds": 0.044969166666666664,
+          "detected_response_seconds": -0.04999270833333333
+        },
+        {
+          "pass": true,
+          "begin_frame": 348615,
+          "end_frame": 628899,
+          "channels": [
+            {
+              "expected_hz": 440.0,
+              "measured_hz": 440.00144325057744,
+              "expected_peak": 0.03139858039386975,
+              "rms_equivalent_peak": 0.031399498266737186,
+              "relative_amplitude_error": 2.9232941614563296e-05,
+              "frequency_error_ppm": 3.280114948767121,
+              "recurrence_peak_relative": 1.664285805532287e-06,
+              "recurrence_rms_relative": 3.059806744932076e-07,
+              "mean_relative": 9.429131653962026e-05,
+              "pass": true
+            },
+            {
+              "expected_hz": 997.0,
+              "measured_hz": 997.0032711905607,
+              "expected_peak": 0.03139858039386975,
+              "rms_equivalent_peak": 0.03139899789471345,
+              "relative_amplitude_error": 1.3296806366983861e-05,
+              "frequency_error_ppm": 3.2810336616506675,
+              "recurrence_peak_relative": 1.861580861789992e-06,
+              "recurrence_rms_relative": 3.403409824883063e-07,
+              "mean_relative": 3.4294037047145354e-06,
+              "pass": true
+            }
+          ],
+          "longest_stereo_zero_run": 0,
+          "phase": 1,
+          "acknowledgement_seconds": 0.04415266666666666,
+          "detected_response_seconds": 0.030001166666666662
+        },
+        {
+          "pass": true,
+          "peak": 0.0,
+          "begin_frame": 645458,
+          "end_frame": 827046,
+          "phase": 2,
+          "acknowledgement_seconds": 0.044988625,
+          "detected_response_seconds": 0.035006166666666665
+        },
+        {
+          "pass": true,
+          "begin_frame": 843497,
+          "end_frame": 1120633,
+          "channels": [
+            {
+              "expected_hz": 440.0,
+              "measured_hz": 439.99756617702707,
+              "expected_peak": 0.06264840420340903,
+              "rms_equivalent_peak": 0.0626494878253332,
+              "relative_amplitude_error": 1.729687991166622e-05,
+              "frequency_error_ppm": 5.5314158475816555,
+              "recurrence_peak_relative": 1.8839103664195157e-06,
+              "recurrence_rms_relative": 3.121989397045624e-07,
+              "mean_relative": 0.00011759170862399215,
+              "pass": true
+            },
+            {
+              "expected_hz": 997.0,
+              "measured_hz": 996.9944900684158,
+              "expected_peak": 0.06264840420340903,
+              "rms_equivalent_peak": 0.06264799534500437,
+              "relative_amplitude_error": 6.526238135814448e-06,
+              "frequency_error_ppm": 5.526511117626143,
+              "recurrence_peak_relative": 2.915994518554209e-06,
+              "recurrence_rms_relative": 4.286447628395759e-07,
+              "mean_relative": 2.3251704459070757e-05,
+              "pass": true
+            }
+          ],
+          "longest_stereo_zero_run": 0,
+          "phase": 3,
+          "acknowledgement_seconds": 0.04272379166666666,
+          "detected_response_seconds": 0.03000370833333333
+        }
+      ],
+      "unmuted_zero_runs": [
+        0,
+        0
+      ],
+      "stopped_tail_peak": 0.0,
+      "stop_response_seconds": 0.024989666666666664,
+      "observed_rendered_frames_per_second": 47992.65992633423,
+      "note": "Runtime telemetry is polled off callback; independent recorder CSV contains each native capture callback timestamp."
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "schema": 1,
+  "published_utc": "2026-10-26T05:35:19Z",
+  "verified_utc": "2026-10-26T05:38:37.551363+00:00",
+  "repository": "thatsmethen/relink",
+  "repository_visibility": "public",
+  "source_revision": "b864bc6430b6ccc5b6b861395a2071be29c0a096",
+  "run_id": 40272244069,
+  "run_attempt": 1,
+  "release": {
+    "id": 423890017,
+    "url": "https://github.com/thatsmethen/relink/releases/tag/evidence-b864bc6-40272244069",
+    "tag": "evidence-b864bc6-40272244069",
+    "tag_type": "commit",
+    "tag_commit": "b864bc6430b6ccc5b6b861395a2071be29c0a096",
+    "lightweight_tag": true,
+    "prerelease": true,
+    "draft": false,
+    "make_latest_requested": false,
+    "notes_sha256": "7a613c3e360ac3410fccd7969343598066e3aa3122c2cc5480a55499e3f05378"
+  },
+  "assets": [
+    {
+      "name": "hal.zip",
+      "asset_id": 677140345,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-b864bc6-40272244069/hal.zip",
+      "state": "uploaded",
+      "bytes": 10535660,
+      "sha256": "3ad0dc51e356764e455396352f41ffe339d43339e38d3f46fea34b593820c5c5",
+      "github_api_digest": "sha256:3ad0dc51e356764e455396352f41ffe339d43339e38d3f46fea34b593820c5c5",
+      "original_actions_artifact_id": 12628639271,
+      "anonymous_download": {
+        "verified_utc": "2026-10-26T05:38:37.547119+00:00",
+        "http_status": 200,
+        "bytes": 10535660,
+        "sha256": "3ad0dc51e356764e455396352f41ffe339d43339e38d3f46fea34b593820c5c5",
+        "matches_original_archive": true,
+        "local_relative_path": "build/ci-40272244069/publication/anonymous-hal.zip",
+        "method": "curl -q --fail --location; no credentials or authorization headers supplied; fresh output path"
+      }
+    },
+    {
+      "name": "runtime.zip",
+      "asset_id": 677140347,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-b864bc6-40272244069/runtime.zip",
+      "state": "uploaded",
+      "bytes": 7180935,
+      "sha256": "b180cfd0ebff7048b7b2b3fe1d57e2863d56ee6283ef6770a97420aa4462329a",
+      "github_api_digest": "sha256:b180cfd0ebff7048b7b2b3fe1d57e2863d56ee6283ef6770a97420aa4462329a",
+      "original_actions_artifact_id": 12628504402,
+      "anonymous_download": {
+        "verified_utc": "2026-10-26T05:38:37.551353+00:00",
+        "http_status": 200,
+        "bytes": 7180935,
+        "sha256": "b180cfd0ebff7048b7b2b3fe1d57e2863d56ee6283ef6770a97420aa4462329a",
+        "matches_original_archive": true,
+        "local_relative_path": "build/ci-40272244069/publication/anonymous-runtime.zip",
+        "method": "curl -q --fail --location; no credentials or authorization headers supplied; fresh output path"
+      }
+    }
+  ],
+  "limits": [
+    "Exact original generated CI archives; no local recording or job rerun.",
+    "Single-output macOS runtime protocol at the recorded source; newer DSP changes and production release remain outside this evidence.",
+    "Prior failed observation40270207703 remains unchanged."
+  ]
+}

@@ -1,0 +1,222 @@
+{
+  "schema": 1,
+  "createdUTC": "2026-10-26T05:38:37.554285+00:00",
+  "source_revision": "b864bc6430b6ccc5b6b861395a2071be29c0a096",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 6716,
+      "sha256": "1bcf6771444ec25d81c12cbdfff7174b997980847c5e49240443d735b60f0f9a"
+    },
+    {
+      "path": "archive-custody.json",
+      "bytes": 392,
+      "sha256": "089b3be6f6fc711856022fab21cf43b4c8a9ac47a4c6f3357bf25c4a136d744a"
+    },
+    {
+      "path": "collection.json",
+      "bytes": 677,
+      "sha256": "ae94213d50d5a059942419b256c4a13a401db8db0049012d8f945b99cee1f5b1"
+    },
+    {
+      "path": "compact-originals.json",
+      "bytes": 5297,
+      "sha256": "aea99e90d9d318be846411f612b1daaab40b645f94cb81c0b17cbfaf38a409e6"
+    },
+    {
+      "path": "derived-verification.json",
+      "bytes": 20031,
+      "sha256": "9545e2ad1a99f483712c928f89de62e0a658da04d84bdf472ea0c2fe5895bbb7"
+    },
+    {
+      "path": "original/hal-acceptance.json",
+      "bytes": 16335,
+      "sha256": "489d19a50a921a2b5bdab7c2f9ceb3dfe95241912fb600afd2bf393401250014"
+    },
+    {
+      "path": "original/hal-build-sha256.txt",
+      "bytes": 743,
+      "sha256": "8cf288bc295c50533c3f90ed58003558478bc0c4293e99e726a485793a5af535"
+    },
+    {
+      "path": "original/hal-cleanup.json",
+      "bytes": 1647,
+      "sha256": "b6bdfb11bd07982f1cb4396ef159e9ffa85bc35d7df4cadaf3c3107ac31651e4"
+    },
+    {
+      "path": "original/hal-custody-manifest.json",
+      "bytes": 10551,
+      "sha256": "713414dc2a8dfec7b187379ee14ffd4ad6c30a9db28432163a6494d62b1c6027"
+    },
+    {
+      "path": "original/hal-environment.txt",
+      "bytes": 464,
+      "sha256": "3d84d2e1f7c277064759f991c296713d468d96186db663ee8f36b457cc2fcfbd"
+    },
+    {
+      "path": "original/hal-independent-readers.json",
+      "bytes": 149,
+      "sha256": "154008cea1a14d3b5973a2206ec9a0898132ff8481c2c7038dde9e9b3babeadb"
+    },
+    {
+      "path": "original/hal-reader-a-analysis.json",
+      "bytes": 1113,
+      "sha256": "7eec3c2c2ffce638b76b99534820fa4cdbdfc00158bb67ceff228aef93e5edc1"
+    },
+    {
+      "path": "original/hal-reader-a.json",
+      "bytes": 539,
+      "sha256": "bafa784a87671c3254f0c7687f006b133bbf11d6c7f5e686253d1c129a379b3f"
+    },
+    {
+      "path": "original/hal-reader-b-analysis.json",
+      "bytes": 1113,
+      "sha256": "432aef590576fe26b890c328932bbbb8ac643a44adc117b083ec7ce6efb198dc"
+    },
+    {
+      "path": "original/hal-reader-b.json",
+      "bytes": 539,
+      "sha256": "8efeb460b8bd1fd37e6a27ec968efbab9548755cd7c43fde67c1cf73bf82d966"
+    },
+    {
+      "path": "original/hal-restarted-silence-analysis.json",
+      "bytes": 365,
+      "sha256": "06906b5e36a1bbd10b8e830ddcc590c87c864a061b4e8f7b33a96da389d14828"
+    },
+    {
+      "path": "original/hal-restarted-silence.json",
+      "bytes": 538,
+      "sha256": "0a22f29ad49af3618db8a52b4829165f911650ce2017de704868dcae29c78762"
+    },
+    {
+      "path": "original/hal-tone-writer-analysis.json",
+      "bytes": 333,
+      "sha256": "8f09c8f8642ed6a117ebb938225628ac9495f5b34882484e041a4d9db89b3e8d"
+    },
+    {
+      "path": "original/hal-tone-writer.json",
+      "bytes": 539,
+      "sha256": "3fa415613be3fb6f096e9779c346d4b743ed79ab245842b73fe70790540d1aff"
+    },
+    {
+      "path": "original/runtime-build-sha256.txt",
+      "bytes": 1293,
+      "sha256": "92b15e93430a7893c6d923b9aa77388c7211f62f434ce29ffad43df5827bc745"
+    },
+    {
+      "path": "original/runtime-cleanup.json",
+      "bytes": 1647,
+      "sha256": "b6bdfb11bd07982f1cb4396ef159e9ffa85bc35d7df4cadaf3c3107ac31651e4"
+    },
+    {
+      "path": "original/runtime-custody-manifest.json",
+      "bytes": 9156,
+      "sha256": "9c571c3e5be0d00cb91ce1b94f018ba4ed7da9c3059724a73394974353e4f1dc"
+    },
+    {
+      "path": "original/runtime-environment.txt",
+      "bytes": 464,
+      "sha256": "002bbb0f244cc1683fb06699353c0fb321a4f1213a9ae9db74fcd39db1f89923"
+    },
+    {
+      "path": "original/runtime-runtime-acceptance.json",
+      "bytes": 12936,
+      "sha256": "5c960e972a974d23cde4c6feb2b4a6ae78fcea8a77fb55daabb41602269c60c0"
+    },
+    {
+      "path": "original/runtime-runtime-output-analysis.json",
+      "bytes": 5133,
+      "sha256": "4fab0219e3ea13fe2f26da13834255f6cc3487643c8fc0e351835ba6d923935e"
+    },
+    {
+      "path": "original/runtime-runtime-reader.json",
+      "bytes": 542,
+      "sha256": "6f7761b250112b04c47b24a587039e8c936afc374721c985e0fdd97558df72a2"
+    },
+    {
+      "path": "original/runtime-runtime-result.json",
+      "bytes": 75,
+      "sha256": "cdfbffdbd9529b1524d2e6bc22e3ad5015d0f9ba7a6d2fea890649b39ed60171"
+    },
+    {
+      "path": "original/runtime-source-writer-analysis.json",
+      "bytes": 339,
+      "sha256": "b686e6cc3605298609950118a88edd8cfb8ee6e33deb696fc9c6c8e1b4986bd2"
+    },
+    {
+      "path": "original/runtime-source-writer.json",
+      "bytes": 539,
+      "sha256": "13bf71b93bfd72ed56fb5d494976dfb79b9d9e2a1c0b9644142da331441c47fc"
+    },
+    {
+      "path": "original-artifacts.json",
+      "bytes": 1430,
+      "sha256": "d4fd61c3088bef7bb9aa4f308b69dcd7d66377d8883de81b971b3680aa76b3ef"
+    },
+    {
+      "path": "original-jobs.json",
+      "bytes": 5836,
+      "sha256": "908be515c347eec295aa5ad1bfd73f92b0fc6ea1ba45330efa23ba3c0b7035fb"
+    },
+    {
+      "path": "original-run.json",
+      "bytes": 12116,
+      "sha256": "1a18f4aadb91ccc305b2972051a75f09ac244c1231053852a8dab20019674641"
+    },
+    {
+      "path": "publication.json",
+      "bytes": 2979,
+      "sha256": "1a510f9e6ba54c80843d383b6f4aea923308a372724084b4d7d312684ba4f591"
+    },
+    {
+      "path": "source/analyze_diagnostics.py",
+      "bytes": 6559,
+      "sha256": "39e626866d67400a18d328996ff45ef715b7e94e0c96f27b53de016546e9bc20"
+    },
+    {
+      "path": "source/analyze_runtime.py",
+      "bytes": 13821,
+      "sha256": "6742811826f6fef7dc243b688a10eafa6c669a3cf0a9bb5eb5ea14b1887fab43"
+    },
+    {
+      "path": "source/analyze_system.py",
+      "bytes": 9472,
+      "sha256": "6f2e070cf855d18fb45a7686e79c1f7da6627061079f44ebe32b0ed8b76cfe0f"
+    },
+    {
+      "path": "source/run_runtime.py",
+      "bytes": 5860,
+      "sha256": "b71f769defc61beffc5c9875181d1b57c10858b1f357266eec388237afe18c06"
+    },
+    {
+      "path": "source/run_system.py",
+      "bytes": 21702,
+      "sha256": "a2267be06fb6082baa7b8ea2e4a2dab075fa252c8277495193aad86f20c4fea4"
+    },
+    {
+      "path": "source/rust-hal.yml",
+      "bytes": 5293,
+      "sha256": "47b932461cb6dd02e6a55780ceb9372c36308153edc9578951c6ea8be2ed576e"
+    },
+    {
+      "path": "source-custody.json",
+      "bytes": 730,
+      "sha256": "6f857c53dc351705959a64f3f6f574230f847273b02d6653560119451431fe75"
+    },
+    {
+      "path": "test_verifier.py",
+      "bytes": 1365,
+      "sha256": "255338856f5b8b6905b7907a7b34485c9c139e56257238dd59cfd0fc1f2e73c7"
+    },
+    {
+      "path": "verification-controls.json",
+      "bytes": 605,
+      "sha256": "0be0fdcd0e3a6c718282ace2d138582839e0c5cebfc70f2254235a14764b3eec"
+    },
+    {
+      "path": "verify.py",
+      "bytes": 12921,
+      "sha256": "d4d804105966b5f3b8bb13fe22d587171d5e58143c939cb07766a3d0527c6181"
+    }
+  ]
+}
