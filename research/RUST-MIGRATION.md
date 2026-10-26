@@ -46,7 +46,7 @@ A compiling Rust prototype or passing generated-audio test does not satisfy inst
 - `db052e4`: borrowed bus views, offline atomic fanout, pure output-plan validation and post-render control acknowledgment passed 134 workspace tests and independent source review. [Installed run 40050165081](evidence/rust-ack-installed-40050165081/README.md) passed the complete runtime and separate basic HAL protocols, including all live-control phases, continuous independent recording and Stop silence. Both original archives and every manifest member were verified after anonymous public download. This is one unchanged-protocol observation; output still uses CPAL, and the earlier intermittent failures remain unresolved.
 - Five-millisecond live gain/mute/pan/solo ramps passed deterministic partition, retargeting, silence-endpoint and allocation controls. A complete installed runtime observation passed every PCM phase and live-control response but failed native callback continuity; it does not establish full runtime quality.
 
-Upcoming work includes resolving installed capture-to-mixer-to-output continuity, simultaneous independent outputs, application/process capture, plugin effects and Sound Check workflows, recovery and sustained resource measurements, native Windows interaction/audio tests, and distributable signed installers. Reference mixer fidelity remains unverified because the pinned Elgato reference stops at its separate vendor-driver installation gate.
+Upcoming work includes resolving installed capture-to-mixer-to-output continuity, captured-source simultaneous independent outputs, native application/process capture qualification, plugin effects and Sound Check workflows, recovery and sustained resource measurements, native Windows interaction/audio tests, and distributable signed installers. Reference mixer fidelity remains unverified because the pinned Elgato reference stops at its separate vendor-driver installation gate.
 
 
 ## Output routing journey checkpoint — 2026-10-26
@@ -85,3 +85,13 @@ not yet qualified), unavailable-device recovery (source-reviewed), process
 capture and Sound Check (pending). This bounded stopped journey is not a whole
 product usability or runtime acceptance result. Native Windows interaction,
 installed simultaneous-output PCM, sustained load and recovery remain gates.
+
+## Application capture implementation — 26 October 2026
+
+The maintained Rust source now connects a separate asynchronous application picker
+to stable saved identities, complete current process resolution, native macOS
+process taps and Windows include-tree loopback owners. Multiple raw streams are
+summed before one logical channel DSP pass. Native permission, idle/resume,
+process-relaunch, Stop/cleanup and independent PCM observations remain unqualified.
+The interface marks this as an early preview. See [usage and limits](../docs/application-capture.md)
+and [API research and ownership boundaries](../docs/audio-application-capture-research.md).

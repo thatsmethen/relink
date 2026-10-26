@@ -14,5 +14,6 @@
 <key>LSMinimumSystemVersion</key><string>13.0</string>
 <key>NSHighResolutionCapable</key><true/>
 <key>NSMicrophoneUsageDescription</key><string>ReLink captures the input devices you select to create your audio mixes.</string>
+<key>NSAudioCaptureUsageDescription</key><string>ReLink captures audio from the applications you select to create your audio mixes.</string>
 <key>NSSupportsAutomaticGraphicsSwitching</key><true/>
 </dict></plist>

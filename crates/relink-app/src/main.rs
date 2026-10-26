@@ -6,7 +6,7 @@ mod store;
 
 use audio_ui::{AudioUi, Request};
 use eframe::egui::{self, Color32, RichText, Vec2};
-use relink_core::{Bus, ChannelControls, Input, InputKind, Send, Session};
+use relink_core::{ApplicationSelector, Bus, ChannelControls, Input, InputKind, Send, Session};
 use routing::{OutputDraft, RoutingDraft};
 use std::{
     collections::{HashMap, HashSet},
@@ -55,6 +55,7 @@ fn starter() -> Session {
 enum Edit {
     AddInput,
     AddDevice(String, String),
+    AddApplication(String, String),
     AddBus,
     RemoveInput(Uuid),
     RemoveBus(Uuid),
@@ -66,6 +67,13 @@ enum Edit {
     InputDsp(Uuid, relink_core::DspConfig),
     BusDsp(Uuid, relink_core::DspConfig),
     Tone(Uuid, f32, f32),
+}
+
+#[derive(Clone, Copy, Default, PartialEq, Eq)]
+enum SourceKind {
+    #[default]
+    Device,
+    Application,
 }
 
 struct Studio {
@@ -86,6 +94,8 @@ struct Studio {
     outputs_open: bool,
     source_picker_open: bool,
     source_device: Option<String>,
+    source_kind: SourceKind,
+    source_application: Option<String>,
 }
 
 impl Studio {
@@ -139,6 +149,8 @@ impl Studio {
             outputs_open: false,
             source_picker_open: false,
             source_device: None,
+            source_kind: SourceKind::Device,
+            source_application: None,
         };
         app.reindex();
         app
@@ -202,6 +214,15 @@ impl Studio {
             }
             Edit::AddDevice(device_id, name) => {
                 let input = Input::new(name, InputKind::Hardware { device_id });
+                self.selected_input = Some(input.id);
+                self.session.inputs.push(input);
+            }
+            Edit::AddApplication(application_id, name) => {
+                if let Err(error) = ApplicationSelector::decode(&application_id) {
+                    self.notice = error.to_string();
+                    return;
+                }
+                let input = Input::new(name, InputKind::Application { application_id });
                 self.selected_input = Some(input.id);
                 self.session.inputs.push(input);
             }
@@ -576,29 +597,81 @@ impl Studio {
     }
 
     fn source_picker(&mut self, ctx: &egui::Context, edits: &mut Vec<Edit>) {
+        if !self.source_picker_open {
+            return;
+        }
         let mut open = self.source_picker_open;
         let mut added = false;
-        egui::Window::new("Add a source").open(&mut open).collapsible(false).resizable(false).default_width(360.0).show(ctx, |ui| {
-            ui.label("Choose a microphone, interface or virtual audio device.");
-            ui.add_enabled_ui(!self.audio.running() && !self.audio.busy, |ui| {
-                let selected = self.audio.inputs.iter().find(|d| Some(&d.id) == self.source_device.as_ref());
-                egui::ComboBox::from_id_salt("source-device").selected_text(selected.map_or("Select an input…", |d| d.name.as_str())).width(320.0).show_ui(ui, |ui| {
-                    for device in &self.audio.inputs {
-                        ui.selectable_value(&mut self.source_device, Some(device.id.clone()), &device.name);
-                    }
-                });
+        let locked = self.audio.running() || self.audio.busy;
+        egui::Window::new("Add a source").open(&mut open).collapsible(false).resizable(false).default_width(420.0).show(ctx, |ui| {
+            if locked {
+                ui.label(if self.audio.running() { "Stop audio before changing sources." } else { "Refreshing sources…" });
+            }
+            ui.add_enabled_ui(!locked, |ui| {
                 ui.horizontal(|ui| {
-                    if ui.button("Refresh inputs").clicked() {self.audio.send(Request::Refresh);}
-                    let selected = self.audio.inputs.iter().find(|d| Some(&d.id) == self.source_device.as_ref());
-                    if ui.add_enabled(selected.is_some(), egui::Button::new("Add device")).clicked() {
-                        if let Some(device) = selected {edits.push(Edit::AddDevice(device.id.clone(),device.name.clone()));added=true;}
+                    ui.selectable_value(&mut self.source_kind, SourceKind::Device, "Audio device");
+                    if ui.selectable_value(&mut self.source_kind, SourceKind::Application, "Application").clicked()
+                        && !self.audio.applications_loaded {
+                        self.audio.send(Request::RefreshApplications);
                     }
                 });
-                ui.label("Capture begins when you start audio. Mono inputs use both stereo channels; interfaces use channels 1–2.");
                 ui.separator();
-                if ui.button("Add a test tone").clicked() {edits.push(Edit::AddInput);added=true;}
+                match self.source_kind {
+                    SourceKind::Device => {
+                        ui.label("Choose a microphone, interface or virtual audio device.");
+                        let selected = self.audio.inputs.iter().find(|d| Some(&d.id) == self.source_device.as_ref());
+                        egui::ComboBox::from_id_salt("source-device").selected_text(selected.map_or("Select an input…", |d| d.name.as_str())).width(380.0).show_ui(ui, |ui| {
+                            for device in &self.audio.inputs {
+                                ui.selectable_value(&mut self.source_device, Some(device.id.clone()), &device.name);
+                            }
+                        });
+                        ui.horizontal(|ui| {
+                            if ui.button("Refresh inputs").clicked() { self.audio.send(Request::Refresh); }
+                            let selected = self.audio.inputs.iter().find(|d| Some(&d.id) == self.source_device.as_ref());
+                            if ui.add_enabled(selected.is_some() && !self.audio.busy, egui::Button::new("Add device")).clicked() {
+                                if let Some(device) = selected { edits.push(Edit::AddDevice(device.id.clone(), device.name.clone())); added = true; }
+                            }
+                        });
+                        ui.label("Mono inputs use both stereo channels; interfaces use channels 1–2.");
+                        if let Some(error) = &self.audio.error { ui.colored_label(Color32::LIGHT_RED, error); }
+                    }
+                    SourceKind::Application => {
+                        ui.label(RichText::new("Application capture · early preview").color(MUTED));
+                        ui.label("Choose a running application to add to your studio.");
+                        let selected = self.audio.applications.iter().find(|app| Some(&app.id) == self.source_application.as_ref());
+                        egui::ComboBox::from_id_salt("source-application").selected_text(selected.map_or("Select an application…", |app| app.name.as_str())).width(380.0).show_ui(ui, |ui| {
+                            for application in &self.audio.applications {
+                                ui.selectable_value(&mut self.source_application, Some(application.id.clone()), &application.name).on_hover_ui(|ui| {
+                                    if let Ok(selector) = ApplicationSelector::decode(&application.id) {
+                                        let path = match selector { ApplicationSelector::MacBundle { path, .. } | ApplicationSelector::WindowsExecutable { path } => path };
+                                        ui.label(path);
+                                    }
+                                });
+                            }
+                        });
+                        ui.horizontal(|ui| {
+                            if ui.add_enabled(!self.audio.busy, egui::Button::new("Refresh applications")).clicked() { self.audio.send(Request::RefreshApplications); }
+                            let selected = self.audio.applications.iter().find(|app| Some(&app.id) == self.source_application.as_ref());
+                            if ui.add_enabled(selected.is_some() && !self.audio.busy && self.audio.applications_error.is_none(), egui::Button::new("Add application")).clicked() {
+                                if let Some(application) = selected { edits.push(Edit::AddApplication(application.id.clone(), application.name.clone())); added = true; }
+                            }
+                        });
+                        if let Some(error) = &self.audio.applications_error {
+                            ui.colored_label(Color32::LIGHT_RED, error);
+                        } else if self.audio.applications_loaded && self.audio.applications.is_empty() {
+                            ui.label("No applications found. Open an app, start its audio, then refresh.");
+                        }
+                        ui.label("Start audio in the app before starting capture in ReLink.");
+                        if cfg!(target_os = "macos") {
+                            ui.label("Starting capture may ask for macOS audio-capture permission.");
+                        }
+                        ui.label("If the app restarts or adds processes, Stop and Start ReLink audio again.");
+                    }
+                }
+                ui.label("Capture begins when you start audio.");
+                ui.separator();
+                if ui.add_enabled(!self.audio.busy, egui::Button::new("Add a test tone")).clicked() { edits.push(Edit::AddInput); added = true; }
             });
-            if let Some(error) = &self.audio.error {ui.colored_label(Color32::LIGHT_RED,error);}
         });
         self.source_picker_open = open && !added;
     }
@@ -1146,6 +1219,88 @@ fn history_shortcut(ctx: &egui::Context) -> Option<bool> {
 #[cfg(test)]
 mod shortcut_tests {
     use super::*;
+
+    fn offline_studio() -> Studio {
+        let session = starter();
+        Studio {
+            selected_bus: session.buses.first().map(|bus| bus.id),
+            session,
+            path: None,
+            selected_input: None,
+            route_index: HashMap::new(),
+            undo: vec![],
+            redo: vec![],
+            dirty_since: None,
+            notice: String::new(),
+            save_error: None,
+            preserve_original_before_save: false,
+            audio: AudioUi::offline_for_test(),
+            search: String::new(),
+            output_routing: RoutingDraft::default(),
+            outputs_open: false,
+            source_picker_open: false,
+            source_device: None,
+            source_kind: SourceKind::Device,
+            source_application: None,
+        }
+    }
+
+    #[test]
+    fn application_source_add_route_save_and_undo_preserve_stable_identity_without_starting_audio()
+    {
+        let mut studio = offline_studio();
+        let selector = ApplicationSelector::WindowsExecutable {
+            path: r"C:\Program Files\Player\player.exe".into(),
+        };
+        let id = selector.encode().unwrap();
+        studio.edit(Edit::AddApplication(id.clone(), "Player".into()));
+        assert_eq!(studio.session.inputs.len(), 1);
+        let input_id = studio.session.inputs[0].id;
+        assert_eq!(studio.selected_input, Some(input_id));
+        let bus_id = studio.session.buses[0].id;
+        studio.edit(Edit::Route(
+            input_id,
+            bus_id,
+            Some(ChannelControls::default()),
+        ));
+        let persisted = serde_json::to_string(&studio.document()).unwrap();
+        let restored: store::StudioDocument = serde_json::from_str(&persisted).unwrap();
+        assert_eq!(restored.session.sends[0].input_id, input_id);
+        let InputKind::Application { application_id } = &restored.session.inputs[0].kind else {
+            panic!("application selection lost")
+        };
+        assert_eq!(
+            ApplicationSelector::decode(application_id).unwrap(),
+            selector
+        );
+        assert_eq!(application_id, &id);
+        studio.history(false);
+        assert!(studio.session.sends.is_empty());
+        studio.history(false);
+        assert!(studio.session.inputs.is_empty());
+        studio.history(true);
+        assert_eq!(studio.session.inputs[0].id, input_id);
+        assert!(!studio.audio.running() && !studio.audio.busy && !studio.audio.can_stop());
+    }
+
+    #[test]
+    fn application_source_rejects_transient_identity_and_busy_edits_without_changing_studio() {
+        let mut studio = offline_studio();
+        let before = studio.document();
+        studio.edit(Edit::AddApplication("pid:1234".into(), "Player".into()));
+        assert_eq!(studio.document(), before);
+        assert!(studio.undo.is_empty());
+        let id = ApplicationSelector::MacBundle {
+            bundle_id: "com.example.Player".into(),
+            path: "/Applications/Player.app".into(),
+        }
+        .encode()
+        .unwrap();
+        studio.audio.busy = true;
+        studio.edit(Edit::AddApplication(id, "Player".into()));
+        assert_eq!(studio.document(), before);
+        assert!(studio.undo.is_empty());
+    }
 
     #[test]
     fn only_text_focus_reserves_text_history_shortcuts() {

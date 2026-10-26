@@ -238,9 +238,9 @@ fn owner_loop(
     }
 }
 
-struct Apartment;
+pub(crate) struct Apartment;
 impl Apartment {
-    fn open() -> windows::core::Result<Self> {
+    pub(crate) fn open() -> windows::core::Result<Self> {
         unsafe {
             CoInitializeEx(None, COINIT_MULTITHREADED).ok()?;
         }
@@ -266,7 +266,7 @@ impl Drop for Realtime {
         let _ = unsafe { AvRevertMmThreadCharacteristics(self.0) };
     }
 }
-struct NativeCapture {
+pub(crate) struct NativeCapture {
     // Release capture before client and both COM objects before the event and
     // COM apartment. The client may still reference its event until destruction.
     capture: IAudioCaptureClient,
@@ -350,7 +350,77 @@ impl NativeCapture {
             maximum_frames,
         })
     }
-    fn start(&mut self) -> windows::core::Result<()> {
+    /// Process loopback is not an endpoint and may not implement format discovery.
+    /// The caller has activated only the explicit INCLUDE_TARGET_PROCESS_TREE.
+    pub(crate) fn from_process_client(
+        client: IAudioClient,
+        apartment: Apartment,
+        sample_rate: u32,
+        layout: Layout,
+    ) -> windows::core::Result<Self> {
+        let owner_apartment = apartment;
+        let activated_client = client;
+        let event = Event(unsafe { CreateEventW(None, false, false, None)? });
+        // Rebind after the event so every early return releases the client before
+        // the event that Initialize/SetEventHandle may have attached to it.
+        let client = activated_client;
+        let format = wave_format(sample_rate, layout)?;
+        unsafe {
+            client.Initialize(
+                AUDCLNT_SHAREMODE_SHARED,
+                AUDCLNT_STREAMFLAGS_LOOPBACK
+                    | AUDCLNT_STREAMFLAGS_EVENTCALLBACK
+                    | AUDCLNT_STREAMFLAGS_AUTOCONVERTPCM,
+                0,
+                0,
+                &format.Format,
+                None,
+            )?;
+            client.SetEventHandle(event.0)?;
+        }
+        let maximum_frames = unsafe { client.GetBufferSize()? };
+        if maximum_frames == 0 || maximum_frames as usize > MAX_CALLBACK_FRAMES {
+            return Err(windows::core::Error::from_hresult(
+                AUDCLNT_E_BUFFER_SIZE_ERROR,
+            ));
+        }
+        let capture: IAudioCaptureClient = unsafe { client.GetService()? };
+        let mut task_index = 0;
+        let realtime =
+            Realtime(unsafe { AvSetMmThreadCharacteristicsW(w!("Pro Audio"), &mut task_index)? });
+        Ok(Self {
+            capture,
+            client,
+            event,
+            _realtime: realtime,
+            _apartment: owner_apartment,
+            started: false,
+            maximum_frames,
+        })
+    }
+    pub(crate) fn stop(&mut self) -> windows::core::Result<()> {
+        if self.started {
+            unsafe {
+                self.client.Stop()?;
+            }
+            self.started = false;
+        }
+        Ok(())
+    }
+    pub(crate) fn wait_and_drain(
+        &mut self,
+        state: &mut CaptureState,
+        tracker: &mut Tracker,
+        layout: Layout,
+        active: &AtomicBool,
+    ) -> Result<(), AudioFault> {
+        let waited = unsafe { WaitForSingleObject(self.event.0, 20) };
+        if waited != WAIT_OBJECT_0 && waited != WAIT_TIMEOUT {
+            return Err(AudioFault::Backend);
+        }
+        self.drain(state, tracker, layout, active)
+    }
+    pub(crate) fn start(&mut self) -> windows::core::Result<()> {
         unsafe {
             ResetEvent(self.event.0)?;
             self.client.Start()?;
@@ -473,7 +543,7 @@ impl Drop for NativeCapture {
         }
     }
 }
-fn hresult_fault(code: windows::core::HRESULT) -> AudioFault {
+pub(crate) fn hresult_fault(code: windows::core::HRESULT) -> AudioFault {
     match code {
         AUDCLNT_E_DEVICE_INVALIDATED | AUDCLNT_E_ENDPOINT_CREATE_FAILED => {
             AudioFault::DeviceUnavailable

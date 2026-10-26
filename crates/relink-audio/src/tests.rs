@@ -338,7 +338,7 @@ fn native_transport_clamps_unlimited_float_mix_before_integer_conversion() {
 }
 
 #[test]
-fn unavailable_application_capture_and_missing_mix_are_explicit_errors() {
+fn malformed_application_identity_and_missing_mix_are_explicit_errors() {
     let (mut session, bus) = session();
     assert!(matches!(
         validate_session(&session, Uuid::new_v4()),
@@ -348,13 +348,26 @@ fn unavailable_application_capture_and_missing_mix_are_explicit_errors() {
         application_id: "not-yet-supported".into(),
     };
     let error = validate_session(&session, bus).unwrap_err();
-    assert!(error.to_string().contains("not yet implemented"));
+    assert!(error
+        .to_string()
+        .contains("application identity must begin"));
     let runtime = AudioRuntime::new().unwrap();
     assert!(matches!(
-        runtime.start(session, bus, OutputId("must-not-be-queried".into())),
+        runtime.start(session.clone(), bus, OutputId("must-not-be-queried".into())),
         Err(AudioError::InvalidSession(_))
     ));
     assert!(runtime.snapshot().configuration.is_none());
+    session.inputs[0].kind = InputKind::Application {
+        application_id: ApplicationSelector::MacBundle {
+            bundle_id: "org.example.Player".into(),
+            path: "/Applications/Player.app".into(),
+        }
+        .encode()
+        .unwrap(),
+    };
+    // Syntax validation accepts a saved stable selection without querying the
+    // OS, requesting permission or assuming a current process exists.
+    validate_session(&session, bus).unwrap();
 }
 
 #[test]

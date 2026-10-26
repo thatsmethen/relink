@@ -11,12 +11,14 @@
 //! block-size limits explicit for each host. Every bus is an independent stereo
 //! mix with its own master controls and DSP.
 
+mod application;
 mod controls;
 mod dsp;
 mod mixer;
 mod session;
 mod smoothing;
 
+pub use application::{ApplicationSelector, ApplicationSelectorError};
 pub use controls::{ControlError, PreparedControls, ResolvedControl};
 pub use mixer::{
     BusHandle, BusReadError, CompiledMixer, MeterReading, RenderError, ResourceBudget, StereoInput,

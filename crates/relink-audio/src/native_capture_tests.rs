@@ -279,6 +279,7 @@ fn synthetic_owner(context: Arc<Context>, uid: &str) -> Owner {
         listeners: Vec::new(),
         reservation: Some(Reservation::acquire(uid).unwrap()),
         closed: false,
+        dependency: None,
     }
 }
 
@@ -699,4 +700,111 @@ fn native_capture_owner_estimate_charges_explicit_stack_but_not_a_second_ring() 
     let bytes = owner.selection.owner_bytes().unwrap();
     assert!(bytes >= crate::capture::OWNER_STACK_BYTES + size_of::<Context>() + size_of::<Owner>());
     assert!(bytes < crate::capture::OWNER_STACK_BYTES + Ring::bytes());
+}
+
+struct SyntheticDependency {
+    closed: Arc<AtomicUsize>,
+    dropped: Arc<AtomicUsize>,
+    context: std::sync::Weak<Context>,
+    status: i32,
+}
+impl Dependency for SyntheticDependency {
+    fn check(&self) -> Result<(), String> {
+        Ok(())
+    }
+    fn close(&mut self) -> Result<(), i32> {
+        let context = self.context.upgrade().unwrap();
+        assert_eq!(context.in_flight.load(Ordering::Acquire), 0);
+        assert!(!context.gate.alive.load(Ordering::Acquire));
+        assert!(context.ring.native_timing.snapshot().unwrap().lifecycle
+            [NativeLifecyclePhase::QuiescenceChecked as usize]
+            .is_some());
+        self.closed.fetch_add(1, Ordering::Relaxed);
+        if self.status == 0 {
+            Ok(())
+        } else {
+            Err(self.status)
+        }
+    }
+}
+impl Drop for SyntheticDependency {
+    fn drop(&mut self) {
+        self.dropped.fetch_add(1, Ordering::Relaxed);
+    }
+}
+
+#[test]
+fn prepared_dependencies_close_only_after_quiescence_and_quarantine_failed_cleanup() {
+    // Successful release, failed native stop/destroy, an in-flight callback,
+    // and a dependent aggregate/tap teardown error are distinct outcomes.
+    for case in 0..4 {
+        let (context, _shared, telemetry) = context();
+        let weak = Arc::downgrade(&context);
+        let ring = context.ring.clone();
+        let leaked_context = Arc::as_ptr(&context);
+        let uid = format!("offline-dependent-owner-{case}");
+        let mut owner = synthetic_owner(context, &uid);
+        let closed = Arc::new(AtomicUsize::new(0));
+        let dropped = Arc::new(AtomicUsize::new(0));
+        owner.dependency = Some(Box::new(SyntheticDependency {
+            closed: closed.clone(),
+            dropped: dropped.clone(),
+            context: weak.clone(),
+            status: if case == 3 { -771 } else { 0 },
+        }));
+        let leaked_dependency: *mut dyn Dependency = &mut **owner.dependency.as_mut().unwrap();
+        let leaked_callback = RcBlock::as_ptr(owner.callback.as_ref().unwrap());
+        owner.gate.alive.store(false, Ordering::Release);
+        owner.gate.accepting.store(false, Ordering::Release);
+        if case == 2 {
+            owner
+                .context
+                .as_ref()
+                .unwrap()
+                .in_flight
+                .store(1, Ordering::Release);
+        }
+        owner.finish_teardown(
+            CloseResult {
+                quiescent: case != 1,
+                first_failure: if case == 1 { Some((-770, None)) } else { None },
+            },
+            Duration::ZERO,
+        );
+        let timing = ring.native_timing.snapshot().unwrap();
+        assert_eq!(
+            closed.load(Ordering::Relaxed),
+            usize::from(case == 0 || case == 3)
+        );
+        assert_eq!(dropped.load(Ordering::Relaxed), usize::from(case == 0));
+        if case == 0 {
+            assert!(weak.upgrade().is_none());
+            assert!(timing.lifecycle[NativeLifecyclePhase::OwnerCompleted as usize].is_some());
+            assert!(Reservation::acquire(&uid).is_ok());
+        } else {
+            assert!(weak.upgrade().is_some());
+            assert!(timing.lifecycle[NativeLifecyclePhase::ContextRetained as usize].is_some());
+            assert!(timing.lifecycle[NativeLifecyclePhase::OwnerCompleted as usize].is_none());
+            assert!(Reservation::acquire(&uid).is_err());
+            if case == 3 {
+                assert_eq!(
+                    telemetry.fault.snapshot().unwrap().metadata.unwrap().status,
+                    Some(-771)
+                );
+            }
+            drop(owner);
+            // No OS owns these synthetic fixtures. Recover exactly the refs
+            // deliberately quarantined by production, after all assertions.
+            unsafe {
+                drop(Box::from_raw(leaked_dependency));
+                drop(RcBlock::from_raw(leaked_callback).unwrap());
+                let context = Arc::from_raw(leaked_context);
+                context.in_flight.store(0, Ordering::Release);
+                drop(context);
+            }
+            RESERVED.lock().unwrap().remove(&uid);
+            assert!(weak.upgrade().is_none());
+            assert_eq!(dropped.load(Ordering::Relaxed), 1);
+        }
+    }
 }

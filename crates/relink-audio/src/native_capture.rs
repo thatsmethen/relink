@@ -141,7 +141,7 @@ pub(crate) fn select(id: &str, rate: u32) -> Result<Selection, AudioError> {
         .map_err(|error| backend("native input format discovery", Some(id.into()), error))
 }
 
-fn address(selector: u32, scope: u32) -> AudioObjectPropertyAddress {
+pub(crate) fn address(selector: u32, scope: u32) -> AudioObjectPropertyAddress {
     AudioObjectPropertyAddress {
         mSelector: selector,
         mScope: scope,
@@ -155,7 +155,7 @@ fn status(code: i32) -> Result<(), String> {
         Err(format!("CoreAudio OSStatus {code}"))
     }
 }
-fn property<T: Copy>(
+pub(crate) fn property<T: Copy>(
     object: AudioObjectID,
     address: AudioObjectPropertyAddress,
 ) -> Result<T, String> {
@@ -211,7 +211,11 @@ fn property_bytes(
     }
     Ok((data, bytes as usize))
 }
-fn objects(object: AudioObjectID, selector: u32, scope: u32) -> Result<Vec<AudioObjectID>, String> {
+pub(crate) fn objects(
+    object: AudioObjectID,
+    selector: u32,
+    scope: u32,
+) -> Result<Vec<AudioObjectID>, String> {
     let (data, bytes) = property_bytes(object, address(selector, scope))?;
     if !bytes.is_multiple_of(size_of::<AudioObjectID>()) {
         return Err("invalid native object list".into());
@@ -234,7 +238,7 @@ fn uid(object: AudioObjectID) -> Result<String, String> {
     // AudioDevicePropertyDeviceUID returns a retained CFString to the caller.
     Ok(unsafe { CFRetained::from_raw(raw) }.to_string())
 }
-fn inspect(wanted_uid: &str, rate: u32) -> Result<Selection, String> {
+pub(crate) fn inspect(wanted_uid: &str, rate: u32) -> Result<Selection, String> {
     let mut matching = None;
     for id in objects(
         kAudioObjectSystemObject as u32,
@@ -368,6 +372,22 @@ fn inspect(wanted_uid: &str, rate: u32) -> Result<Selection, String> {
 }
 
 type StartReply = mpsc::SyncSender<Result<(), AudioError>>;
+/// Resources on which an IOProc depends. They live on its native owner thread,
+/// and are released only after stop, IOProc destruction and callback drainage.
+pub(crate) trait Dependency {
+    fn check(&self) -> Result<(), String>;
+    fn close(&mut self) -> Result<(), i32>;
+}
+pub(crate) struct Prepared {
+    pub(crate) selection: Selection,
+    pub(crate) dependency: Option<Box<dyn Dependency>>,
+}
+pub(crate) struct PreparationError {
+    pub(crate) message: String,
+    /// A failed partial setup retained OS resources: keep the stable source
+    /// reservation too, so a retry cannot accumulate unbounded retained owners.
+    pub(crate) retained: bool,
+}
 pub(crate) struct NativeCapture {
     commands: mpsc::SyncSender<StartReply>,
     active: Arc<AtomicBool>,
@@ -375,15 +395,27 @@ pub(crate) struct NativeCapture {
 }
 impl NativeCapture {
     pub(crate) fn build(selection: &Selection, state: CaptureState) -> Result<Self, AudioError> {
+        let selection = selection.clone();
+        Self::build_prepared(&selection.uid.clone(), state, move |_| {
+            Ok(Prepared {
+                selection,
+                dependency: None,
+            })
+        })
+    }
+    pub(crate) fn build_prepared(
+        key: &str,
+        state: CaptureState,
+        prepare: impl FnOnce(&dyn Fn() -> bool) -> Result<Prepared, PreparationError> + Send + 'static,
+    ) -> Result<Self, AudioError> {
         let ring = state.ring();
         let (ready_tx, ready_rx) = mpsc::sync_channel(1);
         let (commands, receiver) = mpsc::sync_channel(1);
         let active = Arc::new(AtomicBool::new(true));
         let owner_active = active.clone();
-        let owner_selection = selection.clone();
-        spawn_owner(&selection.uid, move |reservation| {
+        spawn_owner(key, move |reservation| {
             owner_loop(
-                owner_selection,
+                prepare,
                 state,
                 owner_active,
                 receiver,
@@ -451,19 +483,32 @@ fn spawn_owner(
         .map_err(|e| backend("native capture owner creation", None, e))
 }
 fn owner_loop(
-    selection: Selection,
+    prepare: impl FnOnce(&dyn Fn() -> bool) -> Result<Prepared, PreparationError>,
     state: CaptureState,
     active: Arc<AtomicBool>,
     commands: mpsc::Receiver<StartReply>,
     ready: StartReply,
-    reservation: Reservation,
+    mut reservation: Reservation,
 ) {
     let permit = state.permit();
     if !active.load(Ordering::Acquire) || !permit.authorized() {
         let _ = ready.send(Err(AudioError::Cancelled));
         return;
     }
-    let mut native = match Owner::open(selection, state, active.clone(), reservation) {
+    let prepared = match prepare(&|| active.load(Ordering::Acquire) && permit.authorized()) {
+        Ok(prepared) => prepared,
+        Err(error) => {
+            reservation.release = !error.retained;
+            let cancelled = !active.load(Ordering::Acquire) || !permit.authorized();
+            let _ = ready.send(Err(if cancelled && !error.retained {
+                AudioError::Cancelled
+            } else {
+                backend("native input preparation", None, error.message)
+            }));
+            return;
+        }
+    };
+    let mut native = match Owner::open(prepared, state, active.clone(), reservation) {
         Ok(native) => native,
         Err(error) => {
             let _ = ready.send(Err(backend("native input creation", None, error)));
@@ -477,7 +522,22 @@ fn owner_loop(
     if ready.send(Ok(())).is_err() {
         return;
     }
+    let mut checked = Instant::now();
     while active.load(Ordering::Acquire) && permit.authorized() {
+        if checked.elapsed() >= Duration::from_millis(250) {
+            checked = Instant::now();
+            if native.check_dependency().is_err() {
+                permit.fail_at(
+                    AudioFault::StreamInvalidated,
+                    FaultOrigin::NativeInputProperty,
+                    FaultMetadata {
+                        native_object: Some(native.selection.id),
+                        ..permit.metadata()
+                    },
+                );
+                return;
+            }
+        }
         match commands.recv_timeout(POLL) {
             Ok(reply) => {
                 if !active.load(Ordering::Acquire) || !permit.authorized() {
@@ -852,6 +912,7 @@ struct Owner {
     listeners: Vec<Listener>,
     reservation: Option<Reservation>,
     closed: bool,
+    dependency: Option<Box<dyn Dependency>>,
 }
 impl Owner {
     fn mark(&self, phase: NativeLifecyclePhase, status: Option<i32>) {
@@ -867,14 +928,15 @@ impl Owner {
         });
     }
     fn open(
-        selection: Selection,
+        prepared: Prepared,
         state: CaptureState,
         active: Arc<AtomicBool>,
         reservation: Reservation,
     ) -> Result<Self, String> {
-        if inspect(&selection.uid, selection.rate)? != selection {
-            return Err("selected input changed since discovery".into());
-        }
+        let Prepared {
+            selection,
+            dependency,
+        } = prepared;
         let gate = Arc::new(Gate {
             permit: state.permit(),
             active,
@@ -908,7 +970,17 @@ impl Owner {
             listeners: Vec::with_capacity(listener_capacity),
             reservation: Some(reservation),
             closed: false,
+            dependency,
         };
+        // Construct the owner before any fallible reinspection so dependent
+        // tap/aggregate resources use the same audited teardown path on error.
+        if inspect(&owner.selection.uid, owner.selection.rate)? != owner.selection {
+            return Err("selected input changed since discovery".into());
+        }
+        owner.check_dependency()?;
+        if !owner.gate.authorized() {
+            return Err("input creation was cancelled".into());
+        }
         owner.mark(NativeLifecyclePhase::CreateRequested, None);
         // Null dispatch queue invokes synchronously on CoreAudio's IO thread.
         // CoreAudio Block_copy owns the captured Arc through DestroyIOProcID.
@@ -1005,7 +1077,13 @@ impl Owner {
         {
             return Err("selected input changed during setup".into());
         }
+        owner.check_dependency()?;
         Ok(owner)
+    }
+    fn check_dependency(&self) -> Result<(), String> {
+        self.dependency
+            .as_ref()
+            .map_or(Ok(()), |dependency| dependency.check())
     }
     fn listen(
         &mut self,
@@ -1066,6 +1144,7 @@ impl Owner {
         if !self.gate.authorized() {
             return Err(StartError::Cancelled);
         }
+        self.check_dependency().map_err(StartError::Native)?;
         if inspect(&self.selection.uid, self.selection.rate).map_err(StartError::Native)?
             != self.selection
         {
@@ -1240,7 +1319,7 @@ impl Drop for Owner {
     }
 }
 impl Owner {
-    fn finish_teardown(&mut self, result: CloseResult, timeout: Duration) {
+    fn finish_teardown(&mut self, mut result: CloseResult, timeout: Duration) {
         if self.closed {
             return;
         }
@@ -1251,11 +1330,20 @@ impl Owner {
         self.mark(NativeLifecyclePhase::QuiescenceChecked, None);
         self.closed = true;
         if result.quiescent && callbacks_drained {
+            if let Some(dependency) = self.dependency.as_mut() {
+                if let Err(code) = dependency.close() {
+                    result.quiescent = false;
+                    result.first_failure.get_or_insert((code, None));
+                }
+            }
+        }
+        if result.quiescent && callbacks_drained {
             self.proc_id = None;
             self.started = false;
             self.listeners.clear();
             drop(self.callback.take());
             drop(self.context.take());
+            drop(self.dependency.take());
             drop(self.reservation.take());
             // This mark is observable only after our callback/context/listener
             // ownership and exact UID reservation have actually been released.
@@ -1295,6 +1383,9 @@ impl Owner {
                 std::mem::forget(callback);
             }
             std::mem::forget(std::mem::take(&mut self.listeners));
+            if let Some(dependency) = self.dependency.take() {
+                std::mem::forget(dependency);
+            }
         }
     }
 }

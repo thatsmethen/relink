@@ -440,3 +440,119 @@ fn capture_owner_budget_rejects_overflow_and_is_added_to_render_cost_before_allo
     assert!(!runtime.snapshot().running);
     assert!(runtime.snapshot().output_timing.is_none());
 }
+
+#[test]
+fn application_processes_are_summed_before_one_logical_limiter_and_live_mute() {
+    let (mut session, bus) = input_session(native_test_id());
+    session.inputs[0].kind = InputKind::Application {
+        application_id: ApplicationSelector::MacBundle {
+            bundle_id: "org.example.Player".into(),
+            path: "/Applications/Player.app".into(),
+        }
+        .encode()
+        .unwrap(),
+    };
+    session.inputs[0].dsp.limiter = Some(relink_core::LimiterConfig {
+        ceiling_db: -6.0,
+        release_ms: 50.0,
+    });
+    let shared = Arc::new(Shared {
+        active_gate: arc_swap::ArcSwapOption::empty(),
+        state: Mutex::new(ControlState::default()),
+        epoch: AtomicU64::new(0),
+    });
+    let mut render = RenderState::new_with_capture_plan(
+        &session,
+        bus,
+        2,
+        0,
+        Arc::new(AtomicBool::new(true)),
+        shared,
+        0,
+        0,
+        vec![
+            InputId("process-root-a".into()),
+            InputId("process-root-b".into()),
+        ],
+        vec![CaptureGroupPlan {
+            source_indices: vec![0, 1],
+            input_ids: vec![session.inputs[0].id],
+        }],
+    )
+    .unwrap();
+    let mut producers: Vec<_> = render
+        .captures
+        .iter()
+        .map(|capture| Producer::new(capture.consumer.ring.clone()))
+        .collect();
+    for producer in &mut producers {
+        for _ in 0..5 {
+            producer.push_frames(256, |_| [0.4, -0.4]).unwrap();
+        }
+    }
+    let mut pcm = [0_f32; 512];
+    render.write(&mut pcm);
+    // Two independent per-process limiters would produce 0.8 here. The one
+    // logical channel must limit the complete 0.8 sum to the -6 dB ceiling.
+    let ceiling = 10_f32.powf(-6.0 / 20.0);
+    for frame in pcm.chunks_exact(2) {
+        assert!((frame[0] - ceiling).abs() < 0.00001, "{}", frame[0]);
+        assert!((frame[1] + ceiling).abs() < 0.00001);
+    }
+    assert_eq!(render.telemetry.fault.load(Ordering::Acquire), 0);
+    session.inputs[0].controls.muted = true;
+    let version = render
+        .bank
+        .publish(&PreparedControls::compile(&session, GRAPH_BYTES).unwrap())
+        .unwrap();
+    for producer in &mut producers {
+        producer.push_frames(256, |_| [0.4, -0.4]).unwrap();
+    }
+    render.write(&mut pcm);
+    assert_eq!(
+        render
+            .telemetry
+            .applied_control_version
+            .load(Ordering::Acquire),
+        version
+    );
+    assert!(pcm[480..].iter().all(|sample| *sample == 0.0));
+}
+
+#[test]
+fn incomplete_or_duplicated_capture_selection_is_rejected_before_owners_start() {
+    let (session, _) = input_session(native_test_id());
+    let id = session.inputs[0].id;
+    let one = vec![InputId("one".into())];
+    let group = CaptureGroupPlan {
+        source_indices: vec![0],
+        input_ids: vec![id],
+    };
+    validate_capture_layout(&session, &one, std::slice::from_ref(&group)).unwrap();
+    assert!(validate_capture_layout(&session, &one, &[]).is_err());
+    assert!(validate_capture_layout(&session, &[], std::slice::from_ref(&group)).is_err());
+    assert!(validate_capture_layout(
+        &session,
+        &[InputId("one".into()), InputId("one".into())],
+        &[CaptureGroupPlan {
+            source_indices: vec![0, 1],
+            input_ids: vec![id]
+        }]
+    )
+    .is_err());
+    assert!(validate_capture_layout(
+        &session,
+        &[InputId("one".into()), InputId("unused".into())],
+        &[group]
+    )
+    .is_err());
+    assert!(validate_capture_layout(
+        &session,
+        &one,
+        &[CaptureGroupPlan {
+            source_indices: vec![0],
+            input_ids: vec![Uuid::new_v4()]
+        }]
+    )
+    .is_err());
+}

@@ -1,3 +1,4 @@
+use super::capture_groups::CaptureGroupPlan;
 use super::capture_transport::{Consumer, Kernel, Producer, Ring, TransportError};
 #[cfg(any(not(target_os = "macos"), test))]
 use super::supported_pcm;
@@ -6,7 +7,7 @@ use super::{
     InputDevice, InputId, RunningInput, Shared, Telemetry, RENDER_CHUNK,
 };
 use cpal::traits::{DeviceTrait, HostTrait};
-use relink_core::{InputKind, Session, Uuid};
+use relink_core::{ApplicationSelector, InputKind, Session, Uuid};
 use std::{
     collections::BTreeMap,
     sync::{
@@ -55,11 +56,25 @@ pub(crate) fn source_groups(session: &Session) -> BTreeMap<String, Vec<Uuid>> {
 pub(crate) struct Selected {
     #[cfg(not(any(target_os = "windows", target_os = "macos")))]
     device: cpal::Device,
-    #[cfg(target_os = "macos")]
-    native: super::native_capture::Selection,
+    #[cfg(any(target_os = "macos", target_os = "windows"))]
+    native: NativeSelection,
     pub(crate) config: cpal::SupportedStreamConfig,
     pub(crate) configuration: RunningInput,
 }
+#[cfg(any(target_os = "macos", target_os = "windows"))]
+enum NativeSelection {
+    #[cfg(target_os = "macos")]
+    Device(super::native_capture::Selection),
+    #[cfg(target_os = "windows")]
+    Device,
+    Application(super::application::Selection),
+}
+
+pub(crate) struct CapturePlan {
+    pub(crate) sources: Vec<Selected>,
+    pub(crate) groups: Vec<CaptureGroupPlan>,
+}
+
 // Requested native owner stack size, shared by both implementations. The OS
 // may add guard pages and platform-private audio allocations outside this budget.
 pub(crate) const OWNER_STACK_BYTES: usize = 2 * 1024 * 1024;
@@ -74,10 +89,14 @@ pub(crate) fn checked_owner_bytes(
 }
 impl Selected {
     pub(crate) fn owner_bytes(&self) -> Result<usize, AudioError> {
-        #[cfg(target_os = "macos")]
-        let native = self.native.owner_bytes()?;
-        #[cfg(target_os = "windows")]
-        let native = super::wasapi_capture::owner_bytes(&self.configuration)?;
+        #[cfg(any(target_os = "macos", target_os = "windows"))]
+        let native = match &self.native {
+            #[cfg(target_os = "macos")]
+            NativeSelection::Device(selection) => selection.owner_bytes()?,
+            #[cfg(target_os = "windows")]
+            NativeSelection::Device => super::wasapi_capture::owner_bytes(&self.configuration)?,
+            NativeSelection::Application(selection) => selection.owner_bytes()?,
+        };
         #[cfg(not(any(target_os = "macos", target_os = "windows")))]
         let native = 0;
         let metadata = checked_owner_bytes([
@@ -104,8 +123,9 @@ pub(crate) fn selected_owner_bytes(selected: &[Selected]) -> Result<usize, Audio
         checked_owner_bytes([Some(sum), Some(item.owner_bytes()?)])
     })
 }
-pub(crate) fn select(session: &Session, host: &cpal::Host) -> Result<Vec<Selected>, AudioError> {
+pub(crate) fn select(session: &Session, host: &cpal::Host) -> Result<CapturePlan, AudioError> {
     let mut selected = Vec::new();
+    let mut groups = Vec::new();
     for (id, source_ids) in source_groups(session) {
         let native_id: cpal::DeviceId = id
             .parse()
@@ -163,16 +183,83 @@ pub(crate) fn select(session: &Session, host: &cpal::Host) -> Result<Vec<Selecte
                 }
             },
         };
+        groups.push(CaptureGroupPlan {
+            source_indices: vec![selected.len()],
+            input_ids: configuration.source_ids.clone(),
+        });
         selected.push(Selected {
             #[cfg(not(any(target_os = "windows", target_os = "macos")))]
             device,
             #[cfg(target_os = "macos")]
-            native,
+            native: NativeSelection::Device(native),
+            #[cfg(target_os = "windows")]
+            native: NativeSelection::Device,
             config,
             configuration,
         });
     }
-    Ok(selected)
+    let mut applications: BTreeMap<String, Vec<Uuid>> = BTreeMap::new();
+    for input in &session.inputs {
+        if let InputKind::Application { application_id } = &input.kind {
+            // Canonical serialization shares one native source group even if
+            // equivalent saved selectors originally used different JSON spacing.
+            let selector = ApplicationSelector::decode(application_id)
+                .and_then(|selector| selector.encode())
+                .map_err(|error| AudioError::InvalidSession(error.to_string()))?;
+            applications.entry(selector).or_default().push(input.id);
+        }
+    }
+    #[cfg(any(target_os = "macos", target_os = "windows"))]
+    {
+        let mut claimed = std::collections::BTreeSet::new();
+        for (id, input_ids) in applications {
+            let selections = super::application::select(&id, session.sample_rate)?;
+            if selections.is_empty() {
+                return Err(backend(
+                    "application selection",
+                    Some(id),
+                    "the selected application has no capture sources",
+                ));
+            }
+            let mut source_indices = Vec::with_capacity(selections.len());
+            for native in selections {
+                for instance in native.scope() {
+                    if !claimed.insert(*instance) {
+                        return Err(backend("application selection", Some(id),
+                            "selected applications have overlapping process scopes; choose one of these sources to prevent duplicate audio"));
+                    }
+                }
+                let config = native.configuration();
+                let configuration = RunningInput {
+                    device: InputDevice {
+                        id: InputId(native.key()),
+                        name: native.name(),
+                    },
+                    source_ids: input_ids.clone(),
+                    device_channels: config.channels(),
+                    sample_format: native.description(),
+                };
+                source_indices.push(selected.len());
+                selected.push(Selected {
+                    native: NativeSelection::Application(native),
+                    config,
+                    configuration,
+                });
+            }
+            groups.push(CaptureGroupPlan {
+                source_indices,
+                input_ids,
+            });
+        }
+    }
+    #[cfg(not(any(target_os = "macos", target_os = "windows")))]
+    if !applications.is_empty() {
+        return Err(AudioError::UnsupportedPlatform);
+    }
+    Ok(CapturePlan {
+        sources: selected,
+        groups,
+    })
 }
 #[cfg(any(not(target_os = "macos"), test))]
 pub(crate) fn select_config(
@@ -215,23 +302,34 @@ fn native_encoding_supported(format: cpal::SampleFormat) -> bool {
         true
     }
 }
-#[cfg(target_os = "windows")]
-pub(crate) type CaptureStream = super::wasapi_capture::WasapiCapture;
-#[cfg(target_os = "macos")]
-pub(crate) type CaptureStream = super::native_capture::NativeCapture;
+#[cfg(any(target_os = "macos", target_os = "windows"))]
+pub(crate) enum CaptureStream {
+    #[cfg(target_os = "windows")]
+    Device(super::wasapi_capture::WasapiCapture),
+    #[cfg(target_os = "macos")]
+    Device(super::native_capture::NativeCapture),
+    Application(super::application::ApplicationCapture),
+}
+#[cfg(any(target_os = "macos", target_os = "windows"))]
+impl CaptureStream {
+    pub(crate) fn play(&self) -> Result<(), AudioError> {
+        match self {
+            Self::Device(stream) => stream.play(),
+            Self::Application(stream) => stream.play(),
+        }
+    }
+}
 #[cfg(not(any(target_os = "windows", target_os = "macos")))]
 pub(crate) type CaptureStream = cpal::Stream;
 
 pub(crate) struct CaptureRender {
-    pub(crate) source_ids: Vec<Uuid>,
     pub(crate) consumer: Consumer,
     pub(crate) left: Vec<f32>,
     pub(crate) right: Vec<f32>,
 }
 impl CaptureRender {
-    pub(crate) fn new(source_ids: Vec<Uuid>, sample_rate: u32, kernel: Arc<Kernel>) -> Self {
+    pub(crate) fn new(sample_rate: u32, kernel: Arc<Kernel>) -> Self {
         Self {
-            source_ids,
             consumer: Consumer::new(Ring::new(), kernel, sample_rate),
             left: vec![0.0; RENDER_CHUNK],
             right: vec![0.0; RENDER_CHUNK],
@@ -321,7 +419,7 @@ impl CaptureState {
             },
         );
     }
-    #[cfg(target_os = "macos")]
+    #[cfg(any(target_os = "macos", target_os = "windows"))]
     pub(crate) fn permit(&self) -> CapturePermit {
         self.permit.clone()
     }
@@ -446,18 +544,26 @@ pub(crate) fn make_stream(
     })
 }
 
-#[cfg(target_os = "windows")]
+#[cfg(any(target_os = "macos", target_os = "windows"))]
 pub(crate) fn make_stream(
     selected: &Selected,
     state: CaptureState,
 ) -> Result<CaptureStream, AudioError> {
-    CaptureStream::build(&selected.configuration, &selected.config, state)
-}
-
-#[cfg(target_os = "macos")]
-pub(crate) fn make_stream(
-    selected: &Selected,
-    state: CaptureState,
-) -> Result<CaptureStream, AudioError> {
-    CaptureStream::build(&selected.native, state)
+    match &selected.native {
+        #[cfg(target_os = "windows")]
+        NativeSelection::Device => super::wasapi_capture::WasapiCapture::build(
+            &selected.configuration,
+            &selected.config,
+            state,
+        )
+        .map(CaptureStream::Device),
+        #[cfg(target_os = "macos")]
+        NativeSelection::Device(native) => {
+            super::native_capture::NativeCapture::build(native, state).map(CaptureStream::Device)
+        }
+        NativeSelection::Application(native) => {
+            super::application::ApplicationCapture::build(native, state)
+                .map(CaptureStream::Application)
+        }
+    }
 }

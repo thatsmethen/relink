@@ -8,11 +8,20 @@
 //! A command deadline cancels late output; it cannot kill a stuck OS call. A
 //! supervising process is still required for hard recovery from driver hangs.
 
+mod application;
+pub use application::ApplicationInfo;
+#[cfg(target_os = "macos")]
+mod application_macos;
+#[cfg(target_os = "windows")]
+mod application_windows;
 mod capture;
+mod capture_groups;
 mod capture_transport;
 mod control_bank;
 mod epoch_gate;
 mod output_render;
+#[cfg(target_os = "windows")]
+mod wasapi_application;
 use epoch_gate::EpochGate;
 use output_render::{FanoutRender, OutputRenderer, OutputTelemetry};
 mod output_sink;
@@ -73,12 +82,13 @@ mod wasapi_packet;
 #[allow(dead_code)]
 mod wasapi_render_packet;
 use capture::{CaptureRender, CaptureState};
+use capture_groups::{CaptureGroupPlan, CaptureGroups};
 use control_bank::ControlBank;
 
 use cpal::traits::{DeviceTrait, HostTrait};
 use relink_core::{
-    CompiledMixer, InputKind, MeterReading, PreparedControls, ResourceBudget, Session, StereoInput,
-    StereoOutput, Uuid,
+    ApplicationSelector, CompiledMixer, InputKind, MeterReading, PreparedControls, ResourceBudget,
+    Session, StereoOutput, Uuid,
 };
 use std::{
     fmt,
@@ -191,6 +201,7 @@ impl fmt::Display for AudioError {
         match self {
             Self::UnsupportedPlatform => f.write_str("Audio is supported on macOS/CoreAudio and Windows/WASAPI."),
             Self::RuntimeUnavailable => f.write_str("The audio control thread is unavailable. Restart the audio runtime."),
+            Self::Timeout { operation: "application discovery" } => f.write_str("Application discovery exceeded its deadline. The application list was not refreshed; existing playback was not changed."),
             Self::Timeout { operation: "device discovery" } => f.write_str("Audio device discovery exceeded its deadline. The device list was not refreshed; existing playback was not changed."),
             Self::Timeout { operation } => write!(f, "Audio {operation} exceeded its deadline. Output was cancelled; the device may be unresponsive."),
             Self::NotRunning => f.write_str("Start audio before updating live controls."),
@@ -443,6 +454,7 @@ type Reply<T> = mpsc::SyncSender<Result<T, AudioError>>;
 enum Command {
     Enumerate(Reply<Vec<OutputDevice>>),
     EnumerateInputs(Reply<Vec<InputDevice>>),
+    EnumerateApplications(Reply<Vec<ApplicationInfo>>),
     Start {
         session: Session,
         plan: OutputPlan,
@@ -513,6 +525,11 @@ impl AudioRuntime {
         let (tx, rx) = mpsc::sync_channel(1);
         self.send(Command::EnumerateInputs(tx))?;
         receive(rx, "device discovery")
+    }
+    pub fn enumerate_applications(&self) -> Result<Vec<ApplicationInfo>, AudioError> {
+        let (tx, rx) = mpsc::sync_channel(1);
+        self.send(Command::EnumerateApplications(tx))?;
+        receive(rx, "application discovery")
     }
     pub fn start(
         &self,
@@ -814,12 +831,11 @@ fn validate_session(session: &Session, bus: Uuid) -> Result<(), AudioError> {
             "the selected mix no longer exists".into(),
         ));
     }
-    if session
-        .inputs
-        .iter()
-        .any(|i| matches!(i.kind, InputKind::Application { .. }))
-    {
-        return Err(AudioError::InvalidSession("application capture requires a platform process tap and is not yet implemented; select a hardware or virtual input device".into()));
+    for input in &session.inputs {
+        if let InputKind::Application { application_id } = &input.kind {
+            ApplicationSelector::decode(application_id)
+                .map_err(|error| AudioError::InvalidSession(error.to_string()))?;
+        }
     }
     for id in capture::source_groups(session).keys() {
         if id.parse::<cpal::DeviceId>().is_err() {
@@ -944,6 +960,9 @@ fn runtime_loop(receiver: mpsc::Receiver<Command>, shared: Arc<Shared>) {
             }
             Ok(Command::EnumerateInputs(reply)) => {
                 let _ = reply.send(capture::enumerate());
+            }
+            Ok(Command::EnumerateApplications(reply)) => {
+                let _ = reply.send(application::enumerate());
             }
             Ok(Command::Start {
                 session,
@@ -1095,7 +1114,10 @@ fn start_stream(
             session.sample_rate,
         )?);
     }
-    let selected_inputs = capture::select(&session, &host)?;
+    let capture::CapturePlan {
+        sources: selected_inputs,
+        groups: capture_groups,
+    } = capture::select(&session, &host)?;
     let mut configuration = selected_outputs[clock_index].configuration(
         bus,
         selected_inputs
@@ -1121,7 +1143,7 @@ fn start_stream(
     let output_bytes = owner_bytes
         .checked_add(extra_bytes)
         .ok_or_else(|| AudioError::InvalidSession("output memory overflow".into()))?;
-    let mut render = RenderState::new_with_owner_budget(
+    let mut render = RenderState::new_with_capture_plan(
         &session,
         bus,
         usize::from(selected_outputs[clock_index].channels()),
@@ -1130,6 +1152,11 @@ fn start_stream(
         shared.clone(),
         output_bytes,
         capture::selected_owner_bytes(&selected_inputs)?,
+        selected_inputs
+            .iter()
+            .map(|source| source.configuration.device.id.clone())
+            .collect(),
+        capture_groups,
     )?;
     let mut followers =
         output_render::configure(&mut render, &plan, clock_index, gate.clone(), extra_bytes)?
@@ -1278,6 +1305,7 @@ struct RenderState {
     #[cfg(test)]
     channels: usize,
     captures: Vec<CaptureRender>,
+    capture_groups: CaptureGroups,
     priming_frames: u64,
     sample_rate: u32,
     left: Vec<f32>,
@@ -1367,6 +1395,7 @@ impl RenderState {
         )
     }
 
+    #[cfg(test)]
     #[allow(clippy::too_many_arguments)]
     fn new_with_owner_budget(
         session: &Session,
@@ -1378,6 +1407,47 @@ impl RenderState {
         output_bytes: usize,
         capture_owner_bytes: usize,
     ) -> Result<Self, AudioError> {
+        let (source_keys, groups): (Vec<_>, Vec<_>) = capture::source_groups(session)
+            .into_iter()
+            .enumerate()
+            .map(|(index, (key, input_ids))| {
+                (
+                    InputId(key),
+                    CaptureGroupPlan {
+                        source_indices: vec![index],
+                        input_ids,
+                    },
+                )
+            })
+            .unzip();
+        Self::new_with_capture_plan(
+            session,
+            bus,
+            channels,
+            epoch,
+            wanted,
+            shared,
+            output_bytes,
+            capture_owner_bytes,
+            source_keys,
+            groups,
+        )
+    }
+
+    #[allow(clippy::too_many_arguments)]
+    fn new_with_capture_plan(
+        session: &Session,
+        bus: Uuid,
+        channels: usize,
+        epoch: u64,
+        wanted: Arc<AtomicBool>,
+        shared: Arc<Shared>,
+        output_bytes: usize,
+        capture_owner_bytes: usize,
+        source_keys: Vec<InputId>,
+        groups: Vec<CaptureGroupPlan>,
+    ) -> Result<Self, AudioError> {
+        validate_capture_layout(session, &source_keys, &groups)?;
         if !(2..=usize::from(MAX_DEVICE_CHANNELS)).contains(&channels) {
             return Err(AudioError::InvalidSession(
                 "output needs a supported stereo PCM layout".into(),
@@ -1391,20 +1461,38 @@ impl RenderState {
             .ok_or_else(|| AudioError::InvalidSession("control count overflow".into()))?;
         let control_bytes = ControlBank::estimated_bytes(control_records)
             .ok_or_else(|| AudioError::InvalidSession("control memory overflow".into()))?;
-        let capture_ids = capture::source_groups(session);
-        let capture_bytes = capture_ids
+        let group_bytes = CaptureGroups::required_bytes(&groups, source_keys.len(), RENDER_CHUNK)
+            .map_err(|error| AudioError::InvalidSession(error.to_string()))?;
+        let raw_bytes = source_keys
             .len()
             .checked_mul(capture::bytes_per_capture())
-            .and_then(|n| {
-                n.checked_add(
-                    session
-                        .inputs
-                        .len()
-                        .checked_mul(std::mem::size_of::<Uuid>())?,
+            .filter(|bytes| *bytes <= GRAPH_BYTES)
+            .ok_or_else(|| {
+                AudioError::InvalidSession(
+                    "capture streams exceed the runtime memory budget".into(),
                 )
-            })
+            })?;
+        let mut capture_telemetry = Vec::new();
+        capture_telemetry
+            .try_reserve_exact(source_keys.len())
+            .map_err(|_| AudioError::InvalidSession("cannot allocate capture identities".into()))?;
+        let key_bytes =
+            source_keys
+                .iter()
+                .try_fold(0_usize, |sum, key| sum.checked_add(key.0.capacity()))
+                .and_then(|n| {
+                    n.checked_add(capture_telemetry.capacity().checked_mul(
+                        std::mem::size_of::<(InputId, Arc<capture_transport::Ring>)>(),
+                    )?)
+                })
+                .ok_or_else(|| {
+                    AudioError::InvalidSession("capture identity memory overflow".into())
+                })?;
+        let capture_bytes = Some(raw_bytes)
+            .and_then(|n| n.checked_add(key_bytes))
+            .and_then(|n| n.checked_add(group_bytes))
             .and_then(|n| {
-                n.checked_add(if capture_ids.is_empty() {
+                n.checked_add(if source_keys.is_empty() {
                     0
                 } else {
                     capture_transport::Kernel::bytes()
@@ -1437,21 +1525,24 @@ impl RenderState {
         let control_scratch = PreparedControls::compile(session, control_bytes)
             .map_err(|e| AudioError::InvalidSession(e.to_string()))?;
         let bank = Arc::new(ControlBank::new(&control_scratch));
-        let kernel = (!capture_ids.is_empty()).then(capture_transport::Kernel::new);
+        let capture_groups =
+            CaptureGroups::new(groups, source_keys.len(), RENDER_CHUNK, group_bytes)
+                .map_err(|error| AudioError::InvalidSession(error.to_string()))?;
+        let kernel = (!source_keys.is_empty()).then(capture_transport::Kernel::new);
         let mut telemetry = Telemetry::new(session);
+        telemetry.captures = std::mem::take(&mut capture_telemetry);
         telemetry.gate = Arc::new(EpochGate::new(wanted.clone()));
         telemetry.outputs.push(Arc::new(OutputTelemetry::default()));
-        let captures = capture_ids
+        let captures = source_keys
             .into_iter()
-            .map(|(device_id, source_ids)| {
+            .map(|device_id| {
                 let capture = CaptureRender::new(
-                    source_ids,
                     session.sample_rate,
                     kernel.as_ref().expect("capture kernel").clone(),
                 );
                 telemetry
                     .captures
-                    .push((InputId(device_id), capture.consumer.ring.clone()));
+                    .push((device_id, capture.consumer.ring.clone()));
                 capture
             })
             .collect();
@@ -1468,6 +1559,7 @@ impl RenderState {
             #[cfg(test)]
             channels,
             captures,
+            capture_groups,
             priming_frames: 0,
             sample_rate: session.sample_rate,
             left: vec![0.0; RENDER_CHUNK],
@@ -1615,16 +1707,23 @@ impl RenderState {
                     .consumer
                     .read(&mut capture.left[..count], &mut capture.right[..count]);
             }
-            let sources = self.captures.iter().flat_map(|capture| {
-                capture.source_ids.iter().map(move |&id| StereoInput {
-                    id,
-                    left: &capture.left[..count],
-                    right: &capture.right[..count],
-                })
-            });
+            if self
+                .capture_groups
+                .mix(
+                    self.captures
+                        .iter()
+                        .map(|capture| (&capture.left[..count], &capture.right[..count])),
+                    count,
+                )
+                .is_err()
+            {
+                fail(AudioFault::Render, FaultOrigin::MixerRender);
+                sink.clear();
+                return RenderOutcome::Silence;
+            }
             if self
                 .mixer
-                .render_sources(sources, &mut destinations, count)
+                .render_sources(self.capture_groups.sources(), &mut destinations, count)
                 .is_err()
             {
                 fail(AudioFault::Render, FaultOrigin::MixerRender);
@@ -1699,6 +1798,41 @@ impl RenderState {
             RenderOutcome::Silence
         }
     }
+}
+
+/// Resolve the complete graph on the control thread before any native owner
+/// starts. A missing application stream must never turn into silent fallback.
+fn validate_capture_layout(
+    session: &Session,
+    source_keys: &[InputId],
+    groups: &[CaptureGroupPlan],
+) -> Result<(), AudioError> {
+    use std::collections::BTreeSet;
+    let wanted: BTreeSet<_> = session
+        .inputs
+        .iter()
+        .filter_map(|input| (!matches!(input.kind, InputKind::TestTone { .. })).then_some(input.id))
+        .collect();
+    let actual: BTreeSet<_> = groups
+        .iter()
+        .flat_map(|group| group.input_ids.iter().copied())
+        .collect();
+    let raw: BTreeSet<_> = groups
+        .iter()
+        .flat_map(|group| group.source_indices.iter().copied())
+        .collect();
+    let keys: BTreeSet<_> = source_keys.iter().map(|key| key.0.as_str()).collect();
+    if wanted != actual
+        || raw.len() != source_keys.len()
+        || raw.iter().copied().ne(0..source_keys.len())
+        || keys.len() != source_keys.len()
+        || keys.contains("")
+    {
+        return Err(AudioError::InvalidSession(
+            "capture selection does not cover the complete source graph".into(),
+        ));
+    }
+    Ok(())
 }
 
 #[cfg(test)]

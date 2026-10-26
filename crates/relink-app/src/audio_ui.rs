@@ -13,6 +13,7 @@ use uuid::Uuid;
 
 pub enum Request {
     Refresh,
+    RefreshApplications,
     Start(Session, OutputPlan),
     Update(Session),
     Stop,
@@ -20,6 +21,7 @@ pub enum Request {
 #[derive(Clone, Copy)]
 enum Operation {
     Refresh,
+    RefreshApplications,
     Start,
     Update,
     Stop,
@@ -28,6 +30,7 @@ impl Request {
     fn operation(&self) -> Operation {
         match self {
             Self::Refresh => Operation::Refresh,
+            Self::RefreshApplications => Operation::RefreshApplications,
             Self::Start(..) => Operation::Start,
             Self::Update(_) => Operation::Update,
             Self::Stop => Operation::Stop,
@@ -45,6 +48,7 @@ pub struct Device {
 enum Event {
     Devices(Vec<Device>),
     Inputs(Vec<Device>),
+    Applications(Vec<Device>),
     Snapshot(Box<AudioSnapshot>),
     Finished {
         operation: Operation,
@@ -57,6 +61,9 @@ pub struct AudioUi {
     runtime: Option<Arc<AudioRuntime>>,
     pub devices: Vec<Device>,
     pub inputs: Vec<Device>,
+    pub applications: Vec<Device>,
+    pub applications_loaded: bool,
+    pub applications_error: Option<String>,
     pub busy: bool,
     pub error: Option<String>,
     snapshot: Option<AudioSnapshot>,
@@ -112,6 +119,20 @@ impl AudioUi {
                                         })
                                     })
                                 }
+                                Request::RefreshApplications => {
+                                    owner.enumerate_applications().map(|applications| {
+                                        let _ = sender.send(Event::Applications(
+                                            applications
+                                                .into_iter()
+                                                .map(|application| Device {
+                                                    id: application.id,
+                                                    name: application.name,
+                                                })
+                                                .collect(),
+                                        ));
+                                        None
+                                    })
+                                }
                                 Request::Start(session, plan) => owner
                                     .start_outputs_cancellable(session, plan, cancellation)
                                     .map(|_| None),
@@ -156,6 +177,9 @@ impl AudioUi {
             runtime,
             devices: vec![],
             inputs: vec![],
+            applications: vec![],
+            applications_loaded: false,
+            applications_error: None,
             busy: false,
             error,
             snapshot: None,
@@ -203,9 +227,20 @@ impl AudioUi {
                 if matches!(operation, Operation::Start) {
                     self.starting = true;
                 }
-                self.error = None;
+                if matches!(operation, Operation::RefreshApplications) {
+                    self.applications_error = None;
+                } else {
+                    self.error = None;
+                }
             }
-            Err(e) => self.error = Some(format!("Audio control unavailable: {e}")),
+            Err(e) => {
+                let error = Some(format!("Audio control unavailable: {e}"));
+                if matches!(operation, Operation::RefreshApplications) {
+                    self.applications_error = error;
+                } else {
+                    self.error = error;
+                }
+            }
         }
     }
     pub fn queue_controls(&mut self, session: Session) {
@@ -218,6 +253,10 @@ impl AudioUi {
             match event {
                 Event::Devices(devices) => self.devices = devices,
                 Event::Inputs(devices) => self.inputs = devices,
+                Event::Applications(applications) => {
+                    self.applications = applications;
+                    self.applications_loaded = true;
+                }
                 Event::Snapshot(snapshot) => {
                     if !snapshot.running
                         && (snapshot.error.is_some()
@@ -246,6 +285,14 @@ impl AudioUi {
                     }
                     if matches!(operation, Operation::Start) {
                         self.starting = false;
+                    }
+                    if matches!(operation, Operation::RefreshApplications) {
+                        self.applications_loaded = true;
+                        self.applications_error = result.err().map(|error| error.to_string());
+                        if self.applications_error.is_some() {
+                            self.applications.clear();
+                        }
+                        continue;
                     }
                     match result {
                         Ok(Some(version)) => self.wanted_version = version,
@@ -330,6 +377,11 @@ impl AudioUi {
             .map(|m| m.peak)
             .unwrap_or([0.0; 2])
     }
+
+    #[cfg(test)]
+    pub(crate) fn offline_for_test() -> Self {
+        tests::fixture().0
+    }
 }
 impl Drop for AudioUi {
     fn drop(&mut self) {
@@ -344,7 +396,7 @@ impl Drop for AudioUi {
 mod tests {
     use super::*;
 
-    fn fixture() -> (AudioUi, Receiver<Command>, SyncSender<Event>) {
+    pub(super) fn fixture() -> (AudioUi, Receiver<Command>, SyncSender<Event>) {
         let (commands, requests) = mpsc::sync_channel(4);
         let (sender, events) = mpsc::sync_channel(8);
         (
@@ -354,6 +406,9 @@ mod tests {
                 runtime: None,
                 devices: vec![],
                 inputs: vec![],
+                applications: vec![],
+                applications_loaded: false,
+                applications_error: None,
                 busy: false,
                 error: None,
                 snapshot: None,
@@ -499,5 +554,75 @@ mod tests {
             .unwrap();
         ui.poll();
         assert!(ui.error.is_some());
+    }
+
+    #[test]
+    fn application_catalog_failure_preserves_devices_and_does_not_start_or_cancel_audio() {
+        let (mut ui, requests, events) = fixture();
+        ui.inputs.push(Device {
+            id: "input".into(),
+            name: "Microphone".into(),
+        });
+        ui.devices.push(Device {
+            id: "output".into(),
+            name: "Speakers".into(),
+        });
+        ui.error = Some("Existing output error".into());
+        ui.send(Request::RefreshApplications);
+        assert!(matches!(
+            requests.recv().unwrap().request,
+            Request::RefreshApplications
+        ));
+        assert!(ui.busy);
+        assert_eq!(ui.error.as_deref(), Some("Existing output error"));
+        events
+            .send(Event::Finished {
+                operation: Operation::RefreshApplications,
+                result: Err(AudioError::UnsupportedPlatform),
+            })
+            .unwrap();
+        ui.poll();
+        assert!(!ui.busy && !ui.starting && !ui.cancelled);
+        assert!(ui.applications_loaded && ui.applications_error.is_some());
+        assert_eq!(ui.inputs[0].name, "Microphone");
+        assert_eq!(ui.devices[0].name, "Speakers");
+        assert_eq!(ui.error.as_deref(), Some("Existing output error"));
+        assert!(requests.try_recv().is_err());
+        ui.send(Request::Refresh);
+        assert!(matches!(requests.recv().unwrap().request, Request::Refresh));
+    }
+
+    #[test]
+    fn application_catalog_retry_is_independent_and_keeps_stable_selector_ids() {
+        let (mut ui, requests, events) = fixture();
+        let id = relink_core::ApplicationSelector::MacBundle {
+            bundle_id: "com.example.Player".into(),
+            path: "/Applications/Player.app".into(),
+        }
+        .encode()
+        .unwrap();
+        ui.applications_error = Some("Previous catalog failure".into());
+        ui.send(Request::RefreshApplications);
+        assert!(matches!(
+            requests.recv().unwrap().request,
+            Request::RefreshApplications
+        ));
+        events
+            .send(Event::Applications(vec![Device {
+                id: id.clone(),
+                name: "Player".into(),
+            }]))
+            .unwrap();
+        events
+            .send(Event::Finished {
+                operation: Operation::RefreshApplications,
+                result: Ok(None),
+            })
+            .unwrap();
+        ui.poll();
+        assert_eq!(ui.applications[0].id, id);
+        assert!(ui.applications_loaded && ui.applications_error.is_none());
+        assert!(!ui.busy && !ui.can_stop());
+        assert!(requests.try_recv().is_err());
     }
 }
