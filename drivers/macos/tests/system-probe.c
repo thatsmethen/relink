@@ -31,7 +31,7 @@ typedef struct {
 } Event;
 typedef struct {
     bool recording;
-    double amplitude, left_hz, right_hz;
+    double amplitude, left_amplitude, right_amplitude, left_hz, right_hz;
     uint64_t target_frames;
     float *pcm;
     Event *events;
@@ -42,7 +42,7 @@ typedef struct {
 } Context;
 typedef struct {
     const char *mode, *uid, *report, *wav, *events, *ready, *diagnostics;
-    double seconds, amplitude, left_hz, right_hz;
+    double seconds, amplitude, left_amplitude, right_amplitude, left_hz, right_hz;
 } Options;
 
 static uint64_t monotonic_ns(void) {
@@ -221,8 +221,8 @@ static OSStatus io_proc(AudioObjectID device, const AudioTimeStamp *now, const A
         float *samples = output->mBuffers[0].mData;
         for (UInt32 frame = 0; frame < count; frame++) {
             double time = (timestamp->mSampleTime + frame) / EXPECTED_RATE;
-            samples[frame * 2] = (float)(context->amplitude * sin(2.0 * PI * context->left_hz * time));
-            samples[frame * 2 + 1] = (float)(context->amplitude * sin(2.0 * PI * context->right_hz * time));
+            samples[frame * 2] = (float)(context->left_amplitude * sin(2.0 * PI * context->left_hz * time));
+            samples[frame * 2 + 1] = (float)(context->right_amplitude * sin(2.0 * PI * context->right_hz * time));
         }
     }
     context->events[event_index] = (Event){ timestamp->mSampleTime, timestamp->mHostTime, mach_absolute_time(), timestamp->mFlags, frames, count };
@@ -347,20 +347,28 @@ static bool write_report(const Options *o, AudioObjectID device, unsigned matche
     mach_timebase_info_data_t timebase; mach_timebase_info(&timebase);
     uint64_t frames = context ? atomic_load(&context->frames) : 0;
     uint64_t count = context ? atomic_load(&context->event_count) : 0;
-    fprintf(file, "{\"schema\":1,\"mode\":"); json_string(file, o->mode); fputs(",\"uid\":", file); json_string(file, o->uid);
-    fprintf(file, ",\"device_id\":%u,\"matches\":%u,\"status\":%d,\"stop_status\":%d,\"destroy_status\":%d,\"fault\":%u,\"complete\":%s,\"ready\":%s,\"frames\":%llu,\"events\":%llu,\"target_frames\":%llu,\"sample_rate\":48000,\"channels\":2,\"amplitude\":%.17g,\"left_hz\":%.17g,\"right_hz\":%.17g,\"started_monotonic_ns\":%llu,\"ended_monotonic_ns\":%llu,\"host_time_numer\":%u,\"host_time_denom\":%u}\n",
+    // Read-only discover preflight: never start/stop a client to establish use.
+    // An unsupported query is explicit unknown, not evidence of an idle cable.
+    UInt32 running = 0;
+    OSStatus running_status = kAudioHardwareUnknownPropertyError;
+    if (!strcmp(o->mode, "discover") && status == noErr && matches == 1)
+        running_status = read_exact(device, address(kAudioDevicePropertyDeviceIsRunningSomewhere,
+                                    kAudioObjectPropertyScopeGlobal), &running, sizeof running);
+    fprintf(file, "{\"schema\":1,\"device_running_status\":%d,\"device_is_running_somewhere\":%s,\"mode\":",
+            running_status, running_status != noErr || running > 1 ? "null" : running ? "true" : "false"); json_string(file, o->mode); fputs(",\"uid\":", file); json_string(file, o->uid);
+    fprintf(file, ",\"device_id\":%u,\"matches\":%u,\"status\":%d,\"stop_status\":%d,\"destroy_status\":%d,\"fault\":%u,\"complete\":%s,\"ready\":%s,\"frames\":%llu,\"events\":%llu,\"target_frames\":%llu,\"sample_rate\":48000,\"channels\":2,\"amplitude\":%.17g,\"left_amplitude\":%.17g,\"right_amplitude\":%.17g,\"left_hz\":%.17g,\"right_hz\":%.17g,\"started_monotonic_ns\":%llu,\"ended_monotonic_ns\":%llu,\"host_time_numer\":%u,\"host_time_denom\":%u}\n",
             device, matches, status, stop_status, destroy_status, context ? atomic_load(&context->fault) : 0, complete ? "true" : "false", ready ? "true" : "false",
-            (unsigned long long)frames, (unsigned long long)count, (unsigned long long)(context ? context->target_frames : 0), o->amplitude, o->left_hz, o->right_hz,
+            (unsigned long long)frames, (unsigned long long)count, (unsigned long long)(context ? context->target_frames : 0), o->amplitude, o->left_amplitude, o->right_amplitude, o->left_hz, o->right_hz,
             (unsigned long long)started_ns, (unsigned long long)ended_ns, timebase.numer, timebase.denom);
     return fclose(file) == 0;
 }
 static bool numeric(const char *value, double *output) {
     char *end = NULL; errno = 0; double result = strtod(value, &end);
-    if (errno || !end || *end || !isfinite(result)) return false;
+    if (errno || !end || end == value || *end || !isfinite(result)) return false;
     *output = result; return true;
 }
 static bool options(int argc, char **argv, Options *o) {
-    *o = (Options){.seconds = 20.0, .amplitude = 0.125, .left_hz = 440.0, .right_hz = 997.0};
+    *o = (Options){.seconds = 20.0, .amplitude = 0.125, .left_amplitude = NAN, .right_amplitude = NAN, .left_hz = 440.0, .right_hz = 997.0};
     if (argc < 2) return false;
     o->mode = argv[1];
     if (strcmp(o->mode, "discover") && strcmp(o->mode, "record") && strcmp(o->mode, "play")) return false;
@@ -375,20 +383,28 @@ static bool options(int argc, char **argv, Options *o) {
         else if (!strcmp(key, "--diagnostics")) o->diagnostics = value;
         else if (!strcmp(key, "--seconds")) { if (!numeric(value, &o->seconds)) return false; }
         else if (!strcmp(key, "--amplitude")) { if (!numeric(value, &o->amplitude)) return false; }
+        else if (!strcmp(key, "--left-amplitude")) { if (!numeric(value, &o->left_amplitude)) return false; }
+        else if (!strcmp(key, "--right-amplitude")) { if (!numeric(value, &o->right_amplitude)) return false; }
         else if (!strcmp(key, "--left-hz")) { if (!numeric(value, &o->left_hz)) return false; }
         else if (!strcmp(key, "--right-hz")) { if (!numeric(value, &o->right_hz)) return false; }
         else return false;
     }
+    // Explicit channel amplitudes override the shared amplitude regardless of
+    // argument order. Existing --amplitude and defaults retain both-channel behavior.
+    if (isnan(o->left_amplitude)) o->left_amplitude = o->amplitude;
+    if (isnan(o->right_amplitude)) o->right_amplitude = o->amplitude;
     bool io = strcmp(o->mode, "discover") != 0;
     return o->uid && *o->uid && o->report && (!io || (o->events && o->ready))
         && (strcmp(o->mode, "record") || o->wav) && o->seconds >= 0.25 && o->seconds <= 60.0
-        && o->amplitude >= 0.0 && o->amplitude <= 0.5 && o->left_hz >= 20.0 && o->left_hz < 20000.0
+        && o->amplitude >= 0.0 && o->amplitude <= 0.5
+        && o->left_amplitude >= 0.0 && o->left_amplitude <= 0.5
+        && o->right_amplitude >= 0.0 && o->right_amplitude <= 0.5 && o->left_hz >= 20.0 && o->left_hz < 20000.0
         && o->right_hz >= 20.0 && o->right_hz < 20000.0;
 }
 int main(int argc, char **argv) {
     Options o;
     if (!options(argc, argv, &o)) {
-        fprintf(stderr, "usage: system-probe discover|play|record --uid UID --report JSON [--seconds 20 --events CSV --ready FILE --wav WAV --diagnostics JSON --amplitude .125 --left-hz 440 --right-hz 997]\n");
+        fprintf(stderr, "usage: system-probe discover|play|record --uid UID --report JSON [--seconds 20 --events CSV --ready FILE --wav WAV --diagnostics JSON --amplitude .125 --left-amplitude .125 --right-amplitude .125 --left-hz 440 --right-hz 997]\n");
         return 2;
     }
     AudioObjectID device = kAudioObjectUnknown; unsigned matches = 0;
@@ -420,6 +436,7 @@ int main(int argc, char **argv) {
     }
     if (status == noErr) {
         context->recording = !strcmp(o.mode, "record"); context->amplitude = o.amplitude;
+        context->left_amplitude = o.left_amplitude; context->right_amplitude = o.right_amplitude;
         context->left_hz = o.left_hz; context->right_hz = o.right_hz;
         context->target_frames = (uint64_t)llround(o.seconds * EXPECTED_RATE);
         context->events = calloc(MAX_EVENTS, sizeof(Event));

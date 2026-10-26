@@ -7,19 +7,20 @@ that cable's input stream. Both use 48,000 Hz, packed interleaved Float32, two
 channels. Their device UIDs are `au.textual.ravelink.cable.1` and
 `au.textual.ravelink.cable.2`; the bundle ID is `au.textual.ravelink.hal`.
 
-The earlier one-cable source passed the fixed independent installed-host
-protocol in GitHub run 40039161891 (source `6484db8`, macOS 15.7.9 arm64).
-That observation covers basic stereo loopback, two readers and silence after a
-fresh start; it does not qualify the subsequent second cable or application
-capture/mix path. The dual-cable candidate has synthetic/private-host coverage
-and a separate installed runtime protocol awaiting its first observation.
-An unchanged-protocol run, **40041055533** at `b30dea6`, subsequently failed on a
-568-frame reader timestamp gap; a later run **40041275322** passed. Both outcomes
-remain evidence. Intermittent reader continuity is an unresolved release risk.
-Sleep/wake, aggregate devices, long-duration behavior and release distribution
-remain unqualified. See `tests/SYSTEM-ACCEPTANCE.md`,
-`tests/RUNTIME-ACCEPTANCE.md` and the preserved evidence under
-`research/evidence/rust-hal-installed-40039161891/`.
+The current two-cable implementation has a short hosted native observation at
+source `3533993`: [run 40261653701](https://github.com/thatsmethen/relink/actions/runs/40261653701)
+passed the separate installed HAL and Cable1 → Rust mixer → Cable2 protocols.
+The original PCM, timing, cleanup records and unchanged analysis are preserved in
+[the checkpoint evidence](../../research/evidence/rust-application-checkpoint-observation-40261653701/README.md).
+A separate short two-output internal-tone protocol passed at `69f49da` in
+[run 40257448775](https://github.com/thatsmethen/relink/actions/runs/40257448775).
+
+These results do not resolve the intermittent continuity failures in earlier
+observations, including [run 40257398426](https://github.com/thatsmethen/relink/actions/runs/40257398426).
+All outcomes remain preserved. Application capture, sleep/wake, physical devices,
+long-duration/load/restart behavior and release distribution remain unqualified.
+See `tests/SYSTEM-ACCEPTANCE.md`, `tests/RUNTIME-ACCEPTANCE.md`, and the prepared
+application protocol in `tests/APPLICATION-ACCEPTANCE.md`.
 
 ## Build and validate
 
