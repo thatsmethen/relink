@@ -60,6 +60,50 @@ pub(crate) struct Selected {
     pub(crate) config: cpal::SupportedStreamConfig,
     pub(crate) configuration: RunningInput,
 }
+// Requested native owner stack size, shared by both implementations. The OS
+// may add guard pages and platform-private audio allocations outside this budget.
+pub(crate) const OWNER_STACK_BYTES: usize = 2 * 1024 * 1024;
+pub(crate) const OWNER_CHANNEL_BYTES: usize = 3 * 4096;
+pub(crate) fn checked_owner_bytes(
+    parts: impl IntoIterator<Item = Option<usize>>,
+) -> Result<usize, AudioError> {
+    parts
+        .into_iter()
+        .try_fold(0_usize, |sum, part| sum.checked_add(part?))
+        .ok_or_else(|| AudioError::InvalidSession("capture owner memory estimate overflow".into()))
+}
+impl Selected {
+    pub(crate) fn owner_bytes(&self) -> Result<usize, AudioError> {
+        #[cfg(target_os = "macos")]
+        let native = self.native.owner_bytes()?;
+        #[cfg(target_os = "windows")]
+        let native = super::wasapi_capture::owner_bytes(&self.configuration)?;
+        #[cfg(not(any(target_os = "macos", target_os = "windows")))]
+        let native = 0;
+        let metadata = checked_owner_bytes([
+            Some(self.configuration.device.id.0.capacity()),
+            Some(self.configuration.device.name.capacity()),
+            Some(self.configuration.sample_format.capacity()),
+            self.configuration
+                .source_ids
+                .capacity()
+                .checked_mul(std::mem::size_of::<Uuid>()),
+        ])?;
+        // Selection metadata plus the two configuration copies held by startup
+        // and ControlState. These are separate from CaptureRender's alias list.
+        checked_owner_bytes([
+            Some(native),
+            Some(std::mem::size_of::<Self>()),
+            Some(2 * std::mem::size_of::<RunningInput>()),
+            metadata.checked_mul(3),
+        ])
+    }
+}
+pub(crate) fn selected_owner_bytes(selected: &[Selected]) -> Result<usize, AudioError> {
+    selected.iter().try_fold(0_usize, |sum, item| {
+        checked_owner_bytes([Some(sum), Some(item.owner_bytes()?)])
+    })
+}
 pub(crate) fn select(session: &Session, host: &cpal::Host) -> Result<Vec<Selected>, AudioError> {
     let mut selected = Vec::new();
     for (id, source_ids) in source_groups(session) {

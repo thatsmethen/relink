@@ -259,15 +259,8 @@ fn stale_epoch_cancelled_and_reentrant_native_callbacks_cannot_publish() {
     }
 }
 
-#[test]
-fn retained_native_block_survives_owner_drop_and_refuses_late_pcm() {
-    let (context, _shared, _telemetry) = context();
-    let weak = Arc::downgrade(&context);
-    let ring = context.ring.clone();
-    let callback = capture_block(context.clone());
-    let retained = callback.clone(); // Models the documented native Block_copy.
-    let uid = "offline-retained-block-fixture";
-    let owner = Owner {
+fn synthetic_owner(context: Arc<Context>, uid: &str) -> Owner {
+    Owner {
         selection: Selection {
             id: 9,
             uid: uid.into(),
@@ -276,16 +269,27 @@ fn retained_native_block_survives_owner_drop_and_refuses_late_pcm() {
             layout: context.layout.clone(),
             output_streams: 0,
         },
+        callback: Some(capture_block(context.clone())),
+        gate: context.gate.clone(),
+        ring: context.ring.clone(),
         context: Some(context),
-        callback,
-        gate: weak.upgrade().unwrap().gate.clone(),
         proc_id: None,
         started: false,
         listeners: Vec::new(),
-        reservation: Reservation::acquire(uid).unwrap(),
-    };
-    // No native stream was registered; this exercises actual owner revocation,
-    // quiescence accounting and destruction without invoking device APIs.
+        reservation: Some(Reservation::acquire(uid).unwrap()),
+        closed: false,
+    }
+}
+
+#[test]
+fn retained_native_block_survives_owner_drop_and_refuses_late_pcm() {
+    let (context, _shared, _telemetry) = context();
+    let weak = Arc::downgrade(&context);
+    let ring = context.ring.clone();
+    let uid = "offline-retained-block-fixture";
+    let owner = synthetic_owner(context, uid);
+    let retained = owner.callback.as_ref().unwrap().clone(); // native Block_copy model
+                                                             // No stream registered: actual owner revocation/drain/release without OS APIs.
     drop(owner);
     assert!(weak.upgrade().is_some());
     let mut pcm = [1.0_f32; 4];
@@ -297,7 +301,6 @@ fn retained_native_block_survives_owner_drop_and_refuses_late_pcm() {
     assert!(timing.lifecycle[NativeLifecyclePhase::ContextRetained as usize].is_none());
     drop(retained);
     assert!(weak.upgrade().is_none());
-    // Successful teardown releases this explicit UID reservation.
     assert!(Reservation::acquire(uid).is_ok());
 }
 
@@ -344,59 +347,6 @@ fn native_format_notification_latches_fault_without_allocating_and_gates_late_pc
 }
 
 #[test]
-fn unproven_native_quiescence_retains_context_and_blocks_uid_reuse() {
-    let (context, _shared, telemetry) = context();
-    let ring = context.ring.clone();
-    let weak = Arc::downgrade(&context);
-    let leaked_pointer = Arc::as_ptr(&context);
-    let callback = capture_block(context.clone());
-    let retained = callback.clone();
-    let uid = "offline-unquiesced-native-fixture";
-    context.in_flight.store(1, Ordering::Release);
-    let owner = Owner {
-        selection: Selection {
-            id: 9,
-            uid: uid.into(),
-            rate: 48000,
-            streams: Vec::new(),
-            layout: context.layout.clone(),
-            output_streams: 0,
-        },
-        context: Some(context),
-        callback,
-        gate: weak.upgrade().unwrap().gate.clone(),
-        proc_id: None,
-        started: false,
-        listeners: Vec::new(),
-        reservation: Reservation::acquire(uid).unwrap(),
-    };
-    drop(owner); // No native handle; only the actual bounded drain/retain path.
-    assert_eq!(fault(&telemetry), AudioFault::Backend);
-    assert!(Reservation::acquire(uid).is_err());
-    let timing = ring.native_timing.snapshot().unwrap();
-    assert_eq!(
-        timing.lifecycle[NativeLifecyclePhase::QuiescenceChecked as usize]
-            .unwrap()
-            .callbacks_in_flight,
-        Some(1)
-    );
-    assert!(timing.lifecycle[NativeLifecyclePhase::ContextRetained as usize].is_some());
-    assert!(timing.lifecycle[NativeLifecyclePhase::OwnerCompleted as usize].is_none());
-    let mut pcm = [1.0_f32; 4];
-    invoke(&retained, &mut buffers(&mut pcm), 0.0, 1);
-    assert_eq!(ring.captured.load(Ordering::Relaxed), 0);
-    drop(retained);
-    assert!(weak.upgrade().is_some());
-    // The fixture has no real in-flight callback. Recover exactly the Arc that
-    // Owner deliberately forgot, solely to avoid leaking synthetic test state.
-    let recovered = unsafe { Arc::from_raw(leaked_pointer) };
-    recovered.in_flight.store(0, Ordering::Release);
-    drop(recovered);
-    assert!(weak.upgrade().is_none());
-    RESERVED.get().unwrap().lock().unwrap().remove(uid);
-}
-
-#[test]
 fn native_overload_is_distinct_from_packet_and_reentry_faults_and_keeps_actual_address() {
     let (context, _shared, telemetry) = context();
     let registered = address(
@@ -426,4 +376,326 @@ fn native_overload_is_distinct_from_packet_and_reentry_faults_and_keeps_actual_a
     );
     assert_eq!(raw.packet_index, None);
     assert!(context.ring.native_timing.snapshot().is_none());
+}
+
+#[test]
+fn fixed_registry_bounds_distinct_pending_and_retained_capture_owners() {
+    let mut registry = Reservations::new();
+    for index in 0..MAX_RESERVATIONS {
+        registry.insert(&format!("input-{index}")).unwrap();
+    }
+    assert!(registry.insert("input-extra").is_err());
+    assert!(registry.insert("input-0").is_err());
+    registry.remove("input-0");
+    registry.insert("input-extra").unwrap();
+    assert!(registry.insert("input-0").is_err());
+    registry.remove("input-extra");
+    registry.insert("input-0").unwrap();
+    assert_eq!(registry.slots.iter().flatten().count(), MAX_RESERVATIONS);
+    registry.remove("input-0");
+    assert!(registry
+        .insert(&"x".repeat(MAX_PROPERTY_BYTES + 1))
+        .is_err());
+    registry.insert("input-0").unwrap();
+}
+
+#[test]
+fn duplicate_blocked_create_is_rejected_before_spawning_another_worker() {
+    let (entered_tx, entered_rx) = mpsc::sync_channel(1);
+    let (release_tx, release_rx) = mpsc::sync_channel(1);
+    let thread = spawn_owner("offline-blocked-input", move |_reservation| {
+        entered_tx.send(()).unwrap();
+        release_rx.recv().unwrap(); // models an unreturned native create call
+    })
+    .unwrap();
+    entered_rx.recv_timeout(Duration::from_secs(2)).unwrap();
+    let ran = Arc::new(AtomicBool::new(false));
+    let second_ran = ran.clone();
+    assert!(spawn_owner("offline-blocked-input", move |_| {
+        second_ran.store(true, Ordering::Release);
+    })
+    .is_err());
+    assert!(!ran.load(Ordering::Acquire));
+    release_tx.send(()).unwrap();
+    thread.join().unwrap();
+    assert!(Reservation::acquire("offline-blocked-input").is_ok());
+}
+
+#[test]
+fn late_native_start_success_cannot_reopen_cancelled_capture() {
+    for cause in 0..3 {
+        let (context, shared, telemetry) = context();
+        let callback = capture_block(context.clone());
+        match cause {
+            0 => context.gate.active.store(false, Ordering::Release),
+            1 => {
+                shared.epoch.store(8, Ordering::Release);
+            }
+            _ => context.gate.alive.store(false, Ordering::Release),
+        }
+        let result =
+            activation_result(finish_start(&context.gate, 71, 0), &context.gate.permit, 71);
+        assert!(matches!(result, Err(AudioError::Cancelled)));
+        assert!(!context.gate.accepting.load(Ordering::Acquire));
+        invoke(&callback, &mut buffers(&mut [0.25; 4]), 0.0, 1);
+        assert_eq!(context.ring.captured.load(Ordering::Relaxed), 0);
+        assert_eq!(fault(&telemetry), AudioFault::None);
+    }
+    let (context, _shared, telemetry) = context();
+    assert!(activation_result(
+        finish_start(&context.gate, 71, -50),
+        &context.gate.permit,
+        71
+    )
+    .is_err());
+    assert!(!context.gate.accepting.load(Ordering::Acquire));
+    assert_eq!(
+        telemetry.fault.snapshot().unwrap().metadata.unwrap().status,
+        Some(-50)
+    );
+}
+
+#[derive(Default)]
+struct FakeClose {
+    codes: [i32; 4],
+    calls: Vec<&'static str>,
+    events: std::cell::RefCell<Vec<(NativeLifecyclePhase, Option<i32>)>>,
+}
+impl CloseOps for FakeClose {
+    fn mark(&self, phase: NativeLifecyclePhase, status: Option<i32>) {
+        self.events.borrow_mut().push((phase, status));
+    }
+    fn stop(&mut self) -> i32 {
+        self.calls.push("stop");
+        self.codes[0]
+    }
+    fn destroy(&mut self) -> i32 {
+        self.calls.push("destroy");
+        self.codes[1]
+    }
+    fn remove(&mut self, index: usize) -> i32 {
+        self.calls.push("remove");
+        self.codes[2 + index]
+    }
+}
+#[test]
+fn native_teardown_preserves_each_failure_and_attempts_every_cleanup_step() {
+    for failed in 0..5 {
+        let mut ops = FakeClose::default();
+        if failed < 4 {
+            ops.codes[failed] = -50 - failed as i32;
+        }
+        let result = close_native(&mut ops, true, true, 2);
+        assert_eq!(ops.calls, ["stop", "destroy", "remove", "remove"]);
+        assert_eq!(result.quiescent, failed == 4);
+        assert_eq!(
+            result.first_failure,
+            (failed < 4).then_some((
+                -50 - failed as i32,
+                if failed >= 2 { Some(failed - 2) } else { None }
+            ))
+        );
+        let events = ops.events.borrow();
+        assert_eq!(
+            events[1],
+            (NativeLifecyclePhase::StopReturned, Some(ops.codes[0]))
+        );
+        assert_eq!(
+            events[3],
+            (NativeLifecyclePhase::DestroyReturned, Some(ops.codes[1]))
+        );
+        assert_eq!(
+            events[5],
+            (
+                NativeLifecyclePhase::ListenersRemovalReturned,
+                Some(if (2..4).contains(&failed) {
+                    ops.codes[failed]
+                } else {
+                    0
+                })
+            )
+        );
+    }
+    let mut ops = FakeClose {
+        codes: [-1, -2, -3, -4],
+        ..FakeClose::default()
+    };
+    assert_eq!(
+        close_native(&mut ops, true, true, 2).first_failure,
+        Some((-1, None))
+    );
+    let mut ops = FakeClose::default();
+    assert!(close_native(&mut ops, false, false, 0).quiescent);
+    assert!(ops.calls.is_empty());
+}
+
+#[test]
+fn successful_owner_completion_follows_block_context_listener_and_reservation_release() {
+    let (context, _shared, _telemetry) = context();
+    let weak = Arc::downgrade(&context);
+    let ring = context.ring.clone();
+    let mut owner = synthetic_owner(context, "offline-completion-input");
+    // Listener capture destruction witnesses that completion is still absent.
+    struct Witness(Arc<Ring>, Arc<AtomicBool>);
+    impl Drop for Witness {
+        fn drop(&mut self) {
+            assert!(self.0.native_timing.snapshot().is_none_or(|s| s.lifecycle
+                [NativeLifecyclePhase::OwnerCompleted as usize]
+                .is_none()));
+            self.1.store(true, Ordering::Release);
+        }
+    }
+    let released = Arc::new(AtomicBool::new(false));
+    let witness = Witness(ring.clone(), released.clone());
+    let listener = RcBlock::new(move |_: u32, _: NonNull<AudioObjectPropertyAddress>| {
+        std::hint::black_box(&witness);
+    });
+    owner.listeners.push(Listener {
+        object: 71,
+        address: address(1, 0),
+        block: listener,
+    });
+    owner.gate.alive.store(false, Ordering::Release);
+    owner.gate.accepting.store(false, Ordering::Release);
+    owner.finish_teardown(
+        CloseResult {
+            quiescent: true,
+            first_failure: None,
+        },
+        Duration::ZERO,
+    );
+    assert!(released.load(Ordering::Acquire));
+    assert!(weak.upgrade().is_none());
+    assert!(owner.callback.is_none());
+    assert!(owner.listeners.is_empty());
+    assert!(owner.reservation.is_none());
+    assert!(Reservation::acquire("offline-completion-input").is_ok());
+    let completed = ring.native_timing.snapshot().unwrap().lifecycle
+        [NativeLifecyclePhase::OwnerCompleted as usize]
+        .unwrap();
+    assert_eq!(completed.callbacks_in_flight, Some(0));
+    drop(owner); // Must not rerun native teardown or overwrite terminal evidence.
+    assert_eq!(
+        ring.native_timing.snapshot().unwrap().lifecycle
+            [NativeLifecyclePhase::OwnerCompleted as usize],
+        Some(completed)
+    );
+}
+
+#[test]
+fn each_unproven_teardown_retains_all_ownership_and_the_bounded_uid_slot() {
+    for case in 0..5 {
+        let (context, _shared, telemetry) = context();
+        let ring = context.ring.clone();
+        let weak = Arc::downgrade(&context);
+        let leaked_context = Arc::as_ptr(&context);
+        let uid = format!("offline-retained-input-{case}");
+        let mut owner = synthetic_owner(context, &uid);
+        let listener_address = address(
+            kAudioStreamPropertyVirtualFormat,
+            kAudioObjectPropertyScopeGlobal,
+        );
+        for object in [81, 82] {
+            owner.listeners.push(Listener {
+                object,
+                address: listener_address,
+                block: listener_block(
+                    owner.gate.clone(),
+                    object,
+                    listener_address,
+                    AudioFault::StreamInvalidated,
+                ),
+            });
+        }
+        // Capture raw ownership only to recover this entirely synthetic fixture
+        // after the production retain path is verified; no native API has it.
+        let leaked_callback = RcBlock::as_ptr(owner.callback.as_ref().unwrap());
+        let leaked_listeners = (
+            owner.listeners.as_mut_ptr(),
+            owner.listeners.len(),
+            owner.listeners.capacity(),
+        );
+        if case == 4 {
+            owner
+                .context
+                .as_ref()
+                .unwrap()
+                .in_flight
+                .store(1, Ordering::Release);
+        }
+        owner.gate.alive.store(false, Ordering::Release);
+        owner.gate.accepting.store(false, Ordering::Release);
+        let failure = if case == 4 {
+            None
+        } else {
+            Some((
+                -50 - case as i32,
+                if case >= 2 { Some(case - 2) } else { None },
+            ))
+        };
+        owner.finish_teardown(
+            CloseResult {
+                quiescent: case == 4,
+                first_failure: failure,
+            },
+            Duration::ZERO,
+        );
+        assert!(weak.upgrade().is_some());
+        assert!(Reservation::acquire(&uid).is_err());
+        let timing = ring.native_timing.snapshot().unwrap();
+        assert!(timing.lifecycle[NativeLifecyclePhase::ContextRetained as usize].is_some());
+        assert!(timing.lifecycle[NativeLifecyclePhase::OwnerCompleted as usize].is_none());
+        let metadata = telemetry.fault.snapshot().unwrap().metadata.unwrap();
+        assert_eq!(metadata.status, failure.map(|f| f.0));
+        assert_eq!(
+            metadata.native_object,
+            Some(if case == 2 {
+                81
+            } else if case == 3 {
+                82
+            } else {
+                9
+            })
+        );
+        let callback = unsafe { &*leaked_callback };
+        // Use the copied block without taking ownership until checks complete.
+        let mut pcm = [1.0_f32; 4];
+        let mut input = buffers(&mut pcm);
+        let mut stamp = timestamp(0.0, 1);
+        callback.call((
+            NonNull::from(&mut stamp),
+            NonNull::from(&mut input),
+            NonNull::from(&mut stamp),
+            NonNull::from(&mut input),
+            NonNull::from(&mut stamp),
+        ));
+        assert_eq!(ring.captured.load(Ordering::Relaxed), 0);
+        drop(owner);
+        assert!(ring.native_timing.snapshot().unwrap().lifecycle
+            [NativeLifecyclePhase::OwnerCompleted as usize]
+            .is_none());
+        // Recover precisely the application ownership that finish_teardown forgot.
+        unsafe {
+            drop(RcBlock::from_raw(leaked_callback).unwrap());
+            let recovered = Arc::from_raw(leaked_context);
+            recovered.in_flight.store(0, Ordering::Release);
+            drop(recovered);
+            drop(Vec::from_raw_parts(
+                leaked_listeners.0,
+                leaked_listeners.1,
+                leaked_listeners.2,
+            ));
+        }
+        assert!(weak.upgrade().is_none());
+        RESERVED.lock().unwrap().remove(&uid);
+    }
+}
+
+#[test]
+fn native_capture_owner_estimate_charges_explicit_stack_but_not_a_second_ring() {
+    let (context, _shared, _telemetry) = context();
+    let owner = synthetic_owner(context, "offline-input-budget");
+    let bytes = owner.selection.owner_bytes().unwrap();
+    assert!(bytes >= crate::capture::OWNER_STACK_BYTES + size_of::<Context>() + size_of::<Owner>());
+    assert!(bytes < crate::capture::OWNER_STACK_BYTES + Ring::bytes());
 }

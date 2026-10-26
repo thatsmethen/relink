@@ -963,7 +963,8 @@ fn start_stream(
             .map(|s| s.configuration.clone())
             .collect(),
     );
-    let render = RenderState::new_with_output_budget(
+    let capture_owner_bytes = capture::selected_owner_bytes(&selected_inputs)?;
+    let render = RenderState::new_with_owner_budget(
         &session,
         bus,
         usize::from(selected_output.channels()),
@@ -971,6 +972,7 @@ fn start_stream(
         wanted.clone(),
         shared.clone(),
         selected_output.owner_bytes()?,
+        capture_owner_bytes,
     )?;
     let permit = render.permit();
     let diagnostics = selected_output.diagnostics();
@@ -1162,6 +1164,7 @@ impl RenderState {
         Self::new_with_output_budget(session, bus, channels, epoch, wanted, shared, 0)
     }
 
+    #[cfg(test)]
     #[allow(clippy::too_many_arguments)]
     fn new_with_output_budget(
         session: &Session,
@@ -1171,6 +1174,29 @@ impl RenderState {
         wanted: Arc<AtomicBool>,
         shared: Arc<Shared>,
         output_bytes: usize,
+    ) -> Result<Self, AudioError> {
+        Self::new_with_owner_budget(
+            session,
+            bus,
+            channels,
+            epoch,
+            wanted,
+            shared,
+            output_bytes,
+            0,
+        )
+    }
+
+    #[allow(clippy::too_many_arguments)]
+    fn new_with_owner_budget(
+        session: &Session,
+        bus: Uuid,
+        channels: usize,
+        epoch: u64,
+        wanted: Arc<AtomicBool>,
+        shared: Arc<Shared>,
+        output_bytes: usize,
+        capture_owner_bytes: usize,
     ) -> Result<Self, AudioError> {
         if !(2..=usize::from(MAX_DEVICE_CHANNELS)).contains(&channels) {
             return Err(AudioError::InvalidSession(
@@ -1214,6 +1240,7 @@ impl RenderState {
             .and_then(|n| n.checked_add(control_bytes))
             .and_then(|n| n.checked_add(capture_bytes))
             .and_then(|n| n.checked_add(output_bytes))
+            .and_then(|n| n.checked_add(capture_owner_bytes))
             .and_then(|n| n.checked_add(std::mem::size_of::<Telemetry>()))
             .and_then(|n| GRAPH_BYTES.checked_sub(n))
             .ok_or_else(|| {

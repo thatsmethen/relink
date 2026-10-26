@@ -41,6 +41,32 @@ use windows::{
     },
 };
 
+pub(crate) fn owner_bytes(configuration: &RunningInput) -> Result<usize, AudioError> {
+    use super::capture::{checked_owner_bytes, OWNER_CHANNEL_BYTES, OWNER_STACK_BYTES};
+    use std::mem::size_of;
+    // Ring, ASRC and render scratch are charged separately by RenderState.
+    // This covers application-owned worker storage; COM/driver-private memory
+    // is opaque. It does not establish bounded Windows owner retention.
+    let id_bytes = configuration.device.id.0.len();
+    checked_owner_bytes([
+        Some(OWNER_STACK_BYTES),
+        Some(OWNER_CHANNEL_BYTES),
+        Some(size_of::<WasapiCapture>()),
+        Some(size_of::<NativeCapture>()),
+        Some(size_of::<CaptureState>()),
+        Some(size_of::<Tracker>()),
+        Some(size_of::<Layout>()),
+        Some(size_of::<AtomicBool>() + size_of::<[usize; 2]>()),
+        Some(configuration.device.name.len()),
+        // Parsed and owned ID strings plus the NUL-terminated UTF-16 endpoint.
+        id_bytes.checked_mul(2),
+        id_bytes
+            .checked_add(1)
+            .and_then(|n| n.checked_mul(size_of::<u16>())),
+        Some(size_of::<WAVEFORMATEXTENSIBLE>()),
+    ])
+}
+
 pub(crate) struct WasapiCapture {
     commands: mpsc::SyncSender<mpsc::SyncSender<Result<(), AudioError>>>,
     keep_running: Arc<AtomicBool>,
@@ -84,6 +110,7 @@ impl WasapiCapture {
         let active = keep_running.clone();
         thread::Builder::new()
             .name("ravelink-wasapi-capture".into())
+            .stack_size(super::capture::OWNER_STACK_BYTES)
             .spawn(move || {
                 owner_loop(
                     native_id,

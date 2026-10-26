@@ -395,3 +395,48 @@ fn independent_clock_drift_preserves_continuity_without_drops() {
         assert!((900..1150).contains(&occupancy), "occupancy={occupancy}");
     }
 }
+
+#[test]
+fn capture_owner_budget_rejects_overflow_and_is_added_to_render_cost_before_allocation() {
+    assert_eq!(
+        capture::checked_owner_bytes([Some(7), Some(9)]).unwrap(),
+        16
+    );
+    assert!(capture::checked_owner_bytes([Some(usize::MAX), Some(1)]).is_err());
+    assert!(capture::checked_owner_bytes([Some(7), usize::MAX.checked_mul(2)]).is_err());
+    assert_eq!(capture::selected_owner_bytes(&[]).unwrap(), 0);
+    let (session, bus) = input_session(native_test_id());
+    let runtime = AudioRuntime::new().unwrap();
+    let make = |output_bytes, capture_owner_bytes| {
+        RenderState::new_with_owner_budget(
+            &session,
+            bus,
+            2,
+            0,
+            Arc::new(AtomicBool::new(true)),
+            runtime.shared.clone(),
+            output_bytes,
+            capture_owner_bytes,
+        )
+    };
+    assert!(make(0, GRAPH_BYTES).is_err());
+    assert!(make(0, usize::MAX).is_err());
+    assert!(make(GRAPH_BYTES / 2, GRAPH_BYTES / 2).is_err());
+    // Reserve just enough for everything allocated by the zero-owner graph;
+    // adding even one owner stack must reject instead of omitting that charge.
+    let mut low = 0;
+    let mut high = GRAPH_BYTES;
+    while low + 1 < high {
+        let middle = low + (high - low) / 2;
+        if make(0, middle).is_ok() {
+            low = middle;
+        } else {
+            high = middle;
+        }
+    }
+    assert!(make(0, low).is_ok());
+    assert!(make(capture::OWNER_STACK_BYTES, low).is_err());
+    assert!(make(4 * 1024 * 1024, capture::OWNER_STACK_BYTES).is_ok());
+    assert!(!runtime.snapshot().running);
+    assert!(runtime.snapshot().output_timing.is_none());
+}

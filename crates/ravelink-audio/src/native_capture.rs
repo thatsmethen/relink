@@ -15,13 +15,12 @@ use objc2_core_audio_types::{AudioBufferList, AudioStreamBasicDescription, Audio
 use objc2_core_foundation::{CFRetained, CFString};
 use std::{
     cell::UnsafeCell,
-    collections::BTreeSet,
     ffi::c_void,
     mem::{offset_of, size_of, MaybeUninit},
     ptr::{self, NonNull},
     sync::{
         atomic::{AtomicBool, AtomicUsize, Ordering},
-        mpsc, Arc, Mutex, OnceLock,
+        mpsc, Arc, Mutex,
     },
     thread,
     time::{Duration, Instant},
@@ -31,6 +30,11 @@ const MAX_PROPERTY_BYTES: usize = 64 * 1024;
 const MAX_PLANES: usize = MAX_DEVICE_CHANNELS as usize;
 const POLL: Duration = Duration::from_millis(20);
 const QUIESCE: Duration = Duration::from_millis(250);
+const MAX_RESERVATIONS: usize = 64;
+const BASE_LISTENERS: usize = 8;
+// Application block headers/captures and bounded channel metadata reserve;
+// native driver/allocator internals are outside the application graph budget.
+const BLOCK_BYTES: usize = 256;
 
 #[derive(Clone, Debug, PartialEq)]
 struct NativeStream {
@@ -48,6 +52,45 @@ pub(crate) struct Selection {
     output_streams: usize,
 }
 impl Selection {
+    pub(crate) fn owner_bytes(&self) -> Result<usize, AudioError> {
+        use super::capture::{checked_owner_bytes, OWNER_CHANNEL_BYTES, OWNER_STACK_BYTES};
+        // The original Selected owns one selection; the worker owns its clone
+        // and Context owns a layout clone. Ring, ASRC, stereo scratch and source
+        // aliases are already charged by RenderState and are not charged here.
+        let streams = self
+            .streams
+            .capacity()
+            .checked_mul(size_of::<NativeStream>());
+        let planes = self
+            .layout
+            .planes
+            .capacity()
+            .checked_mul(size_of::<super::native_packet::Plane>());
+        let selection_heap = checked_owner_bytes([Some(self.uid.capacity()), streams, planes])?;
+        let listeners = self
+            .streams
+            .len()
+            .checked_mul(2)
+            .and_then(|n| n.checked_add(BASE_LISTENERS));
+        checked_owner_bytes([
+            Some(OWNER_STACK_BYTES),
+            Some(OWNER_CHANNEL_BYTES),
+            Some(size_of::<Owner>()),
+            Some(size_of::<Context>()),
+            Some(size_of::<Gate>()),
+            Some(size_of::<NativeCapture>()),
+            Some(size_of::<AtomicBool>() + 3 * size_of::<[usize; 2]>()),
+            selection_heap.checked_mul(2),
+            planes,
+            listeners.and_then(|n| n.checked_mul(size_of::<Listener>() + BLOCK_BYTES)),
+            Some(BLOCK_BYTES),
+            self.uid.len().checked_mul(2),
+            Some(size_of::<Mutex<Reservations>>()),
+            // One temporary reinspection and bounded native property buffers.
+            Some(selection_heap),
+            Some(4 * MAX_PROPERTY_BYTES),
+        ])
+    }
     pub(crate) fn configuration(&self) -> cpal::SupportedStreamConfig {
         // The transport normalizes native formats to f32; the native ASBDs are
         // retained separately and revalidated before activation.
@@ -337,13 +380,17 @@ impl NativeCapture {
         let (commands, receiver) = mpsc::sync_channel(1);
         let active = Arc::new(AtomicBool::new(true));
         let owner_active = active.clone();
-        let selection = selection.clone();
-        thread::Builder::new()
-            .name("ravelink-coreaudio-capture".into())
-            .spawn(move || {
-                owner_loop(selection, state, owner_active, receiver, ready_tx);
-            })
-            .map_err(|e| backend("native capture owner creation", None, e))?;
+        let owner_selection = selection.clone();
+        spawn_owner(&selection.uid, move |reservation| {
+            owner_loop(
+                owner_selection,
+                state,
+                owner_active,
+                receiver,
+                ready_tx,
+                reservation,
+            );
+        })?;
         let stream = Self {
             commands,
             active,
@@ -389,19 +436,34 @@ impl Drop for NativeCapture {
         self.cancel();
     }
 }
+fn spawn_owner(
+    uid: &str,
+    work: impl FnOnce(Reservation) + Send + 'static,
+) -> Result<thread::JoinHandle<()>, AudioError> {
+    // Admission occurs before creating a worker or calling CoreAudio. A blocked
+    // create holds one of the same bounded slots as a live or retained owner.
+    let reservation = Reservation::acquire(uid)
+        .map_err(|e| backend("native capture owner reservation", None, e))?;
+    thread::Builder::new()
+        .name("ravelink-coreaudio-capture".into())
+        .stack_size(super::capture::OWNER_STACK_BYTES)
+        .spawn(move || work(reservation))
+        .map_err(|e| backend("native capture owner creation", None, e))
+}
 fn owner_loop(
     selection: Selection,
     state: CaptureState,
     active: Arc<AtomicBool>,
     commands: mpsc::Receiver<StartReply>,
     ready: StartReply,
+    reservation: Reservation,
 ) {
     let permit = state.permit();
     if !active.load(Ordering::Acquire) || !permit.authorized() {
         let _ = ready.send(Err(AudioError::Cancelled));
         return;
     }
-    let mut native = match Owner::open(selection, state, active.clone()) {
+    let mut native = match Owner::open(selection, state, active.clone(), reservation) {
         Ok(native) => native,
         Err(error) => {
             let _ = ready.send(Err(backend("native input creation", None, error)));
@@ -422,19 +484,7 @@ fn owner_loop(
                     let _ = reply.send(Err(AudioError::Cancelled));
                     return;
                 }
-                let result = native
-                    .start()
-                    .map_err(|error| backend("native input activation", None, error));
-                if result.is_err() {
-                    permit.fail_at(
-                        AudioFault::Backend,
-                        FaultOrigin::NativeInputLifecycle,
-                        FaultMetadata {
-                            native_object: Some(native.selection.id),
-                            ..permit.metadata()
-                        },
-                    );
-                }
+                let result = activation_result(native.start(), &permit, native.selection.id);
                 let success = result.is_ok();
                 if !active.load(Ordering::Acquire) || !permit.authorized() {
                     let _ = reply.send(Err(AudioError::Cancelled));
@@ -456,16 +506,44 @@ struct Reservation {
     uid: String,
     release: bool,
 }
-static RESERVED: OnceLock<Mutex<BTreeSet<String>>> = OnceLock::new();
+struct Reservations {
+    slots: [Option<String>; MAX_RESERVATIONS],
+}
+impl Reservations {
+    const fn new() -> Self {
+        Self {
+            slots: [const { None }; MAX_RESERVATIONS],
+        }
+    }
+    fn insert(&mut self, uid: &str) -> Result<(), String> {
+        if uid.len() > MAX_PROPERTY_BYTES {
+            return Err("native input UID exceeds bounded storage".into());
+        }
+        if self.slots.iter().flatten().any(|entry| entry == uid) {
+            return Err("selected input still has a live or unquiesced owner; wait for shutdown or restart the application".into());
+        }
+        let slot = self.slots.iter_mut().find(|slot| slot.is_none())
+            .ok_or("native input owner capacity is exhausted; wait for shutdown or restart the application")?;
+        *slot = Some(uid.into());
+        Ok(())
+    }
+    fn remove(&mut self, uid: &str) {
+        if let Some(slot) = self
+            .slots
+            .iter_mut()
+            .find(|slot| slot.as_deref() == Some(uid))
+        {
+            *slot = None;
+        }
+    }
+}
+static RESERVED: Mutex<Reservations> = Mutex::new(Reservations::new());
 impl Reservation {
     fn acquire(uid: &str) -> Result<Self, String> {
         let mut reserved = RESERVED
-            .get_or_init(|| Mutex::new(BTreeSet::new()))
             .lock()
             .map_err(|_| "native owner registry is unavailable")?;
-        if !reserved.insert(uid.into()) {
-            return Err("selected input still has a live or unquiesced owner; wait for shutdown or restart the application".into());
-        }
+        reserved.insert(uid)?;
         Ok(Self {
             uid: uid.into(),
             release: true,
@@ -475,7 +553,7 @@ impl Reservation {
 impl Drop for Reservation {
     fn drop(&mut self) {
         if self.release {
-            if let Ok(mut reserved) = RESERVED.get().unwrap().lock() {
+            if let Ok(mut reserved) = RESERVED.lock() {
                 reserved.remove(&self.uid);
             }
         }
@@ -766,30 +844,34 @@ struct Listener {
 struct Owner {
     selection: Selection,
     context: Option<Arc<Context>>,
-    callback: CaptureBlock,
+    callback: Option<CaptureBlock>,
     gate: Arc<Gate>,
+    ring: Arc<Ring>,
     proc_id: AudioDeviceIOProcID,
     started: bool,
     listeners: Vec<Listener>,
-    reservation: Reservation,
+    reservation: Option<Reservation>,
+    closed: bool,
 }
 impl Owner {
     fn mark(&self, phase: NativeLifecyclePhase, status: Option<i32>) {
-        if let Some(context) = &self.context {
-            context.ring.native_timing.lifecycle(NativeLifecycleEvent {
-                phase,
-                host_time: unsafe { AudioGetCurrentHostTime() },
-                status,
-                callbacks_in_flight: Some(context.in_flight.load(Ordering::Acquire) as u64),
-            });
-        }
+        self.ring.native_timing.lifecycle(NativeLifecycleEvent {
+            phase,
+            host_time: unsafe { AudioGetCurrentHostTime() },
+            status,
+            callbacks_in_flight: Some(
+                self.context
+                    .as_ref()
+                    .map_or(0, |c| c.in_flight.load(Ordering::Acquire) as u64),
+            ),
+        });
     }
     fn open(
         selection: Selection,
         state: CaptureState,
         active: Arc<AtomicBool>,
+        reservation: Reservation,
     ) -> Result<Self, String> {
-        let reservation = Reservation::acquire(&selection.uid)?;
         if inspect(&selection.uid, selection.rate)? != selection {
             return Err("selected input changed since discovery".into());
         }
@@ -814,15 +896,18 @@ impl Owner {
             }),
         });
         let callback = capture_block(context.clone());
+        let listener_capacity = BASE_LISTENERS + selection.streams.len() * 2;
         let mut owner = Self {
             selection,
+            ring: context.ring.clone(),
             context: Some(context),
-            callback,
+            callback: Some(callback),
             gate,
             proc_id: None,
             started: false,
-            listeners: Vec::new(),
-            reservation,
+            listeners: Vec::with_capacity(listener_capacity),
+            reservation: Some(reservation),
+            closed: false,
         };
         owner.mark(NativeLifecyclePhase::CreateRequested, None);
         // Null dispatch queue invokes synchronously on CoreAudio's IO thread.
@@ -832,7 +917,7 @@ impl Owner {
                 NonNull::from(&mut owner.proc_id),
                 owner.selection.id,
                 None,
-                RcBlock::as_ptr(&owner.callback),
+                RcBlock::as_ptr(owner.callback.as_ref().unwrap()),
             )
         };
         owner.mark(NativeLifecyclePhase::CreateReturned, Some(created));
@@ -974,129 +1059,242 @@ impl Owner {
             )
         })
     }
-    fn start(&mut self) -> Result<(), String> {
+    fn start(&mut self) -> Result<(), StartError> {
         if self.started {
             return Ok(());
         }
         if !self.gate.authorized() {
-            return Err("capture was cancelled".into());
+            return Err(StartError::Cancelled);
         }
-        if inspect(&self.selection.uid, self.selection.rate)? != self.selection {
-            return Err("native input format changed before activation".into());
+        if inspect(&self.selection.uid, self.selection.rate).map_err(StartError::Native)?
+            != self.selection
+        {
+            return Err(StartError::Native(
+                "native input format changed before activation".into(),
+            ));
+        }
+        // Reinspection itself can block in the OS; cancellation during it must
+        // not start a new native stream when discovery eventually returns.
+        if !self.gate.authorized() {
+            return Err(StartError::Cancelled);
         }
         self.gate.accepting.store(true, Ordering::Release);
         self.started = true;
         self.mark(NativeLifecyclePhase::StartRequested, None);
         let started = unsafe { AudioDeviceStart(self.selection.id, self.proc_id) };
         self.mark(NativeLifecyclePhase::StartReturned, Some(started));
-        let result = status(started);
-        if result.is_err() {
-            self.gate.accepting.store(false, Ordering::Release);
-            self.gate.permit.fail_at(
+        finish_start(&self.gate, self.selection.id, started)
+    }
+}
+#[derive(Debug)]
+enum StartError {
+    Cancelled,
+    Native(String),
+}
+fn activation_result(
+    result: Result<(), StartError>,
+    permit: &CapturePermit,
+    object: AudioObjectID,
+) -> Result<(), AudioError> {
+    match result {
+        Ok(()) => Ok(()),
+        Err(StartError::Cancelled) => Err(AudioError::Cancelled),
+        Err(StartError::Native(error)) => {
+            permit.fail_at(
                 AudioFault::Backend,
                 FaultOrigin::NativeInputLifecycle,
                 FaultMetadata {
-                    native_object: Some(self.selection.id),
-                    status: Some(started),
-                    ..self.gate.permit.metadata()
+                    native_object: Some(object),
+                    ..permit.metadata()
                 },
             );
+            Err(backend("native input activation", None, error))
         }
-        result
     }
+}
+fn finish_start(gate: &Gate, object: AudioObjectID, started: i32) -> Result<(), StartError> {
+    if started != 0 {
+        gate.accepting.store(false, Ordering::Release);
+        gate.permit.fail_at(
+            AudioFault::Backend,
+            FaultOrigin::NativeInputLifecycle,
+            FaultMetadata {
+                native_object: Some(object),
+                status: Some(started),
+                ..gate.permit.metadata()
+            },
+        );
+        return status(started).map_err(StartError::Native);
+    }
+    // An OS call can complete after the control caller times out. Never report
+    // that late success as activated or leave the publication gate open.
+    if !gate.authorized() {
+        gate.accepting.store(false, Ordering::Release);
+        return Err(StartError::Cancelled);
+    }
+    Ok(())
+}
+trait CloseOps {
+    fn mark(&self, phase: NativeLifecyclePhase, status: Option<i32>);
+    fn stop(&mut self) -> i32;
+    fn destroy(&mut self) -> i32;
+    fn remove(&mut self, index: usize) -> i32;
+}
+#[derive(Debug, PartialEq, Eq)]
+struct CloseResult {
+    quiescent: bool,
+    first_failure: Option<(i32, Option<usize>)>,
+}
+fn close_native(
+    ops: &mut impl CloseOps,
+    started: bool,
+    created: bool,
+    listeners: usize,
+) -> CloseResult {
+    let mut result = CloseResult {
+        quiescent: true,
+        first_failure: None,
+    };
+    if started {
+        ops.mark(NativeLifecyclePhase::StopRequested, None);
+        let code = ops.stop();
+        ops.mark(NativeLifecyclePhase::StopReturned, Some(code));
+        if code != 0 {
+            result.quiescent = false;
+            result.first_failure = Some((code, None));
+        }
+    }
+    if created {
+        ops.mark(NativeLifecyclePhase::DestroyRequested, None);
+        let code = ops.destroy();
+        ops.mark(NativeLifecyclePhase::DestroyReturned, Some(code));
+        if code != 0 {
+            result.quiescent = false;
+            result.first_failure.get_or_insert((code, None));
+        }
+    }
+    ops.mark(NativeLifecyclePhase::ListenersRemovalRequested, None);
+    let mut removal = 0;
+    for index in 0..listeners {
+        let code = ops.remove(index);
+        if code != 0 {
+            result.quiescent = false;
+            if removal == 0 {
+                removal = code;
+            }
+            result.first_failure.get_or_insert((code, Some(index)));
+        }
+    }
+    ops.mark(
+        NativeLifecyclePhase::ListenersRemovalReturned,
+        Some(removal),
+    );
+    result
+}
+struct NativeClose<'a>(&'a Owner);
+impl CloseOps for NativeClose<'_> {
+    fn mark(&self, phase: NativeLifecyclePhase, status: Option<i32>) {
+        self.0.mark(phase, status);
+    }
+    fn stop(&mut self) -> i32 {
+        unsafe { AudioDeviceStop(self.0.selection.id, self.0.proc_id) }
+    }
+    fn destroy(&mut self) -> i32 {
+        unsafe { AudioDeviceDestroyIOProcID(self.0.selection.id, self.0.proc_id) }
+    }
+    fn remove(&mut self, index: usize) -> i32 {
+        let listener = &self.0.listeners[index];
+        unsafe {
+            AudioObjectRemovePropertyListenerBlock(
+                listener.object,
+                NonNull::from(&listener.address),
+                None,
+                RcBlock::as_ptr(&listener.block),
+            )
+        }
+    }
+}
+fn drained(context: &Context, timeout: Duration) -> bool {
+    let deadline = Instant::now() + timeout;
+    while context.in_flight.load(Ordering::Acquire) != 0 && Instant::now() < deadline {
+        thread::sleep(Duration::from_millis(1));
+    }
+    context.in_flight.load(Ordering::Acquire) == 0
 }
 impl Drop for Owner {
     fn drop(&mut self) {
+        if self.closed {
+            return;
+        }
         // Revoke before every potentially blocking native teardown operation.
         self.gate.alive.store(false, Ordering::Release);
         self.gate.accepting.store(false, Ordering::Release);
         self.mark(NativeLifecyclePhase::GatesRevoked, None);
-        let mut quiescent = true;
-        let mut first_failure = None;
-        if self.started {
-            self.mark(NativeLifecyclePhase::StopRequested, None);
-            let stopped = unsafe { AudioDeviceStop(self.selection.id, self.proc_id) };
-            self.mark(NativeLifecyclePhase::StopReturned, Some(stopped));
-            quiescent &= stopped == 0;
-            if stopped != 0 {
-                first_failure = Some(FaultMetadata {
-                    native_object: Some(self.selection.id),
-                    status: Some(stopped),
-                    ..self.gate.permit.metadata()
-                });
-            }
+        let result = close_native(
+            &mut NativeClose(self),
+            self.started,
+            self.proc_id.is_some(),
+            self.listeners.len(),
+        );
+        self.finish_teardown(result, QUIESCE);
+    }
+}
+impl Owner {
+    fn finish_teardown(&mut self, result: CloseResult, timeout: Duration) {
+        if self.closed {
+            return;
         }
-        if self.proc_id.is_some() {
-            self.mark(NativeLifecyclePhase::DestroyRequested, None);
-            let destroyed = unsafe { AudioDeviceDestroyIOProcID(self.selection.id, self.proc_id) };
-            self.mark(NativeLifecyclePhase::DestroyReturned, Some(destroyed));
-            quiescent &= destroyed == 0;
-            if destroyed != 0 && first_failure.is_none() {
-                first_failure = Some(FaultMetadata {
-                    native_object: Some(self.selection.id),
-                    status: Some(destroyed),
-                    ..self.gate.permit.metadata()
-                });
+        let callbacks_drained = self
+            .context
+            .as_ref()
+            .is_none_or(|context| drained(context, timeout));
+        self.mark(NativeLifecyclePhase::QuiescenceChecked, None);
+        self.closed = true;
+        if result.quiescent && callbacks_drained {
+            self.proc_id = None;
+            self.started = false;
+            self.listeners.clear();
+            drop(self.callback.take());
+            drop(self.context.take());
+            drop(self.reservation.take());
+            // This mark is observable only after our callback/context/listener
+            // ownership and exact UID reservation have actually been released.
+            self.mark(NativeLifecyclePhase::OwnerCompleted, None);
+        } else {
+            if let Some(reservation) = &mut self.reservation {
+                reservation.release = false;
             }
-        }
-        self.mark(NativeLifecyclePhase::ListenersRemovalRequested, None);
-        let mut removal_status = 0;
-        for listener in &self.listeners {
-            let removed = unsafe {
-                AudioObjectRemovePropertyListenerBlock(
-                    listener.object,
-                    NonNull::from(&listener.address),
-                    None,
-                    RcBlock::as_ptr(&listener.block),
-                )
+            self.mark(NativeLifecyclePhase::ContextRetained, None);
+            let mut metadata = FaultMetadata {
+                native_object: Some(self.selection.id),
+                ..self.gate.permit.metadata()
             };
-            if removal_status == 0 {
-                removal_status = removed;
-            }
-            quiescent &= removed == 0;
-            if removed != 0 && first_failure.is_none() {
-                first_failure = Some(FaultMetadata {
-                    native_object: Some(listener.object),
-                    status: Some(removed),
-                    property: Some(FaultProperty {
+            if let Some((status, index)) = result.first_failure {
+                metadata.status = Some(status);
+                if let Some(listener) = index.and_then(|i| self.listeners.get(i)) {
+                    metadata.native_object = Some(listener.object);
+                    metadata.property = Some(FaultProperty {
                         selector: listener.address.mSelector,
                         scope: listener.address.mScope,
                         element: listener.address.mElement,
-                    }),
-                    ..self.gate.permit.metadata()
-                });
-            }
-        }
-        self.mark(
-            NativeLifecyclePhase::ListenersRemovalReturned,
-            Some(removal_status),
-        );
-        if let Some(context) = &self.context {
-            let deadline = Instant::now() + QUIESCE;
-            while context.in_flight.load(Ordering::Acquire) != 0 && Instant::now() < deadline {
-                thread::sleep(Duration::from_millis(1));
-            }
-            quiescent &= context.in_flight.load(Ordering::Acquire) == 0;
-        }
-        self.mark(NativeLifecyclePhase::QuiescenceChecked, None);
-        if !quiescent {
-            // A late OS callback must never reach freed state. This also keeps
-            // its UID reserved, so repeated starts cannot accumulate contexts.
-            self.reservation.release = false;
-            self.mark(NativeLifecyclePhase::ContextRetained, None);
-            if let Some(context) = self.context.take() {
-                std::mem::forget(context);
+                    });
+                }
             }
             self.gate.permit.fail_at(
                 AudioFault::Backend,
                 FaultOrigin::NativeInputLifecycle,
-                first_failure.unwrap_or_else(|| FaultMetadata {
-                    native_object: Some(self.selection.id),
-                    ..self.gate.permit.metadata()
-                }),
+                metadata,
             );
-        } else {
-            self.mark(NativeLifecyclePhase::OwnerCompleted, None);
+            // An unsuccessful API return cannot prove that a future entry is
+            // absent. Retain our blocks, their captured Arcs and their context,
+            // as well as the fixed registry tombstone, with publication revoked.
+            if let Some(context) = self.context.take() {
+                std::mem::forget(context);
+            }
+            if let Some(callback) = self.callback.take() {
+                std::mem::forget(callback);
+            }
+            std::mem::forget(std::mem::take(&mut self.listeners));
         }
     }
 }
