@@ -1,0 +1,26 @@
+{
+  "Rust-COPYRIGHT-library.html": {
+    "source": "share/doc/rust/COPYRIGHT-library.html",
+    "sha256": "c90d52b09be83ce6e930d00f4b26559611eadcee806b2307184e04f2c78ad522"
+  },
+  "Rust-MIT.txt": {
+    "source": "share/doc/rust/licenses/MIT.txt",
+    "sha256": "b85dcd3e453d05982552c52b5fc9e0bdd6d23c6f8e844b984a88af32570b0cc0"
+  },
+  "Rust-Apache-2.0.txt": {
+    "source": "share/doc/rust/licenses/Apache-2.0.txt",
+    "sha256": "074e6e32c86a4c0ef8b3ed25b721ca23aca83df277cd88106ef7177c354615ff"
+  },
+  "Rust-Unicode-3.0.txt": {
+    "source": "share/doc/rust/licenses/Unicode-3.0.txt",
+    "sha256": "f5062c9a188d81dfe66b56db4182dcf9e4b17c0d9b0d311a8e20b3a1b075c443"
+  },
+  "compiler-builtins-LICENSE.txt": {
+    "source": "lib/rustlib/src/rust/library/compiler-builtins/LICENSE.txt",
+    "sha256": "ab6eec6caf0fa5775e411c7a8bc6a45c4ef2956b0980b157ab74fc5cd62a928b"
+  },
+  "compiler-builtins-libm-LICENSE.txt": {
+    "source": "lib/rustlib/src/rust/library/compiler-builtins/libm/LICENSE.txt",
+    "sha256": "3823dda7cf046602f4b4e77ec8e227863dc4736037cc85bb33d9f19febe16bb7"
+  }
+}

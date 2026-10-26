@@ -1,0 +1,286 @@
+{
+  "README.md": {
+    "bytes": 6545,
+    "sha256": "4e4d3fceece968d4c4b4eeed10094a73c8934bd944dff6269ca3f846b97bbb98"
+  },
+  "collect.py": {
+    "bytes": 9993,
+    "sha256": "f45817cca16f28c688b8620dd464cd216dcba6060b5eae6a7ca24a09e930e52f"
+  },
+  "collected-at.json": {
+    "bytes": 61,
+    "sha256": "fbbfe230e67fd16a7645ba39ef54bedcb2cf7ebca4d2fd85a4e00eb90c3d2e9d"
+  },
+  "collection.json": {
+    "bytes": 3380,
+    "sha256": "25e6cdaa72d6af08ae33cdb6bb11393822659b8b086b20ba2e5a7358eea54628"
+  },
+  "derived-verification.json": {
+    "bytes": 36094,
+    "sha256": "ac2fd04c86027cf5c86a953415bf494e4201867df977108f979c8cd1c8531a3d"
+  },
+  "multioutput-original-text/before-cable-1-discovery.json": {
+    "bytes": 389,
+    "sha256": "2aa323e041cbb6ae371b2f95ac754994a444d0b8cdca44354851bc6c2b41562c"
+  },
+  "multioutput-original-text/before-cable-1-discovery.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "multioutput-original-text/before-cable-2-discovery.json": {
+    "bytes": 389,
+    "sha256": "8296f53ae3f142ebea7560a3cc3f0600d41df023c094251cc06ac4e8138a06a0"
+  },
+  "multioutput-original-text/before-cable-2-discovery.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "multioutput-original-text/build-driver.log": {
+    "bytes": 576,
+    "sha256": "ffbf074280e6b5a9dc5488e0a1f45242d4c9624be021618beacdb15d0d275f59"
+  },
+  "multioutput-original-text/build-runtime.log": {
+    "bytes": 2189,
+    "sha256": "1174af26204ccf527dff8acb6ddc4c8028ab0c93833c63392c593fce1c993e2f"
+  },
+  "multioutput-original-text/build-sha256.txt": {
+    "bytes": 1738,
+    "sha256": "61621e7fbc75bf2f556e9ec2be3624bfdd499cfe48956b497d6b95917750c1ba"
+  },
+  "multioutput-original-text/cleanup-attempt-0-cable-1-0-discovery.json": {
+    "bytes": 389,
+    "sha256": "2aa323e041cbb6ae371b2f95ac754994a444d0b8cdca44354851bc6c2b41562c"
+  },
+  "multioutput-original-text/cleanup-attempt-0-cable-1-0-discovery.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "multioutput-original-text/cleanup-attempt-0-cable-2-0-discovery.json": {
+    "bytes": 389,
+    "sha256": "8296f53ae3f142ebea7560a3cc3f0600d41df023c094251cc06ac4e8138a06a0"
+  },
+  "multioutput-original-text/cleanup-attempt-0-cable-2-0-discovery.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "multioutput-original-text/cleanup-attempt-0-remove.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "multioutput-original-text/cleanup-attempt-0-restart.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "multioutput-original-text/cleanup-attempt-0.json": {
+    "bytes": 1349,
+    "sha256": "ddb5a24855be1526a4a5c71bc357c9fefb7e770947870d72d57441c653d55562"
+  },
+  "multioutput-original-text/cleanup-attempt-3-cable-1-0-discovery.json": {
+    "bytes": 389,
+    "sha256": "2aa323e041cbb6ae371b2f95ac754994a444d0b8cdca44354851bc6c2b41562c"
+  },
+  "multioutput-original-text/cleanup-attempt-3-cable-1-0-discovery.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "multioutput-original-text/cleanup-attempt-3-cable-2-0-discovery.json": {
+    "bytes": 389,
+    "sha256": "8296f53ae3f142ebea7560a3cc3f0600d41df023c094251cc06ac4e8138a06a0"
+  },
+  "multioutput-original-text/cleanup-attempt-3-cable-2-0-discovery.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "multioutput-original-text/cleanup-attempt-3.json": {
+    "bytes": 1349,
+    "sha256": "f95ae8fe75b9a67ef0f5acd11576c64dac4e72cc064360bb389753fd8eec0d78"
+  },
+  "multioutput-original-text/cleanup.json": {
+    "bytes": 1349,
+    "sha256": "f95ae8fe75b9a67ef0f5acd11576c64dac4e72cc064360bb389753fd8eec0d78"
+  },
+  "multioutput-original-text/custody-manifest.json": {
+    "bytes": 9271,
+    "sha256": "b0eecb1dcb9433fa48a7973753a03ab5582d81c5bfdd3660f6f39015498eec06"
+  },
+  "multioutput-original-text/environment.txt": {
+    "bytes": 464,
+    "sha256": "e5f354609120b5fa1703dbc02364060b0400965a3743c1366628380ba1be807d"
+  },
+  "multioutput-original-text/install-restart.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "multioutput-original-text/install.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "multioutput-original-text/installation-owner.json": {
+    "bytes": 1745,
+    "sha256": "71e86ea2ba5c4e46dc147b46869dff155c84112a372b59e84d360502db49d1cd"
+  },
+  "multioutput-original-text/installed-cable-1-0-discovery.json": {
+    "bytes": 390,
+    "sha256": "90e5c68366dae8ca73929f06b6408dc8991791036996d8c1c264ed0c548ca452"
+  },
+  "multioutput-original-text/installed-cable-1-0-discovery.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "multioutput-original-text/installed-cable-2-0-discovery.json": {
+    "bytes": 390,
+    "sha256": "678144e806fa78b8f0866c37ff682513d72e9f514196f4588650a56492b25d3e"
+  },
+  "multioutput-original-text/installed-cable-2-0-discovery.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "multioutput-original-text/installed-devices.json": {
+    "bytes": 1133,
+    "sha256": "875ae3544dda903dbd6aea493c491ea90849084173816c6e3b292765a620e6d0"
+  },
+  "multioutput-original-text/multioutput-acceptance.json": {
+    "bytes": 34388,
+    "sha256": "448ff0bdd79cf69b2211a582406951132b4b3841cbc2c93551c145d1bb64aa46"
+  },
+  "multioutput-original-text/multioutput-analysis.json": {
+    "bytes": 24458,
+    "sha256": "fddd55f6baa82ee2fe31c9a03e1428d5c432a331ecbc3847631a05071e611fca"
+  },
+  "multioutput-original-text/multioutput-events.jsonl": {
+    "bytes": 4801,
+    "sha256": "4a2436522fcb439326fcff7f27f27edb813922c8d83ee3dfdbb1ea312894c9a8"
+  },
+  "multioutput-original-text/multioutput-reader-0-diagnostics-analysis.json": {
+    "bytes": 2377,
+    "sha256": "e5feb59f095996e0f8c6ee4c1c3c7ee2cf6c092f0d28c7376173300e18b8a364"
+  },
+  "multioutput-original-text/multioutput-reader-0.json": {
+    "bytes": 424,
+    "sha256": "70c0a84abc7a5693edc5a7c65b89bfc027f501cf180a65331e6c6d858e914d80"
+  },
+  "multioutput-original-text/multioutput-reader-0.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "multioutput-original-text/multioutput-reader-0.ready.json": {
+    "bytes": 57,
+    "sha256": "ade973cf9097250995f93615e886b7d169d88cf4807ba27f2a818009db8a253e"
+  },
+  "multioutput-original-text/multioutput-reader-1-diagnostics-analysis.json": {
+    "bytes": 2367,
+    "sha256": "3f09d3c24380f0905121258733320dda63f83583bb1636537ca0ce8bb24c7a62"
+  },
+  "multioutput-original-text/multioutput-reader-1.json": {
+    "bytes": 424,
+    "sha256": "7ab629fcdadd94ead6139868812d75d4f57aca80f8124259231a3adb19c7820a"
+  },
+  "multioutput-original-text/multioutput-reader-1.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "multioutput-original-text/multioutput-reader-1.ready.json": {
+    "bytes": 57,
+    "sha256": "63b2adcc580edad492dfb54800adff5d31d2535aa2345ec3e96ee03734c921ea"
+  },
+  "multioutput-original-text/multioutput-ready.json": {
+    "bytes": 495,
+    "sha256": "cbba72da37f8464718336f88764b8886ade62a0e09a1b26cfbf523ada8fbeb1e"
+  },
+  "multioutput-original-text/multioutput-result.json": {
+    "bytes": 194,
+    "sha256": "298e3ab87430e6e93fa658c5c2067c03f459a528e49c791b51cc666217a7370a"
+  },
+  "multioutput-original-text/multioutput-runtime.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "multioutput-original-text/observer-controls.txt": {
+    "bytes": 8371,
+    "sha256": "9380a7b4f452071ee68dfbd0a249ba85544c36c2f8d2772a80fb6b67c323b2ef"
+  },
+  "multioutput-original-text/ownership.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "multioutput-original-text/permissions.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "multioutput-original-text/runtime-controls.txt": {
+    "bytes": 2192,
+    "sha256": "ad26adaa768d7e8819d96526579fa146852274c523cf3ff20006bb04bb367626"
+  },
+  "multioutput-terminal-original.json": {
+    "bytes": 6354,
+    "sha256": "3dd9bd057d96aad690c0bc16b0aeac5b4cb9274b72f7d82bbc7e6c2c7a5c246a"
+  },
+  "original-local-files.json": {
+    "bytes": 3297,
+    "sha256": "e3476e9b407ee8309dff9efb1345246612498500524909b01e4589678bd430e2"
+  },
+  "pinned-source-identities.json": {
+    "bytes": 4723,
+    "sha256": "43386edbed21c4d935567de0c2e589e8070047fc09a0655b6d086b0a75bb1ba4"
+  },
+  "pinned-source/.github/workflows/rust-multioutput.yml": {
+    "bytes": 3321,
+    "sha256": "09dc36427cd1f6ff0d33dc89bac9d699f8a63638d7c944038880f24fd6fbbc42"
+  },
+  "pinned-source/crates/relink-audio/MULTI-OUTPUT-ACCEPTANCE.md": {
+    "bytes": 12776,
+    "sha256": "51907d3fbd032ed5439b09d6dbc8cd16da18a59f15b1d8c8f261da5ef2b75702"
+  },
+  "pinned-source/crates/relink-audio/examples/runtime-multioutput-probe.rs": {
+    "bytes": 40000,
+    "sha256": "a5b0e51d45cf0828239efc3cba2cec7c1a31456b67a28046f7aef081b813671c"
+  },
+  "pinned-source/drivers/macos/tests/OBSERVER-DIAGNOSTICS.md": {
+    "bytes": 7186,
+    "sha256": "6b3c1a9aac5cab22beb21cf2a0e536d10ba82ea25b529bad9e8880888154fd6d"
+  },
+  "pinned-source/drivers/macos/tests/analyze_diagnostics.py": {
+    "bytes": 6559,
+    "sha256": "39e626866d67400a18d328996ff45ef715b7e94e0c96f27b53de016546e9bc20"
+  },
+  "pinned-source/drivers/macos/tests/analyze_multioutput.py": {
+    "bytes": 27962,
+    "sha256": "c4f95ce3021960a9a12b229cd8b6ddd342f87e7666fe9e9a7d31915feb0a942a"
+  },
+  "pinned-source/drivers/macos/tests/analyze_runtime.py": {
+    "bytes": 13821,
+    "sha256": "6742811826f6fef7dc243b688a10eafa6c669a3cf0a9bb5eb5ea14b1887fab43"
+  },
+  "pinned-source/drivers/macos/tests/analyze_system.py": {
+    "bytes": 9472,
+    "sha256": "6f2e070cf855d18fb45a7686e79c1f7da6627061079f44ebe32b0ed8b76cfe0f"
+  },
+  "pinned-source/drivers/macos/tests/probe-diagnostics.h": {
+    "bytes": 3366,
+    "sha256": "537076b08e81f7f626c39747480c990d438bb8a3c685819cdf78c906e0c977ff"
+  },
+  "pinned-source/drivers/macos/tests/run_multioutput.py": {
+    "bytes": 7184,
+    "sha256": "8c67d93f57ac363929b527961e0e210b9ab5fe5168850feae1f156724536f35a"
+  },
+  "pinned-source/drivers/macos/tests/run_system.py": {
+    "bytes": 21702,
+    "sha256": "a2267be06fb6082baa7b8ea2e4a2dab075fa252c8277495193aad86f20c4fea4"
+  },
+  "pinned-source/drivers/macos/tests/system-probe.c": {
+    "bytes": 30878,
+    "sha256": "8549f79ddc04c52a8970c605ce2772da4c072910dabdbdb4c796006157115b4d"
+  },
+  "pinned-source/drivers/macos/tests/test_multioutput.py": {
+    "bytes": 20832,
+    "sha256": "e8763e09844e36ce0953c623487c427c21fa75ea459d930df649573bc829af1a"
+  },
+  "run-metadata.json": {
+    "bytes": 4955,
+    "sha256": "2803d93d60409ccc5f9bd899ba51c831c669230456bac79317024b532d483a79"
+  },
+  "verify.py": {
+    "bytes": 10858,
+    "sha256": "8ad758b2fdad10ced9450c4f726601fc1d232f7d7012fbb15c09d9a0394f7734"
+  }
+}

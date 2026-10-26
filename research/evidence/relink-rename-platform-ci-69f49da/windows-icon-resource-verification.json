@@ -1,0 +1,78 @@
+{
+  "checked_at_utc": "2026-10-26T02:12:50.793821+00:00",
+  "executable_sha256": "cd610cddbb0dc17bffd333a16c0e30800b987716097ec5e4fd251c8c8ea99a81",
+  "executable_started": false,
+  "ico_sha256": "73acb7848b948fd5f9a36ef4f7f0193e7742334058e666a334f5fcfa4595f122",
+  "method": "native Windows resource-only mapping and exact RT_ICON/RT_GROUP_ICON byte comparison",
+  "res_sha256": "4a173b83966f63007f976a6e1f1cecba604ec3541fb7da5548b83ac4ff4fd9c1",
+  "resolutions": [
+    16,
+    24,
+    32,
+    48,
+    64,
+    128,
+    256
+  ],
+  "resources": [
+    {
+      "id": 1,
+      "language": 0,
+      "sha256": "25fc23031d7d6dd7532677efcc4c65e73781c6555d05b61be0d2d8594d4e22a8",
+      "size": 778,
+      "type": 3
+    },
+    {
+      "id": 2,
+      "language": 0,
+      "sha256": "0917b33ad93d7b7947bd8e8de518f560c4246f0215453954eb162b4e54f86cac",
+      "size": 1177,
+      "type": 3
+    },
+    {
+      "id": 3,
+      "language": 0,
+      "sha256": "43799cb5d1fa101f4d55ce49b91d8a0facf23765be77619cd82ba1059fe2d042",
+      "size": 1379,
+      "type": 3
+    },
+    {
+      "id": 4,
+      "language": 0,
+      "sha256": "207f319c06efac48361afd47d1342154520e516468e1cd636f3178362ae9f0a8",
+      "size": 2073,
+      "type": 3
+    },
+    {
+      "id": 5,
+      "language": 0,
+      "sha256": "3479b9cebd1363fa5de132b40746830638d2c3cae11352704360f44e94fa8d9e",
+      "size": 2150,
+      "type": 3
+    },
+    {
+      "id": 6,
+      "language": 0,
+      "sha256": "0b5f336319cacb7f97a30b50810ed250a2f0e86da71ac0a11c99231cd3f8d700",
+      "size": 3898,
+      "type": 3
+    },
+    {
+      "id": 7,
+      "language": 0,
+      "sha256": "2684071ed1c315fb16bc63a771331ff16fcdfd0d33c75d53003c73df6caf4198",
+      "size": 7875,
+      "type": 3
+    },
+    {
+      "id": 1,
+      "language": 0,
+      "sha256": "b007a4d813b0e585aabb87034bcf0710241db021a664aa01474e5020849519e8",
+      "size": 104,
+      "type": 14
+    }
+  ],
+  "script_sha256": "106d599c30c309c3a88ddaac4e8b39bc50cd963195256889b1e6e4cea24275d5",
+  "shell_rendering_verified": false,
+  "status": "verified"
+}

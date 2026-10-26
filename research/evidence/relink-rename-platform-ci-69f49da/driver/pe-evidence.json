@@ -1,0 +1,53 @@
+{
+  "file": "ReLink.sys",
+  "bytes": 26112,
+  "sha256": "e73444029c4fbf1bcf2dec3a6923a45f484277e79b5f7335565a073a70d81833",
+  "machine": "AMD64",
+  "subsystem": "native",
+  "entry_rva": 4096,
+  "checksum": 44431,
+  "imports": {
+    "ntoskrnl.exe": [
+      "ExAllocatePool2",
+      "ExFreePoolWithTag",
+      "KeAcquireSpinLockRaiseToDpc",
+      "KeBugCheckEx",
+      "KeClearEvent",
+      "KeEnterCriticalRegion",
+      "KeGetCurrentIrql",
+      "KeInitializeEvent",
+      "KeLeaveCriticalRegion",
+      "KeReleaseSpinLock",
+      "KeSetEvent",
+      "KeWaitForSingleObject"
+    ],
+    "hal.dll": [
+      "KeQueryPerformanceCounter"
+    ],
+    "portcls.sys": [
+      "PcAddAdapterDevice",
+      "PcDispatchIrp",
+      "PcInitializeAdapterDriver",
+      "PcNewPort",
+      "PcRegisterAdapterPnpManagement",
+      "PcRegisterAdapterPowerManagement",
+      "PcRegisterPhysicalConnection",
+      "PcRegisterSubdevice",
+      "PcUnregisterAdapterPnpManagement",
+      "PcUnregisterAdapterPowerManagement"
+    ]
+  },
+  "exports": {
+    "DriverEntry": 4096,
+    "_fltused": 26816
+  },
+  "sections": [
+    ".text",
+    ".rdata",
+    ".data",
+    ".pdata",
+    ".reloc"
+  ],
+  "signed": false,
+  "qualification": "PE structure only; no kernel load or endpoint runtime test"
+}

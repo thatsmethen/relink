@@ -1,0 +1,142 @@
+{
+  "driver/DRIVER-RUNTIME-NOTICES.txt": {
+    "bytes": 1332,
+    "sha256": "209ebf493d9dcccd5a226e7559ef5a105625e7baea0744177c337572e9f8e651"
+  },
+  "driver/LICENSE": {
+    "bytes": 865,
+    "sha256": "81e89942ae4b17621060badb304d7ffc1db6f8232e284d46cd041d4e3ce7c3ea"
+  },
+  "driver/PROVENANCE.md": {
+    "bytes": 5949,
+    "sha256": "8db2d966b32b8238e8a2c44b7cb6a2f7188e1f8642eb685919acfaaeac1fe38b"
+  },
+  "driver/ReLink.inf": {
+    "bytes": 1901,
+    "sha256": "0e44e79d521464809c43e6b1149c59a7096285080f183219d3400395f2bd33ab"
+  },
+  "driver/ReLink.sys": {
+    "bytes": 26112,
+    "sha256": "e73444029c4fbf1bcf2dec3a6923a45f484277e79b5f7335565a073a70d81833"
+  },
+  "driver/build-evidence.json": {
+    "bytes": 269,
+    "sha256": "9103bf2366aca91e136e9f62136cab5e9abf1c225bb92538fd21601dc713d16d"
+  },
+  "driver/pe-evidence.json": {
+    "bytes": 1320,
+    "sha256": "42112eb43f52b5707b42915a04a8b59de2cbb5d4c95521f8cb5e883b008790fe"
+  },
+  "driver/relink.cat": {
+    "bytes": 1099,
+    "sha256": "9a300fca50c5e1ef8385d88e482c0f84ed022879a0ecef4bbe3ad5d0deb0ff1c"
+  },
+  "driver/relink_windows_driver.pdb": {
+    "bytes": 208896,
+    "sha256": "9b355a8b90e678de52d4962fb421dff2bc5e175b576881a46f8c5fdb986e128d"
+  },
+  "driver/runtime-notices/Rust-Apache-2.0.txt": {
+    "bytes": 10280,
+    "sha256": "074e6e32c86a4c0ef8b3ed25b721ca23aca83df277cd88106ef7177c354615ff"
+  },
+  "driver/runtime-notices/Rust-COPYRIGHT-library.html": {
+    "bytes": 411104,
+    "sha256": "c90d52b09be83ce6e930d00f4b26559611eadcee806b2307184e04f2c78ad522"
+  },
+  "driver/runtime-notices/Rust-MIT.txt": {
+    "bytes": 1078,
+    "sha256": "b85dcd3e453d05982552c52b5fc9e0bdd6d23c6f8e844b984a88af32570b0cc0"
+  },
+  "driver/runtime-notices/Rust-Unicode-3.0.txt": {
+    "bytes": 1995,
+    "sha256": "f5062c9a188d81dfe66b56db4182dcf9e4b17c0d9b0d311a8e20b3a1b075c443"
+  },
+  "driver/runtime-notices/compiler-builtins-LICENSE.txt": {
+    "bytes": 15078,
+    "sha256": "ab6eec6caf0fa5775e411c7a8bc6a45c4ef2956b0980b157ab74fc5cd62a928b"
+  },
+  "driver/runtime-notices/compiler-builtins-libm-LICENSE.txt": {
+    "bytes": 14088,
+    "sha256": "3823dda7cf046602f4b4e77ec8e227863dc4736037cc85bb33d9f19febe16bb7"
+  },
+  "driver/runtime-notices/manifest.json": {
+    "bytes": 1108,
+    "sha256": "584eaadf6793fe04c38375797b467ad3f2d1086a195fc439c169fb52689e95e0"
+  },
+  "driver/toolchain.json": {
+    "bytes": 609,
+    "sha256": "256feeaf48141fbbad035abcb0622794c7f30768a9f79577d6f1c402bd2abfaf"
+  },
+  "macos/ReLink.app/Contents/Info.plist": {
+    "bytes": 1026,
+    "sha256": "fd61bde53ad6f3d00fef0c771ce0d004403392f55a60a9d4d7b09888a88b8968"
+  },
+  "macos/ReLink.app/Contents/MacOS/relink-app": {
+    "bytes": 9145536,
+    "sha256": "915be57bf8b5c38a71f4ec5b4e604847dc0b1932f4a7eefb9758b2135e4c1f0c"
+  },
+  "macos/ReLink.app/Contents/Resources/ReLink-LICENSE.txt": {
+    "bytes": 865,
+    "sha256": "81e89942ae4b17621060badb304d7ffc1db6f8232e284d46cd041d4e3ce7c3ea"
+  },
+  "macos/ReLink.app/Contents/Resources/ReLink.icns": {
+    "bytes": 79329,
+    "sha256": "8139a60320ac879f2dd36dfccce5672d86000740ee3ddba9b31ca2c3f0389ec9"
+  },
+  "macos/ReLink.app/Contents/Resources/Rust-runtime-notices/COPYRIGHT-library.html": {
+    "bytes": 398128,
+    "sha256": "3aa41caccecaeddad6fcf2f36ce14146ab7baae57064b05b12ecc6b52d5e917f"
+  },
+  "macos/ReLink.app/Contents/Resources/Rust-runtime-notices/LICENSE-APACHE.txt": {
+    "bytes": 10280,
+    "sha256": "074e6e32c86a4c0ef8b3ed25b721ca23aca83df277cd88106ef7177c354615ff"
+  },
+  "macos/ReLink.app/Contents/Resources/Rust-runtime-notices/LICENSE-MIT.txt": {
+    "bytes": 1078,
+    "sha256": "b85dcd3e453d05982552c52b5fc9e0bdd6d23c6f8e844b984a88af32570b0cc0"
+  },
+  "macos/ReLink.app/Contents/Resources/Rust-runtime-notices/sources.json": {
+    "bytes": 1188,
+    "sha256": "82bc318b768c18639a8a317fa72df9933f215678c9378c98ee60676e28a4b374"
+  },
+  "macos/ReLink.app/Contents/Resources/THIRD-PARTY-NOTICES.txt": {
+    "bytes": 2133463,
+    "sha256": "c643941caadc1a3e57917378af4c3cdf2fbd9836b006eadd1c24b67d995d83b4"
+  },
+  "macos/ReLink.app/Contents/_CodeSignature/CodeResources": {
+    "bytes": 4064,
+    "sha256": "9db058b9c8e653fda4f610abfa5b80956fd99420f82a606318918424dd97e3ad"
+  },
+  "windows/LICENSE": {
+    "bytes": 865,
+    "sha256": "81e89942ae4b17621060badb304d7ffc1db6f8232e284d46cd041d4e3ce7c3ea"
+  },
+  "windows/ReLink.exe": {
+    "bytes": 8696320,
+    "sha256": "cd610cddbb0dc17bffd333a16c0e30800b987716097ec5e4fd251c8c8ea99a81"
+  },
+  "windows/Rust-runtime-notices/COPYRIGHT-library.html": {
+    "bytes": 398128,
+    "sha256": "3aa41caccecaeddad6fcf2f36ce14146ab7baae57064b05b12ecc6b52d5e917f"
+  },
+  "windows/Rust-runtime-notices/LICENSE-APACHE.txt": {
+    "bytes": 10280,
+    "sha256": "074e6e32c86a4c0ef8b3ed25b721ca23aca83df277cd88106ef7177c354615ff"
+  },
+  "windows/Rust-runtime-notices/LICENSE-MIT.txt": {
+    "bytes": 1078,
+    "sha256": "b85dcd3e453d05982552c52b5fc9e0bdd6d23c6f8e844b984a88af32570b0cc0"
+  },
+  "windows/Rust-runtime-notices/sources.json": {
+    "bytes": 1188,
+    "sha256": "82bc318b768c18639a8a317fa72df9933f215678c9378c98ee60676e28a4b374"
+  },
+  "windows/THIRD-PARTY-NOTICES.txt": {
+    "bytes": 2133463,
+    "sha256": "c643941caadc1a3e57917378af4c3cdf2fbd9836b006eadd1c24b67d995d83b4"
+  },
+  "windows/icon-resource-verification.json": {
+    "bytes": 2128,
+    "sha256": "1580a37eea36de9d299f0a3e3c4cb4bb3256da9348eab4c6bde327a0e026e1cf"
+  }
+}

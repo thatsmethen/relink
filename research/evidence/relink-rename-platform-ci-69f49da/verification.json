@@ -1,0 +1,85 @@
+{
+  "schema": 1,
+  "source_revision": "69f49da28a9bae16dec9d4bc29bd0d639fb73a08",
+  "verified_at_utc": "2026-10-26T02:15:14.952317+00:00",
+  "runs": {
+    "driver": {
+      "run_id": 40257398430,
+      "url": "https://github.com/thatsmethen/relink/actions/runs/40257398430",
+      "status": "completed",
+      "conclusion": "success",
+      "attempt": 1,
+      "jobs": [
+        {
+          "name": "unsigned-package",
+          "conclusion": "success"
+        }
+      ]
+    },
+    "desktop": {
+      "run_id": 40257398458,
+      "url": "https://github.com/thatsmethen/relink/actions/runs/40257398458",
+      "status": "completed",
+      "conclusion": "success",
+      "attempt": 1,
+      "jobs": [
+        {
+          "name": "desktop (windows-2022)",
+          "conclusion": "success"
+        },
+        {
+          "name": "desktop (macos-15)",
+          "conclusion": "success"
+        }
+      ]
+    }
+  },
+  "original_archives": 5,
+  "original_archive_members": 58,
+  "source_files_checked": 20,
+  "packaged_files_checked": 35,
+  "driver": {
+    "architecture": "x86_64",
+    "image": "ReLink.sys",
+    "sha256": "e73444029c4fbf1bcf2dec3a6923a45f484277e79b5f7335565a073a70d81833",
+    "native_build_sdk_abi_inf_and_catalog_steps_passed": true,
+    "catalog_filename": "relink.cat",
+    "catalog_case": "Inf2Cat uses lowercase; Windows filename matching is case-insensitive",
+    "pe_report_recomputed_exactly": true,
+    "source_inf_license_provenance_toolchain_match": true,
+    "runtime_notice_hashes_verified": 6,
+    "signed": false,
+    "kernel_loaded_in_ci": false
+  },
+  "macos_app": {
+    "architecture": "arm64",
+    "bundle": "ReLink.app",
+    "executable": "relink-app",
+    "icon": "ReLink.icns",
+    "executable_sha256": "915be57bf8b5c38a71f4ec5b4e604847dc0b1932f4a7eefb9758b2135e4c1f0c",
+    "signature": "ad hoc; not notarized",
+    "strict_signature_pass": true,
+    "icon_notices_plist_match_exact_source": true,
+    "old_generated_payload_names_absent": true
+  },
+  "windows_app": {
+    "architecture": "x86_64",
+    "executable": "ReLink.exe",
+    "executable_sha256": "cd610cddbb0dc17bffd333a16c0e30800b987716097ec5e4fd251c8c8ea99a81",
+    "native_icon_report_bound_to_executable_and_exact_source": true,
+    "resources_verified": 8,
+    "signature": "unsigned",
+    "certificate_directory": [
+      0,
+      0
+    ],
+    "old_generated_payload_names_absent": true
+  },
+  "limitations": [
+    "Build and packaging evidence only; neither application was launched during verification.",
+    "Windows driver was not installed or loaded; no Windows device enumeration, audio, Explorer icon rendering or UI interaction qualification.",
+    "macOS application uses ad-hoc signing without Developer ID signing or notarization.",
+    "The macOS CI HAL ABI harness uses a local synthetic host, not an installed audio device.",
+    "No CI rerun, release publication or change to prior observations was performed."
+  ]
+}

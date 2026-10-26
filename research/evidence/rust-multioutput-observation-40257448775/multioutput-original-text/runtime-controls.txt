@@ -1,0 +1,48 @@
+   Compiling objc2 v0.6.5
+   Compiling objc2-encode v4.1.0
+   Compiling libc v0.2.191
+   Compiling bitflags v2.13.2
+   Compiling proc-macro2 v1.0.107
+   Compiling serde_core v1.0.229
+   Compiling quote v1.0.47
+   Compiling unicode-ident v1.0.27
+   Compiling dispatch2 v0.3.1
+   Compiling block2 v0.6.2
+   Compiling objc2-core-foundation v0.3.2
+   Compiling objc2-foundation v0.3.2
+   Compiling objc2-core-audio-types v0.3.2
+   Compiling zmij v1.0.23
+   Compiling getrandom v0.4.3
+   Compiling objc2-core-audio v0.3.2
+   Compiling syn v3.0.9
+   Compiling serde_json v1.0.154
+   Compiling cfg-if v1.0.5
+   Compiling rustversion v1.0.23
+   Compiling serde v1.0.229
+   Compiling objc2-audio-toolbox v0.3.2
+   Compiling itoa v1.0.18
+   Compiling memchr v2.8.3
+   Compiling cpal v0.18.2
+   Compiling coreaudio-rs v0.14.2
+   Compiling uuid v1.29.0
+   Compiling serde_derive v1.0.229
+   Compiling dasp_sample v0.11.0
+   Compiling mach2 v0.6.0
+   Compiling arc-swap v1.9.3
+   Compiling relink-core v0.1.0 (/Users/runner/work/relink/relink/crates/relink-core)
+   Compiling relink-audio v0.1.0 (/Users/runner/work/relink/relink/crates/relink-audio)
+    Finished `test` profile [unoptimized] target(s) in 10.44s
+     Running unittests examples/runtime-multioutput-probe.rs (target/debug/examples/runtime_multioutput_probe-36a47fe731ffa01c)
+
+running 8 tests
+test native::tests::acknowledgment_rejects_overtaking_and_changed_route_identity ... ok
+test native::tests::acknowledgments_require_both_native_routes_not_graph_or_preparation ... ok
+test native::tests::later_aggregate_observation_preserves_first_native_ack_timestamps ... ok
+test native::tests::missing_cleanup_proof_fails_at_deadline_without_claiming_success ... ok
+test native::tests::failed_cleanup_observation_remains_latched_even_if_later_snapshot_is_clean ... ok
+test native::tests::protocol_topology_has_two_distinct_sources_and_no_cross_bus_send_or_dsp ... ok
+test native::tests::partial_shutdown_snapshot_can_complete_within_original_window ... ok
+test native::tests::strict_cleanup_requires_every_successful_operation_for_each_owner ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

@@ -1,0 +1,1129 @@
+{
+  "all_original_manifest_members_verified": 56,
+  "control_acknowledgments": [
+    {
+      "all_routes_ack_seconds": 0.07007662499999999,
+      "phase": 0
+    },
+    {
+      "all_routes_ack_seconds": 0.05910379166666666,
+      "phase": 1
+    },
+    {
+      "all_routes_ack_seconds": 0.04995533333333333,
+      "phase": 2
+    },
+    {
+      "all_routes_ack_seconds": 0.04385404166666666,
+      "phase": 3
+    },
+    {
+      "all_routes_ack_seconds": 0.04795987499999999,
+      "phase": 4
+    }
+  ],
+  "driver_cleanup": {
+    "attempt": 3,
+    "devices": {
+      "au.textual.ravelink.cable.1": {
+        "amplitude": 0.125,
+        "channels": 2,
+        "complete": true,
+        "destroy_status": 0,
+        "device_id": 0,
+        "ended_monotonic_ns": 0,
+        "events": 0,
+        "fault": 0,
+        "frames": 0,
+        "host_time_denom": 3,
+        "host_time_numer": 125,
+        "left_hz": 440,
+        "matches": 0,
+        "mode": "discover",
+        "ready": false,
+        "right_hz": 997,
+        "sample_rate": 48000,
+        "schema": 1,
+        "started_monotonic_ns": 0,
+        "status": 0,
+        "stop_status": 0,
+        "target_frames": 0,
+        "uid": "au.textual.ravelink.cable.1"
+      },
+      "au.textual.ravelink.cable.2": {
+        "amplitude": 0.125,
+        "channels": 2,
+        "complete": true,
+        "destroy_status": 0,
+        "device_id": 0,
+        "ended_monotonic_ns": 0,
+        "events": 0,
+        "fault": 0,
+        "frames": 0,
+        "host_time_denom": 3,
+        "host_time_numer": 125,
+        "left_hz": 440,
+        "matches": 0,
+        "mode": "discover",
+        "ready": false,
+        "right_hz": 997,
+        "sample_rate": 48000,
+        "schema": 1,
+        "started_monotonic_ns": 0,
+        "status": 0,
+        "stop_status": 0,
+        "target_frames": 0,
+        "uid": "au.textual.ravelink.cable.2"
+      }
+    },
+    "pass": true,
+    "removed_only": "/Library/Audio/Plug-Ins/HAL/RustReLink.driver"
+  },
+  "exact_archive_members": 57,
+  "fixed_analysis": {
+    "criteria": {
+      "control_ack_seconds": 0.25,
+      "forbidden_zero_run_frames": 8,
+      "frequency_error_ppm": 2500.0,
+      "initial_settling_seconds": 2.0,
+      "mean_relative": 0.001,
+      "minimum_stopped_tail_seconds": 1.0,
+      "phase_duration_early_tolerance_seconds": 0.02,
+      "phase_duration_late_tolerance_seconds": 0.5,
+      "recurrence_peak_relative": 0.005,
+      "recurrence_rms_relative": 0.0005,
+      "relative_amplitude_error": 0.01,
+      "rendered_throughput_relative_error": 0.01,
+      "steady_leading_margin_seconds": 0.25,
+      "steady_trailing_margin_seconds": 0.05,
+      "stereo_difference_relative_peak": 1e-06,
+      "telemetry_max_gap_seconds": 0.25,
+      "transition_envelope_relative_tolerance": 0.08,
+      "transition_envelope_window_seconds": 0.02,
+      "transition_seconds": 0.25,
+      "wrong_bus_relative_peak": 0.005,
+      "wrong_bus_scan_conservative_factor": 1.03,
+      "wrong_bus_scan_decimation": 4,
+      "wrong_bus_scan_extent_ppm": 2500,
+      "wrong_bus_scan_step_ppm": 125,
+      "wrong_bus_scan_window_seconds": 1.0
+    },
+    "failures": [],
+    "fixed_phases": [
+      [
+        -6.0,
+        false,
+        -12.0,
+        false,
+        4
+      ],
+      [
+        -12.0,
+        false,
+        -6.0,
+        false,
+        4
+      ],
+      [
+        -12.0,
+        true,
+        -6.0,
+        false,
+        3
+      ],
+      [
+        -12.0,
+        false,
+        -6.0,
+        true,
+        3
+      ],
+      [
+        -6.0,
+        false,
+        -12.0,
+        false,
+        4
+      ]
+    ],
+    "native_telemetry": {
+      "note": "Polled native records show prepared/submitted software buffers, not physical playback. Recorder clocks cover every captured callback independently.",
+      "per_phase_submitted_throughput": [
+        {
+          "phase": 0,
+          "route": 0,
+          "submitted_frames_per_second": 48001.135189447974
+        },
+        {
+          "phase": 0,
+          "route": 1,
+          "submitted_frames_per_second": 48001.135189447974
+        },
+        {
+          "phase": 1,
+          "route": 0,
+          "submitted_frames_per_second": 47947.83825006769
+        },
+        {
+          "phase": 1,
+          "route": 1,
+          "submitted_frames_per_second": 48077.77819112478
+        },
+        {
+          "phase": 2,
+          "route": 0,
+          "submitted_frames_per_second": 47969.7499661543
+        },
+        {
+          "phase": 2,
+          "route": 1,
+          "submitted_frames_per_second": 47969.7499661543
+        },
+        {
+          "phase": 3,
+          "route": 0,
+          "submitted_frames_per_second": 47853.73893069242
+        },
+        {
+          "phase": 3,
+          "route": 1,
+          "submitted_frames_per_second": 48029.027351683966
+        },
+        {
+          "phase": 4,
+          "route": 0,
+          "submitted_frames_per_second": 47960.756260282695
+        },
+        {
+          "phase": 4,
+          "route": 1,
+          "submitted_frames_per_second": 48086.30797824155
+        }
+      ],
+      "rows": 353,
+      "strict_cleanup_per_route": [
+        true,
+        true
+      ]
+    },
+    "pass": true,
+    "protocol": "relink-native-multioutput-tones-v1",
+    "record_seconds": 32,
+    "routes": [
+      {
+        "clock": {
+          "callback_count": 3000,
+          "host_reversals": 0,
+          "measured_sample_rate": 48000.0,
+          "pass": true,
+          "sample_gaps": []
+        },
+        "diagnostics": {
+          "accepted_pcm_callbacks": 3000,
+          "dropped_notifications": 0,
+          "failures": [],
+          "lifecycle": {
+            "destroy_request": 6942876383,
+            "destroy_return": 6942886405,
+            "start_request": 6173921501,
+            "start_return": 6176795252,
+            "stop_request": 6942691539,
+            "stop_return": 6942876374
+          },
+          "listeners": [
+            {
+              "add_status": 0,
+              "added": true,
+              "available": true,
+              "element": 0,
+              "object": 92,
+              "remove_status": 0,
+              "scope": 1735159650,
+              "selector": 1870030194
+            },
+            {
+              "add_status": 0,
+              "added": true,
+              "available": true,
+              "element": 0,
+              "object": 92,
+              "remove_status": 0,
+              "scope": 1735159650,
+              "selector": 1735354734
+            },
+            {
+              "add_status": 0,
+              "added": true,
+              "available": true,
+              "element": 0,
+              "object": 92,
+              "remove_status": 0,
+              "scope": 1735159650,
+              "selector": 1818850926
+            },
+            {
+              "add_status": 0,
+              "added": true,
+              "available": true,
+              "element": 0,
+              "object": 92,
+              "remove_status": 0,
+              "scope": 1735159650,
+              "selector": 1853059700
+            },
+            {
+              "add_status": 0,
+              "added": true,
+              "available": true,
+              "element": 0,
+              "object": 92,
+              "remove_status": 0,
+              "scope": 1735159650,
+              "selector": 1718839674
+            },
+            {
+              "add_status": 0,
+              "added": true,
+              "available": true,
+              "element": 0,
+              "object": 94,
+              "remove_status": 0,
+              "scope": 1735159650,
+              "selector": 1885762592
+            },
+            {
+              "add_status": 0,
+              "added": true,
+              "available": true,
+              "element": 0,
+              "object": 93,
+              "remove_status": 0,
+              "scope": 1735159650,
+              "selector": 1885762592
+            }
+          ],
+          "max_callback_work_seconds": 0.00020687499999999997,
+          "max_entry_minus_native_seconds": 0.018070874999999997,
+          "note": "Diagnostic integrity only. No scheduling performance limit or PCM acceptance threshold is changed.",
+          "notifications": [
+            {
+              "element": 0,
+              "host_time": 6174147976,
+              "index": 0,
+              "object": 92,
+              "scope": 1735159650,
+              "selector": 1735354734
+            },
+            {
+              "element": 0,
+              "host_time": 6942792654,
+              "index": 1,
+              "object": 92,
+              "scope": 1735159650,
+              "selector": 1735354734
+            }
+          ],
+          "pass": true,
+          "sample_gap_context": [],
+          "schema": 1
+        },
+        "output_id": "coreaudio:au.textual.ravelink.cable.1",
+        "phases": [
+          {
+            "begin_frame": 121662,
+            "channels": [
+              {
+                "expected_hz": 997.0,
+                "expected_peak": 0.06309573444801932,
+                "frequency_error_ppm": 4.804046049855515e-06,
+                "mean_relative": 2.883584392536836e-05,
+                "measured_hz": 996.9999999952104,
+                "pass": true,
+                "recurrence_peak_relative": 1.8584679698447695e-06,
+                "recurrence_rms_relative": 3.2609939943944115e-07,
+                "relative_amplitude_error": 1.324358971810726e-05,
+                "rms_equivalent_peak": 0.06309657006203931,
+                "wrong_bus_relative_peak": 0.00074428640532201
+              },
+              {
+                "expected_hz": 997.0,
+                "expected_peak": 0.06309573444801932,
+                "frequency_error_ppm": 4.804046049855515e-06,
+                "mean_relative": 2.883584392536836e-05,
+                "measured_hz": 996.9999999952104,
+                "pass": true,
+                "recurrence_peak_relative": 1.8584679698447695e-06,
+                "recurrence_rms_relative": 3.2609939943944115e-07,
+                "relative_amplitude_error": 1.324358971810726e-05,
+                "rms_equivalent_peak": 0.06309657006203931,
+                "wrong_bus_relative_peak": 0.00074428640532201
+              }
+            ],
+            "detected_response_seconds": null,
+            "end_frame": 300745,
+            "longest_channel_zero_runs": [
+              0,
+              0
+            ],
+            "pass": true,
+            "phase": 0,
+            "response_measured": false,
+            "stereo_difference_relative_peak": 0.0
+          },
+          {
+            "begin_frame": 317982,
+            "channels": [
+              {
+                "expected_hz": 997.0,
+                "expected_peak": 0.0316227766016838,
+                "frequency_error_ppm": 7.911208369293377,
+                "mean_relative": 1.0085281919588555e-06,
+                "measured_hz": 997.0078874747442,
+                "pass": true,
+                "recurrence_peak_relative": 2.8089800035240514e-06,
+                "recurrence_rms_relative": 4.2192598072281355e-07,
+                "relative_amplitude_error": 1.524051820277868e-05,
+                "rms_equivalent_peak": 0.03162229465418138,
+                "wrong_bus_relative_peak": 0.0007342841154866269
+              },
+              {
+                "expected_hz": 997.0,
+                "expected_peak": 0.0316227766016838,
+                "frequency_error_ppm": 7.911208369293377,
+                "mean_relative": 1.0085281919588555e-06,
+                "measured_hz": 997.0078874747442,
+                "pass": true,
+                "recurrence_peak_relative": 2.8089800035240514e-06,
+                "recurrence_rms_relative": 4.2192598072281355e-07,
+                "relative_amplitude_error": 1.524051820277868e-05,
+                "rms_equivalent_peak": 0.03162229465418138,
+                "wrong_bus_relative_peak": 0.0007342841154866269
+              }
+            ],
+            "detected_response_seconds": 0.05499983333333333,
+            "end_frame": 496422,
+            "longest_channel_zero_runs": [
+              0,
+              0
+            ],
+            "pass": true,
+            "phase": 1,
+            "response_measured": true,
+            "stereo_difference_relative_peak": 0.0
+          },
+          {
+            "begin_frame": 513220,
+            "detected_response_seconds": 0.059998958333333324,
+            "end_frame": 645825,
+            "pass": true,
+            "peak": 0.0,
+            "phase": 2,
+            "response_measured": true
+          },
+          {
+            "begin_frame": 662330,
+            "channels": [
+              {
+                "expected_hz": 997.0,
+                "expected_peak": 0.0316227766016838,
+                "frequency_error_ppm": 3.5790611929709115,
+                "mean_relative": 4.675381857110231e-05,
+                "measured_hz": 997.0035683240094,
+                "pass": true,
+                "recurrence_peak_relative": 2.6389286307186915e-06,
+                "recurrence_rms_relative": 3.748402225555171e-07,
+                "relative_amplitude_error": 1.4618438145507061e-05,
+                "rms_equivalent_peak": 0.03162323887728754,
+                "wrong_bus_relative_peak": 0.0007364037512738477
+              },
+              {
+                "expected_hz": 997.0,
+                "expected_peak": 0.0316227766016838,
+                "frequency_error_ppm": 3.5790611929709115,
+                "mean_relative": 4.675381857110231e-05,
+                "measured_hz": 997.0035683240094,
+                "pass": true,
+                "recurrence_peak_relative": 2.6389286307186915e-06,
+                "recurrence_rms_relative": 3.748402225555171e-07,
+                "relative_amplitude_error": 1.4618438145507061e-05,
+                "rms_equivalent_peak": 0.03162323887728754,
+                "wrong_bus_relative_peak": 0.0007364037512738477
+              }
+            ],
+            "detected_response_seconds": 0.05500570833333333,
+            "end_frame": 792785,
+            "longest_channel_zero_runs": [
+              0,
+              0
+            ],
+            "pass": true,
+            "phase": 3,
+            "response_measured": true,
+            "stereo_difference_relative_peak": 0.0
+          },
+          {
+            "begin_frame": 809487,
+            "channels": [
+              {
+                "expected_hz": 997.0,
+                "expected_peak": 0.06309573444801932,
+                "frequency_error_ppm": 1.0210387791920184,
+                "mean_relative": 1.830945548748168e-05,
+                "measured_hz": 996.9989820243371,
+                "pass": true,
+                "recurrence_peak_relative": 2.448255619872377e-06,
+                "recurrence_rms_relative": 3.554721594601916e-07,
+                "relative_amplitude_error": 7.231982151094796e-08,
+                "rms_equivalent_peak": 0.06309573901109157,
+                "wrong_bus_relative_peak": 0.000731629825908302
+              },
+              {
+                "expected_hz": 997.0,
+                "expected_peak": 0.06309573444801932,
+                "frequency_error_ppm": 1.0210387791920184,
+                "mean_relative": 1.830945548748168e-05,
+                "measured_hz": 996.9989820243371,
+                "pass": true,
+                "recurrence_peak_relative": 2.448255619872377e-06,
+                "recurrence_rms_relative": 3.554721594601916e-07,
+                "relative_amplitude_error": 7.231982151094796e-08,
+                "rms_equivalent_peak": 0.06309573901109157,
+                "wrong_bus_relative_peak": 0.000731629825908302
+              }
+            ],
+            "detected_response_seconds": 0.05500229166666666,
+            "end_frame": 990852,
+            "longest_channel_zero_runs": [
+              0,
+              0
+            ],
+            "pass": true,
+            "phase": 4,
+            "response_measured": true,
+            "stereo_difference_relative_peak": 0.0
+          }
+        ],
+        "route_index": 0,
+        "stop_response_seconds": 0.025003291666666663,
+        "stopped_tail_frames": 530748,
+        "stopped_tail_peak": 0.0,
+        "uninterrupted_unmuted_intervals": [
+          {
+            "first_phase": 0,
+            "last_phase": 1,
+            "longest_channel_zero_runs": [
+              0,
+              0
+            ]
+          },
+          {
+            "first_phase": 3,
+            "last_phase": 4,
+            "longest_channel_zero_runs": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "clock": {
+          "callback_count": 3000,
+          "host_reversals": 0,
+          "measured_sample_rate": 48000.0,
+          "pass": true,
+          "sample_gaps": []
+        },
+        "diagnostics": {
+          "accepted_pcm_callbacks": 3000,
+          "dropped_notifications": 0,
+          "failures": [],
+          "lifecycle": {
+            "destroy_request": 6945803683,
+            "destroy_return": 6945807158,
+            "start_request": 6177264261,
+            "start_return": 6177663136,
+            "stop_request": 6945727046,
+            "stop_return": 6945803679
+          },
+          "listeners": [
+            {
+              "add_status": 0,
+              "added": true,
+              "available": true,
+              "element": 0,
+              "object": 96,
+              "remove_status": 0,
+              "scope": 1735159650,
+              "selector": 1870030194
+            },
+            {
+              "add_status": 0,
+              "added": true,
+              "available": true,
+              "element": 0,
+              "object": 96,
+              "remove_status": 0,
+              "scope": 1735159650,
+              "selector": 1735354734
+            },
+            {
+              "add_status": 0,
+              "added": true,
+              "available": true,
+              "element": 0,
+              "object": 96,
+              "remove_status": 0,
+              "scope": 1735159650,
+              "selector": 1818850926
+            },
+            {
+              "add_status": 0,
+              "added": true,
+              "available": true,
+              "element": 0,
+              "object": 96,
+              "remove_status": 0,
+              "scope": 1735159650,
+              "selector": 1853059700
+            },
+            {
+              "add_status": 0,
+              "added": true,
+              "available": true,
+              "element": 0,
+              "object": 96,
+              "remove_status": 0,
+              "scope": 1735159650,
+              "selector": 1718839674
+            },
+            {
+              "add_status": 0,
+              "added": true,
+              "available": true,
+              "element": 0,
+              "object": 98,
+              "remove_status": 0,
+              "scope": 1735159650,
+              "selector": 1885762592
+            },
+            {
+              "add_status": 0,
+              "added": true,
+              "available": true,
+              "element": 0,
+              "object": 97,
+              "remove_status": 0,
+              "scope": 1735159650,
+              "selector": 1885762592
+            }
+          ],
+          "max_callback_work_seconds": 0.0005445416666666666,
+          "max_entry_minus_native_seconds": 0.019024375,
+          "note": "Diagnostic integrity only. No scheduling performance limit or PCM acceptance threshold is changed.",
+          "notifications": [
+            {
+              "element": 0,
+              "host_time": 6177448180,
+              "index": 0,
+              "object": 96,
+              "scope": 1735159650,
+              "selector": 1735354734
+            },
+            {
+              "element": 0,
+              "host_time": 6945780756,
+              "index": 1,
+              "object": 96,
+              "scope": 1735159650,
+              "selector": 1735354734
+            }
+          ],
+          "pass": true,
+          "sample_gap_context": [],
+          "schema": 1
+        },
+        "output_id": "coreaudio:au.textual.ravelink.cable.2",
+        "phases": [
+          {
+            "begin_frame": 115062,
+            "channels": [
+              {
+                "expected_hz": 1543.0,
+                "expected_peak": 0.0316227766016838,
+                "frequency_error_ppm": 0.00042433134783692594,
+                "mean_relative": 2.923215897818232e-05,
+                "measured_hz": 1542.9999993452568,
+                "pass": true,
+                "recurrence_peak_relative": 3.3002973870081537e-07,
+                "recurrence_rms_relative": 6.619316522156151e-08,
+                "relative_amplitude_error": 4.023898430212359e-06,
+                "rms_equivalent_peak": 0.03162264935484267,
+                "wrong_bus_relative_peak": 0.0006854475214648565
+              },
+              {
+                "expected_hz": 1543.0,
+                "expected_peak": 0.0316227766016838,
+                "frequency_error_ppm": 0.00042433134783692594,
+                "mean_relative": 2.923215897818232e-05,
+                "measured_hz": 1542.9999993452568,
+                "pass": true,
+                "recurrence_peak_relative": 3.3002973870081537e-07,
+                "recurrence_rms_relative": 6.619316522156151e-08,
+                "relative_amplitude_error": 4.023898430212359e-06,
+                "rms_equivalent_peak": 0.03162264935484267,
+                "wrong_bus_relative_peak": 0.0006854475214648565
+              }
+            ],
+            "detected_response_seconds": null,
+            "end_frame": 294145,
+            "longest_channel_zero_runs": [
+              0,
+              0
+            ],
+            "pass": true,
+            "phase": 0,
+            "response_measured": false,
+            "stereo_difference_relative_peak": 0.0
+          },
+          {
+            "begin_frame": 311382,
+            "channels": [
+              {
+                "expected_hz": 1543.0,
+                "expected_peak": 0.06309573444801932,
+                "frequency_error_ppm": 0.005143309889099612,
+                "mean_relative": 1.1525419659410232e-05,
+                "measured_hz": 1542.999992063873,
+                "pass": true,
+                "recurrence_peak_relative": 3.235309018861191e-07,
+                "recurrence_rms_relative": 6.627131781823836e-08,
+                "relative_amplitude_error": 1.175776857487982e-06,
+                "rms_equivalent_peak": 0.06309566026151495,
+                "wrong_bus_relative_peak": 0.0006446542477466526
+              },
+              {
+                "expected_hz": 1543.0,
+                "expected_peak": 0.06309573444801932,
+                "frequency_error_ppm": 0.005143309889099612,
+                "mean_relative": 1.1525419659410232e-05,
+                "measured_hz": 1542.999992063873,
+                "pass": true,
+                "recurrence_peak_relative": 3.235309018861191e-07,
+                "recurrence_rms_relative": 6.627131781823836e-08,
+                "relative_amplitude_error": 1.175776857487982e-06,
+                "rms_equivalent_peak": 0.06309566026151495,
+                "wrong_bus_relative_peak": 0.0006446542477466526
+              }
+            ],
+            "detected_response_seconds": 0.024999833333333332,
+            "end_frame": 489822,
+            "longest_channel_zero_runs": [
+              0,
+              0
+            ],
+            "pass": true,
+            "phase": 1,
+            "response_measured": true,
+            "stereo_difference_relative_peak": 0.0
+          },
+          {
+            "begin_frame": 506620,
+            "channels": [
+              {
+                "expected_hz": 1543.0,
+                "expected_peak": 0.06309573444801932,
+                "frequency_error_ppm": 0.008745268509358084,
+                "mean_relative": 6.015901168027727e-05,
+                "measured_hz": 1542.9999865060506,
+                "pass": true,
+                "recurrence_peak_relative": 3.235309018861191e-07,
+                "recurrence_rms_relative": 6.617433096717756e-08,
+                "relative_amplitude_error": 1.709962345074137e-05,
+                "rms_equivalent_peak": 0.06309465553471891,
+                "wrong_bus_relative_peak": 0.0006980179880410276
+              },
+              {
+                "expected_hz": 1543.0,
+                "expected_peak": 0.06309573444801932,
+                "frequency_error_ppm": 0.008745268509358084,
+                "mean_relative": 6.015901168027727e-05,
+                "measured_hz": 1542.9999865060506,
+                "pass": true,
+                "recurrence_peak_relative": 3.235309018861191e-07,
+                "recurrence_rms_relative": 6.617433096717756e-08,
+                "relative_amplitude_error": 1.709962345074137e-05,
+                "rms_equivalent_peak": 0.06309465553471891,
+                "wrong_bus_relative_peak": 0.0006980179880410276
+              }
+            ],
+            "detected_response_seconds": null,
+            "end_frame": 639225,
+            "longest_channel_zero_runs": [
+              0,
+              0
+            ],
+            "pass": true,
+            "phase": 2,
+            "response_measured": false,
+            "stereo_difference_relative_peak": 0.0
+          },
+          {
+            "begin_frame": 655730,
+            "detected_response_seconds": 0.03500570833333333,
+            "end_frame": 786185,
+            "pass": true,
+            "peak": 0.0,
+            "phase": 3,
+            "response_measured": true
+          },
+          {
+            "begin_frame": 802887,
+            "channels": [
+              {
+                "expected_hz": 1543.0,
+                "expected_peak": 0.0316227766016838,
+                "frequency_error_ppm": 0.0019095998116114288,
+                "mean_relative": 2.150462325117537e-05,
+                "measured_hz": 1542.9999970534875,
+                "pass": true,
+                "recurrence_peak_relative": 3.3002973870081537e-07,
+                "recurrence_rms_relative": 6.613447213645016e-08,
+                "relative_amplitude_error": 9.876389074724727e-06,
+                "rms_equivalent_peak": 0.03162308892052914,
+                "wrong_bus_relative_peak": 0.0006214524863557427
+              },
+              {
+                "expected_hz": 1543.0,
+                "expected_peak": 0.0316227766016838,
+                "frequency_error_ppm": 0.0019095998116114288,
+                "mean_relative": 2.150462325117537e-05,
+                "measured_hz": 1542.9999970534875,
+                "pass": true,
+                "recurrence_peak_relative": 3.3002973870081537e-07,
+                "recurrence_rms_relative": 6.613447213645016e-08,
+                "relative_amplitude_error": 9.876389074724727e-06,
+                "rms_equivalent_peak": 0.03162308892052914,
+                "wrong_bus_relative_peak": 0.0006214524863557427
+              }
+            ],
+            "detected_response_seconds": 0.030002291666666663,
+            "end_frame": 984252,
+            "longest_channel_zero_runs": [
+              0,
+              0
+            ],
+            "pass": true,
+            "phase": 4,
+            "response_measured": true,
+            "stereo_difference_relative_peak": 0.0
+          }
+        ],
+        "route_index": 1,
+        "stop_response_seconds": 0.030003291666666664,
+        "stopped_tail_frames": 537348,
+        "stopped_tail_peak": 0.0,
+        "uninterrupted_unmuted_intervals": [
+          {
+            "first_phase": 0,
+            "last_phase": 2,
+            "longest_channel_zero_runs": [
+              0,
+              0
+            ]
+          },
+          {
+            "first_phase": 4,
+            "last_phase": 4,
+            "longest_channel_zero_runs": [
+              0,
+              0
+            ]
+          }
+        ]
+      }
+    ],
+    "schema": 1,
+    "scope": "One short two-virtual-output run, internal distinct tones, independent recordings. No capture, physical playback, acoustic synchronization, long-duration or Windows qualification."
+  },
+  "native_cleanup": [
+    {
+      "callbacks_seen": 1991,
+      "lifecycle": [
+        {
+          "callbacks_in_flight": 0,
+          "host_time": 6159851431,
+          "phase": "ReservationAcquired",
+          "status": null
+        },
+        {
+          "callbacks_in_flight": 0,
+          "host_time": 6159863308,
+          "phase": "CreateRequested",
+          "status": null
+        },
+        {
+          "callbacks_in_flight": 0,
+          "host_time": 6160154880,
+          "phase": "CreateReturned",
+          "status": 0
+        },
+        {
+          "callbacks_in_flight": 0,
+          "host_time": 6160285623,
+          "phase": "Ready",
+          "status": null
+        },
+        {
+          "callbacks_in_flight": 0,
+          "host_time": 6160446510,
+          "phase": "StartRequested",
+          "status": null
+        },
+        {
+          "callbacks_in_flight": 0,
+          "host_time": 6164348014,
+          "phase": "StartReturned",
+          "status": 0
+        },
+        {
+          "callbacks_in_flight": null,
+          "host_time": 6670778016,
+          "phase": "HandleCancelled",
+          "status": null
+        },
+        {
+          "callbacks_in_flight": 0,
+          "host_time": 6670779066,
+          "phase": "GatesRevoked",
+          "status": null
+        },
+        {
+          "callbacks_in_flight": 0,
+          "host_time": 6670779073,
+          "phase": "StopRequested",
+          "status": null
+        },
+        {
+          "callbacks_in_flight": 0,
+          "host_time": 6671318711,
+          "phase": "StopReturned",
+          "status": 0
+        },
+        {
+          "callbacks_in_flight": 0,
+          "host_time": 6671318718,
+          "phase": "DestroyRequested",
+          "status": null
+        },
+        {
+          "callbacks_in_flight": 0,
+          "host_time": 6671327331,
+          "phase": "DestroyReturned",
+          "status": 0
+        },
+        {
+          "callbacks_in_flight": 0,
+          "host_time": 6671327336,
+          "phase": "ListenerRemovalRequested",
+          "status": null
+        },
+        {
+          "callbacks_in_flight": 0,
+          "host_time": 6671390050,
+          "phase": "ListenerRemovalReturned",
+          "status": 0
+        },
+        {
+          "callbacks_in_flight": 0,
+          "host_time": 6671390072,
+          "phase": "QuiescenceChecked",
+          "status": null
+        },
+        {
+          "callbacks_in_flight": 0,
+          "host_time": 6671391669,
+          "phase": "OwnerCompleted",
+          "status": null
+        }
+      ],
+      "output_id": "coreaudio:au.textual.ravelink.cable.1",
+      "progress_count": 1991,
+      "retained_context": false,
+      "route_index": 0,
+      "submitted_frames": 1006592,
+      "successful_statuses": true,
+      "zero_in_flight_at_quiescence_and_completion": true
+    },
+    {
+      "callbacks_seen": 1977,
+      "lifecycle": [
+        {
+          "callbacks_in_flight": 0,
+          "host_time": 6160290163,
+          "phase": "ReservationAcquired",
+          "status": null
+        },
+        {
+          "callbacks_in_flight": 0,
+          "host_time": 6160323448,
+          "phase": "CreateRequested",
+          "status": null
+        },
+        {
+          "callbacks_in_flight": 0,
+          "host_time": 6160383137,
+          "phase": "CreateReturned",
+          "status": 0
+        },
+        {
+          "callbacks_in_flight": 0,
+          "host_time": 6160433454,
+          "phase": "Ready",
+          "status": null
+        },
+        {
+          "callbacks_in_flight": 0,
+          "host_time": 6164385872,
+          "phase": "StartRequested",
+          "status": null
+        },
+        {
+          "callbacks_in_flight": 0,
+          "host_time": 6164788580,
+          "phase": "StartReturned",
+          "status": 0
+        },
+        {
+          "callbacks_in_flight": null,
+          "host_time": 6670778362,
+          "phase": "HandleCancelled",
+          "status": null
+        },
+        {
+          "callbacks_in_flight": 0,
+          "host_time": 6670779089,
+          "phase": "GatesRevoked",
+          "status": null
+        },
+        {
+          "callbacks_in_flight": 0,
+          "host_time": 6670779092,
+          "phase": "StopRequested",
+          "status": null
+        },
+        {
+          "callbacks_in_flight": 0,
+          "host_time": 6671300417,
+          "phase": "StopReturned",
+          "status": 0
+        },
+        {
+          "callbacks_in_flight": 0,
+          "host_time": 6671300423,
+          "phase": "DestroyRequested",
+          "status": null
+        },
+        {
+          "callbacks_in_flight": 0,
+          "host_time": 6671348809,
+          "phase": "DestroyReturned",
+          "status": 0
+        },
+        {
+          "callbacks_in_flight": 0,
+          "host_time": 6671348817,
+          "phase": "ListenerRemovalRequested",
+          "status": null
+        },
+        {
+          "callbacks_in_flight": 0,
+          "host_time": 6671406448,
+          "phase": "ListenerRemovalReturned",
+          "status": 0
+        },
+        {
+          "callbacks_in_flight": 0,
+          "host_time": 6671406459,
+          "phase": "QuiescenceChecked",
+          "status": null
+        },
+        {
+          "callbacks_in_flight": 0,
+          "host_time": 6671409058,
+          "phase": "OwnerCompleted",
+          "status": null
+        }
+      ],
+      "output_id": "coreaudio:au.textual.ravelink.cable.2",
+      "progress_count": 1977,
+      "retained_context": false,
+      "route_index": 1,
+      "submitted_frames": 1008128,
+      "successful_statuses": true,
+      "zero_in_flight_at_quiescence_and_completion": true
+    }
+  ],
+  "native_telemetry_rows": 353,
+  "no_global_or_native_faults_observed": true,
+  "original_acceptance_observations_match": true,
+  "original_analysis_recomputed_without_field_exclusions": true,
+  "original_diagnostic_reports_recomputed_without_field_exclusions": 2,
+  "overall_conclusion": "PASS",
+  "run_id": 40257448775,
+  "runtime_processes": [
+    {
+      "completion_observed_seconds": 21.44480183400003,
+      "deadline_seconds": 55.0,
+      "exit_code": 0,
+      "kill_sent": false,
+      "mode": "two-native-outputs",
+      "name": "multioutput-runtime",
+      "supervision_error": null,
+      "supervision_finished_seconds": 21.44542949999999,
+      "term_sent": false,
+      "timed_out": false
+    },
+    {
+      "completion_observed_seconds": 32.209029375,
+      "deadline_seconds": 47.0,
+      "exit_code": 0,
+      "kill_sent": false,
+      "mode": "record",
+      "name": "multioutput-reader-0",
+      "supervision_error": null,
+      "supervision_finished_seconds": 32.20939575,
+      "term_sent": false,
+      "timed_out": false
+    },
+    {
+      "completion_observed_seconds": 32.33164849999997,
+      "deadline_seconds": 47.0,
+      "exit_code": 0,
+      "kill_sent": false,
+      "mode": "record",
+      "name": "multioutput-reader-1",
+      "supervision_error": null,
+      "supervision_finished_seconds": 32.33185195799996,
+      "term_sent": false,
+      "timed_out": false
+    }
+  ],
+  "runtime_result": {
+    "error": null,
+    "native_outputs_shutdown_proven": true,
+    "outputs_shutdown_proven": [
+      true,
+      true
+    ],
+    "pass": true,
+    "protocol": "relink-native-multioutput-tones-v1",
+    "schema": 1,
+    "shutdown_fault_observed": false
+  },
+  "schema": 1,
+  "scope": "One 18-second fixed five-phase internal-tone protocol on two original virtual outputs, two independent 32-second recordings on one macOS CI host. No audio capture, physical playback, acoustic synchronization, long-duration/load/restart stability, arbitrary route counts, or installed Windows qualification.",
+  "source_revision": "69f49da28a9bae16dec9d4bc29bd0d639fb73a08",
+  "stop_request_to_return_seconds": 0.00014125,
+  "uncertainty": "Polled native records establish software submissions, not physical playback. Wrong-bus projection is the fixed finite-window diagnostic, not a guaranteed physical crosstalk bound. A passing new protocol does not replace or repair older failed observations."
+}

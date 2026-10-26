@@ -132,13 +132,9 @@ first-fault, owner-lifecycle and original single-output probe controls remain.
 
 The original `examples/runtime-capture-probe.rs` has exactly one compatibility
 change: its test-only `AudioSnapshot` fixture gains `outputs: Vec::new()`.
-Removing that line reproduces the complete source at `910ef63` byte-for-byte,
+Removing that line and reversing the later `ravelink_*` → `relink_*` import renames reproduces the complete source at `910ef63` byte-for-byte,
 SHA-256 `11e72104137dbc503ca2ecaf6b036d5af7ba6cbddcdc17e9df6f085cf95b0f0b`.
 No production measurement, threshold, assertion or protocol code changes there.
 Existing frozen evidence remains bound to its original source.
 
-A new independently recorded two-output tone protocol is needed to qualify real
-native route distinction, controls, stop silence and both owner cleanups. Testing
-captured-source fanout requires three endpoints: one independent source and two
-output destinations. Those installed observations, Windows execution, drift/soak
-qualification and recovery testing remain outstanding.
+The first [independently recorded two-output tone observation](../../research/evidence/rust-multioutput-observation-40257448775/README.md) passed its fixed short protocol for route distinction, controls, Stop silence and both native owner cleanups. This does not qualify captured-source fanout: that needs three endpoints, one independent source and two output destinations. The separate [single-output captured-input observation](../../research/evidence/rust-rename-single-observation-40257398426/README.md) failed with a latched input overload. Captured-source reliability, Windows execution, drift/soak qualification and recovery remain outstanding.

@@ -1,0 +1,102 @@
+{
+  ".github/workflows/rust.yml": {
+    "bytes": 2623,
+    "sha256": "eac71a3503357fcb86739367a764f6c4c0f6f61bbc006a114dd876834de47beb",
+    "git_blob_sha1": "dac8f357d0f8f4a3eb36136af298c6c5a546cf0a"
+  },
+  ".github/workflows/rust-windows-driver.yml": {
+    "bytes": 1677,
+    "sha256": "e06cdad20a6b21dbe945e333c9dd304735c1507c821bed8b041c75f88c786202",
+    "git_blob_sha1": "e9e1be4cefdf43c0a33a9e76768cfc98d2460653"
+  },
+  "scripts/build-macos-app.sh": {
+    "bytes": 1340,
+    "sha256": "4e51b86bd57fc8abb950412e626323a321619b434f5d5b3fb5fae6e5a7b8ef51",
+    "git_blob_sha1": "0d6fdb62479f3a1833f50edaa8549bfd3bf5ee7a"
+  },
+  "scripts/verify-windows-icon.py": {
+    "bytes": 13007,
+    "sha256": "106d599c30c309c3a88ddaac4e8b39bc50cd963195256889b1e6e4cea24275d5",
+    "git_blob_sha1": "c83ac61e33db73712f57c18f0ebcaa61d99d6082"
+  },
+  "packaging/macos/Info.plist": {
+    "bytes": 1026,
+    "sha256": "fd61bde53ad6f3d00fef0c771ce0d004403392f55a60a9d4d7b09888a88b8968",
+    "git_blob_sha1": "e6cfb7a6c98f0ce9b78b0d4a3dcf68ee48e522db"
+  },
+  "packaging/branding/relink.icns": {
+    "bytes": 79329,
+    "sha256": "8139a60320ac879f2dd36dfccce5672d86000740ee3ddba9b31ca2c3f0389ec9",
+    "git_blob_sha1": "4057bd0b9be2aa3e0edaf3c68676c0489a0b2e4a"
+  },
+  "packaging/branding/relink.ico": {
+    "bytes": 19448,
+    "sha256": "73acb7848b948fd5f9a36ef4f7f0193e7742334058e666a334f5fcfa4595f122",
+    "git_blob_sha1": "ba64fca22ceb6beb6b5601c3c277f15b6f82f67d"
+  },
+  "packaging/branding/relink.res": {
+    "bytes": 19736,
+    "sha256": "4a173b83966f63007f976a6e1f1cecba604ec3541fb7da5548b83ac4ff4fd9c1",
+    "git_blob_sha1": "d080a7a631286b48f608e60aa9f598491f2f3847"
+  },
+  "drivers/windows/ReLink.inf": {
+    "bytes": 1901,
+    "sha256": "0e44e79d521464809c43e6b1149c59a7096285080f183219d3400395f2bd33ab",
+    "git_blob_sha1": "56133c0a4e768884be96f0a2a3b58ad6af774ceb"
+  },
+  "drivers/windows/build.ps1": {
+    "bytes": 7578,
+    "sha256": "b01cf478a9d09752ca242dda7ba3c0fbc9b0627a6f9a7be76a0444c0a8cf9a91",
+    "git_blob_sha1": "751b183b876802504f4a1fc6a3b8f9d4abb481c4"
+  },
+  "drivers/windows/runtime-notices.py": {
+    "bytes": 2753,
+    "sha256": "17478882d7b4a8d23ccc9ef1d4711c5ebf8f559c631c464c60d9e342cb943864",
+    "git_blob_sha1": "355840382d4d39556e0748ff0beee45adddc6103"
+  },
+  "drivers/windows/tests/check-pe.py": {
+    "bytes": 4921,
+    "sha256": "30a016225b32d8e30c1c8e96a55cf2d21b740d277f517cb0a8f9b4d316ec4e25",
+    "git_blob_sha1": "72fb520ee6cbc2b31974fa63e5a6aff58b76afde"
+  },
+  "drivers/windows/toolchain.json": {
+    "bytes": 609,
+    "sha256": "256feeaf48141fbbad035abcb0622794c7f30768a9f79577d6f1c402bd2abfaf",
+    "git_blob_sha1": "c78d9f6b9ea6adae7faeab5065f7d42bdd7cf260"
+  },
+  "drivers/windows/PROVENANCE.md": {
+    "bytes": 5949,
+    "sha256": "8db2d966b32b8238e8a2c44b7cb6a2f7188e1f8642eb685919acfaaeac1fe38b",
+    "git_blob_sha1": "54903a032b8f2a324830026506c53fe3c40e53a9"
+  },
+  "LICENSE": {
+    "bytes": 865,
+    "sha256": "81e89942ae4b17621060badb304d7ffc1db6f8232e284d46cd041d4e3ce7c3ea",
+    "git_blob_sha1": "1fb049e2df39c0311f3fecc859dd9c4deb13cd62"
+  },
+  "THIRD-PARTY-NOTICES.txt": {
+    "bytes": 2133463,
+    "sha256": "c643941caadc1a3e57917378af4c3cdf2fbd9836b006eadd1c24b67d995d83b4",
+    "git_blob_sha1": "719cac1145ae6eaec1623484d2c75fd514668017"
+  },
+  "docs/third-party-licenses/rust-1.91.1/COPYRIGHT-library.html": {
+    "bytes": 398128,
+    "sha256": "3aa41caccecaeddad6fcf2f36ce14146ab7baae57064b05b12ecc6b52d5e917f",
+    "git_blob_sha1": "b228c89888f0a81a91f93155e5abda393027d8cf"
+  },
+  "docs/third-party-licenses/rust-1.91.1/LICENSE-APACHE.txt": {
+    "bytes": 10280,
+    "sha256": "074e6e32c86a4c0ef8b3ed25b721ca23aca83df277cd88106ef7177c354615ff",
+    "git_blob_sha1": "137069b823873b8bcf42979bcf8e9371052d26a2"
+  },
+  "docs/third-party-licenses/rust-1.91.1/LICENSE-MIT.txt": {
+    "bytes": 1078,
+    "sha256": "b85dcd3e453d05982552c52b5fc9e0bdd6d23c6f8e844b984a88af32570b0cc0",
+    "git_blob_sha1": "2071b23b0e08594ea6bc99ac71129ef992abf498"
+  },
+  "docs/third-party-licenses/rust-1.91.1/sources.json": {
+    "bytes": 1188,
+    "sha256": "82bc318b768c18639a8a317fa72df9933f215678c9378c98ee60676e28a4b374",
+    "git_blob_sha1": "3ae72da9f7acaa0470202710ca0af1ec5c488d04"
+  }
+}

@@ -1,0 +1,12 @@
+ProductName:		macOS
+ProductVersion:		15.7.9
+BuildVersion:		24G830
+Darwin sat12-bq152-04b335e5-6962-4249-ad0c-a79085fd62ba-B6119C0A3AC1.local 24.6.0 Darwin Kernel Version 24.6.0: Tue Jul 21 20:51:34 PDT 2026; root:xnu-11417.140.69.711.44~1/RELEASE_ARM64_VMAPPLE arm64
+15.5
+rustc 1.91.1 (ed61e7d7e 2025-11-07)
+binary: rustc
+commit-hash: ed61e7d7e242494fb7057f2657300d9e77bb4fcb
+commit-date: 2025-11-07
+host: aarch64-apple-darwin
+release: 1.91.1
+LLVM version: 21.1.2

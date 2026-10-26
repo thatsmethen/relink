@@ -1,0 +1,10 @@
+{
+  "sdk": "10.0.26100.6584",
+  "target": "x86_64-pc-windows-msvc",
+  "wdk": "10.0.26100.6584",
+  "kernel_loaded": false,
+  "abi_compiler": "14.44.35207",
+  "rust": "rustc 1.93.0-nightly (6647be936 2025-11-09)",
+  "catalog_created": true,
+  "signed": false
+}

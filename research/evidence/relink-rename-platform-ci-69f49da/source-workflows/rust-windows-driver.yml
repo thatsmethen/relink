@@ -1,0 +1,45 @@
+name: Original Rust Windows driver
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'crates/relink-windows-driver/**'
+      - 'drivers/windows/**'
+      - '.github/workflows/rust-windows-driver.yml'
+  pull_request:
+    paths:
+      - 'crates/relink-windows-driver/**'
+      - 'drivers/windows/**'
+      - '.github/workflows/rust-windows-driver.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  unsigned-package:
+    runs-on: windows-2022
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pinned Rust tools
+        shell: pwsh
+        run: |
+          rustup toolchain install 1.91.1 --profile minimal --component rustfmt,clippy
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          rustup toolchain install nightly-2025-11-10 --profile minimal --component rust-src --target x86_64-pc-windows-msvc
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Format and static checks
+        shell: pwsh
+        run: |
+          cargo +1.91.1 fmt --manifest-path crates/relink-windows-driver/Cargo.toml -- --check
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          cargo +1.91.1 clippy --locked --manifest-path crates/relink-windows-driver/Cargo.toml --all-targets -- -D warnings
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Build unsigned driver, verify SDK ABI and INF, create unsigned catalog
+        shell: pwsh
+        run: ./drivers/windows/build.ps1
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ReLink-Windows-driver-unsigned
+          path: dist/windows-driver/
+          if-no-files-found: warn

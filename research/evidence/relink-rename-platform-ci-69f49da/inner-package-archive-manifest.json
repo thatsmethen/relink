@@ -1,0 +1,86 @@
+{
+  "ReLink-Windows-development.zip": {
+    "bytes": 4246359,
+    "sha256": "6b69589063b76984dae9788b33483ba5eabb8a8fefe2fb2200ea7e08f5ad0e33",
+    "members": {
+      "Rust-runtime-notices/COPYRIGHT-library.html": {
+        "bytes": 398128,
+        "sha256": "3aa41caccecaeddad6fcf2f36ce14146ab7baae57064b05b12ecc6b52d5e917f"
+      },
+      "Rust-runtime-notices/LICENSE-APACHE.txt": {
+        "bytes": 10280,
+        "sha256": "074e6e32c86a4c0ef8b3ed25b721ca23aca83df277cd88106ef7177c354615ff"
+      },
+      "Rust-runtime-notices/LICENSE-MIT.txt": {
+        "bytes": 1078,
+        "sha256": "b85dcd3e453d05982552c52b5fc9e0bdd6d23c6f8e844b984a88af32570b0cc0"
+      },
+      "Rust-runtime-notices/sources.json": {
+        "bytes": 1188,
+        "sha256": "82bc318b768c18639a8a317fa72df9933f215678c9378c98ee60676e28a4b374"
+      },
+      "icon-resource-verification.json": {
+        "bytes": 2128,
+        "sha256": "1580a37eea36de9d299f0a3e3c4cb4bb3256da9348eab4c6bde327a0e026e1cf"
+      },
+      "LICENSE": {
+        "bytes": 865,
+        "sha256": "81e89942ae4b17621060badb304d7ffc1db6f8232e284d46cd041d4e3ce7c3ea"
+      },
+      "ReLink.exe": {
+        "bytes": 8696320,
+        "sha256": "cd610cddbb0dc17bffd333a16c0e30800b987716097ec5e4fd251c8c8ea99a81"
+      },
+      "THIRD-PARTY-NOTICES.txt": {
+        "bytes": 2133463,
+        "sha256": "c643941caadc1a3e57917378af4c3cdf2fbd9836b006eadd1c24b67d995d83b4"
+      }
+    }
+  },
+  "ReLink-macOS-development.zip": {
+    "bytes": 4288087,
+    "sha256": "520a60d98cb596a4f38792f0f35cf31a4ec17d1cd64895689ff3d128e0eea5f8",
+    "members": {
+      "ReLink.app/Contents/_CodeSignature/CodeResources": {
+        "bytes": 4064,
+        "sha256": "9db058b9c8e653fda4f610abfa5b80956fd99420f82a606318918424dd97e3ad"
+      },
+      "ReLink.app/Contents/MacOS/relink-app": {
+        "bytes": 9145536,
+        "sha256": "915be57bf8b5c38a71f4ec5b4e604847dc0b1932f4a7eefb9758b2135e4c1f0c"
+      },
+      "ReLink.app/Contents/Resources/Rust-runtime-notices/sources.json": {
+        "bytes": 1188,
+        "sha256": "82bc318b768c18639a8a317fa72df9933f215678c9378c98ee60676e28a4b374"
+      },
+      "ReLink.app/Contents/Resources/Rust-runtime-notices/LICENSE-APACHE.txt": {
+        "bytes": 10280,
+        "sha256": "074e6e32c86a4c0ef8b3ed25b721ca23aca83df277cd88106ef7177c354615ff"
+      },
+      "ReLink.app/Contents/Resources/Rust-runtime-notices/LICENSE-MIT.txt": {
+        "bytes": 1078,
+        "sha256": "b85dcd3e453d05982552c52b5fc9e0bdd6d23c6f8e844b984a88af32570b0cc0"
+      },
+      "ReLink.app/Contents/Resources/Rust-runtime-notices/COPYRIGHT-library.html": {
+        "bytes": 398128,
+        "sha256": "3aa41caccecaeddad6fcf2f36ce14146ab7baae57064b05b12ecc6b52d5e917f"
+      },
+      "ReLink.app/Contents/Resources/ReLink-LICENSE.txt": {
+        "bytes": 865,
+        "sha256": "81e89942ae4b17621060badb304d7ffc1db6f8232e284d46cd041d4e3ce7c3ea"
+      },
+      "ReLink.app/Contents/Resources/THIRD-PARTY-NOTICES.txt": {
+        "bytes": 2133463,
+        "sha256": "c643941caadc1a3e57917378af4c3cdf2fbd9836b006eadd1c24b67d995d83b4"
+      },
+      "ReLink.app/Contents/Resources/ReLink.icns": {
+        "bytes": 79329,
+        "sha256": "8139a60320ac879f2dd36dfccce5672d86000740ee3ddba9b31ca2c3f0389ec9"
+      },
+      "ReLink.app/Contents/Info.plist": {
+        "bytes": 1026,
+        "sha256": "fd61bde53ad6f3d00fef0c771ce0d004403392f55a60a9d4d7b09888a88b8968"
+      }
+    }
+  }
+}

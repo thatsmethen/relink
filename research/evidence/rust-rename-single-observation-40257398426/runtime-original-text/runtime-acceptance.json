@@ -1,0 +1,307 @@
+{
+  "schema": 1,
+  "observer_diagnostics_enabled": true,
+  "pass": false,
+  "exceptions": [],
+  "processes": [
+    {
+      "name": "source-writer",
+      "mode": "play",
+      "exit_code": 0,
+      "timed_out": false,
+      "deadline_seconds": 75.0,
+      "completion_observed_seconds": 60.32376195799998,
+      "supervision_finished_seconds": 60.32434712500003,
+      "term_sent": false,
+      "kill_sent": false,
+      "supervision_error": null
+    },
+    {
+      "name": "runtime",
+      "mode": "capture-mix",
+      "exit_code": 1,
+      "timed_out": false,
+      "deadline_seconds": 50.0,
+      "completion_observed_seconds": 7.71509654099998,
+      "supervision_finished_seconds": 7.715418499999998,
+      "term_sent": false,
+      "kill_sent": false,
+      "supervision_error": null
+    },
+    {
+      "name": "runtime-reader",
+      "mode": "record",
+      "exit_code": 0,
+      "timed_out": false,
+      "deadline_seconds": 47.0,
+      "completion_observed_seconds": 32.343675416999986,
+      "supervision_finished_seconds": 32.34411562499997,
+      "term_sent": false,
+      "kill_sent": false,
+      "supervision_error": null
+    }
+  ],
+  "observations": [
+    {
+      "schema": 1,
+      "pass": true,
+      "failures": [],
+      "accepted_pcm_callbacks": 5625,
+      "max_callback_work_seconds": 0.000870375,
+      "max_entry_minus_native_seconds": -0.0009612916666666666,
+      "sample_gap_context": [],
+      "notifications": [
+        {
+          "index": 0,
+          "host_time": 7928378945,
+          "object": 92,
+          "selector": 1735354734,
+          "scope": 1735159650,
+          "element": 0
+        },
+        {
+          "index": 1,
+          "host_time": 9368952762,
+          "object": 92,
+          "selector": 1735354734,
+          "scope": 1735159650,
+          "element": 0
+        }
+      ],
+      "listeners": [
+        {
+          "object": 92,
+          "selector": 1870030194,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        },
+        {
+          "object": 92,
+          "selector": 1735354734,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        },
+        {
+          "object": 92,
+          "selector": 1818850926,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        },
+        {
+          "object": 92,
+          "selector": 1853059700,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        },
+        {
+          "object": 92,
+          "selector": 1718839674,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        },
+        {
+          "object": 94,
+          "selector": 1885762592,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        },
+        {
+          "object": 93,
+          "selector": 1885762592,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        }
+      ],
+      "lifecycle": {
+        "start_request": 7927690768,
+        "start_return": 7931997512,
+        "stop_request": 9368732970,
+        "stop_return": 9369118675,
+        "destroy_request": 9369118686,
+        "destroy_return": 9369127112
+      },
+      "dropped_notifications": 0,
+      "note": "Diagnostic integrity only. No scheduling performance limit or PCM acceptance threshold is changed."
+    },
+    {
+      "schema": 1,
+      "pass": true,
+      "failures": [],
+      "accepted_pcm_callbacks": 3000,
+      "max_callback_work_seconds": 0.00024804166666666665,
+      "max_entry_minus_native_seconds": 0.02283275,
+      "sample_gap_context": [
+        {
+          "delta_frames": 588.0,
+          "previous": {
+            "index": 645,
+            "entry_minus_native_seconds": 0.02283275,
+            "callback_work_seconds": 2e-06,
+            "entry_minus_os_current_seconds": 7.795833333333332e-05
+          },
+          "current": {
+            "index": 646,
+            "entry_minus_native_seconds": 0.01171475,
+            "callback_work_seconds": 2.4583333333333332e-06,
+            "entry_minus_os_current_seconds": 9.558333333333333e-05
+          }
+        }
+      ],
+      "notifications": [
+        {
+          "index": 0,
+          "host_time": 7951244504,
+          "object": 100,
+          "selector": 1735354734,
+          "scope": 1735159650,
+          "element": 0
+        },
+        {
+          "index": 1,
+          "host_time": 8116914046,
+          "object": 100,
+          "selector": 1870030194,
+          "scope": 1735159650,
+          "element": 0
+        },
+        {
+          "index": 2,
+          "host_time": 8720945108,
+          "object": 100,
+          "selector": 1735354734,
+          "scope": 1735159650,
+          "element": 0
+        }
+      ],
+      "listeners": [
+        {
+          "object": 100,
+          "selector": 1870030194,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        },
+        {
+          "object": 100,
+          "selector": 1735354734,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        },
+        {
+          "object": 100,
+          "selector": 1818850926,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        },
+        {
+          "object": 100,
+          "selector": 1853059700,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        },
+        {
+          "object": 100,
+          "selector": 1718839674,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        },
+        {
+          "object": 102,
+          "selector": 1885762592,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        },
+        {
+          "object": 101,
+          "selector": 1885762592,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        }
+      ],
+      "lifecycle": {
+        "start_request": 7951017363,
+        "start_return": 7951666127,
+        "stop_request": 8720473151,
+        "stop_return": 8721359338,
+        "destroy_request": 8721359350,
+        "destroy_return": 8721366327
+      },
+      "dropped_notifications": 0,
+      "note": "Diagnostic integrity only. No scheduling performance limit or PCM acceptance threshold is changed."
+    },
+    {
+      "schema": 1,
+      "source_report": "/Users/runner/work/relink/relink/build/rust-runtime-system/source-writer.json",
+      "clock": {
+        "callback_count": 5625,
+        "sample_gaps": [],
+        "host_reversals": 0,
+        "measured_sample_rate": 48000.0,
+        "pass": true
+      },
+      "frames": 2880000,
+      "mode": "play",
+      "failures": [],
+      "pass": true
+    },
+    {
+      "pass": false,
+      "observer_error": "missing or repeated runtime protocol events"
+    }
+  ]
+}

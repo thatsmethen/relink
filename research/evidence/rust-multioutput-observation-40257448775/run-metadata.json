@@ -1,0 +1,143 @@
+{
+  "conclusion": "success",
+  "created_at": "2026-10-26T02:06:28Z",
+  "event": "workflow_dispatch",
+  "head_branch": "main",
+  "head_sha": "69f49da28a9bae16dec9d4bc29bd0d639fb73a08",
+  "html_url": "https://github.com/thatsmethen/relink/actions/runs/40257448775",
+  "id": 40257448775,
+  "jobs": [
+    {
+      "completed_at": "2026-10-26T02:09:33Z",
+      "conclusion": "success",
+      "html_url": "https://github.com/thatsmethen/relink/actions/runs/40257448775/job/121362240282",
+      "id": 121362240282,
+      "name": "installed-multioutput",
+      "started_at": "2026-10-26T02:06:32Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completed_at": "2026-10-26T02:06:33Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "started_at": "2026-10-26T02:06:32Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-26T02:06:35Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@v4",
+          "number": 2,
+          "started_at": "2026-10-26T02:06:33Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-26T02:06:42Z",
+          "conclusion": "success",
+          "name": "Install pinned Rust",
+          "number": 3,
+          "started_at": "2026-10-26T02:06:35Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-26T02:07:14Z",
+          "conclusion": "success",
+          "name": "Build original dual-cable driver, two-output runtime client and independent observer",
+          "number": 4,
+          "started_at": "2026-10-26T02:06:42Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-26T02:08:34Z",
+          "conclusion": "success",
+          "name": "Fixed independent analyzer and observer controls without audio",
+          "number": 5,
+          "started_at": "2026-10-26T02:07:14Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-26T02:08:44Z",
+          "conclusion": "success",
+          "name": "Fixed runtime protocol controls without audio",
+          "number": 6,
+          "started_at": "2026-10-26T02:08:34Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-26T02:09:27Z",
+          "conclusion": "success",
+          "name": "One installed observation of distinct native output buses, route controls and Stop",
+          "number": 7,
+          "started_at": "2026-10-26T02:08:44Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-26T02:09:27Z",
+          "conclusion": "success",
+          "name": "Ensure owned driver cleanup and both device UIDs absent",
+          "number": 8,
+          "started_at": "2026-10-26T02:09:27Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-26T02:09:27Z",
+          "conclusion": "success",
+          "name": "Hash original evidence including failed and partial observations",
+          "number": 9,
+          "started_at": "2026-10-26T02:09:27Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-26T02:09:29Z",
+          "conclusion": "success",
+          "name": "Preserve original two-output PCM, native records and failed results",
+          "number": 10,
+          "started_at": "2026-10-26T02:09:27Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-26T02:09:30Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4",
+          "number": 20,
+          "started_at": "2026-10-26T02:09:29Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-26T02:09:31Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 21,
+          "started_at": "2026-10-26T02:09:30Z",
+          "status": "completed"
+        }
+      ]
+    }
+  ],
+  "metadata_projection": true,
+  "note": "Selected fields from original API bodies; original bytes remain unchanged under the local build collection. Repository URL reflects the rename at collection time.",
+  "original_api": {
+    "original-artifacts.json": {
+      "bytes": 736,
+      "sha256": "26656f918ffb3b1fda3d1f43562802133c5a1d6a7592c60097bd26ab8678bd4c"
+    },
+    "original-jobs.json": {
+      "bytes": 3195,
+      "sha256": "7b8c54dab3b59f302befe4cd8520e75f59c8c5006199cc7ad1735784eb282b8d"
+    },
+    "original-run.json": {
+      "bytes": 12113,
+      "sha256": "4d198f07796720deb33b192816b4feb141f3c1746eb8177782245768322204da"
+    },
+    "original-source-commit.json": {
+      "bytes": 1172,
+      "sha256": "7857bf7081fd306f77c258091d6072e7e95e01f5165a16c2cbcf6906a5438dec"
+    }
+  },
+  "run_attempt": 1,
+  "source_tree": "e761d228a3f0998b9addc97c11a4fd3774b90545",
+  "status": "completed",
+  "updated_at": "2026-10-26T02:09:34Z",
+  "workflow_id": 396565401
+}

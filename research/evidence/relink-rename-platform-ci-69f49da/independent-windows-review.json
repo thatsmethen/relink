@@ -1,0 +1,214 @@
+{
+  "schema": 1,
+  "verified_at_utc": "2026-10-26T02:13:22.735828+00:00",
+  "result": "PASS",
+  "run": 40257398430,
+  "source_revision": "69f49da28a9bae16dec9d4bc29bd0d639fb73a08",
+  "artifact": {
+    "id": 12623237189,
+    "name": "ReLink-Windows-driver-unsigned",
+    "bytes": 78598,
+    "sha256": "f9c543d5ffb5775d1e952110d1434051182aa1956b374b434770e700bca9ba5d",
+    "github_digest_match": true
+  },
+  "archive_crc_exact_membership": true,
+  "members": {
+    "build-evidence.json": {
+      "bytes": 269,
+      "sha256": "9103bf2366aca91e136e9f62136cab5e9abf1c225bb92538fd21601dc713d16d"
+    },
+    "DRIVER-RUNTIME-NOTICES.txt": {
+      "bytes": 1332,
+      "sha256": "209ebf493d9dcccd5a226e7559ef5a105625e7baea0744177c337572e9f8e651"
+    },
+    "LICENSE": {
+      "bytes": 865,
+      "sha256": "81e89942ae4b17621060badb304d7ffc1db6f8232e284d46cd041d4e3ce7c3ea"
+    },
+    "pe-evidence.json": {
+      "bytes": 1320,
+      "sha256": "42112eb43f52b5707b42915a04a8b59de2cbb5d4c95521f8cb5e883b008790fe"
+    },
+    "PROVENANCE.md": {
+      "bytes": 5949,
+      "sha256": "8db2d966b32b8238e8a2c44b7cb6a2f7188e1f8642eb685919acfaaeac1fe38b"
+    },
+    "relink.cat": {
+      "bytes": 1099,
+      "sha256": "9a300fca50c5e1ef8385d88e482c0f84ed022879a0ecef4bbe3ad5d0deb0ff1c"
+    },
+    "ReLink.inf": {
+      "bytes": 1901,
+      "sha256": "0e44e79d521464809c43e6b1149c59a7096285080f183219d3400395f2bd33ab"
+    },
+    "ReLink.sys": {
+      "bytes": 26112,
+      "sha256": "e73444029c4fbf1bcf2dec3a6923a45f484277e79b5f7335565a073a70d81833"
+    },
+    "relink_windows_driver.pdb": {
+      "bytes": 208896,
+      "sha256": "9b355a8b90e678de52d4962fb421dff2bc5e175b576881a46f8c5fdb986e128d"
+    },
+    "runtime-notices/compiler-builtins-libm-LICENSE.txt": {
+      "bytes": 14088,
+      "sha256": "3823dda7cf046602f4b4e77ec8e227863dc4736037cc85bb33d9f19febe16bb7"
+    },
+    "runtime-notices/compiler-builtins-LICENSE.txt": {
+      "bytes": 15078,
+      "sha256": "ab6eec6caf0fa5775e411c7a8bc6a45c4ef2956b0980b157ab74fc5cd62a928b"
+    },
+    "runtime-notices/manifest.json": {
+      "bytes": 1108,
+      "sha256": "584eaadf6793fe04c38375797b467ad3f2d1086a195fc439c169fb52689e95e0"
+    },
+    "runtime-notices/Rust-Apache-2.0.txt": {
+      "bytes": 10280,
+      "sha256": "074e6e32c86a4c0ef8b3ed25b721ca23aca83df277cd88106ef7177c354615ff"
+    },
+    "runtime-notices/Rust-COPYRIGHT-library.html": {
+      "bytes": 411104,
+      "sha256": "c90d52b09be83ce6e930d00f4b26559611eadcee806b2307184e04f2c78ad522"
+    },
+    "runtime-notices/Rust-MIT.txt": {
+      "bytes": 1078,
+      "sha256": "b85dcd3e453d05982552c52b5fc9e0bdd6d23c6f8e844b984a88af32570b0cc0"
+    },
+    "runtime-notices/Rust-Unicode-3.0.txt": {
+      "bytes": 1995,
+      "sha256": "f5062c9a188d81dfe66b56db4182dcf9e4b17c0d9b0d311a8e20b3a1b075c443"
+    },
+    "toolchain.json": {
+      "bytes": 609,
+      "sha256": "256feeaf48141fbbad035abcb0622794c7f30768a9f79577d6f1c402bd2abfaf"
+    }
+  },
+  "exact_products": [
+    "ReLink.sys",
+    "ReLink.inf",
+    "relink.cat",
+    "relink_windows_driver.pdb"
+  ],
+  "old_named_artifacts_present": false,
+  "catalog_name_note": "Inf2Cat emitted lowercase relink.cat. INF specifies ReLink.cat; the names match Windows case-insensitive file resolution.",
+  "inf_preserved_hardware_id": "Root\\RaveLinkAudio",
+  "inf_preserved_service_id": "RaveLinkAudio",
+  "packaged_source_files_match_exact_revision": true,
+  "pinned_source_files": {
+    "drivers/windows/tests/check-pe.py": {
+      "git_blob_sha": "72fb520ee6cbc2b31974fa63e5a6aff58b76afde",
+      "bytes": 4921,
+      "sha256": "30a016225b32d8e30c1c8e96a55cf2d21b740d277f517cb0a8f9b4d316ec4e25"
+    },
+    "drivers/windows/ReLink.inf": {
+      "git_blob_sha": "56133c0a4e768884be96f0a2a3b58ad6af774ceb",
+      "bytes": 1901,
+      "sha256": "0e44e79d521464809c43e6b1149c59a7096285080f183219d3400395f2bd33ab"
+    },
+    "drivers/windows/toolchain.json": {
+      "git_blob_sha": "c78d9f6b9ea6adae7faeab5065f7d42bdd7cf260",
+      "bytes": 609,
+      "sha256": "256feeaf48141fbbad035abcb0622794c7f30768a9f79577d6f1c402bd2abfaf"
+    },
+    "drivers/windows/PROVENANCE.md": {
+      "git_blob_sha": "54903a032b8f2a324830026506c53fe3c40e53a9",
+      "bytes": 5949,
+      "sha256": "8db2d966b32b8238e8a2c44b7cb6a2f7188e1f8642eb685919acfaaeac1fe38b"
+    },
+    "drivers/windows/build.ps1": {
+      "git_blob_sha": "751b183b876802504f4a1fc6a3b8f9d4abb481c4",
+      "bytes": 7578,
+      "sha256": "b01cf478a9d09752ca242dda7ba3c0fbc9b0627a6f9a7be76a0444c0a8cf9a91"
+    },
+    "LICENSE": {
+      "git_blob_sha": "1fb049e2df39c0311f3fecc859dd9c4deb13cd62",
+      "bytes": 865,
+      "sha256": "81e89942ae4b17621060badb304d7ffc1db6f8232e284d46cd041d4e3ce7c3ea"
+    },
+    ".github/workflows/rust-windows-driver.yml": {
+      "git_blob_sha": "e9e1be4cefdf43c0a33a9e76768cfc98d2460653",
+      "bytes": 1677,
+      "sha256": "e06cdad20a6b21dbe945e333c9dd304735c1507c821bed8b041c75f88c786202"
+    }
+  },
+  "build_report": {
+    "sdk": "10.0.26100.6584",
+    "target": "x86_64-pc-windows-msvc",
+    "wdk": "10.0.26100.6584",
+    "kernel_loaded": false,
+    "abi_compiler": "14.44.35207",
+    "rust": "rustc 1.93.0-nightly (6647be936 2025-11-09)",
+    "catalog_created": true,
+    "signed": false
+  },
+  "original_pe_assertions_recomputed_exactly": {
+    "file": "ReLink.sys",
+    "bytes": 26112,
+    "sha256": "e73444029c4fbf1bcf2dec3a6923a45f484277e79b5f7335565a073a70d81833",
+    "machine": "AMD64",
+    "subsystem": "native",
+    "entry_rva": 4096,
+    "checksum": 44431,
+    "imports": {
+      "ntoskrnl.exe": [
+        "ExAllocatePool2",
+        "ExFreePoolWithTag",
+        "KeAcquireSpinLockRaiseToDpc",
+        "KeBugCheckEx",
+        "KeClearEvent",
+        "KeEnterCriticalRegion",
+        "KeGetCurrentIrql",
+        "KeInitializeEvent",
+        "KeLeaveCriticalRegion",
+        "KeReleaseSpinLock",
+        "KeSetEvent",
+        "KeWaitForSingleObject"
+      ],
+      "hal.dll": [
+        "KeQueryPerformanceCounter"
+      ],
+      "portcls.sys": [
+        "PcAddAdapterDevice",
+        "PcDispatchIrp",
+        "PcInitializeAdapterDriver",
+        "PcNewPort",
+        "PcRegisterAdapterPnpManagement",
+        "PcRegisterAdapterPowerManagement",
+        "PcRegisterPhysicalConnection",
+        "PcRegisterSubdevice",
+        "PcUnregisterAdapterPnpManagement",
+        "PcUnregisterAdapterPowerManagement"
+      ]
+    },
+    "exports": {
+      "DriverEntry": 4096,
+      "_fltused": 26816
+    },
+    "sections": [
+      ".text",
+      ".rdata",
+      ".data",
+      ".pdata",
+      ".reloc"
+    ],
+    "signed": false,
+    "qualification": "PE structure only; no kernel load or endpoint runtime test"
+  },
+  "pdb_matches_pe_codeview": {
+    "guid_raw_hex": "09d49e08beae48324c4c44205044422e",
+    "age": 1,
+    "filename": "relink_windows_driver.pdb"
+  },
+  "runtime_notice_files_hash_verified": 6,
+  "native_job_log_markers_verified": [
+    "nine host tests passed",
+    "compile-only SDK ABI source",
+    "Inf2Cat signability complete",
+    "catalog generation complete"
+  ],
+  "limits": [
+    "Unsigned build/packaging and PE structure only. No Windows kernel loading, endpoint discovery, native audio, driver signing, production qualification or installed upgrade was observed.",
+    "Catalog presence/name and successful Inf2Cat log were verified; no independent Windows catalog trust or installation validation was performed."
+  ],
+  "reviewer_git_audio_or_public_mutations": false,
+  "metadata_read_note": "Small GitHub run/jobs/artifact API reads were performed; artifact bytes came from the parent collector."
+}

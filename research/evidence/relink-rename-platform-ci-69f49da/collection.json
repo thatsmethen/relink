@@ -1,0 +1,69 @@
+{
+  "schema": 1,
+  "collected_at_utc": "2026-10-26T02:16:28.491573+00:00",
+  "source_revision": "69f49da28a9bae16dec9d4bc29bd0d639fb73a08",
+  "originals": {
+    "build/relink-rename-platform-ci-69f49da/driver/ReLink-Windows-driver-unsigned.zip": {
+      "bytes": 78598,
+      "sha256": "f9c543d5ffb5775d1e952110d1434051182aa1956b374b434770e700bca9ba5d"
+    },
+    "build/relink-rename-platform-ci-69f49da/driver/artifacts.json": {
+      "bytes": 725,
+      "sha256": "be0781297486548911b99b615278b63d3a5c7518bbc27a72b0d81ca21ce0fbac"
+    },
+    "build/relink-rename-platform-ci-69f49da/driver/jobs.json": {
+      "bytes": 2283,
+      "sha256": "54a87775c04b09b5b7525e96bd1cc789080a2bc9b45886b1ff28c9596a2d658b"
+    },
+    "build/relink-rename-platform-ci-69f49da/driver/original-archive-manifest.json": {
+      "bytes": 4815,
+      "sha256": "7a5726f0218e1acf6669ae565a88cf3adbcbb12a444e49c049850e7613f8502e"
+    },
+    "build/relink-rename-platform-ci-69f49da/driver/original-logs.zip": {
+      "bytes": 15380,
+      "sha256": "9bbc97d19895b8111c6ac5fd84ceb658bc151c6a7eb7023195c12dd8da6fa650"
+    },
+    "build/relink-rename-platform-ci-69f49da/driver/run.json": {
+      "bytes": 12100,
+      "sha256": "013f3db2a6721c6b5c7144375b2b9c27e4f3f2757ef1673ff491fd6043f66334"
+    },
+    "build/relink-rename-platform-ci-69f49da/desktop/ReLink-Windows-development.zip": {
+      "bytes": 4232468,
+      "sha256": "99d11316f756f7ef372667a7584b21f318cda63f806fe5731fe93c49ea1ec1ab"
+    },
+    "build/relink-rename-platform-ci-69f49da/desktop/ReLink-macOS-development.zip": {
+      "bytes": 4271044,
+      "sha256": "c4b3d9ea708d2793faf351d20a216ea61eabcfbed52726f12f62754ce473d378"
+    },
+    "build/relink-rename-platform-ci-69f49da/desktop/artifacts.json": {
+      "bytes": 1413,
+      "sha256": "931f5c9e8fec22ea15b298ad5ca95f08e65216acb53b441364718b4463383121"
+    },
+    "build/relink-rename-platform-ci-69f49da/desktop/jobs.json": {
+      "bytes": 7070,
+      "sha256": "e22fab5787e174270ff18a4f8d215cd447d63b5159835b0526f974b614e30bd5"
+    },
+    "build/relink-rename-platform-ci-69f49da/desktop/original-archive-manifest.json": {
+      "bytes": 6132,
+      "sha256": "947395ea9e1e99f1429126088fe44648751155c794dbb8aeb8cf2d4cbb3690ca"
+    },
+    "build/relink-rename-platform-ci-69f49da/desktop/original-logs.zip": {
+      "bytes": 108284,
+      "sha256": "813da433be167689b85aeba623216ae3650aeb475c268de2057142696df9fb9c"
+    },
+    "build/relink-rename-platform-ci-69f49da/desktop/run-pending-20261026T021055Z.json": {
+      "bytes": 12077,
+      "sha256": "caf421e6c59a5317aa3aa74475247b6164de077dcd8175d44c421859f1ecd729"
+    },
+    "build/relink-rename-platform-ci-69f49da/desktop/run.json": {
+      "bytes": 12080,
+      "sha256": "5921291e1c5120cda99c88cfe9a1c360eab3cdb0df836c0ccf1154aa49a35d28"
+    }
+  },
+  "original_artifact_api_digests_match": true,
+  "no_rerun": true,
+  "no_git_changes": true,
+  "no_application_or_driver_launch": true,
+  "no_release_publication": true,
+  "original_zip_bytes_unchanged": true
+}

@@ -1,0 +1,124 @@
+{
+  "ReLink-Windows-driver-unsigned.zip": {
+    "artifact_id": 12623237189,
+    "bytes": 78598,
+    "sha256": "f9c543d5ffb5775d1e952110d1434051182aa1956b374b434770e700bca9ba5d",
+    "github_digest": "sha256:f9c543d5ffb5775d1e952110d1434051182aa1956b374b434770e700bca9ba5d",
+    "members": {
+      "build-evidence.json": {
+        "bytes": 269,
+        "sha256": "9103bf2366aca91e136e9f62136cab5e9abf1c225bb92538fd21601dc713d16d"
+      },
+      "DRIVER-RUNTIME-NOTICES.txt": {
+        "bytes": 1332,
+        "sha256": "209ebf493d9dcccd5a226e7559ef5a105625e7baea0744177c337572e9f8e651"
+      },
+      "LICENSE": {
+        "bytes": 865,
+        "sha256": "81e89942ae4b17621060badb304d7ffc1db6f8232e284d46cd041d4e3ce7c3ea"
+      },
+      "pe-evidence.json": {
+        "bytes": 1320,
+        "sha256": "42112eb43f52b5707b42915a04a8b59de2cbb5d4c95521f8cb5e883b008790fe"
+      },
+      "PROVENANCE.md": {
+        "bytes": 5949,
+        "sha256": "8db2d966b32b8238e8a2c44b7cb6a2f7188e1f8642eb685919acfaaeac1fe38b"
+      },
+      "relink.cat": {
+        "bytes": 1099,
+        "sha256": "9a300fca50c5e1ef8385d88e482c0f84ed022879a0ecef4bbe3ad5d0deb0ff1c"
+      },
+      "ReLink.inf": {
+        "bytes": 1901,
+        "sha256": "0e44e79d521464809c43e6b1149c59a7096285080f183219d3400395f2bd33ab"
+      },
+      "ReLink.sys": {
+        "bytes": 26112,
+        "sha256": "e73444029c4fbf1bcf2dec3a6923a45f484277e79b5f7335565a073a70d81833"
+      },
+      "relink_windows_driver.pdb": {
+        "bytes": 208896,
+        "sha256": "9b355a8b90e678de52d4962fb421dff2bc5e175b576881a46f8c5fdb986e128d"
+      },
+      "runtime-notices/compiler-builtins-libm-LICENSE.txt": {
+        "bytes": 14088,
+        "sha256": "3823dda7cf046602f4b4e77ec8e227863dc4736037cc85bb33d9f19febe16bb7"
+      },
+      "runtime-notices/compiler-builtins-LICENSE.txt": {
+        "bytes": 15078,
+        "sha256": "ab6eec6caf0fa5775e411c7a8bc6a45c4ef2956b0980b157ab74fc5cd62a928b"
+      },
+      "runtime-notices/manifest.json": {
+        "bytes": 1108,
+        "sha256": "584eaadf6793fe04c38375797b467ad3f2d1086a195fc439c169fb52689e95e0"
+      },
+      "runtime-notices/Rust-Apache-2.0.txt": {
+        "bytes": 10280,
+        "sha256": "074e6e32c86a4c0ef8b3ed25b721ca23aca83df277cd88106ef7177c354615ff"
+      },
+      "runtime-notices/Rust-COPYRIGHT-library.html": {
+        "bytes": 411104,
+        "sha256": "c90d52b09be83ce6e930d00f4b26559611eadcee806b2307184e04f2c78ad522"
+      },
+      "runtime-notices/Rust-MIT.txt": {
+        "bytes": 1078,
+        "sha256": "b85dcd3e453d05982552c52b5fc9e0bdd6d23c6f8e844b984a88af32570b0cc0"
+      },
+      "runtime-notices/Rust-Unicode-3.0.txt": {
+        "bytes": 1995,
+        "sha256": "f5062c9a188d81dfe66b56db4182dcf9e4b17c0d9b0d311a8e20b3a1b075c443"
+      },
+      "toolchain.json": {
+        "bytes": 609,
+        "sha256": "256feeaf48141fbbad035abcb0622794c7f30768a9f79577d6f1c402bd2abfaf"
+      }
+    }
+  },
+  "original-logs.zip": {
+    "bytes": 15380,
+    "sha256": "9bbc97d19895b8111c6ac5fd84ceb658bc151c6a7eb7023195c12dd8da6fa650",
+    "members": {
+      "0_unsigned-package.txt": {
+        "bytes": 20986,
+        "sha256": "d402ea982e29b315175d89ad4088d5e3eada5a1f76682b96011c2492059f1e8f"
+      },
+      "unsigned-package/system.txt": {
+        "bytes": 594,
+        "sha256": "dba1a179473bb7227f5547dbdfc780bce0bff97d0d73785756e2768cc115844c"
+      },
+      "unsigned-package/1_Set up job.txt": {
+        "bytes": 2096,
+        "sha256": "e3d32332be67c4ee2e8ddda4b393cd089c1868c6b9d67c4087235a6c6d1f2acb"
+      },
+      "unsigned-package/2_Run actions_checkout@v4.txt": {
+        "bytes": 5146,
+        "sha256": "c9d19f62196add6600107d0a1b8538102b656342fafa6ed26270b6ae9bda2873"
+      },
+      "unsigned-package/3_Install pinned Rust tools.txt": {
+        "bytes": 1619,
+        "sha256": "8252a71da8f2c7973481370b9149eabd842f80469faa4d707b3b0947d0a83299"
+      },
+      "unsigned-package/4_Format and static checks.txt": {
+        "bytes": 953,
+        "sha256": "0e8a4c4efa9a47bebd205a9571776210195b3da26ba48e5ea13e1f1b7eab1821"
+      },
+      "unsigned-package/5_Build unsigned driver, verify SDK ABI and INF, create unsigned catalog.txt": {
+        "bytes": 6789,
+        "sha256": "8138bed30ea48a682425ea1904b8f2edc6bdc2e868a90590722a99b3550df7cc"
+      },
+      "unsigned-package/6_Run actions_upload-artifact@v4.txt": {
+        "bytes": 2038,
+        "sha256": "c1b9508d8601450d43fcd54328e3fab1c5bab140ff06c4aa8effaef7ca96756f"
+      },
+      "unsigned-package/12_Post Run actions_checkout@v4.txt": {
+        "bytes": 1913,
+        "sha256": "e3df3d10ce01596d14246f4b183e36beb514728bddee291809b58eda42b9dc5d"
+      },
+      "unsigned-package/13_Complete job.txt": {
+        "bytes": 453,
+        "sha256": "d64aa5cabc12f1c90b8e06a144ea0e0c54a295b2dfb55a62db6a5f52c10180d1"
+      }
+    }
+  }
+}

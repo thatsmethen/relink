@@ -1,0 +1,148 @@
+{
+  "ReLink-macOS-development.zip": {
+    "artifact_id": 12623287194,
+    "bytes": 4271044,
+    "sha256": "c4b3d9ea708d2793faf351d20a216ea61eabcfbed52726f12f62754ce473d378",
+    "github_digest": "sha256:c4b3d9ea708d2793faf351d20a216ea61eabcfbed52726f12f62754ce473d378",
+    "members": {
+      "ReLink-macOS-development.zip": {
+        "bytes": 4288087,
+        "sha256": "520a60d98cb596a4f38792f0f35cf31a4ec17d1cd64895689ff3d128e0eea5f8"
+      }
+    }
+  },
+  "ReLink-Windows-development.zip": {
+    "artifact_id": 12622868936,
+    "bytes": 4232468,
+    "sha256": "99d11316f756f7ef372667a7584b21f318cda63f806fe5731fe93c49ea1ec1ab",
+    "github_digest": "sha256:99d11316f756f7ef372667a7584b21f318cda63f806fe5731fe93c49ea1ec1ab",
+    "members": {
+      "ReLink-Windows-development.zip": {
+        "bytes": 4246359,
+        "sha256": "6b69589063b76984dae9788b33483ba5eabb8a8fefe2fb2200ea7e08f5ad0e33"
+      }
+    }
+  },
+  "original-logs.zip": {
+    "bytes": 108284,
+    "sha256": "813da433be167689b85aeba623216ae3650aeb475c268de2057142696df9fb9c",
+    "members": {
+      "0_desktop (macos-15).txt": {
+        "bytes": 95528,
+        "sha256": "bbc98da4b261cb1103f1e22f91819d01b09fdc6c5fa2e26e8c130a9b9632e9d3"
+      },
+      "desktop (macos-15)/system.txt": {
+        "bytes": 566,
+        "sha256": "42e8c2d4f15b7fbf7293ba840b79dc0c9c55dfe868428e3cda445244f796176b"
+      },
+      "desktop (macos-15)/1_Set up job.txt": {
+        "bytes": 2021,
+        "sha256": "92e6c38c1a6282d0ae7d4fc40a1660a0a6a60ec51ec71e70f821499992dcdcc6"
+      },
+      "desktop (macos-15)/2_Run actions_checkout@v4.txt": {
+        "bytes": 6032,
+        "sha256": "0721b3e9ca2c25b072e38b2ab6964fc1065214ff43b99955f75aec0658d8fc9f"
+      },
+      "desktop (macos-15)/3_Install pinned Rust.txt": {
+        "bytes": 986,
+        "sha256": "927361ad77af1bfef3cb5c5b579168f9afc40cf44809363220967fc8a7ae4ca9"
+      },
+      "desktop (macos-15)/4_Dependency and font notices.txt": {
+        "bytes": 14382,
+        "sha256": "899b8c273614aa5a85992ddc96b6c48c74e6e1a553353a52ab5e9de8d64897f5"
+      },
+      "desktop (macos-15)/5_Formatting.txt": {
+        "bytes": 234,
+        "sha256": "c84e74b330bc110ac1f4e86f4067ef1541797b1031a59ad7fee42087bd5e379e"
+      },
+      "desktop (macos-15)/6_Static checks.txt": {
+        "bytes": 11526,
+        "sha256": "73bbf98b327d0fb41e11022b5e2e21db712c77bc3eaa1094223b8e8784c813c6"
+      },
+      "desktop (macos-15)/7_Deterministic tests.txt": {
+        "bytes": 43854,
+        "sha256": "1b745cf2a86e2f8b6d8237a946430bff5500f241937620d8fd9ff4c5034d418a"
+      },
+      "desktop (macos-15)/8_Build macOS application.txt": {
+        "bytes": 11680,
+        "sha256": "96e8af0ec7b263cc6292f79998bbc3978bc3b7a37ea00ad7ad6483e771ce11aa"
+      },
+      "desktop (macos-15)/12_macOS driver ABI harness.txt": {
+        "bytes": 526,
+        "sha256": "9eccc1832e3842d18d6e8de4759cd911d060637aaf834e1cba721d51b731d38f"
+      },
+      "desktop (macos-15)/13_Run actions_upload-artifact@v4.txt": {
+        "bytes": 2012,
+        "sha256": "78b7ec623b9cfce9095933d77825ceb36bca5a410a6874262870ca2d93642010"
+      },
+      "desktop (macos-15)/28_Post Run actions_checkout@v4.txt": {
+        "bytes": 1932,
+        "sha256": "5859653786ac62ee0c36726e9666d964fff480f934abb4c6bef45ee28e61b3e9"
+      },
+      "desktop (macos-15)/29_Complete job.txt": {
+        "bytes": 376,
+        "sha256": "30acbe027d6334a3a7c5c9496f2a8be09b0d881cd7be7e14fdb17532313d1432"
+      },
+      "1_desktop (windows-2022).txt": {
+        "bytes": 97657,
+        "sha256": "6c86f857f88d02c8cee44342531456b6f362b58389ebeb027632037c512d9155"
+      },
+      "desktop (windows-2022)/system.txt": {
+        "bytes": 570,
+        "sha256": "3d4e37ad87d20550b2ba3aef62767180168acc4b6dd2b688a52f2bb744d99f97"
+      },
+      "desktop (windows-2022)/1_Set up job.txt": {
+        "bytes": 2102,
+        "sha256": "7533bd2dc7c606d0c9353415d10bb4d98c621d46f28ea27be648ed4c89240f19"
+      },
+      "desktop (windows-2022)/2_Run actions_checkout@v4.txt": {
+        "bytes": 5146,
+        "sha256": "44a94fc8fa6bbfdd1ec8a4f4f7f3d62263c0c32e4230ba3f3b508e852ee716b2"
+      },
+      "desktop (windows-2022)/3_Install pinned Rust.txt": {
+        "bytes": 826,
+        "sha256": "7f42debea48ed30c59df6df2992c846e5a3fece539b5d4e440707c6d1e46db1d"
+      },
+      "desktop (windows-2022)/4_Dependency and font notices.txt": {
+        "bytes": 14603,
+        "sha256": "2f682faeefbc3ade2d47b4627584e451d1ab14d4d9ee6ca4c98bd8622182f055"
+      },
+      "desktop (windows-2022)/5_Formatting.txt": {
+        "bytes": 279,
+        "sha256": "f8c898a79f22274532206af258f843b0d4a1277b21f10ec59b3efe0316c3df73"
+      },
+      "desktop (windows-2022)/6_Static checks.txt": {
+        "bytes": 11741,
+        "sha256": "542a95b7bcf7e3418fc7063ac6e205b8392624c3524c55ad53de5364966874c6"
+      },
+      "desktop (windows-2022)/7_Deterministic tests.txt": {
+        "bytes": 39698,
+        "sha256": "30cf908c3889389fb7c299e66a17de60c39c21a29663e161ed7d99e5656e60b1"
+      },
+      "desktop (windows-2022)/9_Build Windows application.txt": {
+        "bytes": 12641,
+        "sha256": "3da5e1df8c476db6e58ae21823b23471f711093a1fff85e1fbc94b507d834c58"
+      },
+      "desktop (windows-2022)/10_Verify embedded Windows icon resources.txt": {
+        "bytes": 5841,
+        "sha256": "269a755f1b7ff2f7f04f2b0e1fbeb6783371dda73b54f8d887d54c00311f17e4"
+      },
+      "desktop (windows-2022)/11_Package Windows application.txt": {
+        "bytes": 407,
+        "sha256": "65cc8f3ae0210282019b5f4e3894bb016df26794524d1b872675a924309145e6"
+      },
+      "desktop (windows-2022)/14_Run actions_upload-artifact@v4.txt": {
+        "bytes": 2043,
+        "sha256": "c8ae08591584f7876f0ffae067c1f2f1cb954d9326a0e3838b8a17b2e15ee110"
+      },
+      "desktop (windows-2022)/28_Post Run actions_checkout@v4.txt": {
+        "bytes": 1913,
+        "sha256": "0b2693be6aa42eafca849ea8f66c7e659bded4e03324f99b827f729b2f9f3cde"
+      },
+      "desktop (windows-2022)/29_Complete job.txt": {
+        "bytes": 453,
+        "sha256": "5b1668dcbf38e0884323a4aa0838d421714e5854deed30bf34a47c89fb7b40ff"
+      }
+    }
+  }
+}
