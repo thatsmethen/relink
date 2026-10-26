@@ -1,0 +1,90 @@
+{
+  "schema": 1,
+  "published_utc": "2026-10-26T06:25:31Z",
+  "verified_utc": "2026-10-26T06:26:13.053010+00:00",
+  "repository": "thatsmethen/relink",
+  "repository_visibility": "public",
+  "source_revision": "23c7ed6302bcb21ae99452487f137b50301254a3",
+  "run_id": 40275243664,
+  "run_attempt": 1,
+  "original_result": {
+    "installed_hal": "success",
+    "installed_runtime_capture": "failure",
+    "runtime_failure": "independent recorder clock/continuity failed",
+    "excess_timeline_frames": 588
+  },
+  "release": {
+    "id": 423915786,
+    "url": "https://github.com/thatsmethen/relink/releases/tag/evidence-23c7ed6-40275243664",
+    "tag": "evidence-23c7ed6-40275243664",
+    "tag_type": "commit",
+    "tag_commit": "23c7ed6302bcb21ae99452487f137b50301254a3",
+    "lightweight_tag": true,
+    "prerelease": true,
+    "draft": false,
+    "make_latest_requested": false,
+    "notes_sha256": "f60098d5b907f89de1112d50d722dd8565dc44c746fbe6238c7d373ab63ee752",
+    "latest_api_verification": {
+      "command": "gh api repos/thatsmethen/relink/releases/latest",
+      "exit_code": 1,
+      "http_status": 404,
+      "evidence_release_is_latest": false,
+      "meaning": "No release is designated latest by the API."
+    }
+  },
+  "assets": [
+    {
+      "name": "hal.zip",
+      "asset_id": 677229000,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-23c7ed6-40275243664/hal.zip",
+      "state": "uploaded",
+      "bytes": 10536205,
+      "sha256": "d5da927cf0b6f3b8b477563bbfa2b9096df4b67ba2655184be77f0c2e9ef67f0",
+      "github_api_digest": "sha256:d5da927cf0b6f3b8b477563bbfa2b9096df4b67ba2655184be77f0c2e9ef67f0",
+      "original_actions_artifact_id": 12630181398,
+      "anonymous_download": {
+        "verified_utc": "2026-10-26T06:25:54.340193+00:00",
+        "http_status": 200,
+        "bytes": 10536205,
+        "sha256": "d5da927cf0b6f3b8b477563bbfa2b9096df4b67ba2655184be77f0c2e9ef67f0",
+        "matches_original_archive": true,
+        "local_relative_path": "build/ci-40275243664/publication/anonymous-hal.zip",
+        "method": "curl -q --fail --location --proto =https --proto-redir =https; no credentials or authorization headers supplied; fresh output path"
+      }
+    },
+    {
+      "name": "runtime.zip",
+      "asset_id": 677228999,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-23c7ed6-40275243664/runtime.zip",
+      "state": "uploaded",
+      "bytes": 6958055,
+      "sha256": "d08bb1bb171f7be78c244eb8cc2546317d7099e3f7d98483a8904d2b41282ae2",
+      "github_api_digest": "sha256:d08bb1bb171f7be78c244eb8cc2546317d7099e3f7d98483a8904d2b41282ae2",
+      "original_actions_artifact_id": 12629449730,
+      "anonymous_download": {
+        "verified_utc": "2026-10-26T06:26:13.049940+00:00",
+        "http_status": 200,
+        "bytes": 6958055,
+        "sha256": "d08bb1bb171f7be78c244eb8cc2546317d7099e3f7d98483a8904d2b41282ae2",
+        "matches_original_archive": true,
+        "local_relative_path": "build/ci-40275243664/publication/anonymous-runtime.zip",
+        "method": "curl -q --fail --location --proto =https --proto-redir =https; no credentials or authorization headers supplied; fresh output path"
+      }
+    }
+  ],
+  "original_directory_custody": {
+    "before_publication_verified_members": 63,
+    "original_custody_sha256": "13c76a32d5220246dd851ef7f147e3931596266bb3d0f54a49eb134010e25fe8",
+    "after_publication_unchanged_members": 62,
+    "changed_original_members": [
+      "README.md"
+    ],
+    "notes": "README adds release links; original reports, raw artifacts, frozen sources, failed re-analysis and diagnostics remain unchanged."
+  },
+  "limits": [
+    "Original failed generated CI observation preserved unchanged; no acceptance rerun, local recording or local device operation.",
+    "Archive custody and exact reproduction do not turn the runtime continuity failure into a pass.",
+    "No live DSP, Sound Check, application capture, multiple output, Windows audio routing or production qualification.",
+    "Prior observations 40270207703 and 40272244069 remain unchanged."
+  ]
+}

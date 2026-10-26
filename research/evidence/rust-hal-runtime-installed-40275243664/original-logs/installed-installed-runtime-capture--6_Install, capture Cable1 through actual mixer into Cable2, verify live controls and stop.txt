@@ -1,0 +1,7 @@
+﻿2026-10-26T05:39:58.9104830Z ##[group]Run python3 drivers/macos/tests/run_runtime.py run
+2026-10-26T05:39:58.9105340Z [36;1mpython3 drivers/macos/tests/run_runtime.py run[0m
+2026-10-26T05:39:58.9281480Z shell: /bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-26T05:39:58.9281850Z env:
+2026-10-26T05:39:58.9282200Z   RAVELINK_OBSERVER_DIAGNOSTICS: 1
+2026-10-26T05:39:58.9282520Z ##[endgroup]
+2026-10-26T05:41:02.4686330Z ##[error]Process completed with exit code 1.

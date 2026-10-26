@@ -1,0 +1,33 @@
+{
+  "source_revision": "23c7ed6302bcb21ae99452487f137b50301254a3",
+  "run_id": 40275243677,
+  "run_attempt": 1,
+  "run_url": "https://github.com/thatsmethen/relink/actions/runs/40275243677",
+  "conclusion": "success",
+  "jobs": [
+    {
+      "name": "desktop (macos-15)",
+      "job_id": 121416502608,
+      "conclusion": "success",
+      "test_result_groups": 13,
+      "reported_passed": 311,
+      "reported_failed": 0,
+      "reported_ignored": 0,
+      "completed_at": "2026-10-26T05:41:24Z"
+    },
+    {
+      "name": "desktop (windows-2022)",
+      "job_id": 121416502776,
+      "conclusion": "success",
+      "test_result_groups": 13,
+      "reported_passed": 277,
+      "reported_failed": 0,
+      "reported_ignored": 0,
+      "completed_at": "2026-10-26T05:44:46Z"
+    }
+  ],
+  "limits": [
+    "Desktop package artifacts are listed by the original API but were not downloaded or executed in this evidence task.",
+    "Deterministic tests, builds and icon resource inspection do not establish Windows audio routing, native UI use or shell icon rendering."
+  ]
+}

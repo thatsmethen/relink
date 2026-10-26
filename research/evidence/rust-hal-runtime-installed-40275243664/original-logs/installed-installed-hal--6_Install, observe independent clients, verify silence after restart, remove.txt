@@ -1,0 +1,6 @@
+﻿2026-10-26T05:39:35.8616490Z ##[group]Run python3 drivers/macos/tests/run_system.py run
+2026-10-26T05:39:35.8616890Z [36;1mpython3 drivers/macos/tests/run_system.py run[0m
+2026-10-26T05:39:35.8664840Z shell: /bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-26T05:39:35.8665130Z env:
+2026-10-26T05:39:35.8665370Z   RAVELINK_OBSERVER_DIAGNOSTICS: 1
+2026-10-26T05:39:35.8665570Z ##[endgroup]

@@ -1,0 +1,552 @@
+﻿2026-10-26T05:38:40.9110710Z ##[group]Run cargo test --locked --workspace
+2026-10-26T05:38:40.9111240Z [36;1mcargo test --locked --workspace[0m
+2026-10-26T05:38:40.9153470Z shell: /bin/bash -e {0}
+2026-10-26T05:38:40.9153730Z ##[endgroup]
+2026-10-26T05:38:41.3794360Z    Compiling cfg-if v1.0.5
+2026-10-26T05:38:41.3796480Z    Compiling libc v0.2.191
+2026-10-26T05:38:41.3797230Z    Compiling bitflags v2.13.2
+2026-10-26T05:38:41.4023710Z    Compiling objc2-encode v4.1.0
+2026-10-26T05:38:41.4949700Z    Compiling serde_core v1.0.229
+2026-10-26T05:38:41.6166760Z    Compiling objc2 v0.6.5
+2026-10-26T05:38:41.9167300Z    Compiling zerofrom v0.1.8
+2026-10-26T05:38:41.9629780Z    Compiling getrandom v0.4.3
+2026-10-26T05:38:42.0199550Z    Compiling zmij v1.0.23
+2026-10-26T05:38:42.1917920Z    Compiling memchr v2.8.3
+2026-10-26T05:38:42.3547250Z    Compiling block2 v0.6.2
+2026-10-26T05:38:42.4764190Z    Compiling dispatch2 v0.3.1
+2026-10-26T05:38:42.4906270Z    Compiling itoa v1.0.18
+2026-10-26T05:38:42.5659990Z    Compiling smallvec v1.16.4
+2026-10-26T05:38:42.6540820Z    Compiling stable_deref_trait v1.2.1
+2026-10-26T05:38:42.6788850Z    Compiling yoke v0.8.4
+2026-10-26T05:38:42.7021320Z    Compiling objc2-core-foundation v0.3.2
+2026-10-26T05:38:42.7613020Z    Compiling uuid v1.29.0
+2026-10-26T05:38:42.7685670Z    Compiling serde_json v1.0.154
+2026-10-26T05:38:42.9917850Z    Compiling serde v1.0.229
+2026-10-26T05:38:43.2904170Z    Compiling zerocopy v0.8.63
+2026-10-26T05:38:43.3872200Z    Compiling core-foundation-sys v0.8.7
+2026-10-26T05:38:43.4872240Z    Compiling bytemuck v1.25.2
+2026-10-26T05:38:43.6020040Z    Compiling libm v0.2.16
+2026-10-26T05:38:43.9857560Z    Compiling objc2-foundation v0.3.2
+2026-10-26T05:38:44.3374020Z    Compiling zerovec v0.11.9
+2026-10-26T05:38:44.6519280Z    Compiling num-traits v0.2.19
+2026-10-26T05:38:45.0284800Z    Compiling relink-core v0.1.0 (/Users/runner/work/relink/relink/crates/relink-core)
+2026-10-26T05:38:45.6015210Z    Compiling log v0.4.34
+2026-10-26T05:38:45.7071650Z    Compiling foreign-types-shared v0.3.1
+2026-10-26T05:38:45.7392310Z    Compiling foreign-types v0.5.0
+2026-10-26T05:38:45.7693900Z    Compiling half v2.7.1
+2026-10-26T05:38:45.8771660Z    Compiling once_cell v1.21.4
+2026-10-26T05:38:45.9645200Z    Compiling scopeguard v1.2.0
+2026-10-26T05:38:45.9918700Z    Compiling lock_api v0.4.14
+2026-10-26T05:38:46.0170220Z    Compiling parking_lot_core v0.9.12
+2026-10-26T05:38:46.1005650Z    Compiling objc-sys v0.3.5
+2026-10-26T05:38:46.1072310Z    Compiling tinystr v0.8.5
+2026-10-26T05:38:46.1485420Z    Compiling objc2-core-audio-types v0.3.2
+2026-10-26T05:38:46.1535160Z    Compiling litemap v0.8.3
+2026-10-26T05:38:46.1954760Z    Compiling simd-adler32 v0.3.10
+2026-10-26T05:38:46.2452450Z    Compiling writeable v0.6.4
+2026-10-26T05:38:46.2630380Z    Compiling objc2 v0.5.3
+2026-10-26T05:38:46.3338500Z    Compiling objc2-core-audio v0.3.2
+2026-10-26T05:38:46.3617000Z    Compiling icu_locale_core v2.4.0
+2026-10-26T05:38:46.4702690Z    Compiling parking_lot v0.12.5
+2026-10-26T05:38:46.6603860Z    Compiling zerotrie v0.2.5
+2026-10-26T05:38:46.8139740Z    Compiling potential_utf v0.1.6
+2026-10-26T05:38:46.8660890Z    Compiling profiling v1.0.18
+2026-10-26T05:38:46.8810000Z    Compiling raw-window-handle v0.6.2
+2026-10-26T05:38:46.8836830Z    Compiling adler2 v2.0.1
+2026-10-26T05:38:46.9260830Z    Compiling utf8_iter v1.0.4
+2026-10-26T05:38:46.9802500Z    Compiling icu_collections v2.4.0
+2026-10-26T05:38:46.9876160Z    Compiling icu_provider v2.4.0
+2026-10-26T05:38:47.0786140Z    Compiling thiserror v2.0.21
+2026-10-26T05:38:47.1118810Z    Compiling block2 v0.5.1
+2026-10-26T05:38:47.1545720Z    Compiling objc2-audio-toolbox v0.3.2
+2026-10-26T05:38:47.2274380Z    Compiling core-foundation v0.10.1
+2026-10-26T05:38:47.2712700Z    Compiling malloc_buf v0.0.6
+2026-10-26T05:38:47.3242570Z    Compiling unicode-width v0.2.2
+2026-10-26T05:38:47.4665150Z    Compiling equivalent v1.0.3
+2026-10-26T05:38:47.5198480Z    Compiling hashbrown v0.17.1
+2026-10-26T05:38:47.5401080Z    Compiling foldhash v0.2.0
+2026-10-26T05:38:47.6337020Z    Compiling bit-vec v0.8.0
+2026-10-26T05:38:47.7514910Z    Compiling dispatch v0.2.0
+2026-10-26T05:38:47.8283560Z    Compiling objc2-foundation v0.2.2
+2026-10-26T05:38:47.8370140Z    Compiling coreaudio-rs v0.14.2
+2026-10-26T05:38:48.0048820Z    Compiling indexmap v2.14.2
+2026-10-26T05:38:48.4092060Z    Compiling bit-set v0.8.0
+2026-10-26T05:38:48.4195730Z    Compiling hashbrown v0.16.1
+2026-10-26T05:38:48.4790930Z    Compiling core-graphics-types v0.2.0
+2026-10-26T05:38:48.5220060Z    Compiling codespan-reporting v0.12.0
+2026-10-26T05:38:48.7540860Z    Compiling objc v0.2.7
+2026-10-26T05:38:48.7683860Z    Compiling icu_properties_data v2.4.0
+2026-10-26T05:38:48.8798790Z    Compiling crc32fast v1.5.3
+2026-10-26T05:38:48.9108660Z    Compiling icu_normalizer_data v2.4.0
+2026-10-26T05:38:48.9371950Z    Compiling miniz_oxide v0.9.1
+2026-10-26T05:38:48.9596130Z    Compiling core-foundation v0.9.4
+2026-10-26T05:38:49.1507000Z    Compiling hexf-parse v0.2.1
+2026-10-26T05:38:49.2136840Z    Compiling ttf-parser v0.25.1
+2026-10-26T05:38:49.3132380Z    Compiling bitflags v1.3.2
+2026-10-26T05:38:49.3356920Z    Compiling arrayvec v0.7.8
+2026-10-26T05:38:49.4214630Z    Compiling rustc-hash v1.1.0
+2026-10-26T05:38:49.4479330Z    Compiling accesskit v0.21.1
+2026-10-26T05:38:49.6862760Z    Compiling mach2 v0.6.0
+2026-10-26T05:38:50.0647300Z    Compiling dasp_sample v0.11.0
+2026-10-26T05:38:50.1895230Z    Compiling block v0.1.6
+2026-10-26T05:38:50.2444400Z    Compiling metal v0.32.0
+2026-10-26T05:38:50.7853780Z    Compiling owned_ttf_parser v0.25.1
+2026-10-26T05:38:50.8062780Z    Compiling cpal v0.18.2
+2026-10-26T05:38:50.8650670Z    Compiling objc2-app-kit v0.2.2
+2026-10-26T05:38:51.3163600Z    Compiling naga v27.0.3
+2026-10-26T05:38:52.9433530Z    Compiling core-graphics-types v0.1.3
+2026-10-26T05:38:53.0049280Z    Compiling flate2 v1.1.10
+2026-10-26T05:38:53.2439790Z    Compiling arc-swap v1.9.3
+2026-10-26T05:38:53.3834660Z    Compiling icu_normalizer v2.4.0
+2026-10-26T05:38:53.6511030Z    Compiling icu_properties v2.4.0
+2026-10-26T05:38:53.6840990Z    Compiling wgpu-types v27.0.1
+2026-10-26T05:38:54.3631660Z    Compiling emath v0.33.3
+2026-10-26T05:38:54.5817080Z    Compiling zune-core v0.5.3
+2026-10-26T05:38:54.7121780Z    Compiling pin-project-lite v0.2.17
+2026-10-26T05:38:54.7511140Z    Compiling foldhash v0.1.5
+2026-10-26T05:38:54.8165960Z    Compiling ab_glyph_rasterizer v0.1.10
+2026-10-26T05:38:54.8379060Z    Compiling tracing-core v0.1.36
+2026-10-26T05:38:54.8769680Z    Compiling ab_glyph v0.2.32
+2026-10-26T05:38:55.1025840Z    Compiling tracing v0.1.44
+2026-10-26T05:38:55.1170100Z    Compiling hashbrown v0.15.5
+2026-10-26T05:38:55.1947070Z    Compiling zune-jpeg v0.5.15
+2026-10-26T05:38:55.4290030Z    Compiling wgpu-hal v27.0.4
+2026-10-26T05:38:55.6900580Z    Compiling ecolor v0.33.3
+2026-10-26T05:38:55.8377810Z    Compiling idna_adapter v1.2.2
+2026-10-26T05:38:55.8742030Z    Compiling ahash v0.8.12
+2026-10-26T05:38:55.9645730Z    Compiling core-graphics v0.23.2
+2026-10-26T05:38:56.1787330Z    Compiling miniz_oxide v0.8.9
+2026-10-26T05:38:56.5530950Z    Compiling fdeflate v0.3.7
+2026-10-26T05:38:56.7501510Z    Compiling objc2-core-graphics v0.3.2
+2026-10-26T05:38:56.7897050Z    Compiling cursor-icon v1.2.0
+2026-10-26T05:38:56.8323220Z    Compiling smol_str v0.2.2
+2026-10-26T05:38:56.9159120Z    Compiling dpi v0.1.2
+2026-10-26T05:38:56.9866790Z    Compiling percent-encoding v2.3.2
+2026-10-26T05:38:57.0469640Z    Compiling nohash-hasher v0.2.0
+2026-10-26T05:38:57.0609860Z    Compiling quick-error v2.0.1
+2026-10-26T05:38:57.0788670Z    Compiling pxfm v0.1.30
+2026-10-26T05:38:57.0904790Z    Compiling fax v0.2.7
+2026-10-26T05:38:57.2260250Z    Compiling weezl v0.1.12
+2026-10-26T05:38:57.4523580Z    Compiling epaint_default_fonts v0.33.3
+2026-10-26T05:38:57.5034840Z    Compiling epaint v0.33.3
+2026-10-26T05:38:58.7146090Z    Compiling moxcms v0.8.1
+2026-10-26T05:38:58.9263370Z    Compiling tiff v0.11.3
+2026-10-26T05:38:58.9365930Z    Compiling form_urlencoded v1.2.2
+2026-10-26T05:38:59.0106810Z    Compiling objc2-app-kit v0.3.2
+2026-10-26T05:38:59.5694520Z    Compiling winit v0.30.13
+2026-10-26T05:38:59.8880010Z    Compiling png v0.18.1
+2026-10-26T05:39:00.6025820Z    Compiling wgpu-core-deps-apple v27.0.0
+2026-10-26T05:39:00.6223440Z    Compiling idna v1.1.0
+2026-10-26T05:39:00.9837240Z    Compiling accesskit_consumer v0.31.0
+2026-10-26T05:39:01.0167340Z    Compiling relink-audio v0.1.0 (/Users/runner/work/relink/relink/crates/relink-audio)
+2026-10-26T05:39:01.3786050Z    Compiling unicode-segmentation v1.13.3
+2026-10-26T05:39:01.6072660Z    Compiling byteorder-lite v0.1.0
+2026-10-26T05:39:01.7216890Z    Compiling image v0.25.10
+2026-10-26T05:39:02.5946490Z    Compiling egui v0.33.3
+2026-10-26T05:39:02.9302180Z    Compiling accesskit_macos v0.22.2
+2026-10-26T05:39:03.4091240Z    Compiling url v2.5.8
+2026-10-26T05:39:03.8075880Z    Compiling wgpu-core v27.0.3
+2026-10-26T05:39:04.5508890Z    Compiling rustc-hash v2.1.3
+2026-10-26T05:39:04.5987200Z    Compiling static_assertions v1.1.0
+2026-10-26T05:39:04.6325300Z    Compiling web-time v1.1.0
+2026-10-26T05:39:04.6551230Z    Compiling type-map v0.5.1
+2026-10-26T05:39:04.7410640Z    Compiling webbrowser v1.2.5
+2026-10-26T05:39:04.8389310Z    Compiling accesskit_winit v0.29.2
+2026-10-26T05:39:04.8827750Z    Compiling arboard v3.7.0
+2026-10-26T05:39:05.0148930Z    Compiling egui-winit v0.33.3
+2026-10-26T05:39:05.3605920Z    Compiling pollster v0.4.0
+2026-10-26T05:39:05.4098010Z    Compiling relink-app v0.1.0 (/Users/runner/work/relink/relink/crates/relink-app)
+2026-10-26T05:39:05.6009280Z    Compiling relink-hal v0.1.0 (/Users/runner/work/relink/relink/crates/relink-hal)
+2026-10-26T05:39:07.2098810Z    Compiling wgpu v27.0.1
+2026-10-26T05:39:08.9403150Z    Compiling egui-wgpu v0.33.3
+2026-10-26T05:39:09.4582330Z    Compiling eframe v0.33.3
+2026-10-26T05:39:12.2452580Z     Finished `test` profile [unoptimized] target(s) in 31.23s
+2026-10-26T05:39:12.2571090Z      Running unittests src/main.rs (target/debug/deps/relink_app-33b2d307b7a2a78c)
+2026-10-26T05:39:12.2629990Z 
+2026-10-26T05:39:12.2631770Z running 25 tests
+2026-10-26T05:39:12.2638120Z test audio_ui::tests::asynchronous_cleanup_fault_remains_visible_after_stop ... ok
+2026-10-26T05:39:12.2638760Z test audio_ui::tests::application_catalog_failure_preserves_devices_and_does_not_start_or_cancel_audio ... ok
+2026-10-26T05:39:12.2640670Z test audio_ui::tests::application_catalog_retry_is_independent_and_keeps_stable_selector_ids ... ok
+2026-10-26T05:39:12.2642880Z test audio_ui::tests::dropping_ui_cancels_an_undispatched_start ... ok
+2026-10-26T05:39:12.2647250Z test audio_ui::tests::healthy_restart_clears_queued_old_fault_but_faulted_start_does_not ... ok
+2026-10-26T05:39:12.2649240Z test audio_ui::tests::failed_live_edit_dispatch_revokes_audio_for_disconnected_and_full_workers ... ok
+2026-10-26T05:39:12.2650610Z test audio_ui::tests::rapid_effect_edits_coalesce_to_latest_complete_bank_and_wait_for_render_ack ... ok
+2026-10-26T05:39:12.2670970Z test audio_ui::tests::stop_cancels_start_while_it_is_still_in_the_ui_queue ... ok
+2026-10-26T05:39:12.2671720Z test audio_ui::tests::stopping_start_does_not_suppress_non_cancellation_errors ... ok
+2026-10-26T05:39:12.2674030Z test routing::tests::duplicate_or_incomplete_routes_never_start ... ok
+2026-10-26T05:39:12.2675840Z test routing::tests::removing_clock_requires_an_explicit_replacement ... ok
+2026-10-26T05:39:12.2683320Z test routing::tests::saved_routes_keep_order_clock_and_mix_independent_of_editor_selection ... ok
+2026-10-26T05:39:12.2684710Z test shortcut_tests::application_source_add_route_save_and_undo_preserve_stable_identity_without_starting_audio ... ok
+2026-10-26T05:39:12.2685410Z test shortcut_tests::application_source_rejects_transient_identity_and_busy_edits_without_changing_studio ... ok
+2026-10-26T05:39:12.2686010Z test shortcut_tests::only_text_focus_reserves_text_history_shortcuts ... ok
+2026-10-26T05:39:12.2686550Z test effects::tests::enabling_an_unconfigured_stage_creates_defaults_only_on_explicit_click ... ok
+2026-10-26T05:39:12.2687130Z test shortcut_tests::running_effect_edits_queue_complete_studio_and_preserve_routing ... ok
+2026-10-26T05:39:12.2775100Z test shortcut_tests::redo_shortcuts_never_dispatch_undo_or_dispatch_twice ... ok
+2026-10-26T05:39:12.2775740Z test store::tests::failed_recovery_backup_never_replaces_original_or_existing_backup ... ok
+2026-10-26T05:39:12.2776190Z test store::tests::corrupt_and_future_files_are_never_replaced_on_read ... ok
+2026-10-26T05:39:12.2776740Z test store::tests::invalid_recovery_document_does_not_create_backup_or_touch_original ... ok
+2026-10-26T05:39:12.2777470Z test effects::tests::effect_switches_preserve_tuned_settings_through_bypass_and_reopen ... ok
+2026-10-26T05:39:12.3093420Z test store::tests::legacy_read_preserves_bytes_and_atomic_save_migrates_with_routes ... ok
+2026-10-26T05:39:12.3155630Z test store::tests::replace_roundtrips_and_invalid_state_preserves_original ... ok
+2026-10-26T05:39:12.3249400Z test store::tests::recovery_preserves_exact_original_and_reopens_saved_work_at_canonical_path ... ok
+2026-10-26T05:39:12.3249820Z 
+2026-10-26T05:39:12.3250250Z test result: ok. 25 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.06s
+2026-10-26T05:39:12.3250650Z 
+2026-10-26T05:39:12.3252290Z      Running unittests src/lib.rs (target/debug/deps/relink_audio-58d5e6a79f8e0ef1)
+2026-10-26T05:39:12.3296110Z 
+2026-10-26T05:39:12.3296440Z running 217 tests
+2026-10-26T05:39:12.3302980Z test application_macos::tests::helpers_belong_to_exact_outer_bundle_not_name_prefix_or_nested_bundle ... ok
+2026-10-26T05:39:12.3304150Z test application_macos::tests::dependency_cleanup_is_ordered_and_retains_tap_if_aggregate_cannot_close ... ok
+2026-10-26T05:39:12.3304930Z test application_macos::tests::process_admission_uses_bytes_without_a_fixed_instance_or_ancestry_count ... ok
+2026-10-26T05:39:12.3309100Z test capture_groups::tests::grouping_rejects_duplicate_aliases_members_and_invalid_budgets ... ok
+2026-10-26T05:39:12.3410480Z test capture_groups::tests::shared_raw_planes_support_distinct_groups_without_duplicate_mix_inputs ... ok
+2026-10-26T05:39:12.3511650Z test capture_groups::tests::independent_raw_sources_sum_once_before_logical_controls_and_shared_aliases ... ok
+2026-10-26T05:39:12.3612600Z test capture_groups::tests::short_invalid_or_unrepresentable_attempts_do_not_expose_stale_group_audio ... ok
+2026-10-26T05:39:12.3732590Z test capture_groups::tests::instance_membership_is_resource_bounded_without_a_fixed_count_or_normalization ... ok
+2026-10-26T05:39:12.3833450Z test capture_tests::application_processes_are_summed_before_one_logical_limiter_and_live_mute ... ok
+2026-10-26T05:39:12.3937120Z test capture_tests::cancelled_capture_cannot_publish_and_new_start_has_no_stale_audio ... ok
+2026-10-26T05:39:12.4037970Z test capture_tests::capture_mapping_sanitizes_float_duplicates_mono_and_ignores_extra_channels ... ok
+2026-10-26T05:39:12.4138930Z test capture_tests::capture_and_mixer_callbacks_allocate_nothing_and_share_one_input_stream ... ok
+2026-10-26T05:39:12.4239750Z test capture_tests::controls_are_acknowledged_only_after_rendering_not_priming_or_underflow ... ok
+2026-10-26T05:39:12.4361780Z test capture_tests::incomplete_or_duplicated_capture_selection_is_rejected_before_owners_start ... ok
+2026-10-26T05:39:12.4717920Z test capture_tests::capture_owner_budget_rejects_overflow_and_is_added_to_render_cost_before_allocation ... ok
+2026-10-26T05:39:12.4819060Z test capture_tests::input_configuration_is_exact_rate_and_prefers_stereo_then_mono ... ok
+2026-10-26T05:39:12.4942300Z test capture_tests::malformed_input_identity_is_rejected_without_any_device_discovery ... ok
+2026-10-26T05:39:12.5043080Z test capture_tests::missing_capture_faults_after_bounded_startup_silence ... ok
+2026-10-26T05:39:12.5144130Z test capture_tests::underflow_overflow_and_invalid_capture_packets_are_explicit_faults ... ok
+2026-10-26T05:39:12.5244960Z test capture_transport::spectral_tests::bandlimited_filter_has_full_audible_passband_and_rejects_alias_band ... ok
+2026-10-26T05:39:12.5345920Z test fanout::tests::callback_watermark_covers_all_fir_support_and_does_not_ack_prehistory_or_unrendered_versions ... ok
+2026-10-26T05:39:12.5588380Z test fanout::tests::cancellation_before_and_after_shared_commit_and_fresh_epoch_are_explicit ... ok
+2026-10-26T05:39:12.5689680Z test fanout::tests::checked_budget_covers_arrays_and_control_storage_and_rejects_before_allocation ... ok
+2026-10-26T05:39:12.5790490Z test fanout::tests::delayed_first_read_retains_source_zero_impulse_and_exact_zero_prehistory ... ok
+2026-10-26T05:39:12.5891410Z test fanout::tests::distinct_route_pcm_is_published_once_per_source_frame_and_stays_separate ... ok
+2026-10-26T05:39:12.5992270Z test fanout::tests::no_route_observes_private_writes_while_producer_is_suspended_between_routes ... ok
+2026-10-26T05:39:12.6193450Z test fanout::tests::partial_failed_and_dropped_transactions_remain_invisible_and_shorter_retry_overwrites_bytes ... ok
+2026-10-26T05:39:12.6294340Z test fanout::tests::post_start_quantum_growth_beyond_target_is_explicit_and_cannot_skip_or_reprime ... ok
+2026-10-26T05:39:12.6516630Z test fanout::tests::preflight_checks_every_route_and_cursor_overflow_before_private_writes ... ok
+2026-10-26T05:39:12.7220440Z test capture_tests::bandlimited_reader_matches_independent_stereo_pcm_through_wraparound ... ok
+2026-10-26T05:39:12.7321260Z test fanout::tests::transactions_priming_first_render_and_fault_paths_allocate_and_free_nothing ... ok
+2026-10-26T05:39:14.3192900Z test fanout::tests::startup_uses_committed_primary_quantum_and_supports_unequal_variable_partitions_within_margin ... ok
+2026-10-26T05:39:14.3293880Z test fault::tests::concurrent_first_winner_keeps_its_code_origin_endpoint_and_raw_metadata ... ok
+2026-10-26T05:39:14.3394770Z test fault::tests::fault_publication_and_bounded_snapshot_allocate_nothing_and_keep_absent_fields_absent ... ok
+2026-10-26T05:39:14.3496840Z test fault::tests::no_fault_cannot_claim_or_publish_a_record ... ok
+2026-10-26T05:39:14.3597510Z test fault::tests::suspended_winner_stops_audio_with_coupled_identity_and_pending_metadata ... ok
+2026-10-26T05:39:14.3698160Z test live_dsp_tests::callback_applies_live_input_and_mix_effects_once_without_reset_or_allocation ... ok
+2026-10-26T05:39:14.3799050Z test live_dsp_tests::cancelled_callback_cannot_acknowledge_or_emit_pending_effect_changes ... ok
+2026-10-26T05:39:14.3900070Z test live_dsp_tests::invalid_effect_shape_or_rate_cannot_publish_a_partial_control_bank ... ok
+2026-10-26T05:39:14.4000310Z test live_dsp_tests::stalled_effect_publication_renders_previous_complete_state_and_does_not_ack ... ok
+2026-10-26T05:39:14.4101010Z test native_capture::tests::duplicate_blocked_create_is_rejected_before_spawning_another_worker ... ok
+2026-10-26T05:39:14.4201330Z test native_capture::tests::each_unproven_teardown_retains_all_ownership_and_the_bounded_uid_slot ... ok
+2026-10-26T05:39:14.4301620Z test native_capture::tests::first_native_callback_variable_packet_sizes_and_metadata_allocate_nothing ... ok
+2026-10-26T05:39:14.4402200Z test native_capture::tests::fixed_registry_bounds_distinct_pending_and_retained_capture_owners ... ok
+2026-10-26T05:39:14.4522580Z test native_capture::tests::late_native_start_success_cannot_reopen_cancelled_capture ... ok
+2026-10-26T05:39:14.4622550Z test native_capture::tests::malformed_native_planes_are_rejected_before_pcm_is_borrowed ... ok
+2026-10-26T05:39:14.4724070Z test native_capture::tests::native_capture_owner_estimate_charges_explicit_stack_but_not_a_second_ring ... ok
+2026-10-26T05:39:14.4824880Z test native_capture::tests::native_format_notification_latches_fault_without_allocating_and_gates_late_pcm ... ok
+2026-10-26T05:39:14.4925870Z test native_capture::tests::native_overload_is_distinct_from_packet_and_reentry_faults_and_keeps_actual_address ... ok
+2026-10-26T05:39:14.5026990Z test native_capture::tests::native_teardown_preserves_each_failure_and_attempts_every_cleanup_step ... ok
+2026-10-26T05:39:14.5127260Z test native_capture::tests::original_native_callback_publishes_expected_pcm_and_exact_gap_evidence ... ok
+2026-10-26T05:39:14.5177530Z test native_capture::tests::portable_native_constants_match_the_pinned_apple_sdk ... ok
+2026-10-26T05:39:14.5178990Z test native_capture::tests::prepared_dependencies_close_only_after_quiescence_and_quarantine_failed_cleanup ... ok
+2026-10-26T05:39:14.5179680Z test native_capture::tests::retained_native_block_survives_owner_drop_and_refuses_late_pcm ... ok
+2026-10-26T05:39:14.5180320Z test native_capture::tests::stale_epoch_cancelled_and_reentrant_native_callbacks_cannot_publish ... ok
+2026-10-26T05:39:14.5181020Z test native_capture::tests::successful_owner_completion_follows_block_context_listener_and_reservation_release ... ok
+2026-10-26T05:39:14.5183090Z test native_output::tests::actual_owner_finish_preserves_context_on_failure_and_releases_before_completion ... ok
+2026-10-26T05:39:14.5183820Z test native_output::tests::blocked_native_teardown_holds_reservation_while_handle_can_revoke ... ok
+2026-10-26T05:39:14.5184470Z test native_output::tests::callback_first_silence_program_fault_and_late_clear_allocate_nothing ... ok
+2026-10-26T05:39:14.5185280Z test native_output::tests::every_valid_u8_plane_is_silent_before_activation_after_cancel_and_stale_epoch ... ok
+2026-10-26T05:39:14.5186040Z test native_output::tests::fixed_registry_bounds_pending_retained_and_distinct_uid_owners ... ok
+2026-10-26T05:39:14.5220430Z test native_output::tests::late_start_and_unproven_callbacks_never_enable_program_or_reuse_uid ... ok
+2026-10-26T05:39:14.5224690Z test native_output::tests::native_sample_gap_clears_pcm_and_preserves_presentation_pair ... ok
+2026-10-26T05:39:14.5225350Z test native_output::tests::output_property_fault_preserves_actual_address_without_callback_allocation ... ok
+2026-10-26T05:39:14.5226040Z test native_output::tests::planar_native_ranges_reject_alias_null_and_descriptor_overlap_before_writes ... ok
+2026-10-26T05:39:14.5227050Z test native_output::tests::post_start_silent_progress_precedes_activation_and_program_encoding ... ok
+2026-10-26T05:39:14.5227640Z test native_output::tests::reentry_cannot_mutably_alias_an_active_native_writer ... ok
+2026-10-26T05:39:14.5228240Z test native_output::tests::retained_native_block_owns_context_and_clears_late_output_after_cancel ... ok
+2026-10-26T05:39:14.5228910Z test native_output::tests::startup_timeout_revokes_and_owner_memory_estimate_includes_explicit_thread_stack ... ok
+2026-10-26T05:39:14.5229620Z test native_output::tests::teardown_calls_all_boundaries_once_retains_first_failure_and_never_invents_completion ... ok
+2026-10-26T05:39:14.5230290Z test native_output::tests::valid_disjoint_planar_native_output_encodes_only_the_first_pair ... ok
+2026-10-26T05:39:14.5230890Z test native_output_packet::tests::ambiguous_asbds_mono_and_rate_substitution_are_rejected ... ok
+2026-10-26T05:39:14.5231710Z test native_output_packet::tests::bounded_maximum_layout_and_all_packet_paths_allocate_and_free_nothing ... ok
+2026-10-26T05:39:14.5232820Z test native_output_packet::tests::float_endianness_extrema_nonfinite_and_negative_zero_have_exact_bytes ... ok
+2026-10-26T05:39:14.5233520Z test native_output_packet::tests::inactive_incomplete_abandoned_and_cancelled_after_final_chunk_are_silent ... ok
+2026-10-26T05:39:14.5234180Z test native_output_packet::tests::malformed_extents_are_rejected_before_any_plane_is_modified ... ok
+2026-10-26T05:39:14.5234800Z test native_output_packet::tests::malformed_write_is_sticky_and_clears_partial_program_pcm ... ok
+2026-10-26T05:39:14.5236380Z test native_output_packet::tests::packed_signed_extrema_halves_clipping_and_nonfinite_have_exact_bytes ... ok
+2026-10-26T05:39:14.5237020Z test native_output_packet::tests::padded_valid_bits_zero_padding_and_endian_are_exact ... ok
+2026-10-26T05:39:14.5237670Z test native_output_packet::tests::planar_and_multiple_native_streams_select_first_pair_and_silence_the_rest ... ok
+2026-10-26T05:39:14.5238480Z test native_output_packet::tests::sequential_partitioning_matches_whole_packet_and_empty_chunks_do_not_complete ... ok
+2026-10-26T05:39:14.5239150Z test native_output_packet::tests::signed_rounding_uses_nearest_ties_away_before_saturation ... ok
+2026-10-26T05:39:14.5239790Z test native_output_packet::tests::unsigned_eight_bit_equilibrium_rounding_and_saturation_are_exact ... ok
+2026-10-26T05:39:14.5240700Z test native_output_timing::tests::concurrent_output_reads_are_bounded_coherent_and_preserve_raw_bits ... ok
+2026-10-26T05:39:14.5241360Z test native_output_timing::tests::first_output_fault_pair_and_lifecycle_status_remain_after_later_work ... ok
+2026-10-26T05:39:14.5242040Z test native_output_timing::tests::malformed_output_clock_flags_extents_and_precision_are_not_capture_faults ... ok
+2026-10-26T05:39:14.5242740Z test native_output_timing::tests::output_continuity_uses_presentation_frames_without_assuming_host_clock_rate ... ok
+2026-10-26T05:39:14.5243440Z test native_output_timing::tests::output_journal_first_fault_completion_and_snapshots_allocate_nothing ... ok
+2026-10-26T05:39:14.5244110Z test native_packet_tests::bounded_callback_size_changes_do_not_allocate_or_require_format_changes ... ok
+2026-10-26T05:39:14.5244730Z test native_packet_tests::concurrent_native_metadata_snapshots_never_accept_a_torn_packet ... ok
+2026-10-26T05:39:14.5245450Z test native_packet_tests::first_native_sample_gap_overlap_duplicate_and_bad_clock_are_rejected_without_reanchoring ... ok
+2026-10-26T05:39:14.5246160Z test native_packet_tests::native_fault_pair_is_preserved_independently_of_subsequent_packets ... ok
+2026-10-26T05:39:14.5252300Z test native_packet_tests::native_integer_alignment_endianness_and_nonfinite_float_decoding_are_explicit ... ok
+2026-10-26T05:39:14.5253010Z test native_packet_tests::native_lifecycle_records_preserve_first_status_and_expose_unreturned_operations ... ok
+2026-10-26T05:39:14.5253670Z test native_packet_tests::native_pcm_layout_accepts_exact_rates_and_rejects_ambiguous_formats ... ok
+2026-10-26T05:39:14.5254480Z test native_packet_tests::native_sample_continuity_is_independent_of_real_drifting_host_clocks ... ok
+2026-10-26T05:39:14.5255250Z test native_packet_tests::native_stereo_mapping_handles_interleaved_planar_mono_and_multiple_formats ... ok
+2026-10-26T05:39:14.5255910Z test output_plan::tests::duplicate_endpoint_is_rejected_even_for_different_buses ... ok
+2026-10-26T05:39:14.5256430Z test output_plan::tests::every_route_must_reference_an_existing_bus ... ok
+2026-10-26T05:39:14.5256960Z test output_plan::tests::malformed_empty_wrong_host_and_noncanonical_ids_are_rejected ... ok
+2026-10-26T05:39:14.5257510Z test output_plan::tests::missing_clock_and_empty_plan_are_explicit_errors ... ok
+2026-10-26T05:39:14.5258020Z test output_plan::tests::multiple_endpoints_can_share_a_bus_and_keep_order ... ok
+2026-10-26T05:39:14.5258570Z test output_plan::tests::opaque_native_suffix_is_neither_normalized_nor_a_default_alias ... ok
+2026-10-26T05:39:14.5259140Z test output_plan::tests::single_plan_selects_exact_endpoint_without_discovery ... ok
+2026-10-26T05:39:14.5259690Z test output_plan::tests::validates_the_full_session_including_unrouted_bus_and_input ... ok
+2026-10-26T05:39:14.5260300Z test output_progress::tests::healthy_phase_leading_follower_needs_four_periods_before_first_pcm ... ok
+2026-10-26T05:39:14.5260890Z test output_progress::tests::missing_first_callback_and_regressed_counter_fail ... ok
+2026-10-26T05:39:14.6183640Z test output_progress::tests::native_silence_progress_cannot_hide_unbounded_program_priming ... ok
+2026-10-26T05:39:14.6285180Z test output_progress::tests::progress_deadline_covers_three_maximum_callbacks_without_shortening_two_seconds ... ok
+2026-10-26T05:39:14.6387120Z test output_progress::tests::silence_and_pcm_progress_use_the_same_observed_deadline ... ok
+2026-10-26T05:39:14.6688260Z test output_progress::tests::supervisor_revokes_stalled_output_while_control_mutex_is_held ... ok
+2026-10-26T05:39:14.6932070Z test output_render::tests::a_fresh_epoch_has_no_cancelled_pcm_or_fir_ack_history ... ok
+2026-10-26T05:39:15.0256540Z test output_render::tests::captured_maximum_quantum_startup_44100hz_preserves_healthy_independent_phases ... ok
+2026-10-26T05:39:15.3521320Z test output_render::tests::captured_maximum_quantum_startup_48khz_preserves_healthy_independent_phases ... ok
+2026-10-26T05:39:15.6773390Z test output_render::tests::captured_maximum_quantum_startup_8khz_preserves_healthy_independent_phases ... ok
+2026-10-26T05:39:15.7005190Z test output_render::tests::dispatcher_initial_priming_program_and_fault_callbacks_allocate_nothing ... ok
+2026-10-26T05:39:15.7106020Z test output_render::tests::emergency_cancel_during_partial_render_blocks_publication_without_control_lock ... ok
+2026-10-26T05:39:15.7209850Z test output_render::tests::excessive_physical_routes_are_rejected_before_discovery_and_not_a_logical_channel_cap ... ok
+2026-10-26T05:39:15.7322840Z test output_render::tests::failed_final_chunk_publishes_no_route_or_ack_and_silences_every_owner ... ok
+2026-10-26T05:39:15.7423800Z test output_render::tests::follower_underflow_cancels_every_route_and_snapshot_keeps_exact_endpoint ... ok
+2026-10-26T05:39:15.7680660Z test output_render::tests::followers_never_consume_capture_or_advance_controls_and_graph ... ok
+2026-10-26T05:39:15.8132300Z test output_render::tests::full_follower_preflight_happens_before_advancing_the_actual_graph ... ok
+2026-10-26T05:39:15.8253330Z test output_render::tests::paused_old_slot_reader_never_cancels_or_reclaims_the_new_epoch ... ok
+2026-10-26T05:39:15.8654480Z test output_render::tests::real_dispatcher_renders_one_graph_and_routes_distinct_and_duplicate_buses ... ok
+2026-10-26T05:39:15.8755980Z test output_render::tests::versionless_pcm_is_submitted_without_inventing_a_device_ack ... ok
+2026-10-26T05:39:15.8857570Z test output_sink_tests::callback_sink_preserves_one_source_sequence_and_reports_only_completed_render ... ok
+2026-10-26T05:39:15.8960710Z test output_sink_tests::cancellation_during_sink_copy_clears_the_complete_callback_without_acknowledging ... ok
+2026-10-26T05:39:15.9064300Z test output_sink_tests::first_sink_callback_and_rejected_extent_allocate_nothing ... ok
+2026-10-26T05:39:15.9166150Z test output_sink_tests::sink_failure_after_a_chunk_clears_every_frame_and_withholds_acknowledgment ... ok
+2026-10-26T05:39:15.9267950Z test output_startup::tests::failed_native_start_progress_inputs_or_activation_preserves_error_and_cancels ... ok
+2026-10-26T05:39:15.9370470Z test output_startup::tests::initially_cancelled_stale_or_faulted_permit_never_starts_native_io ... ok
+2026-10-26T05:39:15.9472540Z test output_startup::tests::invalidation_after_each_stage_prevents_further_startup_and_revokes_wanted ... ok
+2026-10-26T05:39:16.6036120Z test output_startup::tests::late_success_at_every_stage_is_rejected_including_after_activation ... ok
+2026-10-26T05:39:16.6146570Z test output_startup::tests::later_endpoint_activation_failure_never_opens_common_program_gate ... ok
+2026-10-26T05:39:16.6258740Z test output_startup::tests::native_progress_receives_only_the_budget_remaining_after_start ... ok
+2026-10-26T05:39:16.6359530Z test output_startup::tests::success_orders_native_start_progress_inputs_and_activation ... ok
+2026-10-26T05:39:16.6460290Z test output_startup::tests::unwinding_at_every_stage_cancels_the_partially_started_output ... ok
+2026-10-26T05:39:16.6561020Z test output_startup::tests::very_large_budget_does_not_overflow_a_monotonic_deadline ... ok
+2026-10-26T05:39:16.6661710Z test output_startup::tests::zero_budget_does_not_start_or_activate ... ok
+2026-10-26T05:39:16.6762820Z test tests::callback_has_no_application_allocation_or_deallocation ... ok
+2026-10-26T05:39:16.6864050Z test tests::cancelled_queued_start_never_attempts_device_discovery ... ok
+2026-10-26T05:39:16.6965170Z test tests::concurrent_bank_reader_never_observes_mixed_gain_mute_or_effect_records ... ok
+2026-10-26T05:39:16.7066380Z test tests::configuration_requires_exact_session_rate_and_stereo_pcm ... ok
+2026-10-26T05:39:16.7167440Z test tests::creation_and_stop_never_open_a_device ... ok
+2026-10-26T05:39:16.7268360Z test tests::emergency_stop_revokes_callbacks_without_the_control_mutex_or_queue ... ok
+2026-10-26T05:39:16.7369440Z test tests::empty_callbacks_do_not_acknowledge_unrendered_controls ... ok
+2026-10-26T05:39:16.7470600Z test tests::faults_are_latched_and_unsigned_silence_uses_midpoint ... ok
+2026-10-26T05:39:16.7572270Z test tests::in_flight_control_write_keeps_the_previous_complete_bank ... ok
+2026-10-26T05:39:16.7673310Z test tests::invalid_callback_buffers_stop_without_partially_writing_pcm ... ok
+2026-10-26T05:39:16.7774430Z test tests::live_controls_preserve_phase_through_gain_pan_mute_and_unmute ... ok
+2026-10-26T05:39:16.7875950Z test tests::live_edit_accepts_valid_effects_but_rejects_source_rate_and_route_changes ... ok
+2026-10-26T05:39:16.7977080Z test tests::live_update_while_stopped_cannot_create_a_stream ... ok
+2026-10-26T05:39:16.8078180Z test tests::malformed_application_identity_and_missing_mix_are_explicit_errors ... ok
+2026-10-26T05:39:16.8179760Z test tests::native_transport_clamps_unlimited_float_mix_before_integer_conversion ... ok
+2026-10-26T05:39:16.8282440Z test tests::output_error_callback_keeps_original_fault_code_and_distinct_output_origin_without_allocation ... ok
+2026-10-26T05:39:16.8383250Z test tests::output_owner_budget_is_reserved_before_compiling_or_opening_native_devices ... ok
+2026-10-26T05:39:16.8484470Z test tests::output_selection_skips_unsupported_native_formats_before_channel_ranking ... ok
+2026-10-26T05:39:16.8584910Z test tests::selected_bus_pcm_matches_independent_sine_across_chunks_and_callbacks ... ok
+2026-10-26T05:39:16.8686440Z test tests::snapshot_resolves_fault_against_its_unique_capture_identity_and_keeps_code_coupled ... ok
+2026-10-26T05:39:16.8786830Z test tests::start_token_cancellation_remains_effective_in_an_active_callback ... ok
+2026-10-26T05:39:16.8888320Z test tests::stopped_snapshot_hides_stale_meter_levels_and_keeps_diagnostics ... ok
+2026-10-26T05:39:16.8988740Z test tests::timed_out_or_stopped_start_cannot_emit_late_audio ... ok
+2026-10-26T05:39:16.9106060Z test wasapi_event::tests::cancelled_before_event_creation_keeps_no_graph_and_releases_reservation ... ok
+2026-10-26T05:39:16.9207440Z test wasapi_event::tests::event_creation_failure_releases_client_before_apartment_without_close_attempt ... ok
+2026-10-26T05:39:16.9308870Z test wasapi_event::tests::failed_close_retains_identity_and_reservation_without_retry_even_after_prior_fault ... ok
+2026-10-26T05:39:16.9410200Z test wasapi_event::tests::late_cancel_after_creation_before_configure_observes_close_and_quarantine ... ok
+2026-10-26T05:39:16.9510730Z test wasapi_event::tests::late_close_after_telemetry_replacement_remains_queryable_without_old_ring ... ok
+2026-10-26T05:39:16.9611580Z test wasapi_event::tests::overlapping_failure_is_reported_even_when_another_owner_is_still_pending ... ok
+2026-10-26T05:39:16.9713730Z test wasapi_event::tests::partial_constructor_unwind_closes_once_after_client_and_retains_on_failure ... ok
+2026-10-26T05:39:16.9814890Z test wasapi_event::tests::reservations_reject_overlap_and_retained_owner_budget ... ok
+2026-10-26T05:39:16.9915520Z test wasapi_event::tests::retained_runtime_snapshot_reports_close_failure_separately_from_first_xrun ... ok
+2026-10-26T05:39:17.0017110Z test wasapi_event::tests::stop_failure_quarantines_native_event_and_selection_without_closing ... ok
+2026-10-26T05:39:17.0117330Z test wasapi_event::tests::successful_stop_releases_com_before_one_event_close_and_apartment_last ... ok
+2026-10-26T05:39:17.0218810Z test wasapi_hardware_owner::tests::cancellation_before_and_after_construction_without_start_releases_reservation ... ok
+2026-10-26T05:39:17.0319080Z test wasapi_hardware_owner::tests::close_failure_remains_separate_after_successful_stop ... ok
+2026-10-26T05:39:17.0420390Z test wasapi_hardware_owner::tests::constructor_unwind_retains_only_failed_close_and_never_fabricates_stop ... ok
+2026-10-26T05:39:17.0520670Z test wasapi_hardware_owner::tests::count_byte_and_overflow_boundaries_reject_without_partial_admission ... ok
+2026-10-26T05:39:17.0621970Z test wasapi_hardware_owner::tests::endpoint_identity_is_exact_and_live_ownership_blocks_duplicate ... ok
+2026-10-26T05:39:17.0722610Z test wasapi_hardware_owner::tests::failed_stop_retains_native_and_endpoint_without_retry_or_false_success ... ok
+2026-10-26T05:39:17.0824680Z test wasapi_hardware_owner::tests::missing_stop_return_and_unclosed_event_never_reopen_admission ... ok
+2026-10-26T05:39:17.0825320Z test wasapi_hardware_owner::tests::retained_diagnostics_outlive_graph_and_preserve_prior_fault ... ok
+2026-10-26T05:39:17.1029490Z test wasapi_hardware_owner::tests::stop_requirement_covers_failed_start_and_preserves_success_codes ... ok
+2026-10-26T05:39:17.1128460Z test wasapi_hardware_owner::tests::success_releases_native_before_endpoint_and_allows_reacquisition ... ok
+2026-10-26T05:39:17.1229540Z test wasapi_output_state::tests::acquisition_failure_does_not_fabricate_a_release_hresult_or_submission ... ok
+2026-10-26T05:39:17.1329820Z test wasapi_output_state::tests::activation_requires_ready_native_start_and_post_start_progress ... ok
+2026-10-26T05:39:17.1430870Z test wasapi_output_state::tests::bounded_reservations_preserve_pending_owner_and_unproven_tombstones ... ok
+2026-10-26T05:39:17.1531160Z test wasapi_output_state::tests::cancellation_before_or_during_late_start_is_terminal ... ok
+2026-10-26T05:39:17.1632290Z test wasapi_output_state::tests::competing_activation_never_resurrects_cancellation ... ok
+2026-10-26T05:39:17.1732450Z test wasapi_output_state::tests::concurrent_work_snapshots_are_coherent_or_explicitly_unavailable ... ok
+2026-10-26T05:39:17.1832650Z test wasapi_output_state::tests::early_open_handle_cleanup_failure_prevents_completed_reservation_release ... ok
+2026-10-26T05:39:17.1933790Z test wasapi_output_state::tests::gates_submission_and_snapshot_path_do_not_allocate_or_free ... ok
+2026-10-26T05:39:17.2034160Z test wasapi_output_state::tests::raw_status_first_failure_and_unreturned_operation_are_distinct ... ok
+2026-10-26T05:39:17.2134770Z test wasapi_output_state::tests::real_portable_lease_acks_only_after_release_and_preserves_unwind_failure ... ok
+2026-10-26T05:39:17.2235910Z test wasapi_output_state::tests::submission_acknowledges_release_success_not_preparation_or_prefill ... ok
+2026-10-26T05:39:17.2336050Z test wasapi_output_state::tests::work_pending_and_immutable_lifecycle_slots_preserve_boundaries ... ok
+2026-10-26T05:39:17.2437060Z test wasapi_packet::tests::acquired_packet_releases_once_on_success_processing_error_and_release_error ... ok
+2026-10-26T05:39:17.2538160Z test wasapi_packet::tests::discontinuity_after_initial_zero_and_position_gap_stop_capture ... ok
+2026-10-26T05:39:17.2617860Z test wasapi_packet::tests::native_encoding_selection_and_packet_to_ring_are_allocation_free ... ok
+2026-10-26T05:39:17.2724040Z test wasapi_packet::tests::pcm_decoding_obeys_signedness_valid_bits_and_channel_mapping ... ok
+2026-10-26T05:39:17.2818910Z test wasapi_packet::tests::silent_flag_ignores_nonzero_short_or_absent_pcm ... ok
+2026-10-26T05:39:17.2819680Z test wasapi_packet::tests::timestamp_error_and_nonmonotonic_qpc_do_not_publish_a_packet ... ok
+2026-10-26T05:39:17.2820460Z test wasapi_render_packet::tests::complete_chunks_cover_every_frame_and_clear_resets_progress_and_u8_equilibrium ... ok
+2026-10-26T05:39:17.2821260Z test wasapi_render_packet::tests::default_drop_and_explicit_silence_release_the_entire_acquisition_even_when_pcm_is_complete ... ok
+2026-10-26T05:39:17.2822060Z test wasapi_render_packet::tests::ignored_bad_write_and_zero_or_oversized_acquisitions_cannot_commit_partial_pcm ... ok
+2026-10-26T05:39:17.2822800Z test wasapi_render_packet::tests::independent_golden_bytes_cover_all_encodings_and_extra_channel_equilibrium ... ok
+2026-10-26T05:39:17.2823550Z test wasapi_render_packet::tests::integer_rounding_valid_bit_alignment_and_f32_precision_boundaries_are_explicit ... ok
+2026-10-26T05:39:17.2824220Z test wasapi_render_packet::tests::lease_cannot_be_sent_or_shared_across_owner_threads ... ok
+2026-10-26T05:39:17.2824910Z test wasapi_render_packet::tests::malformed_extents_are_unchanged_and_invalid_chunks_poison_completion ... ok
+2026-10-26T05:39:17.2825640Z test wasapi_render_packet::tests::neutral_sink_writes_do_not_submit_and_late_validation_error_forces_silent_release ... ok
+2026-10-26T05:39:17.2826330Z test wasapi_render_packet::tests::owner_unwind_releases_silence_once_and_retains_failure ... ok
+2026-10-26T05:39:17.2827890Z test wasapi_render_packet::tests::packet_and_lease_success_error_cancellation_drop_paths_allocate_and_free_nothing ... ok
+2026-10-26T05:39:17.2835560Z test wasapi_render_packet::tests::rejected_native_pointer_releases_without_forming_or_touching_a_slice ... ok
+2026-10-26T05:39:17.2836340Z test wasapi_render_packet::tests::release_failures_remain_observable_on_commit_error_drop_and_constructor_failure_without_retry ... ok
+2026-10-26T05:39:17.2837080Z test wasapi_render_packet::tests::release_once_uses_pcm_only_for_complete_authorized_commit ... ok
+2026-10-26T05:39:17.2837770Z test wasapi_render_packet::tests::saturation_extrema_and_nonfinite_samples_have_independent_expected_bytes ... ok
+2026-10-26T05:39:27.1220580Z test capture_tests::independent_clock_drift_preserves_continuity_without_drops ... ok
+2026-10-26T05:39:31.7751610Z test fanout::tests::two_independent_clocks_preserve_continuous_expected_pcm_and_one_source_sequence_through_wraps ... ok
+2026-10-26T05:39:31.7859650Z      Running unittests src/lib.rs (target/debug/deps/relink_core-4c24780006dc7827)
+2026-10-26T05:39:31.7859970Z 
+2026-10-26T05:39:31.7960790Z test result: ok. 217 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 19.45s
+2026-10-26T05:39:31.8061290Z 
+2026-10-26T05:39:31.8091030Z 
+2026-10-26T05:39:31.8111800Z running 15 tests
+2026-10-26T05:39:31.8112570Z test application::tests::selectors_reject_unknown_versions_platforms_fields_and_pid_only_records ... ok
+2026-10-26T05:39:31.8113260Z test application::tests::selector_paths_are_absolute_platform_specific_and_without_nul_or_traversal ... ok
+2026-10-26T05:39:31.8114290Z test application::tests::stable_selectors_round_trip_across_platforms_without_runtime_process_identity ... ok
+2026-10-26T05:39:31.8114950Z test dsp::tests::cancelled_enable_before_first_sample_never_uses_unused_compressor_defaults ... ok
+2026-10-26T05:39:31.8115570Z test dsp::tests::editing_fully_bypassed_parameters_uses_latest_target_without_resetting_envelope ... ok
+2026-10-26T05:39:31.8116230Z test dsp::tests::enabled_compressor_is_applied_once_and_limiter_transition_claims_are_explicit ... ok
+2026-10-26T05:39:31.8116830Z test dsp::tests::bypass_reaches_exact_dry_and_wet_endpoints_over_five_milliseconds ... ok
+2026-10-26T05:39:31.8117360Z test dsp::tests::gate_hold_and_compressor_gain_survive_parameter_updates ... ok
+2026-10-26T05:39:31.8117880Z test dsp::tests::fully_bypassed_stages_freeze_history_and_resume_without_reset ... ok
+2026-10-26T05:39:31.8118410Z test dsp::tests::malformed_late_dsp_rejection_preserves_entire_running_bank ... ok
+2026-10-26T05:39:31.8118970Z test dsp::tests::repeated_identical_updates_preserve_transition_and_envelope_continuation ... ok
+2026-10-26T05:39:31.8119590Z test dsp::tests::settled_high_pass_changes_generated_spectrum_without_state_reset ... ok
+2026-10-26T05:39:31.8120110Z test dsp::tests::wire_rejects_nonfinite_unstable_flags_hold_and_rate ... ok
+2026-10-26T05:39:31.8383370Z test dsp::tests::rapid_retargets_remain_finite_with_extreme_input_and_parameter_ranges ... ok
+2026-10-26T05:39:32.1016870Z test dsp::tests::all_supported_integer_rates_accept_compiled_extreme_coefficients ... ok
+2026-10-26T05:39:32.1031960Z      Running tests/bus_views.rs (target/debug/deps/bus_views-ff031077371b7c53)
+2026-10-26T05:39:32.1032270Z 
+2026-10-26T05:39:32.1074740Z      Running tests/controls.rs (target/debug/deps/controls-56341cabcb574ac2)
+2026-10-26T05:39:32.1075270Z test result: ok. 15 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.32s
+2026-10-26T05:39:32.1104030Z 
+2026-10-26T05:39:32.1115900Z      Running tests/dsp_bypass.rs (target/debug/deps/dsp_bypass-0c04bc1ec18c5a7e)
+2026-10-26T05:39:32.1116260Z 
+2026-10-26T05:39:32.1191100Z running 6 tests
+2026-10-26T05:39:32.1222840Z test multiple_buses_expose_exact_post_dsp_audio_including_omitted_outputs ... ok
+2026-10-26T05:39:32.1241440Z test handles_reject_unknown_buses_and_other_graphs_but_survive_moves ... ok
+2026-10-26T05:39:32.1264850Z      Running tests/engine.rs (target/debug/deps/engine-b4aa2c80a3fde1d2)
+2026-10-26T05:39:32.1265340Z test bus_filter_history_advances_once_despite_repeated_views_and_missing_destinations ... ok
+2026-10-26T05:39:32.1343780Z test shorter_zero_and_rejected_attempts_never_expose_an_old_tail ... ok
+2026-10-26T05:39:32.1361740Z test rendering_and_all_view_paths_allocate_or_deallocate_nothing ... ok
+2026-10-26T05:39:32.1376670Z test repeated_fanout_advances_oscillator_and_control_ramps_only_once_per_frame ... ok
+2026-10-26T05:39:32.1418640Z 
+2026-10-26T05:39:32.1461840Z test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-26T05:39:32.1469690Z 
+2026-10-26T05:39:32.1473250Z 
+2026-10-26T05:39:32.1477320Z running 4 tests
+2026-10-26T05:39:32.1479330Z test prepared_control_memory_budget_is_enforced_before_allocation ... ok
+2026-10-26T05:39:32.1507450Z test malformed_late_control_does_not_partially_apply_earlier_controls ... ok
+2026-10-26T05:39:32.1540040Z test controls_preserve_high_pass_history ... ok
+2026-10-26T05:39:32.1554340Z      Running tests/live_dsp.rs (target/debug/deps/live_dsp-3c78bf3f25641967)
+2026-10-26T05:39:32.1554840Z test solo_scopes_resolve_independently_with_mute_winning ... ok
+2026-10-26T05:39:32.1574780Z 
+2026-10-26T05:39:32.1675580Z test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-26T05:39:32.1702290Z 
+2026-10-26T05:39:32.1738050Z 
+2026-10-26T05:39:32.1739370Z running 5 tests
+2026-10-26T05:39:32.1739760Z test bypass_round_trip_and_partial_flags_preserve_every_custom_parameter ... ok
+2026-10-26T05:39:32.1740270Z test bypass_does_not_allow_invalid_configured_parameters_into_session_or_bank ... ok
+2026-10-26T05:39:32.1741100Z test prepared_bypass_changes_only_enabled_mask_and_never_discards_coefficients ... ok
+2026-10-26T05:39:32.1741670Z test legacy_sessions_without_bypass_keep_parameters_coefficients_and_audio_identical ... ok
+2026-10-26T05:39:32.1742200Z test each_configured_stage_can_audition_dry_and_restore_its_custom_processing ... ok
+2026-10-26T05:39:32.1742540Z 
+2026-10-26T05:39:32.1742800Z test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+2026-10-26T05:39:32.1743130Z 
+2026-10-26T05:39:32.1743190Z 
+2026-10-26T05:39:32.1743300Z running 15 tests
+2026-10-26T05:39:32.1743600Z test bad_buffers_return_before_mutating_output_or_advancing_tone ... ok
+2026-10-26T05:39:32.1743970Z test bus_master_limits_the_combined_sum ... ok
+2026-10-26T05:39:32.1744340Z test deleting_nodes_cleans_routes_and_rejected_mutations_roll_back ... ok
+2026-10-26T05:39:32.1744770Z test distinct_stereo_sources_sum_only_into_their_destinations ... ok
+2026-10-26T05:39:32.1745230Z test compressor_reduces_level_by_ratio_and_limiter_contains_first_transient ... ok
+2026-10-26T05:39:32.1745690Z test input_send_and_bus_solo_have_distinct_scopes_and_mute_wins ... ok
+2026-10-26T05:39:32.1746140Z test malformed_numeric_values_and_dangling_routes_never_reach_render ... ok
+2026-10-26T05:39:32.1746620Z test mapped_source_iterator_preserves_routing_without_descriptor_allocation ... ok
+2026-10-26T05:39:32.1747130Z test persistence_round_trip_preserves_every_stable_id_and_rejects_future_versions ... ok
+2026-10-26T05:39:32.1747610Z test render_sanitizes_nonfinite_input_and_keeps_meters_finite ... ok
+2026-10-26T05:39:32.1748330Z test applying_and_retargeting_live_ramps_allocate_nothing_on_the_audio_thread ... ok
+2026-10-26T05:39:32.1748980Z test resource_limits_are_explicit_and_overflow_is_an_error ... ok
+2026-10-26T05:39:32.1749540Z test stereo_gain_linking_and_pan_preserve_channel_identity ... ok
+2026-10-26T05:39:32.1750000Z test highpass_removes_dc_and_gate_rejects_below_threshold_signal ... ok
+2026-10-26T05:39:32.1750410Z test rendering_and_meter_reads_allocate_nothing_including_first_callback ... ok
+2026-10-26T05:39:32.1750750Z 
+2026-10-26T05:39:32.1750950Z test result: ok. 15 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+2026-10-26T05:39:32.1751230Z 
+2026-10-26T05:39:32.1751520Z 
+2026-10-26T05:39:32.1751580Z running 5 tests
+2026-10-26T05:39:32.1751840Z test dsp_control_bytes_are_charged_before_allocation_at_exact_boundary ... ok
+2026-10-26T05:39:32.1752210Z test input_and_bus_stages_apply_once_with_sends_unchanged ... ok
+2026-10-26T05:39:32.1752590Z test late_invalid_gain_layout_or_rate_rejects_entire_bank_without_advancing_dsp ... ok
+2026-10-26T05:39:32.1753050Z test simultaneous_input_and_bus_dsp_updates_are_bit_exact_across_callback_partitions ... ok
+2026-10-26T05:39:32.2219570Z test decode_apply_retarget_and_render_allocate_and_deallocate_nothing ... ok
+2026-10-26T05:39:32.2222230Z      Running tests/smoothing.rs (target/debug/deps/smoothing-38243494b68a047c)
+2026-10-26T05:39:32.2222530Z 
+2026-10-26T05:39:32.2230530Z test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.06s
+2026-10-26T05:39:32.2303270Z      Running unittests src/lib.rs (target/debug/deps/relink_hal-e410181146e57a28)
+2026-10-26T05:39:32.2303600Z 
+2026-10-26T05:39:32.2312780Z 
+2026-10-26T05:39:32.2319320Z running 11 tests
+2026-10-26T05:39:32.2321620Z test compiled_budget_includes_ramp_state_and_enforces_the_exact_boundary ... ok
+2026-10-26T05:39:32.2324400Z test invalid_control_banks_and_rejected_or_empty_renders_leave_ramps_untouched ... ok
+2026-10-26T05:39:32.2326240Z test missing_sources_and_omitted_outputs_still_advance_ramps ... ok
+2026-10-26T05:39:32.2326870Z test arbitrary_callback_boundaries_are_bit_exact_with_one_contiguous_render ... ok
+2026-10-26T05:39:32.2342630Z test mute_and_unmute_reach_exact_endpoints_at_each_stage ... ok
+2026-10-26T05:39:32.2346690Z test pan_and_unlinked_stereo_levels_ramp_to_the_resolved_targets ... ok
+2026-10-26T05:39:32.2349400Z test mute_ramps_preserve_oscillator_phase_and_input_or_bus_filter_history ... ok
+2026-10-26T05:39:32.2400390Z    Doc-tests relink_audio
+2026-10-26T05:39:32.2400780Z test gain_changes_follow_a_five_millisecond_continuous_ramp_at_each_stage_and_rate ... ok
+2026-10-26T05:39:32.2405640Z test rapid_retarget_starts_from_last_rendered_gain_and_repeated_banks_do_not_extend_it ... ok
+2026-10-26T05:39:32.2410360Z test stationary_muted_routes_resume_and_finish_retargeted_ramps ... ok
+2026-10-26T05:39:32.2412350Z test resolved_input_send_and_bus_solo_changes_use_the_same_ramp ... ok
+2026-10-26T05:39:32.2412760Z 
+2026-10-26T05:39:32.2413020Z test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-26T05:39:32.2413350Z 
+2026-10-26T05:39:32.2413440Z 
+2026-10-26T05:39:32.2413550Z running 8 tests
+2026-10-26T05:39:32.2414070Z test device::tests::clients_are_balanced_and_devices_are_isolated ... ok
+2026-10-26T05:39:32.2414750Z test device::tests::clock_is_monotonic_and_period_quantized ... ok
+2026-10-26T05:39:32.2416080Z test ring::tests::wrap_missing_overwrite_and_independent_readers ... ok
+2026-10-26T05:39:32.2416570Z test tests::direct_host_lifecycle_audio_clock_and_allocation_contract ... ok
+2026-10-26T05:39:32.2417020Z test tests::direct_vtable_properties_reject_bad_inputs_and_validate_formats ... ok
+2026-10-26T05:39:32.2417760Z test tests::published_cables_have_independent_clients_audio_and_restart_state ... ok
+2026-10-26T05:39:32.2418190Z test tests::sdk_64_bit_layout ... ok
+2026-10-26T05:39:32.2418520Z test ring::tests::concurrent_overwrite_never_returns_another_frames_audio ... ok
+2026-10-26T05:39:32.2418770Z 
+2026-10-26T05:39:32.2418990Z test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-26T05:39:32.2419270Z 
+2026-10-26T05:39:32.3610360Z 
+2026-10-26T05:39:32.3615770Z running 0 tests
+2026-10-26T05:39:32.3616130Z 
+2026-10-26T05:39:32.3620430Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-26T05:39:32.3620970Z 
+2026-10-26T05:39:32.3621750Z    Doc-tests relink_core
+2026-10-26T05:39:32.4284950Z 
+2026-10-26T05:39:32.4285550Z running 0 tests
+2026-10-26T05:39:32.4285750Z 
+2026-10-26T05:39:32.4285970Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-26T05:39:32.4286680Z 
+2026-10-26T05:39:32.4294770Z    Doc-tests relink_hal
+2026-10-26T05:39:32.4532490Z 
+2026-10-26T05:39:32.4532850Z running 0 tests
+2026-10-26T05:39:32.4532970Z 
+2026-10-26T05:39:32.4533180Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-26T05:39:32.4533470Z 

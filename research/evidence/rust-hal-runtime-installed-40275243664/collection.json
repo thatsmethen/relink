@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "collectedUTC": "2026-10-26T05:50:02.536995+00:00",
+  "source_revision": "23c7ed6302bcb21ae99452487f137b50301254a3",
+  "repository": "thatsmethen/relink",
+  "installed_run_id": 40275243664,
+  "desktop_run_id": 40275243677,
+  "scope": "Already-completed original generated CI data only. Read-only download, custody verification and unchanged offline re-analysis.",
+  "local_audio_or_recording": false,
+  "workflow_dispatch_or_rerun": false,
+  "original_observations_changed": false,
+  "source_files_changed": false,
+  "raw_archives_location": "build/ci-40275243664",
+  "artifact_publication_performed": false,
+  "prior_runs_untouched": [
+    40270207703,
+    40272244069
+  ]
+}

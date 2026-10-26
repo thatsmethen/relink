@@ -1,0 +1,27 @@
+{
+  "source_revision": "23c7ed6302bcb21ae99452487f137b50301254a3",
+  "sha256": {
+    "analyze_system.py": "6f2e070cf855d18fb45a7686e79c1f7da6627061079f44ebe32b0ed8b76cfe0f",
+    "analyze_runtime.py": "6742811826f6fef7dc243b688a10eafa6c669a3cf0a9bb5eb5ea14b1887fab43",
+    "analyze_diagnostics.py": "39e626866d67400a18d328996ff45ef715b7e94e0c96f27b53de016546e9bc20",
+    "run_system.py": "a2267be06fb6082baa7b8ea2e4a2dab075fa252c8277495193aad86f20c4fea4",
+    "run_runtime.py": "b71f769defc61beffc5c9875181d1b57c10858b1f357266eec388237afe18c06",
+    "RUNTIME-ACCEPTANCE.md": "d64bee1c7f6084de2134503c72b531a2e6289ea609db8fb5128ca34940a9bae2",
+    "rust-hal.yml": "1eb14965270ee6cc38f6d8ecede11be6ba2dd56166767a670c90443eb02aad99",
+    "rust.yml": "eac71a3503357fcb86739367a764f6c4c0f6f61bbc006a114dd876834de47beb",
+    "ci-acceptance-summary.py": "d5a62aea413ba70c29f2e42eaceabe31d7bf56d8635475f7ac75dc2f511a70f9",
+    "runtime-capture-probe.rs": "dbe537802bf64c5ae8d216d7847739b3f9d7c5ac901d40391ef8ae16434a6935"
+  },
+  "original_paths": {
+    "analyze_system.py": "drivers/macos/tests/analyze_system.py",
+    "analyze_runtime.py": "drivers/macos/tests/analyze_runtime.py",
+    "analyze_diagnostics.py": "drivers/macos/tests/analyze_diagnostics.py",
+    "run_system.py": "drivers/macos/tests/run_system.py",
+    "run_runtime.py": "drivers/macos/tests/run_runtime.py",
+    "RUNTIME-ACCEPTANCE.md": "drivers/macos/tests/RUNTIME-ACCEPTANCE.md",
+    "rust-hal.yml": ".github/workflows/rust-hal.yml",
+    "rust.yml": ".github/workflows/rust.yml",
+    "ci-acceptance-summary.py": "scripts/ci-acceptance-summary.py",
+    "runtime-capture-probe.rs": "crates/relink-audio/examples/runtime-capture-probe.rs"
+  }
+}

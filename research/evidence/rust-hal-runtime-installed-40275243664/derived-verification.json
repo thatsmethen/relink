@@ -1,0 +1,545 @@
+{
+  "source_revision": "23c7ed6302bcb21ae99452487f137b50301254a3",
+  "run_id": 40275243664,
+  "attempt": 1,
+  "verification_python": "3.12.4 (v3.12.4:8e8a4baf65, Jun  6 2024, 17:33:18) [Clang 13.0.0 (clang-1300.0.29.30)]",
+  "verification_platform": "macOS-27.0-arm64-arm-64bit",
+  "jobs": {
+    "hal": {
+      "custody": {
+        "label": "hal",
+        "archive": "hal.zip",
+        "artifact_id": 12630181398,
+        "bytes": 10536205,
+        "sha256": "d5da927cf0b6f3b8b477563bbfa2b9096df4b67ba2655184be77f0c2e9ef67f0",
+        "manifest_files_verified": 65,
+        "expanded_bytes": 18532514,
+        "manifest_sha256": "7065b3adb564d6af19b17c040244ecd197c31920fb60d66af5d7800bb902a104"
+      },
+      "original_acceptance_pass": true,
+      "original_cleanup_pass": true,
+      "both_cable_UIDs_absent_after_cleanup": true,
+      "pcm": {
+        "reader-a.wav": {
+          "bytes": 7680044,
+          "sha256": "0e6454c9a7787906029f09980ec84ff9dd5e09d98c64a896d87c7e55044689e7"
+        },
+        "reader-b.wav": {
+          "bytes": 7680044,
+          "sha256": "bbb9f468088bf3ba4ed824375fe1958ac764bdfb8a4a79e17c4e0dafc8e0e0a5"
+        },
+        "restarted-silence.wav": {
+          "bytes": 1152044,
+          "sha256": "db4049ff10a9b4097359dac7c8c8441f9f6a620176298fe95203edbd6037b755"
+        }
+      },
+      "reanalyzed": {
+        "tone-writer": {
+          "pass": true,
+          "exact_original_result_except_source_path": true,
+          "result": {
+            "schema": 1,
+            "source_report": "/Users/textual/projects/notify/relink/build/ci-40275243664/extracted/hal/tone-writer.json",
+            "clock": {
+              "callback_count": 3750,
+              "sample_gaps": [],
+              "host_reversals": 0,
+              "measured_sample_rate": 48000.0,
+              "pass": true
+            },
+            "frames": 1920000,
+            "mode": "play",
+            "failures": [],
+            "pass": true
+          }
+        },
+        "reader-a": {
+          "pass": true,
+          "exact_original_result_except_source_path": true,
+          "result": {
+            "schema": 1,
+            "source_report": "/Users/textual/projects/notify/relink/build/ci-40275243664/extracted/hal/reader-a.json",
+            "clock": {
+              "callback_count": 1875,
+              "sample_gaps": [],
+              "host_reversals": 0,
+              "measured_sample_rate": 48000.00000000001,
+              "pass": true
+            },
+            "frames": 960000,
+            "mode": "record",
+            "failures": [],
+            "channels": [
+              {
+                "frequency_hz": 440,
+                "amplitude": 0.12499999974753201,
+                "phase_radians": 1.926843494200528,
+                "rms": 0.08838834746984243,
+                "residual_rms": 9.034250139384942e-08
+              },
+              {
+                "frequency_hz": 997,
+                "amplitude": 0.12499999999597089,
+                "phase_radians": 2.2954570322190224,
+                "rms": 0.08838834764548081,
+                "residual_rms": 4.499394045835304e-08
+              }
+            ],
+            "wrong_channel_amplitude": [
+              3.298162262593542e-17,
+              1.7331724663516398e-13
+            ],
+            "longest_stereo_zero_run": 0,
+            "interior_frames": 768000,
+            "trim_seconds": 2.0,
+            "criteria": {
+              "relative_amplitude_error": 0.01,
+              "residual_relative_to_peak": 0.001,
+              "wrong_channel_relative_peak": 0.005,
+              "forbidden_zero_run_frames": 8
+            },
+            "pass": true
+          }
+        },
+        "reader-b": {
+          "pass": true,
+          "exact_original_result_except_source_path": true,
+          "result": {
+            "schema": 1,
+            "source_report": "/Users/textual/projects/notify/relink/build/ci-40275243664/extracted/hal/reader-b.json",
+            "clock": {
+              "callback_count": 1875,
+              "sample_gaps": [],
+              "host_reversals": 0,
+              "measured_sample_rate": 48000.00000000001,
+              "pass": true
+            },
+            "frames": 960000,
+            "mode": "record",
+            "failures": [],
+            "channels": [
+              {
+                "frequency_hz": 440,
+                "amplitude": 0.12499999974753241,
+                "phase_radians": 1.926843494200507,
+                "rms": 0.08838834746984242,
+                "residual_rms": 9.010624281342597e-08
+              },
+              {
+                "frequency_hz": 997,
+                "amplitude": 0.12499999999595711,
+                "phase_radians": 2.2954570322190615,
+                "rms": 0.08838834764547192,
+                "residual_rms": 4.670509820976194e-08
+              }
+            ],
+            "wrong_channel_amplitude": [
+              3.1612247475474634e-17,
+              1.568450630614627e-13
+            ],
+            "longest_stereo_zero_run": 0,
+            "interior_frames": 768000,
+            "trim_seconds": 2.0,
+            "criteria": {
+              "relative_amplitude_error": 0.01,
+              "residual_relative_to_peak": 0.001,
+              "wrong_channel_relative_peak": 0.005,
+              "forbidden_zero_run_frames": 8
+            },
+            "pass": true
+          }
+        },
+        "restarted-silence": {
+          "pass": true,
+          "exact_original_result_except_source_path": true,
+          "result": {
+            "schema": 1,
+            "source_report": "/Users/textual/projects/notify/relink/build/ci-40275243664/extracted/hal/restarted-silence.json",
+            "clock": {
+              "callback_count": 282,
+              "sample_gaps": [],
+              "host_reversals": 0,
+              "measured_sample_rate": 47999.99999999999,
+              "pass": true
+            },
+            "frames": 144000,
+            "mode": "silence",
+            "failures": [],
+            "peak": 0.0,
+            "pass": true
+          }
+        },
+        "independent-readers": {
+          "pass": true,
+          "exact_original_result_except_source_path": true,
+          "result": {
+            "pass": true,
+            "overlap_frames": 760512,
+            "maximum_difference": 0.0,
+            "differing_samples_above_1e-6": 0,
+            "relative_start_frames": 7488.0
+          }
+        },
+        "tone-writer-diagnostics": {
+          "pass": true,
+          "exact_original_result_except_source_path": true
+        },
+        "reader-a-diagnostics": {
+          "pass": true,
+          "exact_original_result_except_source_path": true
+        },
+        "reader-b-diagnostics": {
+          "pass": true,
+          "exact_original_result_except_source_path": true
+        },
+        "restarted-silence-diagnostics": {
+          "pass": true,
+          "exact_original_result_except_source_path": true
+        }
+      },
+      "frozen_sources_matching_CI_build_hashes": {
+        "drivers/macos/tests/analyze_diagnostics.py": "39e626866d67400a18d328996ff45ef715b7e94e0c96f27b53de016546e9bc20",
+        "drivers/macos/tests/run_system.py": "a2267be06fb6082baa7b8ea2e4a2dab075fa252c8277495193aad86f20c4fea4"
+      },
+      "archived_observer_build_hash_verified": true,
+      "reported_driver_binary_sha256": "91d754e7a949233f8b7e88e5d4fa826d26255cd6b94bb01ffd6f52de82b748fe"
+    },
+    "runtime": {
+      "custody": {
+        "label": "runtime",
+        "archive": "runtime.zip",
+        "artifact_id": 12629449730,
+        "bytes": 6958055,
+        "sha256": "d08bb1bb171f7be78c244eb8cc2546317d7099e3f7d98483a8904d2b41282ae2",
+        "manifest_files_verified": 56,
+        "expanded_bytes": 15580977,
+        "manifest_sha256": "9d2f31035603c469166f9c61bbaee479c61e7ab23bfbec10574dfbae89eca56a"
+      },
+      "original_acceptance_pass": false,
+      "original_cleanup_pass": true,
+      "both_cable_UIDs_absent_after_cleanup": true,
+      "pcm": {
+        "runtime-reader.wav": {
+          "bytes": 12288044,
+          "sha256": "7bed002c3d0e46544cb145b0616e953f8d0241e6dca9ba461514c24d2efb80de"
+        }
+      },
+      "reanalyzed": {
+        "source-writer": {
+          "pass": true,
+          "exact_original_result_except_source_path": true,
+          "result": {
+            "schema": 1,
+            "source_report": "/Users/textual/projects/notify/relink/build/ci-40275243664/extracted/runtime/source-writer.json",
+            "clock": {
+              "callback_count": 5625,
+              "sample_gaps": [],
+              "host_reversals": 0,
+              "measured_sample_rate": 48000.0,
+              "pass": true
+            },
+            "frames": 2880000,
+            "mode": "play",
+            "failures": [],
+            "pass": true
+          }
+        },
+        "runtime-output": {
+          "pass": false,
+          "exact_original_result_except_source_path": true,
+          "result": {
+            "schema": 1,
+            "pass": false,
+            "failures": [
+              "independent recorder clock/continuity failed"
+            ],
+            "criteria": {
+              "relative_amplitude_error": 0.01,
+              "frequency_error_ppm": 2500.0,
+              "recurrence_peak_relative": 0.005,
+              "recurrence_rms_relative": 0.0005,
+              "mean_relative": 0.001,
+              "control_ack_seconds": 0.25,
+              "transition_seconds": 0.25,
+              "steady_leading_margin_seconds": 0.25,
+              "steady_trailing_margin_seconds": 0.05,
+              "transition_envelope_window_seconds": 0.02,
+              "transition_envelope_relative_tolerance": 0.08,
+              "forbidden_zero_run_frames": 8
+            },
+            "clock": {
+              "callback_count": 3000,
+              "sample_gaps": [
+                {
+                  "after_sample": 1586608.0,
+                  "delta_frames": 588.0
+                }
+              ],
+              "host_reversals": 0,
+              "measured_sample_rate": 48000.00000000001,
+              "pass": false
+            },
+            "phases": [
+              {
+                "pass": true,
+                "begin_frame": 47594,
+                "end_frame": 323491,
+                "channels": [
+                  {
+                    "expected_hz": 440.0,
+                    "measured_hz": 439.9994275877295,
+                    "expected_peak": 0.06264840420340903,
+                    "rms_equivalent_peak": 0.06264784250507302,
+                    "relative_amplitude_error": 8.965884177774453e-06,
+                    "frequency_error_ppm": 1.3009369784766633,
+                    "recurrence_peak_relative": 2.154105397867043e-06,
+                    "recurrence_rms_relative": 3.081441126683148e-07,
+                    "mean_relative": 5.974404420755863e-06,
+                    "pass": true
+                  },
+                  {
+                    "expected_hz": 997.0,
+                    "measured_hz": 996.9987036159451,
+                    "expected_peak": 0.06264840420340903,
+                    "rms_equivalent_peak": 0.0626483581123183,
+                    "relative_amplitude_error": 7.357105312063885e-07,
+                    "frequency_error_ppm": 1.300284909633298,
+                    "recurrence_peak_relative": 2.2765242823000787e-06,
+                    "recurrence_rms_relative": 3.2816743576875103e-07,
+                    "mean_relative": 3.804553399580414e-05,
+                    "pass": true
+                  }
+                ],
+                "longest_stereo_zero_run": 0,
+                "phase": 0,
+                "acknowledgement_seconds": 0.024967999999999997,
+                "detected_response_seconds": -0.05000770833333333
+              },
+              {
+                "pass": true,
+                "begin_frame": 338914,
+                "end_frame": 614059,
+                "channels": [
+                  {
+                    "expected_hz": 440.0,
+                    "measured_hz": 440.00087648394185,
+                    "expected_peak": 0.03139858039386975,
+                    "rms_equivalent_peak": 0.03139793739309555,
+                    "relative_amplitude_error": 2.0478657510491992e-05,
+                    "frequency_error_ppm": 1.9920089586733525,
+                    "recurrence_peak_relative": 1.7557535662458813e-06,
+                    "recurrence_rms_relative": 3.048034315366231e-07,
+                    "mean_relative": 2.2912655650857866e-05,
+                    "pass": true
+                  },
+                  {
+                    "expected_hz": 997.0,
+                    "measured_hz": 997.0019872092347,
+                    "expected_peak": 0.03139858039386975,
+                    "rms_equivalent_peak": 0.0313985811769676,
+                    "relative_amplitude_error": 2.494054956086657e-08,
+                    "frequency_error_ppm": 1.9931888011193166,
+                    "recurrence_peak_relative": 2.032941215613184e-06,
+                    "recurrence_rms_relative": 3.0717828762251295e-07,
+                    "mean_relative": 3.983772079644862e-07,
+                    "pass": true
+                  }
+                ],
+                "longest_stereo_zero_run": 0,
+                "phase": 1,
+                "acknowledgement_seconds": 0.021315541666666663,
+                "detected_response_seconds": 0.03000645833333333
+              },
+              {
+                "pass": true,
+                "peak": 0.0,
+                "begin_frame": 629757,
+                "end_frame": 808084,
+                "phase": 2,
+                "acknowledgement_seconds": 0.027039374999999997,
+                "detected_response_seconds": 0.02999708333333333
+              },
+              {
+                "pass": true,
+                "begin_frame": 823715,
+                "end_frame": 1099096,
+                "channels": [
+                  {
+                    "expected_hz": 440.0,
+                    "measured_hz": 440.000529986834,
+                    "expected_peak": 0.06264840420340903,
+                    "rms_equivalent_peak": 0.06264683645950782,
+                    "relative_amplitude_error": 2.5024482604891054e-05,
+                    "frequency_error_ppm": 1.2045155317608192,
+                    "recurrence_peak_relative": 1.871266613234912e-06,
+                    "recurrence_rms_relative": 3.081137843141569e-07,
+                    "mean_relative": 2.5841638932496885e-05,
+                    "pass": true
+                  },
+                  {
+                    "expected_hz": 997.0,
+                    "measured_hz": 997.0011993544725,
+                    "expected_peak": 0.06264840420340903,
+                    "rms_equivalent_peak": 0.0626488518838159,
+                    "relative_amplitude_error": 7.145918759827181e-06,
+                    "frequency_error_ppm": 1.2029633627008707,
+                    "recurrence_peak_relative": 1.7802786576952668e-06,
+                    "recurrence_rms_relative": 3.072974734471144e-07,
+                    "mean_relative": 3.6137050438764025e-06,
+                    "pass": true
+                  }
+                ],
+                "longest_stereo_zero_run": 0,
+                "phase": 3,
+                "acknowledgement_seconds": 0.025643916666666666,
+                "detected_response_seconds": 0.034993624999999993
+              }
+            ],
+            "unmuted_zero_runs": [
+              0,
+              0
+            ],
+            "stopped_tail_peak": 0.0,
+            "stop_response_seconds": 0.02999583333333333,
+            "observed_rendered_frames_per_second": 48003.814964566576,
+            "note": "Runtime telemetry is polled off callback; independent recorder CSV contains each native capture callback timestamp."
+          }
+        },
+        "source-writer-diagnostics": {
+          "pass": true,
+          "exact_original_result_except_source_path": true
+        },
+        "runtime-reader-diagnostics": {
+          "pass": true,
+          "exact_original_result_except_source_path": true
+        }
+      },
+      "frozen_sources_matching_CI_build_hashes": {
+        "drivers/macos/tests/analyze_runtime.py": "6742811826f6fef7dc243b688a10eafa6c669a3cf0a9bb5eb5ea14b1887fab43",
+        "drivers/macos/tests/analyze_diagnostics.py": "39e626866d67400a18d328996ff45ef715b7e94e0c96f27b53de016546e9bc20",
+        "drivers/macos/tests/run_system.py": "a2267be06fb6082baa7b8ea2e4a2dab075fa252c8277495193aad86f20c4fea4",
+        "drivers/macos/tests/run_runtime.py": "b71f769defc61beffc5c9875181d1b57c10858b1f357266eec388237afe18c06",
+        "drivers/macos/tests/RUNTIME-ACCEPTANCE.md": "d64bee1c7f6084de2134503c72b531a2e6289ea609db8fb5128ca34940a9bae2",
+        "crates/relink-audio/examples/runtime-capture-probe.rs": "dbe537802bf64c5ae8d216d7847739b3f9d7c5ac901d40391ef8ae16434a6935"
+      },
+      "archived_observer_build_hash_verified": true,
+      "reported_driver_binary_sha256": "91d754e7a949233f8b7e88e5d4fa826d26255cd6b94bb01ffd6f52de82b748fe",
+      "native_record_summary": {
+        "records": 340,
+        "records_with_runtime_fault_or_error": 0,
+        "last_observation": "post-stop-final",
+        "last_running": false,
+        "last_native_output_shutdown_proven": true,
+        "last_native_shutdown_observed": true,
+        "last_output_lifecycle": [
+          {
+            "callbacks_in_flight": 0,
+            "host_time": 4514750585,
+            "phase": "ReservationAcquired",
+            "status": null
+          },
+          {
+            "callbacks_in_flight": 0,
+            "host_time": 4514761093,
+            "phase": "CreateRequested",
+            "status": null
+          },
+          {
+            "callbacks_in_flight": 0,
+            "host_time": 4514794904,
+            "phase": "CreateReturned",
+            "status": 0
+          },
+          {
+            "callbacks_in_flight": 0,
+            "host_time": 4514826955,
+            "phase": "Ready",
+            "status": null
+          },
+          {
+            "callbacks_in_flight": 0,
+            "host_time": 4514839186,
+            "phase": "StartRequested",
+            "status": null
+          },
+          {
+            "callbacks_in_flight": 0,
+            "host_time": 4515246991,
+            "phase": "StartReturned",
+            "status": 0
+          },
+          {
+            "callbacks_in_flight": null,
+            "host_time": 5074134353,
+            "phase": "HandleCancelled",
+            "status": null
+          },
+          {
+            "callbacks_in_flight": 0,
+            "host_time": 5074135034,
+            "phase": "GatesRevoked",
+            "status": null
+          },
+          {
+            "callbacks_in_flight": 0,
+            "host_time": 5074135037,
+            "phase": "StopRequested",
+            "status": null
+          },
+          {
+            "callbacks_in_flight": 0,
+            "host_time": 5074741711,
+            "phase": "StopReturned",
+            "status": 0
+          },
+          {
+            "callbacks_in_flight": 0,
+            "host_time": 5074741715,
+            "phase": "DestroyRequested",
+            "status": null
+          },
+          {
+            "callbacks_in_flight": 0,
+            "host_time": 5074747322,
+            "phase": "DestroyReturned",
+            "status": 0
+          },
+          {
+            "callbacks_in_flight": 0,
+            "host_time": 5074747324,
+            "phase": "ListenerRemovalRequested",
+            "status": null
+          },
+          {
+            "callbacks_in_flight": 0,
+            "host_time": 5074799880,
+            "phase": "ListenerRemovalReturned",
+            "status": 0
+          },
+          {
+            "callbacks_in_flight": 0,
+            "host_time": 5074799897,
+            "phase": "QuiescenceChecked",
+            "status": null
+          },
+          {
+            "callbacks_in_flight": 0,
+            "host_time": 5074800539,
+            "phase": "OwnerCompleted",
+            "status": null
+          }
+        ],
+        "note": "Recorded telemetry summary, separate from unchanged PCM analyzer results."
+      }
+    }
+  },
+  "custody_and_reproduction_verified": true,
+  "original_run_conclusion": "failure",
+  "original_runtime_acceptance_pass": false,
+  "limits": [
+    "One already-completed disposable macOS arm64 run at the exact source revision.",
+    "Generated CI tones and fixed protocol only; no local device or recording operation occurred.",
+    "Does not qualify later working-tree changes, Windows routing, application capture, physical clocks, or production release.",
+    "Original failed runs40270207703 and40275243664 remain unchanged; verification does not convert a failed observation to a pass."
+  ]
+}

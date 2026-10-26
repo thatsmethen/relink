@@ -1,0 +1,148 @@
+{
+  "source_revision": "23c7ed6302bcb21ae99452487f137b50301254a3",
+  "run_id": 40275243664,
+  "console_fallback": {
+    "hal": {
+      "original_step_log": "installed-hal/9_Print bounded report fallback before artifact upload.txt",
+      "step_log_sha256": "a61cad58124d31a24360ba205c6091c3c2d297ece112ef79cf8036dfdf10edf3",
+      "summary_records": 17,
+      "summary_bytes": 10081,
+      "largest_line_bytes": 2492,
+      "complete_report_hashes_match_archive": [
+        "custody-manifest.json",
+        "cleanup.json",
+        "acceptance.json",
+        "tone-writer.json",
+        "reader-a.json",
+        "reader-b.json",
+        "restarted-silence.json",
+        "tone-writer-analysis.json",
+        "reader-a-analysis.json",
+        "reader-b-analysis.json",
+        "independent-readers.json",
+        "restarted-silence-analysis.json"
+      ],
+      "partial_sample_hashes_match_archive": [],
+      "explicitly_missing_reports_confirmed": [
+        "harness-error.json",
+        "run-error.json",
+        "cleanup-error.json",
+        "manifest-error.json"
+      ],
+      "original_acceptance_step_conclusion": "success",
+      "summary_step_conclusion": "success",
+      "original_job_conclusion": "success",
+      "order": "acceptance then manifest then read-only summary then upload",
+      "acceptance_result_unchanged": true,
+      "limits": "Partial native telemetry is explicitly sampled; manifest claims in console are not payload verification."
+    },
+    "runtime": {
+      "original_step_log": "installed-runtime-capture/9_Print bounded report fallback before artifact upload.txt",
+      "step_log_sha256": "afed071d3e0287f6b7b41fbc62412941ebdf09361fd91094a8fcb2eae22ce8dd",
+      "summary_records": 15,
+      "summary_bytes": 12305,
+      "largest_line_bytes": 3623,
+      "complete_report_hashes_match_archive": [
+        "custody-manifest.json",
+        "cleanup.json",
+        "runtime-result.json",
+        "runtime-acceptance.json",
+        "runtime.ready.json",
+        "source-writer.json",
+        "runtime-reader.json",
+        "source-writer-analysis.json",
+        "runtime-output-analysis.json"
+      ],
+      "partial_sample_hashes_match_archive": [
+        "runtime-native-timing.jsonl"
+      ],
+      "explicitly_missing_reports_confirmed": [
+        "harness-error.json",
+        "run-error.json",
+        "cleanup-error.json",
+        "manifest-error.json"
+      ],
+      "original_acceptance_step_conclusion": "failure",
+      "summary_step_conclusion": "success",
+      "original_job_conclusion": "failure",
+      "order": "acceptance then manifest then read-only summary then upload",
+      "acceptance_result_unchanged": true,
+      "limits": "Partial native telemetry is explicitly sampled; manifest claims in console are not payload verification."
+    }
+  },
+  "failure_context": {
+    "original_acceptance_remains_failed": true,
+    "gaps": [
+      {
+        "previous_callback_index": 2987,
+        "next_callback_index": 2988,
+        "excess_sample_frames": 588.0,
+        "file_frame_offset_at_next_callback": 1529856,
+        "previous": {
+          "sample_time": "1586608",
+          "host_time": "5288057206",
+          "observed_host_time": "5288595210",
+          "flags": "7",
+          "frames": "512",
+          "stored_frames": "512"
+        },
+        "next": {
+          "sample_time": "1587708",
+          "host_time": "5288607206",
+          "observed_host_time": "5288869537",
+          "flags": "7",
+          "frames": "512",
+          "stored_frames": "512"
+        },
+        "seconds_after_first_recorder_native_timestamp": 31.884249999999998,
+        "seconds_after_runtime_stop_request": 8.9364125,
+        "native_host_delta_seconds": 0.022916666666666665,
+        "observed_host_delta_seconds": 0.011430291666666665,
+        "original_diagnostic_callback_timings": [
+          {
+            "index": 2987,
+            "entry_host_time": 5288595169,
+            "after_pcm_host_time": 5288595210,
+            "exit_host_time": 5288595246,
+            "current_present": true,
+            "current_host_time": 5288324005,
+            "current_flags": 7,
+            "current_sample_time": 1587142
+          },
+          {
+            "index": 2988,
+            "entry_host_time": 5288869275,
+            "after_pcm_host_time": 5288869537,
+            "exit_host_time": 5288869568,
+            "current_present": true,
+            "current_host_time": 5288864158,
+            "current_flags": 7,
+            "current_sample_time": 1588222
+          }
+        ],
+        "nearby_notifications": [
+          {
+            "index": 1,
+            "host_time": 5288603204,
+            "object": 100,
+            "selector": 1870030194,
+            "scope": 1735159650,
+            "element": 0,
+            "selector_fourcc": "over",
+            "seconds_from_next_native_timestamp": -0.00016675
+          }
+        ],
+        "pcm_peak_within_2048_frames_each_side": 0.0
+      }
+    ],
+    "inputs": {
+      "runtime-reader.wav": "7bed002c3d0e46544cb145b0616e953f8d0241e6dca9ba461514c24d2efb80de",
+      "runtime-reader.csv": "18888962942e5d50e3cb73bde4c9671f5287437201de5ab5ae08274ec0d28415",
+      "runtime-reader.json": "991778a88fc616072cfe7699f7bcf50eb8757bf22d710aeb8263222b6e4d55b7",
+      "runtime-events.jsonl": "437f4314d7977bff2605b916b2f4d519b41194201fd13c760e4ffa4e276a08fa",
+      "runtime-reader-diagnostics.json": "06744d177d591aec7139d6a543f795ad5a051db30669b1a654bbf1b0e1cfbd5d"
+    },
+    "interpretation": "The gap follows runtime stop and coincides with a recorded over notification and late observer entry. Correlation does not establish driver, observer, scheduler, or DSP causality.",
+    "protocol_limit": "The frozen runtime probe changes send gain/mute only; it does not edit DSP effects."
+  }
+}

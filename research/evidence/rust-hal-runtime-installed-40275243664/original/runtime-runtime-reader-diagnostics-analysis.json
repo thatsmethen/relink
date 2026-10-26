@@ -1,0 +1,133 @@
+{
+  "schema": 1,
+  "pass": true,
+  "failures": [],
+  "accepted_pcm_callbacks": 3000,
+  "max_callback_work_seconds": 0.00029774999999999995,
+  "max_entry_minus_native_seconds": 0.022415124999999998,
+  "sample_gap_context": [
+    {
+      "delta_frames": 588.0,
+      "previous": {
+        "index": 2987,
+        "entry_minus_native_seconds": 0.022415124999999998,
+        "callback_work_seconds": 3.208333333333333e-06,
+        "entry_minus_os_current_seconds": 0.0112985
+      },
+      "current": {
+        "index": 2988,
+        "entry_minus_native_seconds": 0.010919541666666666,
+        "callback_work_seconds": 1.2208333333333331e-05,
+        "entry_minus_os_current_seconds": 0.00021320833333333332
+      }
+    }
+  ],
+  "notifications": [
+    {
+      "index": 0,
+      "host_time": 4523384400,
+      "object": 100,
+      "selector": 1735354734,
+      "scope": 1735159650,
+      "element": 0
+    },
+    {
+      "index": 1,
+      "host_time": 5288603204,
+      "object": 100,
+      "selector": 1870030194,
+      "scope": 1735159650,
+      "element": 0
+    },
+    {
+      "index": 2,
+      "host_time": 5292356894,
+      "object": 100,
+      "selector": 1735354734,
+      "scope": 1735159650,
+      "element": 0
+    }
+  ],
+  "listeners": [
+    {
+      "object": 100,
+      "selector": 1870030194,
+      "scope": 1735159650,
+      "element": 0,
+      "available": true,
+      "added": true,
+      "add_status": 0,
+      "remove_status": 0
+    },
+    {
+      "object": 100,
+      "selector": 1735354734,
+      "scope": 1735159650,
+      "element": 0,
+      "available": true,
+      "added": true,
+      "add_status": 0,
+      "remove_status": 0
+    },
+    {
+      "object": 100,
+      "selector": 1818850926,
+      "scope": 1735159650,
+      "element": 0,
+      "available": true,
+      "added": true,
+      "add_status": 0,
+      "remove_status": 0
+    },
+    {
+      "object": 100,
+      "selector": 1853059700,
+      "scope": 1735159650,
+      "element": 0,
+      "available": true,
+      "added": true,
+      "add_status": 0,
+      "remove_status": 0
+    },
+    {
+      "object": 100,
+      "selector": 1718839674,
+      "scope": 1735159650,
+      "element": 0,
+      "available": true,
+      "added": true,
+      "add_status": 0,
+      "remove_status": 0
+    },
+    {
+      "object": 102,
+      "selector": 1885762592,
+      "scope": 1735159650,
+      "element": 0,
+      "available": true,
+      "added": true,
+      "add_status": 0,
+      "remove_status": 0
+    },
+    {
+      "object": 101,
+      "selector": 1885762592,
+      "scope": 1735159650,
+      "element": 0,
+      "available": true,
+      "added": true,
+      "add_status": 0,
+      "remove_status": 0
+    }
+  ],
+  "lifecycle": {
+    "start_request": 4522874779,
+    "start_return": 4523512591,
+    "stop_request": 5292026708,
+    "stop_return": 5292540074,
+    "destroy_request": 5292540085,
+    "destroy_return": 5292551622
+  },
+  "dropped_notifications": 0,
+  "note": "Diagnostic integrity only. No scheduling performance limit or PCM acceptance threshold is changed."
+}

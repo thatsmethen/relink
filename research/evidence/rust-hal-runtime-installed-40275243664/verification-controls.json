@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "offline_controls_passed": 5,
+  "source_path_relocation_allowed": true,
+  "changed_numeric_result_rejected": true,
+  "original_failure_preserved": true,
+  "false_to_true_relabel_rejected": true,
+  "full_reproduction_checks": 13,
+  "matching_original_results": 13,
+  "original_checks_passed": 12,
+  "original_checks_failed": 1,
+  "verifier_sha256": "e36f861ae5ef53fe32a4c93ea28d56720c94f418bf3dd32a5ea6aa52fd25fde8"
+}

@@ -1,0 +1,68 @@
+[
+  {
+    "label": "installed",
+    "archive": "logs.zip",
+    "bytes": 54393,
+    "sha256": "06e5380bdffe2f7bd2cc2b974a385595421de5c83afb702a9850b677ab446336",
+    "members": [
+      {
+        "member": "installed-runtime-capture/6_Install, capture Cable1 through actual mixer into Cable2, verify live controls and stop.txt",
+        "file": "original-logs/installed-installed-runtime-capture--6_Install, capture Cable1 through actual mixer into Cable2, verify live controls and stop.txt",
+        "bytes": 477,
+        "sha256": "fab741f35c198694db622c54248b3857dbe098bb8530c59fc8b0193f2c3967b2"
+      },
+      {
+        "member": "installed-runtime-capture/9_Print bounded report fallback before artifact upload.txt",
+        "file": "original-logs/installed-installed-runtime-capture--9_Print bounded report fallback before artifact upload.txt",
+        "bytes": 13161,
+        "sha256": "afed071d3e0287f6b7b41fbc62412941ebdf09361fd91094a8fcb2eae22ce8dd"
+      },
+      {
+        "member": "installed-hal/6_Install, observe independent clients, verify silence after restart, remove.txt",
+        "file": "original-logs/installed-installed-hal--6_Install, observe independent clients, verify silence after restart, remove.txt",
+        "bytes": 401,
+        "sha256": "d47f1f4a41edb4a7f161d8046a510a210a5e802fc38872bcb29841fa6737d622"
+      },
+      {
+        "member": "installed-hal/9_Print bounded report fallback before artifact upload.txt",
+        "file": "original-logs/installed-installed-hal--9_Print bounded report fallback before artifact upload.txt",
+        "bytes": 10987,
+        "sha256": "a61cad58124d31a24360ba205c6091c3c2d297ece112ef79cf8036dfdf10edf3"
+      }
+    ],
+    "hash_source": "Local digest of original GitHub logs ZIP response; API does not supply a log-archive digest."
+  },
+  {
+    "label": "desktop",
+    "archive": "desktop-logs.zip",
+    "bytes": 117985,
+    "sha256": "0951af769d761e5b70052e3b75ece9920234a5c2a07ff73bc8c9f09bd841c897",
+    "members": [
+      {
+        "member": "desktop (macos-15)/7_Deterministic tests.txt",
+        "file": "original-logs/desktop-desktop (macos-15)--7_Deterministic tests.txt",
+        "bytes": 53619,
+        "sha256": "163a86123246ad0f774303072c249efebf44fc9f372b942932601e7bcc470145"
+      },
+      {
+        "member": "desktop (macos-15)/12_macOS driver ABI harness.txt",
+        "file": "original-logs/desktop-desktop (macos-15)--12_macOS driver ABI harness.txt",
+        "bytes": 526,
+        "sha256": "344b8df68566436c509934f3187baab0071db9ea3af48c77d0ae496c2082b8e0"
+      },
+      {
+        "member": "desktop (windows-2022)/7_Deterministic tests.txt",
+        "file": "original-logs/desktop-desktop (windows-2022)--7_Deterministic tests.txt",
+        "bytes": 49644,
+        "sha256": "1d8914079c41765577dd3aa677f41b0637c982eff32c22c0374c36a01e11ec7d"
+      },
+      {
+        "member": "desktop (windows-2022)/10_Verify embedded Windows icon resources.txt",
+        "file": "original-logs/desktop-desktop (windows-2022)--10_Verify embedded Windows icon resources.txt",
+        "bytes": 5841,
+        "sha256": "5ee37109dad5439b4974e2b3b1f83f5def5cde142e33f8812cb1dc34fd5824a2"
+      }
+    ],
+    "hash_source": "Local digest of original GitHub logs ZIP response; API does not supply a log-archive digest."
+  }
+]

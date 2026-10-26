@@ -1,0 +1,6 @@
+﻿2026-10-26T05:41:16.7552870Z ##[group]Run sh drivers/macos/tests/run-native-host.sh
+2026-10-26T05:41:16.7553280Z [36;1msh drivers/macos/tests/run-native-host.sh[0m
+2026-10-26T05:41:16.7611670Z shell: /bin/bash -e {0}
+2026-10-26T05:41:16.7612000Z ##[endgroup]
+2026-10-26T05:41:17.1742370Z     Finished `dev` profile [unoptimized] target(s) in 0.24s
+2026-10-26T05:41:18.8636280Z PASS: Apple SDK ABI, factory, COM, two-cable enumeration, independent clients/rings/restarts, timestamps, and stereo loopback (local host only)
