@@ -1,5 +1,8 @@
 //! Control-thread selection and dispatch for original native output owners.
-use crate::{AudioError, OutputDevice, RenderState, RunningConfiguration, RunningInput, Uuid};
+use crate::{
+    AudioError, OutputDevice, OutputRenderer, RunningConfiguration, RunningInput, RunningOutput,
+    Uuid,
+};
 use std::{sync::Arc, time::Duration};
 
 #[cfg(target_os = "macos")]
@@ -94,8 +97,25 @@ impl Selection {
             NativeSelection::Wasapi(selection) => (selection.rate(), selection.description()),
         };
         RunningConfiguration {
+            outputs: vec![self.running_output(bus_id)],
+            clock_output_index: 0,
             output: self.device.clone(),
             inputs,
+            bus_id,
+            sample_rate,
+            device_channels: self.channels(),
+            sample_format,
+        }
+    }
+    pub(crate) fn running_output(&self, bus_id: Uuid) -> RunningOutput {
+        let (sample_rate, sample_format) = match &self.native {
+            #[cfg(target_os = "macos")]
+            NativeSelection::CoreAudio(selection) => (selection.rate(), selection.description()),
+            #[cfg(target_os = "windows")]
+            NativeSelection::Wasapi(selection) => (selection.rate(), selection.description()),
+        };
+        RunningOutput {
+            output: self.device.clone(),
             bus_id,
             sample_rate,
             device_channels: self.channels(),
@@ -116,7 +136,7 @@ impl Selection {
     }
     pub(crate) fn build(
         self,
-        render: RenderState,
+        render: OutputRenderer,
         diagnostics: &Diagnostics,
     ) -> Result<Stream, AudioError> {
         match (self.native, diagnostics) {

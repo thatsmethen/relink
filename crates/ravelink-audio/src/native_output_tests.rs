@@ -24,6 +24,8 @@ fn fixture(unsigned: bool, planar: bool) -> Arc<Context> {
     session.add_bus(bus).unwrap();
     session.add_send(Send::new(input_id, bus_id)).unwrap();
     let render = crate::tests::render(&session, bus_id, 3);
+    assert!(render.telemetry.gate.activate());
+    let render = OutputRenderer::from(render);
     let width = if unsigned { 1 } else { 4 };
     let frame_bytes = width * if planar { 1 } else { 3 };
     let layout = OutputLayout::new(
@@ -126,7 +128,7 @@ fn post_start_silent_progress_precedes_activation_and_program_encoding() {
     assert_eq!(
         completion.outcome,
         NativeOutputOutcome::Encoded {
-            accepted_version: 0
+            accepted_version: Some(0)
         }
     );
     assert_eq!(completion.packet.presentation.sample_time, 256.0);

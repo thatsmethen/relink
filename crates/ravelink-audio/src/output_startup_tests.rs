@@ -279,3 +279,60 @@ fn very_large_budget_does_not_overflow_a_monotonic_deadline() {
     assert!(permit.authorized());
     assert_eq!(output.cancels.get(), 0);
 }
+
+#[test]
+fn later_endpoint_activation_failure_never_opens_common_program_gate() {
+    struct Endpoint<'a> {
+        permit: &'a OutputPermit,
+        fail: bool,
+        active: Cell<bool>,
+    }
+    impl OutputStart for Endpoint<'_> {
+        fn start(&self) -> Result<(), AudioError> {
+            assert!(!self.permit.program_authorized());
+            Ok(())
+        }
+        fn wait_for_progress(&self, _: Duration) -> Result<(), AudioError> {
+            assert!(!self.permit.program_authorized());
+            Ok(())
+        }
+        fn activate(&self) -> Result<(), AudioError> {
+            assert!(
+                !self.permit.program_authorized(),
+                "earlier local activation leaked program"
+            );
+            self.active.set(true);
+            if self.fail {
+                Err(AudioError::Cancelled)
+            } else {
+                Ok(())
+            }
+        }
+        fn cancel(&self) {
+            assert!(!self.permit.program_authorized());
+            self.active.set(false);
+        }
+    }
+    for fail in [false, true] {
+        let permit = permit();
+        let outputs = [
+            Endpoint {
+                permit: &permit,
+                fail: false,
+                active: Cell::new(false),
+            },
+            Endpoint {
+                permit: &permit,
+                fail,
+                active: Cell::new(false),
+            },
+        ];
+        let result = start_outputs(&outputs, &permit, GENEROUS_BUDGET, || {
+            assert!(!permit.program_authorized());
+            Ok(())
+        });
+        assert_eq!(result.is_ok(), !fail);
+        assert_eq!(permit.program_authorized(), !fail);
+        assert!(outputs.iter().all(|output| output.active.get() != fail));
+    }
+}

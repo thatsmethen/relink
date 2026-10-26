@@ -7,7 +7,7 @@ bank application still happen once per callback; splitting native planes or PCM
 chunks cannot advance the mixer or capture clock twice.
 
 The original CoreAudio and WASAPI output owners now use this boundary in the
-single-output runtime. `InterleavedSink` remains an offline test adapter retaining
+[single- and simultaneous-output runtime](MULTI-OUTPUT-RUNTIME.md). `InterleavedSink` remains an offline test adapter retaining
 the former CPAL clamp, `FromSample`, first-channel-pair mapping and extra-channel silence.
 Invalid buffers, failed encoding, render failure and cancellation clear the whole
 callback. A nonempty, fully rendered callback publishes the graph's accepted
@@ -21,8 +21,9 @@ default-silent until explicit completion handoff. [WASAPI render leases](WASAPI-
 release the full acquired buffer once and use `SILENT` unless complete PCM is
 explicitly authorized. Their native owners maintain separate startup activation,
 progress and teardown evidence; CPAL supplies discovery and identity/configuration
-types. Graph completion remains distinct from either native handoff. The offline
-fanout transport is not yet connected to simultaneous outputs.
+types. Graph completion remains distinct from either native handoff. The primary renderer commits all fanout queues before the global graph ACK;
+follower renderers never consume capture or render the graph. Their valid PCM
+can have no accepted target version during initial FIR prehistory.
 
 The earlier portable-boundary checkpoint included four rendering controls covering
 a continuous analytical sine through different callback/chunk sizes, failure after

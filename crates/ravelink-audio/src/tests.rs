@@ -57,6 +57,7 @@ fn session() -> (Session, Uuid) {
 }
 pub(super) fn render(session: &Session, bus: Uuid, channels: usize) -> RenderState {
     let shared = Arc::new(Shared {
+        active_gate: arc_swap::ArcSwapOption::empty(),
         state: Mutex::new(ControlState::default()),
         epoch: AtomicU64::new(0),
     });
@@ -136,7 +137,7 @@ fn start_token_cancellation_remains_effective_in_an_active_callback() {
     let (session, bus) = session();
     let mut render = render(&session, bus, 2);
     let token = StartCancellation::default();
-    render.wanted = token.0.clone();
+    render.wanted = token.0.wanted.clone();
     let mut data = [0.0_f32; 128];
     render.write(&mut data);
     assert!(data.iter().any(|v| *v != 0.0));

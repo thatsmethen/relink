@@ -625,6 +625,7 @@ mod native {
 
         fn output_shutdown_snapshot() -> AudioSnapshot {
             let mut snapshot = AudioSnapshot {
+                outputs: Vec::new(),
                 running: false,
                 configuration: None,
                 rendered_frames: 512,

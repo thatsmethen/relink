@@ -27,7 +27,7 @@ pub(crate) enum RenderOutcome {
     Silence,
     Rendered {
         frames: usize,
-        accepted_version: u64,
+        accepted_version: Option<u64>,
     },
 }
 

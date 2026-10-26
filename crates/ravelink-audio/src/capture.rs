@@ -266,8 +266,7 @@ impl CapturePermit {
     }
     pub(crate) fn fail_at(&self, fault: AudioFault, origin: FaultOrigin, metadata: FaultMetadata) {
         self.telemetry
-            .fault
-            .record(fault, origin, self.source, metadata);
+            .record_fault(fault, origin, self.source, metadata);
     }
     pub(crate) fn metadata(&self) -> FaultMetadata {
         FaultMetadata::now(self.epoch)

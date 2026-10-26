@@ -18,18 +18,20 @@ pub(crate) trait OutputStart {
     fn cancel(&self);
 }
 
-struct StartupGuard<'a, O: OutputStart + ?Sized> {
-    output: &'a O,
+struct StartupGuard<'a, O: OutputStart> {
+    outputs: &'a [O],
     permit: &'a OutputPermit,
     armed: bool,
 }
-impl<O: OutputStart + ?Sized> Drop for StartupGuard<'_, O> {
+impl<O: OutputStart> Drop for StartupGuard<'_, O> {
     fn drop(&mut self) {
         if self.armed {
             // Revoke every callback sharing this epoch's wanted token before
             // calling the owner. Even a misbehaving cancel cannot undo this.
             self.permit.cancel();
-            self.output.cancel();
+            for output in self.outputs {
+                output.cancel();
+            }
         }
     }
 }
@@ -55,28 +57,51 @@ fn remaining(
 /// The input closure must retain/clean up its native owners appropriately; this
 /// helper cannot release resources or interrupt a blocked native operation.
 /// Callbacks must continue checking their permit after successful startup.
-pub(crate) fn start_output<O: OutputStart + ?Sized>(
-    output: &O,
+pub(crate) fn start_outputs<O: OutputStart>(
+    outputs: &[O],
     permit: &OutputPermit,
     budget: Duration,
     start_inputs: impl FnOnce() -> Result<(), AudioError>,
 ) -> Result<(), AudioError> {
     let began = Instant::now();
     let mut guard = StartupGuard {
-        output,
+        outputs,
         permit,
         armed: true,
     };
-    remaining(permit, began, budget)?;
-    output.start()?;
-    output.wait_for_progress(remaining(permit, began, budget)?)?;
+    if outputs.is_empty() {
+        return Err(AudioError::InvalidSession("select an output".into()));
+    }
+    for output in outputs {
+        remaining(permit, began, budget)?;
+        output.start()?;
+    }
+    for output in outputs {
+        output.wait_for_progress(remaining(permit, began, budget)?)?;
+    }
     remaining(permit, began, budget)?;
     start_inputs()?;
+    for output in outputs {
+        remaining(permit, began, budget)?;
+        output.activate()?;
+    }
     remaining(permit, began, budget)?;
-    output.activate()?;
+    if !permit.telemetry.gate.activate() {
+        return Err(AudioError::Cancelled);
+    }
     remaining(permit, began, budget)?;
     guard.armed = false;
     Ok(())
+}
+
+#[cfg(test)]
+pub(crate) fn start_output<O: OutputStart>(
+    output: &O,
+    permit: &OutputPermit,
+    budget: Duration,
+    start_inputs: impl FnOnce() -> Result<(), AudioError>,
+) -> Result<(), AudioError> {
+    start_outputs(std::slice::from_ref(output), permit, budget, start_inputs)
 }
 
 #[cfg(test)]

@@ -83,7 +83,7 @@ fn callback_sink_preserves_one_source_sequence_and_reports_only_completed_render
             } else {
                 RenderOutcome::Rendered {
                     frames,
-                    accepted_version: 0,
+                    accepted_version: Some(0),
                 }
             }
         );
@@ -170,7 +170,7 @@ fn first_sink_callback_and_rejected_extent_allocate_nothing() {
         outcome,
         RenderOutcome::Rendered {
             frames: 257,
-            accepted_version: 0
+            accepted_version: Some(0)
         }
     );
     assert_eq!(rejected, RenderOutcome::Silence);

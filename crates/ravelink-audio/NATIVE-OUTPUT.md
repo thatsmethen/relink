@@ -1,5 +1,10 @@
 # Original CoreAudio output owner
 
+The [simultaneous-output runtime](MULTI-OUTPUT-RUNTIME.md) supplies either the
+primary graph renderer or a follower ASRC reader to each owner. Local activation
+is additionally gated by the common epoch program gate; optional version ACK
+is independent of whether a submitted buffer contains program PCM.
+
 The original Rust output owner replaces the CPAL output stream boundary on macOS
 when connected by the runtime adapter. Its controls have been exercised with
 synthetic native callbacks and lifecycle failures, without opening a local

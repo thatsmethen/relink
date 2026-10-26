@@ -41,6 +41,9 @@ pub enum FaultOrigin {
     NativeOutputStartup = 21,
     WasapiOutput = 22,
     NativeOutputProgress = 23,
+    OutputFanoutProducer = 24,
+    OutputFanoutConsumer = 25,
+    OutputFanoutStartup = 26,
 }
 impl FaultOrigin {
     fn decode(value: u8) -> Self {
@@ -68,6 +71,9 @@ impl FaultOrigin {
             21 => Self::NativeOutputStartup,
             22 => Self::WasapiOutput,
             23 => Self::NativeOutputProgress,
+            24 => Self::OutputFanoutProducer,
+            25 => Self::OutputFanoutConsumer,
+            26 => Self::OutputFanoutStartup,
             _ => Self::Runtime,
         }
     }
@@ -139,10 +145,17 @@ impl FaultSource {
         direction: FaultDirection::Runtime,
         index: 0,
     };
+    #[cfg(test)]
     pub(crate) const OUTPUT: Self = Self {
         direction: FaultDirection::Output,
         index: 0,
     };
+    pub(crate) fn output(index: usize) -> Self {
+        Self {
+            direction: FaultDirection::Output,
+            index: index as u32,
+        }
+    }
     pub(crate) fn input(index: usize) -> Self {
         // The graph budget bounds this far below u32::MAX before construction.
         Self {

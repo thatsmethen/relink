@@ -10,8 +10,8 @@ use crate::{
     },
     native_packet::Format,
     output_sink::RenderOutcome,
-    AudioError, AudioFault, FaultMetadata, FaultOrigin, FaultProperty, OutputPermit, RenderState,
-    COMMAND_TIMEOUT, MAX_DEVICE_CHANNELS,
+    AudioError, AudioFault, FaultMetadata, FaultOrigin, FaultProperty, OutputPermit,
+    OutputRenderer, COMMAND_TIMEOUT, MAX_DEVICE_CHANNELS,
 };
 use block2::RcBlock;
 use objc2_core_audio::*;
@@ -99,8 +99,8 @@ impl Selection {
     }
     pub(crate) fn owner_bytes(&self) -> Result<usize, AudioError> {
         // One selection/layout, one timing allocation, one context containing
-        // RenderState's inline fields (its PCM/graph allocation is charged by
-        // RenderState), gate, block/listener captures, registry strings and the
+        // OutputRenderer's inline fields (its PCM/graph allocation is charged by
+        // OutputRenderer), gate, block/listener captures, registry strings and the
         // dedicated stack. Temporary property/reinspection storage is bounded.
         let listeners = BASE_LISTENERS + self.streams.len() * 2;
         let values = [
@@ -459,7 +459,7 @@ pub(crate) struct NativeOutput {
 impl NativeOutput {
     pub(crate) fn build(
         selection: Selection,
-        render: RenderState,
+        render: OutputRenderer,
         timing: Arc<NativeOutputTiming>,
     ) -> Result<Self, AudioError> {
         // Reserve before creating a stack/owner, so pending starts and retained
@@ -585,7 +585,7 @@ fn host_time() -> u64 {
 
 fn owner_loop(
     selection: Selection,
-    render: RenderState,
+    render: OutputRenderer,
     gate: Arc<Gate>,
     timing: Arc<NativeOutputTiming>,
     commands: mpsc::Receiver<Reply>,
@@ -634,7 +634,7 @@ fn owner_loop(
 }
 
 struct PacketState {
-    render: RenderState,
+    render: OutputRenderer,
     tracker: Tracker,
 }
 struct Context {
@@ -837,7 +837,9 @@ unsafe fn io_proc(
                     ))
                 } else if let Err(fault) = state.tracker.check(packet) {
                     Err(fault)
-                } else if !context.gate.program.load(Ordering::Acquire) {
+                } else if !context.gate.program.load(Ordering::Acquire)
+                    || !context.gate.permit.program_authorized()
+                {
                     // Preparation already cleared every channel to native
                     // equilibrium, including unsigned PCM during startup.
                     Ok(NativeOutputOutcome::InactiveSilence)
@@ -858,8 +860,10 @@ unsafe fn io_proc(
                             Ok(completed) => {
                                 if context.gate.authorized()
                                     && context.gate.program.load(Ordering::Acquire)
+                                    && context.gate.permit.program_authorized()
                                 {
                                     completed.handoff();
+                                    context.gate.permit.submitted(frames, accepted_version);
                                     Ok(NativeOutputOutcome::Encoded { accepted_version })
                                 } else {
                                     completed.cancel();
@@ -1006,7 +1010,7 @@ impl Owner {
     }
     fn open(
         selection: Selection,
-        render: RenderState,
+        render: OutputRenderer,
         gate: Arc<Gate>,
         timing: Arc<NativeOutputTiming>,
         reservation: Reservation,

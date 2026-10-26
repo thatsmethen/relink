@@ -150,7 +150,7 @@ fn concurrent_output_reads_are_bounded_coherent_and_preserve_raw_bits() {
                     after_render_host_time: index + 17,
                     completion_host_time: index + 33,
                     outcome: NativeOutputOutcome::Encoded {
-                        accepted_version: index + 1000,
+                        accepted_version: Some(index + 1000),
                     },
                 },
                 true,
@@ -175,7 +175,7 @@ fn concurrent_output_reads_are_bounded_coherent_and_preserve_raw_bits() {
             assert_eq!(
                 value.outcome,
                 NativeOutputOutcome::Encoded {
-                    accepted_version: value.packet.callback_index + 1000
+                    accepted_version: Some(value.packet.callback_index + 1000)
                 }
             );
         }

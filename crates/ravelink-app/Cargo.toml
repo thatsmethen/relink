@@ -10,6 +10,7 @@ publish.workspace = true
 eframe = { version = "=0.33.3", default-features = false, features = ["accesskit", "default_fonts", "wgpu"] }
 ravelink-core = { path = "../ravelink-core" }
 ravelink-audio = { path = "../ravelink-audio" }
+serde.workspace = true
 serde_json.workspace = true
 uuid.workspace = true
 

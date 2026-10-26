@@ -1,6 +1,10 @@
-# Simultaneous output design — proposed, not implemented
+# Simultaneous output design — original proposal
 
-The current runtime opens one explicitly selected output. This document records
+This historical proposal described the former one-output runtime. The current
+[source integration](MULTI-OUTPUT-RUNTIME.md) implements simultaneous explicit
+endpoints; installed multi-output qualification remains pending.
+
+At this proposal checkpoint the runtime opened one explicitly selected output. This document records
 the proposed next implementation. It does not qualify multi-device playback or
 change the frozen single-output installed-runtime protocol.
 

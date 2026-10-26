@@ -323,7 +323,18 @@ impl WasapiOutputTiming {
         self.sequence.fetch_add(1, Ordering::SeqCst);
     }
     /// Sole owner calls only after complete native release has returned success.
+    #[cfg(test)]
     pub(crate) fn submitted(&self, frames: u32, version: Option<u64>, prefill: bool, status: i32) {
+        self.submitted_pcm(frames, version.is_some(), version, prefill, status)
+    }
+    pub(crate) fn submitted_pcm(
+        &self,
+        frames: u32,
+        pcm: bool,
+        version: Option<u64>,
+        prefill: bool,
+        status: i32,
+    ) {
         if status < 0 {
             return;
         }
@@ -331,10 +342,12 @@ impl WasapiOutputTiming {
             self.prefill.fetch_add(u64::from(frames), Ordering::Relaxed);
             return;
         }
-        if let Some(version) = version {
+        if pcm {
             self.pcm.fetch_add(u64::from(frames), Ordering::Relaxed);
-            self.version.store(version, Ordering::Release);
-            self.version_present.store(1, Ordering::Release);
+            if let Some(version) = version {
+                self.version.store(version, Ordering::Release);
+                self.version_present.store(1, Ordering::Release);
+            }
         } else {
             self.silent.fetch_add(u64::from(frames), Ordering::Relaxed);
         }

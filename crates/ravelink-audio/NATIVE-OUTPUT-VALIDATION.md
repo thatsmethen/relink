@@ -1,5 +1,7 @@
 # Native output integration and validation checkpoint
 
+This historical source checkpoint precedes the [simultaneous-output runtime](MULTI-OUTPUT-RUNTIME.md). Its original source bounds and conclusions remain unchanged.
+
 Recorded 2026-10-24, before the first installed observation using these original
 output owners. This describes the source candidate after `25453d2`; it is not an
 installed-runtime result or a production release claim. Earlier passing and

@@ -1,5 +1,5 @@
 use eframe::egui;
-use ravelink_audio::{AudioRuntime, AudioSnapshot, OutputId, StartCancellation};
+use ravelink_audio::{AudioError, AudioRuntime, AudioSnapshot, OutputPlan, StartCancellation};
 use ravelink_core::Session;
 use std::{
     sync::{
@@ -13,7 +13,7 @@ use uuid::Uuid;
 
 pub enum Request {
     Refresh,
-    Start(Session, Uuid, String),
+    Start(Session, OutputPlan),
     Update(Session),
     Stop,
 }
@@ -48,7 +48,7 @@ enum Event {
     Snapshot(Box<AudioSnapshot>),
     Finished {
         operation: Operation,
-        result: Result<Option<u64>, String>,
+        result: Result<Option<u64>, AudioError>,
     },
 }
 pub struct AudioUi {
@@ -112,15 +112,14 @@ impl AudioUi {
                                         })
                                     })
                                 }
-                                Request::Start(session, bus, output) => owner
-                                    .start_cancellable(session, bus, OutputId(output), cancellation)
+                                Request::Start(session, plan) => owner
+                                    .start_outputs_cancellable(session, plan, cancellation)
                                     .map(|_| None),
                                 Request::Update(session) => {
                                     owner.update_controls(session).map(Some)
                                 }
                                 Request::Stop => owner.stop().map(|_| None),
-                            }
-                            .map_err(|e| e.to_string());
+                            };
                             if matches!(operation, Operation::Update) && result.is_err() {
                                 owner.cancel_output();
                             }
@@ -226,11 +225,13 @@ impl AudioUi {
                     {
                         self.pending_update = None;
                     }
-                    if !self.cancelled {
-                        if snapshot.fault != ravelink_audio::AudioFault::None {
-                            self.error = Some(snapshot.fault.message().into());
-                        }
-                        if let Some(e) = &snapshot.error {
+                    // Stop revokes playback immediately, but native teardown
+                    // can fail later. Suppress only intentional cancellation.
+                    if snapshot.fault != ravelink_audio::AudioFault::None {
+                        self.error = Some(snapshot.fault.message().into());
+                    }
+                    if let Some(e) = &snapshot.error {
+                        if !self.cancelled || !matches!(e, AudioError::Cancelled) {
                             self.error = Some(e.to_string());
                         }
                     }
@@ -248,11 +249,24 @@ impl AudioUi {
                     }
                     match result {
                         Ok(Some(version)) => self.wanted_version = version,
-                        Err(e) => {
+                        Ok(None) if matches!(operation, Operation::Start) => {
+                            // This worker sends the start's snapshot before
+                            // its completion on the same FIFO event channel.
+                            // Retire an older queued error only if this start
+                            // is still wanted and its snapshot is healthy.
                             if !self.cancelled
-                                || matches!(operation, Operation::Stop | Operation::Refresh)
+                                && self.snapshot.as_ref().is_some_and(|snapshot| {
+                                    snapshot.running
+                                        && snapshot.fault == ravelink_audio::AudioFault::None
+                                        && snapshot.error.is_none()
+                                })
                             {
-                                self.error = Some(e);
+                                self.error = None;
+                            }
+                        }
+                        Err(e) => {
+                            if !self.cancelled || !matches!(e, AudioError::Cancelled) {
+                                self.error = Some(e.to_string());
                             }
                             if matches!(operation, Operation::Update) {
                                 self.pending_update = None;
@@ -280,24 +294,31 @@ impl AudioUi {
         self.pending_update.is_some()
             || self.updating
             || (self.running()
-                && self
-                    .snapshot
-                    .as_ref()
-                    .is_some_and(|s| s.applied_control_version < self.wanted_version))
+                && self.snapshot.as_ref().is_some_and(|s| {
+                    s.applied_control_version < self.wanted_version
+                        || (self.wanted_version > 0
+                            && s.outputs.iter().any(|output| {
+                                output
+                                    .submitted_control_version
+                                    .is_none_or(|version| version < self.wanted_version)
+                            }))
+                }))
     }
-    pub fn peak(&self) -> [f32; 2] {
+    pub fn bus_peak(&self, bus: Option<Uuid>) -> [f32; 2] {
         if !self.running() {
             return [0.0; 2];
         }
         self.snapshot
             .as_ref()
-            .and_then(|s| {
-                s.configuration
-                    .as_ref()
-                    .and_then(|c| s.bus_meters.iter().find(|m| m.id == c.bus_id))
-            })
+            .and_then(|s| s.bus_meters.iter().find(|m| Some(m.id) == bus))
             .map(|m| m.peak)
             .unwrap_or([0.0; 2])
+    }
+    pub fn snapshot(&self) -> Option<&AudioSnapshot> {
+        self.snapshot.as_ref()
+    }
+    pub fn wanted_version(&self) -> u64 {
+        self.wanted_version
     }
     pub fn input_peak(&self, id: Uuid) -> [f32; 2] {
         if !self.running() {
@@ -354,8 +375,7 @@ mod tests {
         let (mut ui, requests, events) = fixture();
         ui.send(Request::Start(
             Session::new("Queued", 48000),
-            Uuid::new_v4(),
-            "unused".into(),
+            OutputPlan::single(ravelink_audio::OutputId("unused".into()), Uuid::new_v4()),
         ));
         assert!(ui.can_stop());
         assert!(ui.busy);
@@ -368,7 +388,7 @@ mod tests {
         events
             .send(Event::Finished {
                 operation: Operation::Start,
-                result: Err("cancelled".into()),
+                result: Err(AudioError::Cancelled),
             })
             .unwrap();
         ui.poll();
@@ -393,10 +413,91 @@ mod tests {
         let (mut ui, requests, _events) = fixture();
         ui.send(Request::Start(
             Session::new("Queued", 48000),
-            Uuid::new_v4(),
-            "unused".into(),
+            OutputPlan::single(ravelink_audio::OutputId("unused".into()), Uuid::new_v4()),
         ));
         drop(ui);
         assert!(requests.recv().unwrap().cancellation.is_cancelled());
+    }
+
+    fn snapshot(running: bool, fault: ravelink_audio::AudioFault) -> AudioSnapshot {
+        AudioSnapshot {
+            outputs: vec![],
+            running,
+            configuration: None,
+            rendered_frames: 0,
+            callback_count: 0,
+            applied_control_version: 0,
+            captures: vec![],
+            output_timing: None,
+            input_meters: vec![],
+            bus_meters: vec![],
+            fault,
+            first_fault: None,
+            error: None,
+        }
+    }
+
+    #[test]
+    fn asynchronous_cleanup_fault_remains_visible_after_stop() {
+        let (mut ui, _requests, events) = fixture();
+        ui.send(Request::Stop);
+        events
+            .send(Event::Finished {
+                operation: Operation::Stop,
+                result: Ok(None),
+            })
+            .unwrap();
+        ui.poll();
+        assert!(ui.cancelled);
+        assert!(ui.error.is_none());
+        events
+            .send(Event::Snapshot(Box::new(snapshot(
+                false,
+                ravelink_audio::AudioFault::StreamInvalidated,
+            ))))
+            .unwrap();
+        ui.poll();
+        assert!(ui.error.is_some());
+        assert!(!ui.running());
+    }
+
+    #[test]
+    fn healthy_restart_clears_queued_old_fault_but_faulted_start_does_not() {
+        use ravelink_audio::AudioFault;
+        for fault in [AudioFault::None, AudioFault::StreamInvalidated] {
+            let (mut ui, _requests, events) = fixture();
+            ui.send(Request::Start(
+                Session::new("Restart", 48000),
+                OutputPlan::single(ravelink_audio::OutputId("unused".into()), Uuid::new_v4()),
+            ));
+            events
+                .send(Event::Snapshot(Box::new(snapshot(false, AudioFault::Xrun))))
+                .unwrap();
+            events
+                .send(Event::Snapshot(Box::new(snapshot(true, fault))))
+                .unwrap();
+            events
+                .send(Event::Finished {
+                    operation: Operation::Start,
+                    result: Ok(None),
+                })
+                .unwrap();
+            ui.poll();
+            assert_eq!(ui.error.is_none(), fault == AudioFault::None);
+        }
+    }
+
+    #[test]
+    fn stopping_start_does_not_suppress_non_cancellation_errors() {
+        let (mut ui, _requests, events) = fixture();
+        ui.send(Request::Stop);
+        events
+            .send(Event::Finished {
+                operation: Operation::Start,
+                result: Err(AudioError::RuntimeUnavailable),
+            })
+            .unwrap();
+        ui.poll();
+        assert!(ui.error.is_some());
     }
 }

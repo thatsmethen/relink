@@ -24,6 +24,7 @@ fn portable_native_constants_match_the_pinned_apple_sdk() {
 fn context() -> (Arc<Context>, Arc<Shared>, Arc<Telemetry>) {
     let ring = Ring::new();
     let shared = Arc::new(Shared {
+        active_gate: arc_swap::ArcSwapOption::empty(),
         state: Mutex::new(ControlState::default()),
         epoch: AtomicU64::new(7),
     });

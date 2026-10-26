@@ -1,7 +1,9 @@
-# Offline output fanout transport
+# Output fanout transport
 
-`src/fanout.rs` is an original, offline prerequisite for simultaneous outputs.
-It is compiled but not connected to `AudioRuntime`, native streams, or the app.
+`src/fanout.rs` is the original portable transport for simultaneous outputs.
+The [native runtime integration](MULTI-OUTPUT-RUNTIME.md) now connects it to
+`AudioRuntime` and original native owners. The controls below remain offline
+transport evidence; they do not establish installed multi-device playback.
 It changes no capture FIFO, capture ASRC arithmetic, installed-run threshold, or
 acceptance protocol. The existing bandlimited Kernel only gains read accessors.
 

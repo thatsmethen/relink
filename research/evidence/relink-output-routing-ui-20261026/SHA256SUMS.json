@@ -1,0 +1,38 @@
+{
+  "README.md": {
+    "bytes": 1390,
+    "sha256": "c2d704e7e7f61f587164bf218e89bb1e839ca53159adf39f1dcc5ad2a60a2511"
+  },
+  "fixture-initial.json": {
+    "bytes": 7582,
+    "sha256": "6024087f466e4bd06f9d30ceca10de5b04d061d6f57fa353147463bbc0f6e5cd"
+  },
+  "observation.json": {
+    "bytes": 1351,
+    "sha256": "e85858d0cb6954c8aa395a16487047b5c764d20cdeb850b55ca7b6777f4a3bbf"
+  },
+  "outputs-reopened-ax.txt": {
+    "bytes": 72,
+    "sha256": "16f522cd9755e3c27bbe9bbed577bc25dea394dead8957bd496b28f989b8cc28"
+  },
+  "outputs-reopened-original.jpg": {
+    "bytes": 348933,
+    "sha256": "76f7a8483b71f1414b5b5f9f89037eb36f59703e5da0cf6fed6ac276b6423861"
+  },
+  "outputs-stopped-ax.txt": {
+    "bytes": 4781,
+    "sha256": "82383ecdc5d402b559b5bad5c65574909774095fb18c479f92c2fa5f987240fb"
+  },
+  "outputs-stopped-original.jpg": {
+    "bytes": 351434,
+    "sha256": "a93ff87c9258469d1d010010cd86eac99c96f5e9c16a27e696fdd7c0489cfbd7"
+  },
+  "saved-two-outputs.json": {
+    "bytes": 8604,
+    "sha256": "cda5c4417f6e0f25004efea6bbe90e099553ad12bbaa2eaa1faaa4959187b655"
+  },
+  "source-before.json": {
+    "bytes": 6820,
+    "sha256": "9ffd26a6e700cd45d7addf4075c135fceab9a26aed807074500a4657139b7dea"
+  }
+}

@@ -60,7 +60,7 @@ pub struct NativeOutputFault {
 pub enum NativeOutputOutcome {
     InactiveSilence,
     PrimingSilence,
-    Encoded { accepted_version: u64 },
+    Encoded { accepted_version: Option<u64> },
     Cancelled,
     Rejected(AudioFault),
 }
@@ -326,7 +326,7 @@ pub(crate) struct NativeOutputTiming {
     callbacks: AtomicU64,
     progress: AtomicU64,
     last: Latest<PACKET_WORDS>,
-    completion: Latest<16>,
+    completion: Latest<17>,
     fault: FaultRecord,
     lifecycle: [LifecycleSlot; NATIVE_OUTPUT_LIFECYCLE_PHASES],
 }
@@ -362,18 +362,24 @@ impl NativeOutputTiming {
         let (outcome, version) = match value.outcome {
             NativeOutputOutcome::InactiveSilence => (0, 0),
             NativeOutputOutcome::PrimingSilence => (1, 0),
-            NativeOutputOutcome::Encoded { accepted_version } => (2, accepted_version),
+            NativeOutputOutcome::Encoded { accepted_version } => (2, accepted_version.unwrap_or(0)),
             NativeOutputOutcome::Cancelled => (3, 0),
             NativeOutputOutcome::Rejected(fault) => (u64::from(fault as u32) + 4, 0),
         };
-        let mut a = [0; 16];
+        let mut a = [0; 17];
         a[..PACKET_WORDS].copy_from_slice(&words(value.packet));
-        a[12..].copy_from_slice(&[
+        a[12..16].copy_from_slice(&[
             value.after_render_host_time,
             value.completion_host_time,
             outcome,
             version,
         ]);
+        a[16] = u64::from(matches!(
+            value.outcome,
+            NativeOutputOutcome::Encoded {
+                accepted_version: Some(_)
+            }
+        ));
         self.completion.store(a);
         if valid_progress {
             self.progress.fetch_add(1, Ordering::Release);
@@ -401,7 +407,7 @@ impl NativeOutputTiming {
                     0 => NativeOutputOutcome::InactiveSilence,
                     1 => NativeOutputOutcome::PrimingSilence,
                     2 => NativeOutputOutcome::Encoded {
-                        accepted_version: a[15],
+                        accepted_version: (a[16] != 0).then_some(a[15]),
                     },
                     3 => NativeOutputOutcome::Cancelled,
                     other => {

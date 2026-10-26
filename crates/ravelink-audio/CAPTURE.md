@@ -34,8 +34,11 @@ history if larger. Initial excess prefill is discarded when choosing the first
 filter center. At 48 kHz and 256-frame packets, the queue target is 21.3 ms;
 actual total latency also includes device buffers and scheduling. After startup,
 no individual frames are inserted, removed, repeated, or overwritten to repair a
-clock mismatch. Underflow, overflow, or failure to prime within two seconds of
-output callbacks stops the whole engine and exposes an explicit fault.
+clock mismatch. Underflow, overflow, or failure to prime within the larger of two
+seconds or five maximum output callback periods stops the whole engine and
+exposes an explicit fault. The maximum-period allowance covers FIR lookahead and
+independent callback phases at supported low rates and large buffer sizes;
+native no-progress supervision retains its separate deadline.
 
 Every capture and output callback checks the start cancellation token, generation
 and latched fault. Stopping revokes those gates without waiting for an OS call.

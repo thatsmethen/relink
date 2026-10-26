@@ -219,6 +219,7 @@ mod tests {
         let session = ravelink_core::Session::new("WASAPI packet", 48000);
         let ring = crate::capture_transport::Ring::new();
         let shared = std::sync::Arc::new(crate::Shared {
+            active_gate: arc_swap::ArcSwapOption::empty(),
             state: std::sync::Mutex::new(crate::ControlState::default()),
             epoch: std::sync::atomic::AtomicU64::new(0),
         });

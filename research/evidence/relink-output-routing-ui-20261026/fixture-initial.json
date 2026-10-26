@@ -1,0 +1,314 @@
+{
+  "schema_version": 1,
+  "id": "0ee8ae2f-30ac-42e6-bf2a-1102be1e1696",
+  "name": "Output routing review \u2014 audio stopped",
+  "sample_rate": 48000,
+  "inputs": [
+    {
+      "id": "b58a4721-4ac8-47ab-a5ce-94b85ebc8190",
+      "name": "Source 001",
+      "kind": {
+        "type": "test_tone",
+        "frequency_hz": 220.0,
+        "amplitude_db": -36.0
+      },
+      "controls": {
+        "gain_db": 0.0,
+        "right_gain_db": 0.0,
+        "pan": 0.0,
+        "muted": true,
+        "solo": false,
+        "linked": true
+      },
+      "dsp": {
+        "high_pass": null,
+        "gate": null,
+        "compressor": null,
+        "limiter": null
+      }
+    },
+    {
+      "id": "672e4db2-7ea0-4fcd-96b9-5f83919cbdd6",
+      "name": "Source 002",
+      "kind": {
+        "type": "test_tone",
+        "frequency_hz": 221.0,
+        "amplitude_db": -36.0
+      },
+      "controls": {
+        "gain_db": 0.0,
+        "right_gain_db": 0.0,
+        "pan": 0.0,
+        "muted": true,
+        "solo": false,
+        "linked": true
+      },
+      "dsp": {
+        "high_pass": null,
+        "gate": null,
+        "compressor": null,
+        "limiter": null
+      }
+    },
+    {
+      "id": "feed4105-1590-4ff5-8fe5-4cf7f7e44db3",
+      "name": "Source 003",
+      "kind": {
+        "type": "test_tone",
+        "frequency_hz": 222.0,
+        "amplitude_db": -36.0
+      },
+      "controls": {
+        "gain_db": 0.0,
+        "right_gain_db": 0.0,
+        "pan": 0.0,
+        "muted": true,
+        "solo": false,
+        "linked": true
+      },
+      "dsp": {
+        "high_pass": null,
+        "gate": null,
+        "compressor": null,
+        "limiter": null
+      }
+    },
+    {
+      "id": "f655c6ff-b526-41b8-a8df-3d36a6b32812",
+      "name": "Source 004",
+      "kind": {
+        "type": "test_tone",
+        "frequency_hz": 223.0,
+        "amplitude_db": -36.0
+      },
+      "controls": {
+        "gain_db": 0.0,
+        "right_gain_db": 0.0,
+        "pan": 0.0,
+        "muted": true,
+        "solo": false,
+        "linked": true
+      },
+      "dsp": {
+        "high_pass": null,
+        "gate": null,
+        "compressor": null,
+        "limiter": null
+      }
+    }
+  ],
+  "buses": [
+    {
+      "id": "a2130579-09f4-4137-8ccd-587a41103df0",
+      "name": "Monitor",
+      "controls": {
+        "gain_db": 0.0,
+        "right_gain_db": 0.0,
+        "pan": 0.0,
+        "muted": true,
+        "solo": false,
+        "linked": true
+      },
+      "dsp": {
+        "high_pass": null,
+        "gate": null,
+        "compressor": null,
+        "limiter": null
+      }
+    },
+    {
+      "id": "09270c67-8664-4d82-81df-2ad3f56cadff",
+      "name": "Stream",
+      "controls": {
+        "gain_db": 0.0,
+        "right_gain_db": 0.0,
+        "pan": 0.0,
+        "muted": true,
+        "solo": false,
+        "linked": true
+      },
+      "dsp": {
+        "high_pass": null,
+        "gate": null,
+        "compressor": null,
+        "limiter": null
+      }
+    },
+    {
+      "id": "52c29392-5952-4da6-8f30-e1c8ecff9475",
+      "name": "Voice chat",
+      "controls": {
+        "gain_db": 0.0,
+        "right_gain_db": 0.0,
+        "pan": 0.0,
+        "muted": true,
+        "solo": false,
+        "linked": true
+      },
+      "dsp": {
+        "high_pass": null,
+        "gate": null,
+        "compressor": null,
+        "limiter": null
+      }
+    }
+  ],
+  "sends": [
+    {
+      "id": "f9d51a58-8888-4b51-a9a9-d91caafd1ac1",
+      "input_id": "b58a4721-4ac8-47ab-a5ce-94b85ebc8190",
+      "bus_id": "a2130579-09f4-4137-8ccd-587a41103df0",
+      "controls": {
+        "gain_db": 0.0,
+        "right_gain_db": 0.0,
+        "pan": 0.0,
+        "muted": true,
+        "solo": false,
+        "linked": true
+      }
+    },
+    {
+      "id": "7017d394-f995-47b3-93d3-4f30430be9bf",
+      "input_id": "b58a4721-4ac8-47ab-a5ce-94b85ebc8190",
+      "bus_id": "09270c67-8664-4d82-81df-2ad3f56cadff",
+      "controls": {
+        "gain_db": 0.0,
+        "right_gain_db": 0.0,
+        "pan": 0.0,
+        "muted": true,
+        "solo": false,
+        "linked": true
+      }
+    },
+    {
+      "id": "38f630a9-e43f-4d63-a1b0-75f91bebfa0f",
+      "input_id": "b58a4721-4ac8-47ab-a5ce-94b85ebc8190",
+      "bus_id": "52c29392-5952-4da6-8f30-e1c8ecff9475",
+      "controls": {
+        "gain_db": 0.0,
+        "right_gain_db": 0.0,
+        "pan": 0.0,
+        "muted": true,
+        "solo": false,
+        "linked": true
+      }
+    },
+    {
+      "id": "4a74850d-add6-4463-9bc0-162bfd487ded",
+      "input_id": "672e4db2-7ea0-4fcd-96b9-5f83919cbdd6",
+      "bus_id": "a2130579-09f4-4137-8ccd-587a41103df0",
+      "controls": {
+        "gain_db": 0.0,
+        "right_gain_db": 0.0,
+        "pan": 0.0,
+        "muted": true,
+        "solo": false,
+        "linked": true
+      }
+    },
+    {
+      "id": "d097b1f9-e854-48ff-a047-d74fb62ba529",
+      "input_id": "672e4db2-7ea0-4fcd-96b9-5f83919cbdd6",
+      "bus_id": "09270c67-8664-4d82-81df-2ad3f56cadff",
+      "controls": {
+        "gain_db": 0.0,
+        "right_gain_db": 0.0,
+        "pan": 0.0,
+        "muted": true,
+        "solo": false,
+        "linked": true
+      }
+    },
+    {
+      "id": "6f52668d-3bb7-467d-b4dc-8af9bb9cc337",
+      "input_id": "672e4db2-7ea0-4fcd-96b9-5f83919cbdd6",
+      "bus_id": "52c29392-5952-4da6-8f30-e1c8ecff9475",
+      "controls": {
+        "gain_db": 0.0,
+        "right_gain_db": 0.0,
+        "pan": 0.0,
+        "muted": true,
+        "solo": false,
+        "linked": true
+      }
+    },
+    {
+      "id": "67143c59-c944-4960-85c0-fa789bec0c4f",
+      "input_id": "feed4105-1590-4ff5-8fe5-4cf7f7e44db3",
+      "bus_id": "a2130579-09f4-4137-8ccd-587a41103df0",
+      "controls": {
+        "gain_db": 0.0,
+        "right_gain_db": 0.0,
+        "pan": 0.0,
+        "muted": true,
+        "solo": false,
+        "linked": true
+      }
+    },
+    {
+      "id": "b2325fd7-5dcd-4876-8a51-363e3157f059",
+      "input_id": "feed4105-1590-4ff5-8fe5-4cf7f7e44db3",
+      "bus_id": "09270c67-8664-4d82-81df-2ad3f56cadff",
+      "controls": {
+        "gain_db": 0.0,
+        "right_gain_db": 0.0,
+        "pan": 0.0,
+        "muted": true,
+        "solo": false,
+        "linked": true
+      }
+    },
+    {
+      "id": "33019f7e-5d5c-4db8-9007-ca747e5cde50",
+      "input_id": "feed4105-1590-4ff5-8fe5-4cf7f7e44db3",
+      "bus_id": "52c29392-5952-4da6-8f30-e1c8ecff9475",
+      "controls": {
+        "gain_db": 0.0,
+        "right_gain_db": 0.0,
+        "pan": 0.0,
+        "muted": true,
+        "solo": false,
+        "linked": true
+      }
+    },
+    {
+      "id": "2a3528f1-c965-47f6-b6d4-859b6390aa81",
+      "input_id": "f655c6ff-b526-41b8-a8df-3d36a6b32812",
+      "bus_id": "a2130579-09f4-4137-8ccd-587a41103df0",
+      "controls": {
+        "gain_db": 0.0,
+        "right_gain_db": 0.0,
+        "pan": 0.0,
+        "muted": true,
+        "solo": false,
+        "linked": true
+      }
+    },
+    {
+      "id": "049cd7ba-8225-45bf-aabb-683713bfb4f0",
+      "input_id": "f655c6ff-b526-41b8-a8df-3d36a6b32812",
+      "bus_id": "09270c67-8664-4d82-81df-2ad3f56cadff",
+      "controls": {
+        "gain_db": 0.0,
+        "right_gain_db": 0.0,
+        "pan": 0.0,
+        "muted": true,
+        "solo": false,
+        "linked": true
+      }
+    },
+    {
+      "id": "844cebbe-5abb-4431-8a22-07c3b73337b5",
+      "input_id": "f655c6ff-b526-41b8-a8df-3d36a6b32812",
+      "bus_id": "52c29392-5952-4da6-8f30-e1c8ecff9475",
+      "controls": {
+        "gain_db": 0.0,
+        "right_gain_db": 0.0,
+        "pan": 0.0,
+        "muted": true,
+        "solo": false,
+        "linked": true
+      }
+    }
+  ]
+}

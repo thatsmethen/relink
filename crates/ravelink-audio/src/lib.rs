@@ -11,6 +11,10 @@
 mod capture;
 mod capture_transport;
 mod control_bank;
+mod epoch_gate;
+mod output_render;
+use epoch_gate::EpochGate;
+use output_render::{FanoutRender, OutputRenderer, OutputTelemetry};
 mod output_sink;
 #[cfg(test)]
 use output_sink::InterleavedSink;
@@ -21,10 +25,9 @@ mod output_plan;
 mod output_progress;
 mod output_startup;
 pub use output_plan::{OutputPlan, OutputPlanError, OutputRoute};
-mod fault;
-// Offline transport prerequisite; runtime/OS integration is a separate checkpoint.
 #[allow(dead_code)]
 mod fanout;
+mod fault;
 pub use fault::{FaultAttribution, FaultDirection, FaultMetadata, FaultOrigin, FaultProperty};
 use fault::{FaultLatch, FaultSource};
 #[cfg(target_os = "macos")]
@@ -133,7 +136,18 @@ pub struct CaptureSnapshot {
     pub native_timing: Option<NativeTimingSnapshot>,
 }
 #[derive(Clone, Debug, PartialEq, Eq)]
+pub struct RunningOutput {
+    pub output: OutputDevice,
+    pub bus_id: Uuid,
+    pub sample_rate: u32,
+    pub device_channels: u16,
+    pub sample_format: String,
+}
+
+#[derive(Clone, Debug, PartialEq, Eq)]
 pub struct RunningConfiguration {
+    pub outputs: Vec<RunningOutput>,
+    pub clock_output_index: usize,
     pub output: OutputDevice,
     pub inputs: Vec<RunningInput>,
     pub bus_id: Uuid,
@@ -259,8 +273,29 @@ impl AudioFault {
     }
 }
 
+/// Per-route software preparation and native submission observations. These
+/// counters do not establish acoustic playback or alignment between devices.
+#[derive(Clone, Debug)]
+pub struct OutputSnapshot {
+    pub route_index: usize,
+    pub output: OutputId,
+    pub bus_id: Uuid,
+    pub is_clock: bool,
+    pub ready: bool,
+    pub rendered_frames: u64,
+    pub submitted_frames: u64,
+    pub rendered_control_version: Option<u64>,
+    pub submitted_control_version: Option<u64>,
+    pub source_position: u64,
+    pub buffered_frames: u64,
+    pub target_frames: usize,
+    pub clock_correction_ppm: f64,
+    pub timing: OutputTimingSnapshot,
+}
+
 #[derive(Clone, Debug)]
 pub struct AudioSnapshot {
+    pub outputs: Vec<OutputSnapshot>,
     pub running: bool,
     pub configuration: Option<RunningConfiguration>,
     pub rendered_frames: u64,
@@ -324,6 +359,8 @@ impl AtomicMeter {
     }
 }
 struct Telemetry {
+    gate: Arc<EpochGate>,
+    outputs: Vec<Arc<OutputTelemetry>>,
     fault: FaultLatch,
     frames: AtomicU64,
     callbacks: AtomicU64,
@@ -334,7 +371,15 @@ struct Telemetry {
 }
 impl Telemetry {
     fn new(session: &Session) -> Self {
+        Self::with_gate(
+            session,
+            Arc::new(EpochGate::new(Arc::new(AtomicBool::new(true)))),
+        )
+    }
+    fn with_gate(session: &Session, gate: Arc<EpochGate>) -> Self {
         Self {
+            gate,
+            outputs: Vec::new(),
             fault: FaultLatch::default(),
             frames: AtomicU64::new(0),
             callbacks: AtomicU64::new(0),
@@ -351,6 +396,16 @@ impl Telemetry {
                 .map(|b| AtomicMeter::new(b.id))
                 .collect(),
         }
+    }
+    fn record_fault(
+        &self,
+        fault: AudioFault,
+        origin: FaultOrigin,
+        source: FaultSource,
+        metadata: FaultMetadata,
+    ) {
+        self.fault.record(fault, origin, source, metadata);
+        self.gate.cancel();
     }
     #[cfg(test)]
     fn fail(&self, fault: AudioFault) {
@@ -369,9 +424,10 @@ struct ControlState {
     telemetry: Option<Arc<Telemetry>>,
     error: Option<AudioError>,
     authorization: Option<(Arc<AtomicBool>, u64)>,
-    output_diagnostics: Option<output::Diagnostics>,
+    output_diagnostics: Vec<output::Diagnostics>,
 }
 struct Shared {
+    active_gate: arc_swap::ArcSwapOption<EpochGate>,
     state: Mutex<ControlState>,
     epoch: AtomicU64,
 }
@@ -389,10 +445,9 @@ enum Command {
     EnumerateInputs(Reply<Vec<InputDevice>>),
     Start {
         session: Session,
-        bus: Uuid,
-        output: OutputId,
+        plan: OutputPlan,
         epoch: u64,
-        wanted: Arc<AtomicBool>,
+        gate: Arc<EpochGate>,
         reply: Reply<RunningConfiguration>,
     },
     Update {
@@ -416,24 +471,25 @@ pub struct AudioRuntime {
 /// Create a fresh token for each start. Cancellation is permanent and also
 /// silences future callbacks if that start has already become active.
 #[derive(Clone)]
-pub struct StartCancellation(Arc<AtomicBool>);
+pub struct StartCancellation(Arc<EpochGate>);
 impl Default for StartCancellation {
     fn default() -> Self {
-        Self(Arc::new(AtomicBool::new(true)))
+        Self(Arc::new(EpochGate::new(Arc::new(AtomicBool::new(true)))))
     }
 }
 impl StartCancellation {
     pub fn cancel(&self) {
-        self.0.store(false, Ordering::Release);
+        self.0.cancel();
     }
     pub fn is_cancelled(&self) -> bool {
-        !self.0.load(Ordering::Acquire)
+        !self.0.wanted.load(Ordering::Acquire)
     }
 }
 impl AudioRuntime {
     pub fn new() -> Result<Self, AudioError> {
         let (commands, receiver) = mpsc::sync_channel(8);
         let shared = Arc::new(Shared {
+            active_gate: arc_swap::ArcSwapOption::empty(),
             state: Mutex::new(ControlState::default()),
             epoch: AtomicU64::new(0),
         });
@@ -477,19 +533,39 @@ impl AudioRuntime {
             return Err(AudioError::Cancelled);
         }
         validate_session(&session, bus_id)?;
-        let wanted = cancellation.0;
+        self.start_outputs_cancellable(session, OutputPlan::single(output_id, bus_id), cancellation)
+    }
+    pub fn start_outputs(
+        &self,
+        session: Session,
+        plan: OutputPlan,
+    ) -> Result<RunningConfiguration, AudioError> {
+        self.start_outputs_cancellable(session, plan, StartCancellation::default())
+    }
+    pub fn start_outputs_cancellable(
+        &self,
+        session: Session,
+        plan: OutputPlan,
+        cancellation: StartCancellation,
+    ) -> Result<RunningConfiguration, AudioError> {
+        if cancellation.is_cancelled() {
+            return Err(AudioError::Cancelled);
+        }
+        output_render::validate_plan_budget(&plan)?;
+        plan.validate(&session)
+            .map_err(|e| AudioError::InvalidSession(e.to_string()))?;
+        let gate = cancellation.0;
         let (tx, rx) = mpsc::sync_channel(1);
         self.send(Command::Start {
             session,
-            bus: bus_id,
-            output: output_id,
+            plan,
             epoch: self.shared.epoch.load(Ordering::Acquire),
-            wanted: wanted.clone(),
+            gate: gate.clone(),
             reply: tx,
         })?;
         let result = receive(rx, "start");
         if result.is_err() {
-            wanted.store(false, Ordering::Release);
+            gate.cancel();
         }
         result
     }
@@ -514,7 +590,12 @@ impl AudioRuntime {
             result,
             Err(AudioError::Timeout { .. } | AudioError::RuntimeUnavailable)
         ) {
-            self.shared.epoch.fetch_add(1, Ordering::AcqRel);
+            let revoked = self.shared.epoch.fetch_add(1, Ordering::AcqRel);
+            if let Some(gate) = &*self.shared.active_gate.load() {
+                if gate.epoch.load(Ordering::Acquire) <= revoked {
+                    gate.cancel();
+                }
+            }
             self.shared.state().running = false;
         }
         result
@@ -524,14 +605,24 @@ impl AudioRuntime {
     /// `stop` off the UI thread to release native resources. Samples already
     /// handed to the device cannot be recalled.
     pub fn cancel_output(&self) {
-        self.shared.epoch.fetch_add(1, Ordering::AcqRel);
+        let revoked = self.shared.epoch.fetch_add(1, Ordering::AcqRel);
+        if let Some(gate) = &*self.shared.active_gate.load() {
+            if gate.epoch.load(Ordering::Acquire) <= revoked {
+                gate.cancel();
+            }
+        }
     }
     /// Immediately prevents subsequent callback output, then asks the owner to
     /// release the stream. Already handed-off hardware samples cannot be recalled.
     /// Success acknowledges cancellation and handle disposal, not completed native
     /// teardown. Retained `output_timing` reports completion or unresolved ownership.
     pub fn stop(&self) -> Result<(), AudioError> {
-        self.shared.epoch.fetch_add(1, Ordering::AcqRel);
+        let revoked = self.shared.epoch.fetch_add(1, Ordering::AcqRel);
+        if let Some(gate) = &*self.shared.active_gate.load() {
+            if gate.epoch.load(Ordering::Acquire) <= revoked {
+                gate.cancel();
+            }
+        }
         self.shared.state().running = false;
         let (tx, rx) = mpsc::sync_channel(1);
         self.send(Command::Stop(tx))?;
@@ -547,9 +638,11 @@ impl AudioRuntime {
                         .get(record.endpoint_index? as usize)
                         .map(|(id, _)| id.0.clone())
                 }),
-                FaultDirection::Output => {
-                    state.configuration.as_ref().map(|c| c.output.id.0.clone())
-                }
+                FaultDirection::Output => state
+                    .configuration
+                    .as_ref()
+                    .and_then(|c| c.outputs.get(record.endpoint_index? as usize))
+                    .map(|o| o.output.id.0.clone()),
                 FaultDirection::Runtime => None,
             };
         }
@@ -572,7 +665,29 @@ impl AudioRuntime {
                         t.buses.iter().map(|m| m.read(running)).collect(),
                     )
                 });
+        let outputs = state
+            .configuration
+            .as_ref()
+            .zip(state.telemetry.as_ref())
+            .map_or_else(Vec::new, |(configuration, telemetry)| {
+                configuration
+                    .outputs
+                    .iter()
+                    .zip(&telemetry.outputs)
+                    .zip(&state.output_diagnostics)
+                    .enumerate()
+                    .map(|(index, ((route, counters), timing))| {
+                        counters.snapshot(
+                            index,
+                            route,
+                            index == configuration.clock_output_index,
+                            timing.snapshot(),
+                        )
+                    })
+                    .collect()
+            });
         AudioSnapshot {
+            outputs,
             running,
             configuration: state.configuration.clone(),
             rendered_frames: frames,
@@ -605,8 +720,9 @@ impl AudioRuntime {
                     .collect()
             }),
             output_timing: state
-                .output_diagnostics
+                .configuration
                 .as_ref()
+                .and_then(|c| state.output_diagnostics.get(c.clock_output_index))
                 .map(output::Diagnostics::snapshot),
             input_meters: inputs,
             bus_meters: buses,
@@ -623,7 +739,12 @@ impl AudioRuntime {
 }
 impl Drop for AudioRuntime {
     fn drop(&mut self) {
-        self.shared.epoch.fetch_add(1, Ordering::AcqRel);
+        let revoked = self.shared.epoch.fetch_add(1, Ordering::AcqRel);
+        if let Some(gate) = &*self.shared.active_gate.load() {
+            if gate.epoch.load(Ordering::Acquire) <= revoked {
+                gate.cancel();
+            }
+        }
         let _ = self.commands.try_send(Command::Shutdown);
         // Do not join a thread that may be blocked in an OS driver call. Callback
         // gates are revoked immediately; the thread releases resources when able.
@@ -778,7 +899,7 @@ fn supported_pcm(format: cpal::SampleFormat) -> bool {
 }
 
 struct Running {
-    _stream: output::Stream,
+    _streams: Vec<output::Stream>,
     _input_streams: InputStreams,
     session: Session,
     controls: Arc<ControlBank>,
@@ -788,7 +909,7 @@ struct Running {
 }
 impl Drop for Running {
     fn drop(&mut self) {
-        self.wanted.store(false, Ordering::Release);
+        self.telemetry.gate.cancel();
     }
 }
 /// Revoke publication before dropping native capture resources, including when
@@ -812,7 +933,7 @@ fn runtime_loop(receiver: mpsc::Receiver<Command>, shared: Arc<Shared>) {
                 || shared.epoch.load(Ordering::Acquire) != r.epoch
         }) {
             if let Some(old) = running.take() {
-                old.wanted.store(false, Ordering::Release);
+                old.telemetry.gate.cancel();
                 drop(old);
             }
             shared.state().running = false;
@@ -826,16 +947,15 @@ fn runtime_loop(receiver: mpsc::Receiver<Command>, shared: Arc<Shared>) {
             }
             Ok(Command::Start {
                 session,
-                bus,
-                output,
+                plan,
                 epoch,
-                wanted,
+                gate,
                 reply,
             }) => {
                 let result = if running.is_some() {
                     Err(AudioError::AlreadyRunning)
                 } else {
-                    start_stream(session, bus, output, epoch, wanted, shared.clone())
+                    start_stream(session, plan, epoch, gate, shared.clone())
                 };
                 match result {
                     Ok((owner, configuration)) => {
@@ -848,7 +968,7 @@ fn runtime_loop(receiver: mpsc::Receiver<Command>, shared: Arc<Shared>) {
                             state.authorization = Some((owner.wanted.clone(), owner.epoch));
                         }
                         if reply.send(Ok(configuration)).is_err() {
-                            owner.wanted.store(false, Ordering::Release);
+                            owner.telemetry.gate.cancel();
                         }
                         running = Some(owner);
                     }
@@ -886,7 +1006,7 @@ fn runtime_loop(receiver: mpsc::Receiver<Command>, shared: Arc<Shared>) {
             }
             Ok(Command::Stop(reply)) => {
                 if let Some(old) = running.take() {
-                    old.wanted.store(false, Ordering::Release);
+                    old.telemetry.gate.cancel();
                     drop(old);
                 }
                 let mut state = shared.state();
@@ -899,21 +1019,34 @@ fn runtime_loop(receiver: mpsc::Receiver<Command>, shared: Arc<Shared>) {
         }
     }
     if let Some(old) = running {
-        old.wanted.store(false, Ordering::Release);
+        old.telemetry.gate.cancel();
     }
 }
 
 fn start_stream(
     session: Session,
-    bus: Uuid,
-    output: OutputId,
+    plan: OutputPlan,
     epoch: u64,
-    wanted: Arc<AtomicBool>,
+    gate: Arc<EpochGate>,
     shared: Arc<Shared>,
 ) -> Result<(Running, RunningConfiguration), AudioError> {
+    struct RevokeOnFailure(Option<Arc<EpochGate>>);
+    impl Drop for RevokeOnFailure {
+        fn drop(&mut self) {
+            if let Some(gate) = &self.0 {
+                gate.cancel();
+            }
+        }
+    }
+    let mut guard = RevokeOnFailure(Some(gate.clone()));
+    let wanted = gate.wanted.clone();
     if !wanted.load(Ordering::Acquire) {
         return Err(AudioError::Cancelled);
     }
+    let clock_index = plan
+        .validate(&session)
+        .map_err(|e| AudioError::InvalidSession(e.to_string()))?;
+    let bus = plan.routes[clock_index].bus_id;
     validate_session(&session, bus)?;
     let next_epoch = epoch.checked_add(1).ok_or(AudioError::RuntimeUnavailable)?;
     shared
@@ -921,70 +1054,98 @@ fn start_stream(
         .compare_exchange(epoch, next_epoch, Ordering::AcqRel, Ordering::Acquire)
         .map_err(|_| AudioError::Cancelled)?;
     let epoch = next_epoch;
-    let id: cpal::DeviceId = output
-        .0
-        .parse()
-        .map_err(|_| AudioError::InvalidOutputId(output.0.clone()))?;
+    gate.epoch.store(epoch, Ordering::Release);
+    shared.active_gate.store(Some(gate.clone()));
     let host = native_host()?;
-    // Avoid device_by_id's Option API, which hides device enumeration errors.
-    let mut selected = None;
+    let mut discovered = Vec::new();
     for device in host
         .devices()
         .map_err(|e| backend("device discovery", None, e))?
     {
-        if device
+        let id = device
             .id()
-            .map_err(|e| backend("device identity", None, e))?
-            == id
-        {
-            selected = Some(device);
-            break;
-        }
+            .map_err(|e| backend("device identity", None, e))?;
+        discovered.push((id, device));
     }
-    let device = selected.ok_or_else(|| AudioError::DeviceUnavailable(output.clone()))?;
-    let name = device
-        .description()
-        .map_err(|e| backend("device description", Some(output.0.clone()), e))?
-        .name()
-        .to_owned();
-    let selected_output = output::select(
-        &device,
-        OutputDevice {
-            id: output,
-            name: name.clone(),
-        },
-        session.sample_rate,
-    )?;
+    let mut selected_outputs = Vec::with_capacity(plan.routes.len());
+    for route in &plan.routes {
+        if !wanted.load(Ordering::Acquire) || shared.epoch.load(Ordering::Acquire) != epoch {
+            return Err(AudioError::Cancelled);
+        }
+        let id: cpal::DeviceId = route
+            .output
+            .0
+            .parse()
+            .map_err(|_| AudioError::InvalidOutputId(route.output.0.clone()))?;
+        let (_, device) = discovered
+            .iter()
+            .find(|(candidate, _)| *candidate == id)
+            .ok_or_else(|| AudioError::DeviceUnavailable(route.output.clone()))?;
+        let name = device
+            .description()
+            .map_err(|e| backend("device description", Some(route.output.0.clone()), e))?
+            .name()
+            .to_owned();
+        selected_outputs.push(output::select(
+            device,
+            OutputDevice {
+                id: route.output.clone(),
+                name,
+            },
+            session.sample_rate,
+        )?);
+    }
     let selected_inputs = capture::select(&session, &host)?;
-    let configuration = selected_output.configuration(
+    let mut configuration = selected_outputs[clock_index].configuration(
         bus,
         selected_inputs
             .iter()
             .map(|s| s.configuration.clone())
             .collect(),
     );
-    let capture_owner_bytes = capture::selected_owner_bytes(&selected_inputs)?;
-    let render = RenderState::new_with_owner_budget(
+    configuration.clock_output_index = clock_index;
+    configuration.outputs = selected_outputs
+        .iter()
+        .zip(&plan.routes)
+        .map(|(selection, route)| selection.running_output(route.bus_id))
+        .collect();
+    let owner_bytes = selected_outputs
+        .iter()
+        .try_fold(0usize, |total, selection| {
+            total
+                .checked_add(selection.owner_bytes()?)
+                .ok_or_else(|| AudioError::InvalidSession("output owner budget overflow".into()))
+        })?;
+    let follower_count = selected_outputs.len() - 1;
+    let extra_bytes = output_render::extra_bytes(&configuration, follower_count)?;
+    let output_bytes = owner_bytes
+        .checked_add(extra_bytes)
+        .ok_or_else(|| AudioError::InvalidSession("output memory overflow".into()))?;
+    let mut render = RenderState::new_with_owner_budget(
         &session,
         bus,
-        usize::from(selected_output.channels()),
+        usize::from(selected_outputs[clock_index].channels()),
         epoch,
         wanted.clone(),
         shared.clone(),
-        selected_output.owner_bytes()?,
-        capture_owner_bytes,
+        output_bytes,
+        capture::selected_owner_bytes(&selected_inputs)?,
     )?;
+    let mut followers =
+        output_render::configure(&mut render, &plan, clock_index, gate.clone(), extra_bytes)?
+            .into_iter();
     let permit = render.permit();
-    let diagnostics = selected_output.diagnostics();
-    // Publish diagnostic ownership before any native open/start operation, so
-    // failed or blocked startup remains observable after its handle is gone.
+    let diagnostics: Vec<_> = selected_outputs
+        .iter()
+        .map(output::Selection::diagnostics)
+        .collect();
     {
         let mut state = shared.state();
         state.running = false;
         state.configuration = Some(configuration.clone());
         state.telemetry = Some(render.telemetry.clone());
         state.authorization = Some((wanted.clone(), epoch));
-        state.output_diagnostics = Some(diagnostics.clone());
+        state.output_diagnostics = diagnostics.clone();
         state.error = None;
     }
     let mut input_streams = InputStreams {
@@ -992,7 +1153,7 @@ fn start_stream(
         wanted: wanted.clone(),
     };
     for (index, (selected, capture)) in selected_inputs.iter().zip(&render.captures).enumerate() {
-        if !wanted.load(Ordering::Acquire) || shared.epoch.load(Ordering::Acquire) != epoch {
+        if !permit.authorized() {
             return Err(AudioError::Cancelled);
         }
         let state = CaptureState::new(
@@ -1007,55 +1168,60 @@ fn start_stream(
         input_streams
             .streams
             .push(capture::make_stream(selected, state)?);
-        let fault = AudioFault::from_code(render.telemetry.fault.load(Ordering::Acquire));
-        if fault != AudioFault::None {
-            return Err(backend(
-                "input stream creation",
-                Some(selected.configuration.device.name.clone()),
-                fault.message(),
-            ));
+        if !permit.authorized() {
+            return Err(AudioError::Cancelled);
         }
     }
     let telemetry = render.telemetry.clone();
     let controls = render.bank.clone();
-    if !render.authorized() {
-        return Err(AudioError::Cancelled);
+    let mut primary = Some(render);
+    let mut streams = Vec::with_capacity(selected_outputs.len());
+    let mut permits = Vec::with_capacity(selected_outputs.len());
+    for (index, (selected, diagnostic)) in
+        selected_outputs.into_iter().zip(&diagnostics).enumerate()
+    {
+        if !permit.authorized() {
+            return Err(AudioError::Cancelled);
+        }
+        let renderer = if index == clock_index {
+            OutputRenderer::from(primary.take().expect("one clock output"))
+        } else {
+            OutputRenderer::Follower(followers.next().expect("one reader per follower"))
+        };
+        permits.push(renderer.permit());
+        streams.push(selected.build(renderer, diagnostic)?);
     }
-    let stream = selected_output.build(render, &diagnostics)?;
-    output_startup::start_output(&stream, &permit, COMMAND_TIMEOUT, || {
-        for (input_stream, input) in input_streams.streams.iter().zip(&configuration.inputs) {
+    output_startup::start_outputs(&streams, &permit, COMMAND_TIMEOUT, || {
+        for (stream, input) in input_streams.streams.iter().zip(&configuration.inputs) {
             if !permit.authorized() {
                 return Err(AudioError::Cancelled);
             }
-            input_stream.play().map_err(|error| {
-                backend("input activation", Some(input.device.name.clone()), error)
-            })?;
-            let fault = AudioFault::from_code(telemetry.fault.load(Ordering::Acquire));
-            if fault != AudioFault::None {
-                return Err(backend(
-                    "input activation",
-                    Some(input.device.name.clone()),
-                    fault.message(),
-                ));
-            }
+            stream
+                .play()
+                .map_err(|e| backend("input activation", Some(input.device.name.clone()), e))?;
         }
-        // Supervision must exist before activation. If thread creation fails,
-        // the startup guard revokes the still-silent output and every input.
-        let progress_diagnostics = diagnostics.clone();
-        output_progress::supervise(
-            permit.clone(),
-            output_progress::deadline(configuration.sample_rate),
-            move || progress_diagnostics.progress_count(),
-        )?;
+        for (index, (route_permit, diagnostic)) in permits.iter().zip(&diagnostics).enumerate() {
+            let diagnostic = diagnostic.clone();
+            output_progress::supervise(
+                route_permit.clone(),
+                output_progress::deadline(configuration.sample_rate),
+                output_progress::program_deadline(
+                    configuration.sample_rate,
+                    !configuration.inputs.is_empty(),
+                    index != clock_index,
+                ),
+                move || diagnostic.progress_count(),
+            )?;
+        }
         Ok(())
     })?;
     if !permit.authorized() {
-        permit.cancel();
         return Err(AudioError::Cancelled);
     }
+    guard.0 = None;
     Ok((
         Running {
-            _stream: stream,
+            _streams: streams,
             _input_streams: input_streams,
             session,
             controls,
@@ -1101,6 +1267,9 @@ fn stream_fault(kind: cpal::ErrorKind) -> AudioFault {
 }
 
 struct RenderState {
+    fanout: Option<FanoutRender>,
+    output_permit: Option<OutputPermit>,
+    output_index: usize,
     mixer: CompiledMixer,
     bank: Arc<ControlBank>,
     control_scratch: PreparedControls,
@@ -1124,6 +1293,8 @@ struct RenderState {
 /// Program activation is a separate, owner-local gate.
 #[derive(Clone)]
 struct OutputPermit {
+    route_index: usize,
+    output_telemetry: Arc<OutputTelemetry>,
     epoch: u64,
     wanted: Arc<AtomicBool>,
     shared: Arc<Shared>,
@@ -1131,7 +1302,13 @@ struct OutputPermit {
 }
 impl OutputPermit {
     fn cancel(&self) {
-        self.wanted.store(false, Ordering::Release);
+        self.telemetry.gate.cancel();
+    }
+    fn program_authorized(&self) -> bool {
+        self.authorized() && self.telemetry.gate.program()
+    }
+    fn submitted(&self, frames: usize, version: Option<u64>) {
+        self.output_telemetry.submitted(frames, version);
     }
     fn authorized(&self) -> bool {
         self.wanted.load(Ordering::Acquire)
@@ -1145,9 +1322,12 @@ impl OutputPermit {
         FaultMetadata::now(self.epoch)
     }
     fn fail_at(&self, fault: AudioFault, origin: FaultOrigin, metadata: FaultMetadata) {
-        self.telemetry
-            .fault
-            .record(fault, origin, FaultSource::OUTPUT, metadata);
+        self.telemetry.record_fault(
+            fault,
+            origin,
+            FaultSource::output(self.route_index),
+            metadata,
+        );
     }
 }
 
@@ -1259,6 +1439,8 @@ impl RenderState {
         let bank = Arc::new(ControlBank::new(&control_scratch));
         let kernel = (!capture_ids.is_empty()).then(capture_transport::Kernel::new);
         let mut telemetry = Telemetry::new(session);
+        telemetry.gate = Arc::new(EpochGate::new(wanted.clone()));
+        telemetry.outputs.push(Arc::new(OutputTelemetry::default()));
         let captures = capture_ids
             .into_iter()
             .map(|(device_id, source_ids)| {
@@ -1275,6 +1457,9 @@ impl RenderState {
             .collect();
         let telemetry = Arc::new(telemetry);
         Ok(Self {
+            fanout: None,
+            output_permit: None,
+            output_index: 0,
             mixer,
             bank,
             control_scratch,
@@ -1294,15 +1479,17 @@ impl RenderState {
         })
     }
     fn fail(&self, fault: AudioFault, origin: FaultOrigin) {
-        self.telemetry.fault.record(
+        self.telemetry.record_fault(
             fault,
             origin,
-            FaultSource::OUTPUT,
+            FaultSource::output(self.output_index),
             FaultMetadata::now(self.epoch),
         );
     }
     fn permit(&self) -> OutputPermit {
         OutputPermit {
+            route_index: self.output_index,
+            output_telemetry: self.telemetry.outputs[self.output_index].clone(),
             epoch: self.epoch,
             wanted: self.wanted.clone(),
             shared: self.shared.clone(),
@@ -1346,6 +1533,43 @@ impl RenderState {
             }
             self.applied_version = version;
         }
+        if frames == 0 {
+            return RenderOutcome::Silence;
+        }
+        let telemetry = &self.telemetry;
+        let epoch = self.epoch;
+        let output_index = self.output_index;
+        let fail = |fault, origin| {
+            telemetry.record_fault(
+                fault,
+                origin,
+                FaultSource::output(output_index),
+                FaultMetadata::now(epoch),
+            )
+        };
+        let mut transaction = if let Some(fanout) = &mut self.fanout {
+            let transaction = match fanout.writer.begin(frames, self.applied_version) {
+                Ok(transaction) => transaction,
+                Err(error) => {
+                    if error != fanout::Error::Cancelled {
+                        let source = match error {
+                            fanout::Error::RouteFull { route } => fanout.routes[route].0,
+                            _ => output_index,
+                        };
+                        telemetry.record_fault(
+                            AudioFault::StreamInvalidated,
+                            FaultOrigin::OutputFanoutProducer,
+                            FaultSource::output(source),
+                            FaultMetadata::now(epoch),
+                        );
+                    }
+                    return RenderOutcome::Silence;
+                }
+            };
+            Some((transaction, &fanout.routes))
+        } else {
+            None
+        };
         let mut ready = true;
         let mut first_unready = None;
         for (index, capture) in self.captures.iter_mut().enumerate() {
@@ -1357,7 +1581,7 @@ impl RenderState {
                     }
                 }
                 Err(error) => {
-                    self.telemetry.fault.record(
+                    self.telemetry.record_fault(
                         capture::fault(error),
                         FaultOrigin::CaptureTransportConsumer,
                         FaultSource::input(index),
@@ -1369,8 +1593,8 @@ impl RenderState {
         }
         if !ready {
             self.priming_frames += frames as u64;
-            if self.priming_frames > u64::from(self.sample_rate) * 2 {
-                self.telemetry.fault.record(
+            if self.priming_frames > output_progress::capture_priming_frames(self.sample_rate) {
+                self.telemetry.record_fault(
                     AudioFault::CaptureStartup,
                     FaultOrigin::CaptureStartup,
                     first_unready.map_or(FaultSource::RUNTIME, FaultSource::input),
@@ -1403,7 +1627,7 @@ impl RenderState {
                 .render_sources(sources, &mut destinations, count)
                 .is_err()
             {
-                self.fail(AudioFault::Render, FaultOrigin::MixerRender);
+                fail(AudioFault::Render, FaultOrigin::MixerRender);
                 sink.clear();
                 return RenderOutcome::Silence;
             }
@@ -1411,9 +1635,29 @@ impl RenderState {
                 .write_stereo(start, &self.left[..count], &self.right[..count])
                 .is_err()
             {
-                self.fail(AudioFault::InvalidBuffer, FaultOrigin::OutputBuffer);
+                fail(AudioFault::InvalidBuffer, FaultOrigin::OutputBuffer);
                 sink.clear();
                 return RenderOutcome::Silence;
+            }
+            if let Some((transaction, routes)) = &mut transaction {
+                for (queue, (_, bus)) in routes.iter().enumerate() {
+                    let pcm = match self.mixer.rendered_bus(*bus) {
+                        Ok(pcm) => pcm,
+                        Err(_) => {
+                            fail(AudioFault::Render, FaultOrigin::MixerRender);
+                            sink.clear();
+                            return RenderOutcome::Silence;
+                        }
+                    };
+                    if transaction.write(queue, pcm).is_err() {
+                        fail(
+                            AudioFault::StreamInvalidated,
+                            FaultOrigin::OutputFanoutProducer,
+                        );
+                        sink.clear();
+                        return RenderOutcome::Silence;
+                    }
+                }
             }
             for (target, meter) in self.telemetry.inputs.iter().zip(self.mixer.input_meters()) {
                 target.publish(meter);
@@ -1423,9 +1667,19 @@ impl RenderState {
             }
         }
         // Revoke output even if a stop/fault arrived while this callback rendered.
-        if !self.authorized() {
+        if !self.wanted.load(Ordering::Acquire)
+            || self.shared.epoch.load(Ordering::Acquire) != self.epoch
+            || self.telemetry.fault.load(Ordering::Acquire) != 0
+        {
+            self.telemetry.gate.cancel();
             sink.clear();
             return RenderOutcome::Silence;
+        }
+        if let Some((transaction, _)) = transaction {
+            if transaction.commit().is_err() {
+                sink.clear();
+                return RenderOutcome::Silence;
+            }
         }
         self.telemetry
             .frames
@@ -1439,7 +1693,7 @@ impl RenderState {
                 .store(self.applied_version, Ordering::Release);
             RenderOutcome::Rendered {
                 frames,
-                accepted_version: self.applied_version,
+                accepted_version: Some(self.applied_version),
             }
         } else {
             RenderOutcome::Silence

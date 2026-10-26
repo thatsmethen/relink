@@ -9,8 +9,8 @@ use crate::{
     },
     wasapi_packet::{Encoding, Layout, SILENT},
     wasapi_render_packet::{Error as PacketError, RenderLease},
-    AudioError, AudioFault, FaultOrigin, OutputDevice, OutputPermit, RenderState, COMMAND_TIMEOUT,
-    MAX_CALLBACK_FRAMES, MAX_DEVICE_CHANNELS,
+    AudioError, AudioFault, FaultOrigin, OutputDevice, OutputPermit, OutputRenderer,
+    COMMAND_TIMEOUT, MAX_CALLBACK_FRAMES, MAX_DEVICE_CHANNELS,
 };
 use std::{
     cell::Cell,
@@ -133,7 +133,7 @@ pub(crate) struct WasapiOutput {
 impl WasapiOutput {
     pub(crate) fn build(
         selection: Selection,
-        render: RenderState,
+        render: OutputRenderer,
         timing: Arc<WasapiOutputTiming>,
     ) -> Result<Self, AudioError> {
         let permit = render.permit();
@@ -279,7 +279,7 @@ impl Drop for Reservation {
 
 fn owner(
     selection: Selection,
-    mut render: RenderState,
+    mut render: OutputRenderer,
     gates: Arc<Gates>,
     timing: Arc<WasapiOutputTiming>,
     mut reservation: Reservation,
@@ -437,7 +437,7 @@ fn fail(permit: &OutputPermit, gates: &Gates, error: OwnerFailure, origin: Fault
 fn run(
     selection: &Selection,
     native: &mut Native,
-    render: &mut RenderState,
+    render: &mut OutputRenderer,
     gates: &Gates,
     permit: &OutputPermit,
     timing: &WasapiOutputTiming,
@@ -699,7 +699,7 @@ impl Native {
         &mut self,
         frames: u32,
         layout: Layout,
-        render: &mut RenderState,
+        render: &mut OutputRenderer,
         gates: &Gates,
         permit: &OutputPermit,
         timing: &WasapiOutputTiming,
@@ -748,7 +748,7 @@ impl Native {
                 }
             })
             .map_err(|_| OwnerFailure::validation(AudioFault::InvalidBuffer))?;
-            if prefill || !gates.program() || !live(gates, permit) {
+            if prefill || !gates.program() || !live(gates, permit) || !permit.program_authorized() {
                 return lease.finish_silent().map_err(Into::into);
             }
             let outcome = render.write_to(&mut lease);
@@ -759,10 +759,11 @@ impl Native {
                 } if rendered == frames as usize => {
                     // This is the final software authorization point. Cancellation
                     // after native submission cannot retract the engine's buffer.
-                    let authorized = live(gates, permit) && gates.program();
+                    let authorized =
+                        live(gates, permit) && gates.program() && permit.program_authorized();
                     let result = lease.commit(authorized);
                     if result.is_ok() {
-                        version = Some(accepted_version);
+                        version = accepted_version;
                     }
                     match result {
                         Ok(()) => Ok(()),
@@ -798,8 +799,12 @@ impl Native {
             self.release_proven = false;
             return Err(status.into());
         }
-        timing.submitted(
+        if !prefill && released.flags == 0 && status.is_ok() {
+            permit.submitted(frames as usize, version);
+        }
+        timing.submitted_pcm(
             frames,
+            released.flags == 0,
             if released.flags == 0 { version } else { None },
             prefill,
             status.0,

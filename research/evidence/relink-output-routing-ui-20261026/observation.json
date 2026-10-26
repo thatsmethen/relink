@@ -1,0 +1,33 @@
+{
+  "schema": 1,
+  "kind": "stopped native UI development observation",
+  "source": "pre-commit source manifest in source-before.json",
+  "binary_sha256": "4d1a96e179be08e1ca17997bf55d4d75e0d4b31f68aa39c0d05b73aa8b24e9c7",
+  "audio_started": false,
+  "journeys": [
+    "empty Start opens output setup",
+    "explicit device and mix choices",
+    "duplicate device disabled",
+    "editor mix selection preserves output routes",
+    "clock removal requires explicit replacement",
+    "Undo restores both routes and clock",
+    "save and reopen retain route plan"
+  ],
+  "layout": "1280x852 logical macOS window; original JPEG pixels 2560x1704",
+  "limits": [
+    "stopped macOS only",
+    "no minimum-width or large-output-list qualification",
+    "no native Windows or installed multi-device audio"
+  ],
+  "post_quit_relaunch": {
+    "cause": "post-quit accessibility read relaunched test bundle without isolated environment",
+    "session_content_changed": false,
+    "original_restored_sha256": "94efd0f900d0d205944bbd291fa87a078ea469d7a3c1b462fedc5b123f3a6615"
+  },
+  "later_source_changes": [
+    "separate capture/follower program priming deadlines",
+    "save only dirty studio at exit",
+    "recover at canonical path after preserving original backup",
+    "surface asynchronous cleanup failures and clear stale errors on healthy restart"
+  ]
+}

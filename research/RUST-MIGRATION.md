@@ -47,3 +47,41 @@ A compiling Rust prototype or passing generated-audio test does not satisfy inst
 - Five-millisecond live gain/mute/pan/solo ramps passed deterministic partition, retargeting, silence-endpoint and allocation controls. A complete installed runtime observation passed every PCM phase and live-control response but failed native callback continuity; it does not establish full runtime quality.
 
 Upcoming work includes resolving installed capture-to-mixer-to-output continuity, simultaneous independent outputs, application/process capture, plugin effects and Sound Check workflows, recovery and sustained resource measurements, native Windows interaction/audio tests, and distributable signed installers. Reference mixer fidelity remains unverified because the pinned Elgato reference stops at its separate vendor-driver installation gate.
+
+
+## Output routing journey checkpoint — 2026-10-26
+
+Inspected: the single-output picker tied launch to the currently edited mix and
+could not express independent destinations. Implemented: a global Outputs window
+assigns each unique device a mix and an explicit clock. Saved routes are separate
+from editor selection; removing the clock requires another explicit choice.
+Route edits join session edits in Undo/Redo, and the complete versioned studio
+saves atomically. Legacy reads preserve bytes; quitting an unedited studio does
+not trigger migration. `RELINK_STUDIO_PATH` accepts an explicit absolute file for
+isolated developer runs; invalid overrides do not fall back to the real studio.
+
+Verified in the stopped macOS test build: empty Start opens actionable routing,
+two distinct devices and mixes can be selected, duplicate devices are disabled,
+changing the editor mix preserves assignments, removing the clock exposes the
+missing choice, Undo restores it, and save/quit/reopen retains both routes and the
+clock. Audio remained stopped throughout. The prior test binary and source hashes
+are recorded with the [routing screenshots](evidence/relink-output-routing-ui-20261026/README.md); the final checkpoint adds a separate
+priming deadline correction and avoids saving an unchanged studio on exit.
+Corrupt or future studio files remain untouched until Save or an edit. The first
+recovery save preserves an exact synced sibling backup before replacing the
+canonical file, so recovered work reopens normally. A failed backup blocks the
+replacement. Focused tests cover these boundaries. Asynchronous cleanup failures
+remain visible after Stop; a healthy restart clears only stale queued errors.
+
+A post-quit accessibility read automatically relaunched the test bundle without
+its isolated environment and migrated the ordinary studio wrapper on exit. Its
+session content was verified identical to the preserved original; the original
+bytes were restored exactly. Subsequent test captures close the app without a
+post-quit UI read. No audio stream or system default changed.
+
+Remaining journey queue: running multi-device status/controls/stop (implemented,
+not natively verified), large route lists and minimum window width (implemented,
+not yet qualified), unavailable-device recovery (source-reviewed), process
+capture and Sound Check (pending). This bounded stopped journey is not a whole
+product usability or runtime acceptance result. Native Windows interaction,
+installed simultaneous-output PCM, sustained load and recovery remain gates.

@@ -1,13 +1,15 @@
 #![cfg_attr(target_os = "windows", windows_subsystem = "windows")]
 mod audio_ui;
 mod effects;
+mod routing;
 mod store;
 
 use audio_ui::{AudioUi, Request};
 use eframe::egui::{self, Color32, RichText, Vec2};
 use ravelink_core::{Bus, ChannelControls, Input, InputKind, Send, Session};
+use routing::{OutputDraft, RoutingDraft};
 use std::{
-    collections::HashMap,
+    collections::{HashMap, HashSet},
     path::PathBuf,
     time::{Duration, Instant},
 };
@@ -72,14 +74,16 @@ struct Studio {
     selected_bus: Option<Uuid>,
     selected_input: Option<Uuid>,
     route_index: HashMap<(Uuid, Uuid), usize>,
-    undo: Vec<Session>,
-    redo: Vec<Session>,
+    undo: Vec<store::StudioDocument>,
+    redo: Vec<store::StudioDocument>,
     dirty_since: Option<Instant>,
     notice: String,
     save_error: Option<String>,
+    preserve_original_before_save: bool,
     audio: AudioUi,
     search: String,
-    active_output: Option<String>,
+    output_routing: RoutingDraft,
+    outputs_open: bool,
     source_picker_open: bool,
     source_device: Option<String>,
 }
@@ -96,32 +100,43 @@ impl Studio {
         style.spacing.item_spacing = Vec2::new(10.0, 10.0);
         style.spacing.button_padding = Vec2::new(12.0, 8.0);
         cc.egui_ctx.set_style(style);
-        let mut path = store::default_path().ok();
-        let mut notice = "Choose a mix, add sources, then select an output.".to_owned();
-        let session = match path.as_ref().map(|p| store::load(p)) {
-            Some(Ok(Some(s))) => s,
-            Some(Err(error)) => {
-                notice =
-                    format!("{error} Original file preserved; this studio will save separately.");
-                path = path.map(|p| p.with_file_name(format!("recovered-{}.json", Uuid::new_v4())));
-                starter()
+        let (path, path_error) = match store::default_path() {
+            Ok(path) => (Some(path), None),
+            Err(error) => (None, Some(error)),
+        };
+        let mut notice = "Add sources, shape your mixes, then choose Outputs.".to_owned();
+        let mut loaded = false;
+        let mut preserve_original_before_save = false;
+        let document = match path.as_ref().map(|p| store::load(p)) {
+            Some(Ok(Some(s))) => {
+                loaded = true;
+                s
             }
-            _ => starter(),
+            Some(Err(error)) => {
+                notice = format!(
+                    "{error} Saving this recovered studio will first preserve the original in a separate backup."
+                );
+                preserve_original_before_save = true;
+                store::StudioDocument::new(starter(), Default::default())
+            }
+            _ => store::StudioDocument::new(starter(), Default::default()),
         };
         let mut app = Self {
-            selected_bus: session.buses.first().map(|b| b.id),
-            session,
+            selected_bus: document.session.buses.first().map(|b| b.id),
+            session: document.session,
             path,
             selected_input: None,
             route_index: HashMap::new(),
             undo: vec![],
             redo: vec![],
-            dirty_since: None,
+            dirty_since: (!loaded && !preserve_original_before_save).then(Instant::now),
             notice,
-            save_error: None,
+            save_error: path_error,
+            preserve_original_before_save,
             audio: AudioUi::new(cc.egui_ctx.clone()),
             search: String::new(),
-            active_output: None,
+            output_routing: document.output_routing,
+            outputs_open: false,
             source_picker_open: false,
             source_device: None,
         };
@@ -266,7 +281,10 @@ impl Studio {
         if previous == self.session {
             return;
         }
-        self.undo.push(previous);
+        self.undo.push(store::StudioDocument::new(
+            previous,
+            self.output_routing.clone(),
+        ));
         if self.undo.len() > 32 {
             self.undo.remove(0);
         }
@@ -283,9 +301,21 @@ impl Studio {
             .path
             .as_ref()
             .ok_or_else(|| "Cannot locate a studio folder.".to_string())
-            .and_then(|p| store::save(p, &self.session))
-        {
-            Ok(()) => {
+            .and_then(|p| {
+                if self.preserve_original_before_save {
+                    store::save_recovering(p, &self.document()).map(Some)
+                } else {
+                    store::save(p, &self.document()).map(|()| None)
+                }
+            }) {
+            Ok(backup) => {
+                if let Some(backup) = backup {
+                    self.preserve_original_before_save = false;
+                    self.notice = format!(
+                        "Recovered studio saved. Original preserved at {}",
+                        backup.display()
+                    );
+                }
                 self.dirty_since = None;
                 self.save_error = None;
             }
@@ -295,10 +325,16 @@ impl Studio {
         }
     }
 
+    fn document(&self) -> store::StudioDocument {
+        store::StudioDocument::new(self.session.clone(), self.output_routing.clone())
+    }
+
     fn history(&mut self, redo: bool) {
         let stack = if redo { &mut self.redo } else { &mut self.undo };
-        if let Some(session) = stack.pop() {
-            let previous = std::mem::replace(&mut self.session, session);
+        if let Some(document) = stack.pop() {
+            let previous = self.document();
+            self.session = document.session;
+            self.output_routing = document.output_routing;
             if redo {
                 self.undo.push(previous);
             } else {
@@ -320,7 +356,13 @@ impl Studio {
                     ui.separator();
                     ui.label(&self.session.name);
                     ui.label(
-                        RichText::new(if self.dirty_since.is_some() {
+                        RichText::new(if self.path.is_none() {
+                            "No save location"
+                        } else if self.save_error.is_some() {
+                            "Save needs attention"
+                        } else if self.preserve_original_before_save {
+                            "Recovery not saved"
+                        } else if self.dirty_since.is_some() {
                             "Unsaved changes"
                         } else {
                             "Saved locally"
@@ -350,15 +392,23 @@ impl Studio {
                         {
                             if can_stop {
                                 self.audio.send(Request::Stop);
-                            } else if let (Some(bus), Some(output)) =
-                                (self.selected_bus, self.active_output.clone())
-                            {
-                                self.audio
-                                    .send(Request::Start(self.session.clone(), bus, output));
                             } else {
-                                self.notice =
-                                    "Choose a listening output in the mix panel first.".into();
+                                match self.output_routing.plan(&self.session) {
+                                    Ok(plan) => {
+                                        self.audio.send(Request::Start(self.session.clone(), plan))
+                                    }
+                                    Err(error) => {
+                                        self.notice = error;
+                                        self.outputs_open = true;
+                                    }
+                                }
                             }
+                        }
+                        if ui
+                            .button(format!("Outputs ({})", self.output_routing.outputs.len()))
+                            .clicked()
+                        {
+                            self.outputs_open = true;
                         }
                         if ui.button("Save").clicked() {
                             self.save();
@@ -383,6 +433,146 @@ impl Studio {
                     });
                 });
             });
+    }
+
+    fn output_picker(&mut self, ctx: &egui::Context) {
+        if !self.outputs_open {
+            return;
+        }
+        let mut open = self.outputs_open;
+        let before = self.output_routing.clone();
+        let locked = self.audio.running() || self.audio.busy;
+        egui::Window::new("Outputs")
+            .open(&mut open)
+            .default_width(620.0)
+            .resizable(true)
+            .show(ctx, |ui| {
+                ui.label("Send each mix to one or more devices. Choose a clock device; the other outputs follow it.");
+                if locked {
+                    ui.label("Stop audio to change output routing.");
+                }
+                let mut remove = None;
+                let selected_devices: HashSet<_> = self.output_routing.outputs.iter()
+                    .filter_map(|route| route.device_id.clone()).collect();
+                let row_height = if self.audio.running() { 260.0 } else { 180.0 };
+                egui::ScrollArea::vertical().max_height(440.0).show_rows(ui, row_height, self.output_routing.outputs.len(), |ui, rows| {
+                    for index in rows {
+                        let route = &mut self.output_routing.outputs[index];
+                        let (rect, _) = ui.allocate_exact_size(Vec2::new(ui.available_width(), row_height), egui::Sense::hover());
+                        ui.scope_builder(egui::UiBuilder::new().max_rect(rect), |ui| {
+                        ui.set_clip_rect(ui.clip_rect().intersect(rect));
+                        ui.group(|ui| {
+                            ui.horizontal(|ui| {
+                                ui.strong(format!("Output {}", index + 1));
+                                ui.with_layout(egui::Layout::right_to_left(egui::Align::Center), |ui| {
+                                    if ui.add_enabled(!locked, egui::Button::new("Remove").small()).clicked() {
+                                        remove = Some(index);
+                                    }
+                                });
+                            });
+                            ui.add_enabled_ui(!locked, |ui| {
+                                let old_device = route.device_id.clone();
+                                let device_label = route.device_id.as_ref().map(|id| {
+                                    self.audio.devices.iter().find(|device| &device.id == id)
+                                        .map_or_else(|| format!("Unavailable: {id}"), |device| device.name.clone())
+                                }).unwrap_or_else(|| "Select a device…".into());
+                                ui.label("Device");
+                                egui::ComboBox::from_id_salt(("output-device", index))
+                                    .selected_text(device_label).width(480.0).show_ui(ui, |ui| {
+                                        ui.selectable_value(&mut route.device_id, None, "Select a device…");
+                                        for device in &self.audio.devices {
+                                            let already_used = selected_devices.contains(&device.id)
+                                                && route.device_id.as_ref() != Some(&device.id);
+                                            ui.add_enabled_ui(!already_used, |ui| {
+                                                ui.selectable_value(&mut route.device_id, Some(device.id.clone()), &device.name);
+                                            });
+                                        }
+                                    });
+                                if old_device != route.device_id && old_device.is_some()
+                                    && self.output_routing.clock_output == old_device {
+                                    self.output_routing.clock_output = None;
+                                }
+                                ui.horizontal(|ui| {
+                                    ui.label("Mix");
+                                    let mix_label = route.bus_id.map(|id| {
+                                        self.session.buses.iter().find(|bus| bus.id == id)
+                                            .map_or_else(|| "Mix removed — choose another".into(), |bus| bus.name.clone())
+                                    }).unwrap_or_else(|| "Select a mix…".into());
+                                    egui::ComboBox::from_id_salt(("output-mix", index))
+                                        .selected_text(mix_label).width(230.0).show_ui(ui, |ui| {
+                                            for bus in &self.session.buses {
+                                                ui.selectable_value(&mut route.bus_id, Some(bus.id), &bus.name);
+                                            }
+                                        });
+                                    if ui.add_enabled(route.device_id.is_some(), egui::RadioButton::new(
+                                        route.device_id.is_some() && route.device_id == self.output_routing.clock_output,
+                                        "Clock device",
+                                    )).clicked() {
+                                        self.output_routing.clock_output = route.device_id.clone();
+                                    }
+                                });
+                            });
+                            if self.audio.running() {
+                                if let Some(state) = self.audio.snapshot().and_then(|snapshot| snapshot.outputs.iter().find(|state| {
+                                    Some(&state.output.0) == route.device_id.as_ref() && Some(state.bus_id) == route.bus_id
+                                })) {
+                                    let status = if state.ready { "Active" } else { "Waiting for audio…" };
+                                    ui.label(RichText::new(status).color(if state.ready { ACCENT } else { MUTED }));
+                                    let submitted = state.submitted_control_version.map_or_else(|| "Waiting".into(), |v| format!("v{v}"));
+                                    let rendered = state.rendered_control_version.map_or_else(|| "Waiting".into(), |v| format!("v{v}"));
+                                    ui.label(format!("Controls prepared: {rendered} · submitted: {submitted}"));
+                                    if state.submitted_control_version.is_none_or(|v| v < self.audio.wanted_version()) {
+                                        ui.label("Waiting for this output to receive the latest controls.");
+                                    }
+                                }
+                            }
+                        });
+                        });
+                    }
+                });
+                if let Some(index) = remove {
+                    self.output_routing.remove(index);
+                }
+                ui.add_enabled_ui(!locked, |ui| {
+                    ui.horizontal(|ui| {
+                        if ui.button("+ Add output").clicked() {
+                            self.output_routing.outputs.push(OutputDraft {
+                                device_id: None,
+                                bus_id: self.selected_bus.or_else(|| self.session.buses.first().map(|bus| bus.id)),
+                            });
+                        }
+                        if ui.button("Refresh devices").clicked() {
+                            self.audio.send(Request::Refresh);
+                        }
+                    });
+                    if self.audio.devices.is_empty() {
+                        ui.label("No output devices found. Connect a device, then refresh.");
+                    }
+                    if let Some(error) = self.output_routing.issue(&self.session) {
+                        ui.colored_label(Color32::LIGHT_RED, error);
+                    } else {
+                        for route in &self.output_routing.outputs {
+                            if route.device_id.as_ref().is_some_and(|id| !self.audio.devices.iter().any(|device| &device.id == id)) {
+                                ui.colored_label(Color32::LIGHT_RED, "A selected device is unavailable. Reconnect it or choose another device.");
+                                break;
+                            }
+                        }
+                    }
+                });
+                if let Some(error) = &self.audio.error {
+                    ui.colored_label(Color32::LIGHT_RED, error);
+                }
+            });
+        self.outputs_open = open;
+        if before != self.output_routing {
+            self.undo
+                .push(store::StudioDocument::new(self.session.clone(), before));
+            if self.undo.len() > 32 {
+                self.undo.remove(0);
+            }
+            self.redo.clear();
+            self.dirty_since = Some(Instant::now());
+        }
     }
 
     fn source_picker(&mut self, ctx: &egui::Context, edits: &mut Vec<Edit>) {
@@ -505,28 +695,33 @@ impl Studio {
                             });
                         ui.add_enabled_ui(!self.audio.running() && !self.audio.busy, |ui| {
                             ui.add_space(8.0);
-                            ui.label("Listening device");
-                            let label = self
-                                .audio
-                                .devices
-                                .iter()
-                                .find(|d| Some(&d.id) == self.active_output.as_ref())
-                                .map(|d| d.name.as_str())
-                                .unwrap_or("Select an output…");
-                            egui::ComboBox::from_id_salt("output")
-                                .selected_text(label)
-                                .width(214.0)
-                                .show_ui(ui, |ui| {
-                                    for device in &self.audio.devices {
-                                        ui.selectable_value(
-                                            &mut self.active_output,
-                                            Some(device.id.clone()),
-                                            &device.name,
-                                        );
-                                    }
-                                });
-                            if ui.button("Refresh devices").clicked() {
-                                self.audio.send(Request::Refresh);
+                            ui.label("Devices receiving this mix");
+                            let mut assigned = false;
+                            for route in &self.output_routing.outputs {
+                                if route.bus_id == Some(bus.id) {
+                                    assigned = true;
+                                    let name = route
+                                        .device_id
+                                        .as_ref()
+                                        .map(|id| {
+                                            self.audio
+                                                .devices
+                                                .iter()
+                                                .find(|d| &d.id == id)
+                                                .map_or_else(
+                                                    || format!("Unavailable: {id}"),
+                                                    |d| d.name.clone(),
+                                                )
+                                        })
+                                        .unwrap_or_else(|| "Choose a device in Outputs".into());
+                                    ui.label(name);
+                                }
+                            }
+                            if !assigned {
+                                ui.label("No output assigned");
+                            }
+                            if ui.button("Configure outputs…").clicked() {
+                                self.outputs_open = true;
                             }
                             if ui.small_button("Remove mix").clicked() {
                                 edits.push(Edit::RemoveBus(bus.id));
@@ -534,7 +729,7 @@ impl Studio {
                         });
                     }
                     ui.add_space(12.0);
-                    meter(ui, "OUTPUT LEVEL", self.audio.peak());
+                    meter(ui, "MIX LEVEL", self.audio.bus_peak(self.selected_bus));
                     ui.separator();
                     if let Some(input) = self
                         .session
@@ -895,6 +1090,7 @@ impl eframe::App for Studio {
         self.inspector(ctx, &mut edits);
         self.mixer(ctx, &mut edits);
         self.source_picker(ctx, &mut edits);
+        self.output_picker(ctx);
         for edit in edits {
             self.edit(edit);
         }
@@ -915,7 +1111,9 @@ impl eframe::App for Studio {
         }
     }
     fn on_exit(&mut self) {
-        self.save();
+        if self.dirty_since.is_some() {
+            self.save();
+        }
         self.audio.send(Request::Stop);
     }
 }

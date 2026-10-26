@@ -297,6 +297,31 @@
       ]
     },
     {
+      "name": "arc-swap",
+      "version": "1.9.3",
+      "license": "MIT OR Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "repository": "https://github.com/vorner/arc-swap",
+      "declared_authors": [
+        "Michal 'vorner' Vaner <vorner@vorner.cz>"
+      ],
+      "registry_checksum": "380962b3d93b99642e50b9febf72c071e97e8b32d86eae9cf4ef582bb960ae6e",
+      "target_features": {
+        "aarch64-apple-darwin": [],
+        "x86_64-pc-windows-msvc": []
+      },
+      "notice_files": [
+        {
+          "path": "LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2"
+        },
+        {
+          "path": "LICENSE-MIT",
+          "sha256": "ff3f1cd12af8866d9bde961d6cc40df774cd131d484de31d3170c4b02b21a7b5"
+        }
+      ]
+    },
+    {
       "name": "arrayvec",
       "version": "0.7.8",
       "license": "MIT OR Apache-2.0",
@@ -4141,6 +4166,31 @@
         {
           "path": "LICENSE-MIT",
           "sha256": "30fefc3a7d6a0041541858293bcbea2dde4caa4c0a5802f996a7f7e8c0085652"
+        }
+      ]
+    },
+    {
+      "name": "rustversion",
+      "version": "1.0.23",
+      "license": "MIT OR Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "repository": "https://github.com/dtolnay/rustversion",
+      "declared_authors": [
+        "David Tolnay <dtolnay@gmail.com>"
+      ],
+      "registry_checksum": "cf54715a573b99ac80df0bc206da022bcd442c974952c7b9720069370852e21f",
+      "target_features": {
+        "aarch64-apple-darwin": [],
+        "x86_64-pc-windows-msvc": []
+      },
+      "notice_files": [
+        {
+          "path": "LICENSE-APACHE",
+          "sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a"
+        },
+        {
+          "path": "LICENSE-MIT",
+          "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3"
         }
       ]
     },

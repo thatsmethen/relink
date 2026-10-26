@@ -1,4 +1,4 @@
-//! Offline multi-output transport, not yet connected to native streams.
+//! Multi-output transport shared by native renderers and offline controls.
 //!
 //! One primary producer reserves an entire callback on every route before its
 //! caller advances the graph. PCM and accepted-target-version tags stay private
@@ -9,7 +9,7 @@
 //! Each follower starts at source frame zero with zero/versionless FIR
 //! prehistory. Priming delays playback but never discards its prefix. The same
 //! nominal sample rate is required; independent clocks use bounded ASRC. This
-//! module has no OS calls, audio runtime integration, automatic fault recovery,
+//! module has no OS calls, automatic fault recovery,
 //! or hardware-playback acknowledgments.
 use crate::capture_transport::{Kernel, CAPACITY, MAX_CORRECTION};
 use std::sync::{
