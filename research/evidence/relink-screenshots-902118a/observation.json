@@ -1,0 +1,37 @@
+{
+  "source_commit": "902118a60b070bb9cefdef75d5b477b5350b9847",
+  "images": [
+    {
+      "original": "mixer-original.jpg",
+      "published": "docs/screenshots/mixer-macos.png",
+      "width": 2560,
+      "height": 1704,
+      "decoded_rgb_exact": true,
+      "png_sha256": "98c42abd62be8f08ed03cc94ce4e1e2c516819f84d8dcdfb45bb0a54ec74b2f4",
+      "png_bytes": 612267
+    },
+    {
+      "original": "outputs-original.jpg",
+      "published": "docs/screenshots/output-routing-macos.png",
+      "width": 2560,
+      "height": 1704,
+      "decoded_rgb_exact": true,
+      "png_sha256": "79280ed1cd5e9b9fc57dfa770691eb6083f06cc973d952d31f6cc5a9517bc937",
+      "png_bytes": 658834
+    },
+    {
+      "original": "effects-original.jpg",
+      "published": "docs/screenshots/mix-effects-macos.png",
+      "width": 2560,
+      "height": 1704,
+      "decoded_rgb_exact": true,
+      "png_sha256": "710cd9964b925f975af2f288aebc23ca52739b163a1cd2d033ed2e1d80354bce",
+      "png_bytes": 663622
+    }
+  ],
+  "audio_started": false,
+  "fixture": "Four explicit test tones, three muted mixes, two saved output routes; all meters silent.",
+  "visual_edits": false,
+  "native_capture_badge_preserved": true,
+  "image_operation": "Lossless RGB encoding of original decoded JPEG pixels as PNG; no crop, scaling or retouching."
+}

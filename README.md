@@ -12,9 +12,9 @@ The [ReLink development preview](https://github.com/thatsmethen/relink/releases/
 
 ![ReLink on macOS with four test-tone sources and three mixes, audio stopped](docs/screenshots/mixer-macos.png)
 
-[Mix effects screenshot](docs/screenshots/mix-effects-macos.png) · [Original app icon](packaging/branding/ravelink.svg)
+[Output routing screenshot](docs/screenshots/output-routing-macos.png) · [Mix effects screenshot](docs/screenshots/mix-effects-macos.png) · [Original app icon](packaging/branding/ravelink.svg)
 
-These actual macOS screenshots show ReLink at `9cd350f`, with audio stopped and an explicit test-tone fixture. They do not demonstrate live hardware capture or Windows interaction. [Screenshot provenance](research/evidence/relink-screenshots-9cd350f/README.md) records the isolated source build, image hashes and exact restoration of the original studio.
+These actual macOS screenshots show the current source at `902118a`, including saved output routing, with audio stopped and an explicit test-tone fixture. They are newer than the packaged preview above and do not demonstrate live hardware capture or Windows interaction. [Screenshot provenance](research/evidence/relink-screenshots-902118a/README.md) records the committed source, original captures, exact image hashes and unchanged user studio.
 
 ## Rust workspace
 

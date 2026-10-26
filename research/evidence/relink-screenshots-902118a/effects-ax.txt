@@ -1,0 +1,5 @@
+The following is a diff from the previous accessibility tree for Window: "ReLink" with ~ and + representing changed and added elements, respectively. Removed elements are summarized by ID range.
+~		4 text (settable) Unsaved changes
+~		9 button Undo
+~		63 slider (settable, float) dB, Value: 8
+~		64 stepper (settable) dB, Value: 8

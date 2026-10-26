@@ -2,7 +2,6 @@
   "schema": 1,
   "kind": "stopped native UI development observation",
   "source": "pre-commit source manifest in source-before.json",
-  "binary_sha256": "4d1a96e179be08e1ca17997bf55d4d75e0d4b31f68aa39c0d05b73aa8b24e9c7",
   "audio_started": false,
   "journeys": [
     "empty Start opens output setup",
@@ -29,5 +28,8 @@
     "save only dirty studio at exit",
     "recover at canonical path after preserving original backup",
     "surface asynchronous cleanup failures and clear stale errors on healthy restart"
-  ]
+  ],
+  "built_binary_sha256": "4d1a96e179be08e1ca17997bf55d4d75e0d4b31f68aa39c0d05b73aa8b24e9c7",
+  "test_bundle_binary_sha256": "72b1f4bdc8d584be0f30e33f50baef849aa273d4848b05e6517d07b39265ebef",
+  "test_bundle_binary_hash_note": "Verified after observation; test bundle binary modification time2026-10-26T01:08:40Z predates captures. Ad-hoc signing changed the binary signature after the recorded build hash."
 }

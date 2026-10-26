@@ -1,0 +1,345 @@
+{
+  "studio_schema_version": 1,
+  "session": {
+    "schema_version": 1,
+    "id": "e48ac95a-fd7f-4b88-ad36-d8725f207a05",
+    "name": "Development preview \u00b7 test tones",
+    "sample_rate": 48000,
+    "inputs": [
+      {
+        "id": "81c1b76f-26e2-4e90-a9c9-6c5fe313b3ab",
+        "name": "Low tone",
+        "kind": {
+          "type": "test_tone",
+          "frequency_hz": 110,
+          "amplitude_db": -24.0
+        },
+        "controls": {
+          "gain_db": 0.0,
+          "right_gain_db": 0.0,
+          "pan": 0.0,
+          "muted": false,
+          "solo": false,
+          "linked": true
+        },
+        "dsp": {
+          "high_pass": null,
+          "gate": null,
+          "compressor": null,
+          "limiter": null
+        }
+      },
+      {
+        "id": "0e29e193-0a13-4214-aa02-7a97fabf0bbb",
+        "name": "Mid tone",
+        "kind": {
+          "type": "test_tone",
+          "frequency_hz": 440,
+          "amplitude_db": -24.0
+        },
+        "controls": {
+          "gain_db": 0.0,
+          "right_gain_db": 0.0,
+          "pan": 0.0,
+          "muted": false,
+          "solo": false,
+          "linked": true
+        },
+        "dsp": {
+          "high_pass": null,
+          "gate": null,
+          "compressor": null,
+          "limiter": null
+        }
+      },
+      {
+        "id": "c538df5a-7158-4668-947b-04f04a6b6d5b",
+        "name": "High tone",
+        "kind": {
+          "type": "test_tone",
+          "frequency_hz": 997,
+          "amplitude_db": -24.0
+        },
+        "controls": {
+          "gain_db": 0.0,
+          "right_gain_db": 0.0,
+          "pan": 0.0,
+          "muted": false,
+          "solo": false,
+          "linked": true
+        },
+        "dsp": {
+          "high_pass": null,
+          "gate": null,
+          "compressor": null,
+          "limiter": null
+        }
+      },
+      {
+        "id": "e4c2d56f-b7ef-478c-9d83-6aa265769cfc",
+        "name": "Reference",
+        "kind": {
+          "type": "test_tone",
+          "frequency_hz": 2000,
+          "amplitude_db": -24.0
+        },
+        "controls": {
+          "gain_db": 0.0,
+          "right_gain_db": 0.0,
+          "pan": 0.0,
+          "muted": false,
+          "solo": false,
+          "linked": true
+        },
+        "dsp": {
+          "high_pass": null,
+          "gate": null,
+          "compressor": null,
+          "limiter": null
+        }
+      }
+    ],
+    "buses": [
+      {
+        "id": "78e37842-ad68-4b38-b74f-90bf6ae1a3df",
+        "name": "Monitor",
+        "controls": {
+          "gain_db": 0.0,
+          "right_gain_db": 0.0,
+          "pan": 0.0,
+          "muted": true,
+          "solo": false,
+          "linked": true
+        },
+        "dsp": {
+          "high_pass": null,
+          "gate": null,
+          "compressor": {
+            "threshold_db": -18,
+            "ratio": 3,
+            "attack_ms": 25,
+            "release_ms": 100,
+            "makeup_gain_db": 2
+          },
+          "limiter": {
+            "ceiling_db": -0.3,
+            "release_ms": 50.0
+          }
+        }
+      },
+      {
+        "id": "7b48c81f-c572-4be7-8b7f-f2b32d3bc3cd",
+        "name": "Stream",
+        "controls": {
+          "gain_db": 0.0,
+          "right_gain_db": 0.0,
+          "pan": 0.0,
+          "muted": true,
+          "solo": false,
+          "linked": true
+        },
+        "dsp": {
+          "high_pass": null,
+          "gate": null,
+          "compressor": null,
+          "limiter": {
+            "ceiling_db": -0.3,
+            "release_ms": 50.0
+          }
+        }
+      },
+      {
+        "id": "6383f5a6-1eb4-4d49-bef8-e8c53a7f96f7",
+        "name": "Voice chat",
+        "controls": {
+          "gain_db": 0.0,
+          "right_gain_db": 0.0,
+          "pan": 0.0,
+          "muted": true,
+          "solo": false,
+          "linked": true
+        },
+        "dsp": {
+          "high_pass": null,
+          "gate": null,
+          "compressor": null,
+          "limiter": {
+            "ceiling_db": -0.3,
+            "release_ms": 50.0
+          }
+        }
+      }
+    ],
+    "sends": [
+      {
+        "id": "62aa9db3-4a77-412d-882f-8ea68badd6d4",
+        "input_id": "81c1b76f-26e2-4e90-a9c9-6c5fe313b3ab",
+        "bus_id": "78e37842-ad68-4b38-b74f-90bf6ae1a3df",
+        "controls": {
+          "gain_db": -9,
+          "right_gain_db": -9,
+          "pan": 0.0,
+          "muted": false,
+          "solo": false,
+          "linked": true
+        }
+      },
+      {
+        "id": "249395f2-a8d9-4e88-82af-817728e638a6",
+        "input_id": "81c1b76f-26e2-4e90-a9c9-6c5fe313b3ab",
+        "bus_id": "7b48c81f-c572-4be7-8b7f-f2b32d3bc3cd",
+        "controls": {
+          "gain_db": -12,
+          "right_gain_db": -12,
+          "pan": 0.0,
+          "muted": false,
+          "solo": false,
+          "linked": true
+        }
+      },
+      {
+        "id": "39253f3a-24fb-457f-8926-d7316f6db174",
+        "input_id": "81c1b76f-26e2-4e90-a9c9-6c5fe313b3ab",
+        "bus_id": "6383f5a6-1eb4-4d49-bef8-e8c53a7f96f7",
+        "controls": {
+          "gain_db": -15,
+          "right_gain_db": -15,
+          "pan": 0.0,
+          "muted": false,
+          "solo": false,
+          "linked": true
+        }
+      },
+      {
+        "id": "d97a87a6-41a3-4ec8-bb46-9b6907930ecb",
+        "input_id": "0e29e193-0a13-4214-aa02-7a97fabf0bbb",
+        "bus_id": "78e37842-ad68-4b38-b74f-90bf6ae1a3df",
+        "controls": {
+          "gain_db": -12,
+          "right_gain_db": -12,
+          "pan": 0.0,
+          "muted": false,
+          "solo": false,
+          "linked": true
+        }
+      },
+      {
+        "id": "b7d44e86-07cd-4972-805f-4da72413a167",
+        "input_id": "0e29e193-0a13-4214-aa02-7a97fabf0bbb",
+        "bus_id": "7b48c81f-c572-4be7-8b7f-f2b32d3bc3cd",
+        "controls": {
+          "gain_db": -15,
+          "right_gain_db": -15,
+          "pan": 0.0,
+          "muted": false,
+          "solo": false,
+          "linked": true
+        }
+      },
+      {
+        "id": "bb765f99-f147-4c0c-b162-2f57ca01541e",
+        "input_id": "0e29e193-0a13-4214-aa02-7a97fabf0bbb",
+        "bus_id": "6383f5a6-1eb4-4d49-bef8-e8c53a7f96f7",
+        "controls": {
+          "gain_db": -18,
+          "right_gain_db": -18,
+          "pan": 0.0,
+          "muted": false,
+          "solo": false,
+          "linked": true
+        }
+      },
+      {
+        "id": "d9f53b96-3a16-41fc-8c7c-d39d152cad91",
+        "input_id": "c538df5a-7158-4668-947b-04f04a6b6d5b",
+        "bus_id": "78e37842-ad68-4b38-b74f-90bf6ae1a3df",
+        "controls": {
+          "gain_db": -18,
+          "right_gain_db": -18,
+          "pan": 0.0,
+          "muted": false,
+          "solo": false,
+          "linked": true
+        }
+      },
+      {
+        "id": "d224ef0a-5fff-49c3-aa4b-6595b655ce69",
+        "input_id": "c538df5a-7158-4668-947b-04f04a6b6d5b",
+        "bus_id": "7b48c81f-c572-4be7-8b7f-f2b32d3bc3cd",
+        "controls": {
+          "gain_db": -21,
+          "right_gain_db": -21,
+          "pan": 0.0,
+          "muted": false,
+          "solo": false,
+          "linked": true
+        }
+      },
+      {
+        "id": "17e20dea-bc7f-4233-87cd-21aec93ce018",
+        "input_id": "c538df5a-7158-4668-947b-04f04a6b6d5b",
+        "bus_id": "6383f5a6-1eb4-4d49-bef8-e8c53a7f96f7",
+        "controls": {
+          "gain_db": -24,
+          "right_gain_db": -24,
+          "pan": 0.0,
+          "muted": false,
+          "solo": false,
+          "linked": true
+        }
+      },
+      {
+        "id": "d7530bef-8163-4c82-b315-fc0808440a57",
+        "input_id": "e4c2d56f-b7ef-478c-9d83-6aa265769cfc",
+        "bus_id": "78e37842-ad68-4b38-b74f-90bf6ae1a3df",
+        "controls": {
+          "gain_db": -24,
+          "right_gain_db": -24,
+          "pan": 0.0,
+          "muted": false,
+          "solo": false,
+          "linked": true
+        }
+      },
+      {
+        "id": "7291e9dd-9b4f-4f7b-a8fa-db9a45ab35e3",
+        "input_id": "e4c2d56f-b7ef-478c-9d83-6aa265769cfc",
+        "bus_id": "7b48c81f-c572-4be7-8b7f-f2b32d3bc3cd",
+        "controls": {
+          "gain_db": -27,
+          "right_gain_db": -27,
+          "pan": 0.0,
+          "muted": false,
+          "solo": false,
+          "linked": true
+        }
+      },
+      {
+        "id": "c6953495-c417-45d4-adf4-24f950f7cab7",
+        "input_id": "e4c2d56f-b7ef-478c-9d83-6aa265769cfc",
+        "bus_id": "6383f5a6-1eb4-4d49-bef8-e8c53a7f96f7",
+        "controls": {
+          "gain_db": -30,
+          "right_gain_db": -30,
+          "pan": 0.0,
+          "muted": false,
+          "solo": false,
+          "linked": true
+        }
+      }
+    ]
+  },
+  "output_routing": {
+    "outputs": [
+      {
+        "device_id": "coreaudio:BlackHole2ch_UID",
+        "bus_id": "78e37842-ad68-4b38-b74f-90bf6ae1a3df"
+      },
+      {
+        "device_id": "coreaudio:BuiltInSpeakerDevice",
+        "bus_id": "7b48c81f-c572-4be7-8b7f-f2b32d3bc3cd"
+      }
+    ],
+    "clock_output": "coreaudio:BlackHole2ch_UID"
+  }
+}

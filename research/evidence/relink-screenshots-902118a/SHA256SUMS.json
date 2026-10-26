@@ -1,0 +1,54 @@
+{
+  "README.md": {
+    "bytes": 1685,
+    "sha256": "8af83df6969a742f3ba0308f3071383ee606c4ab980ce8f9d9f8a711623bf894"
+  },
+  "build-binding.json": {
+    "bytes": 925,
+    "sha256": "2d9685cfad59a45b575b0e811a3b8fded84beb5bb6675f9e3f364e024b1e555e"
+  },
+  "effects-ax.txt": {
+    "bytes": 330,
+    "sha256": "4dc3b734317ee484bc5b810ca5952f2303576d59ebf44681ce993f3f3ef12874"
+  },
+  "effects-original.jpg": {
+    "bytes": 339438,
+    "sha256": "f9aca38e6d3044644b21ea0e94656ae75a4cd864e7726d581f9f0457cf13f3de"
+  },
+  "fixture-initial.json": {
+    "bytes": 8978,
+    "sha256": "769e87ecd75c7d5f68df50df26b984cd1830b717b3543df9578246e7f6c9c97a"
+  },
+  "invalid-fixture-original.json": {
+    "bytes": 9053,
+    "sha256": "ed5baa9a1bb8670016204921d4c820f5056162c25ee7ad692fd84adde7cc90c7"
+  },
+  "invalid-fixture-recovery-ax.txt": {
+    "bytes": 72,
+    "sha256": "16f522cd9755e3c27bbe9bbed577bc25dea394dead8957bd496b28f989b8cc28"
+  },
+  "invalid-fixture-recovery-original.jpg": {
+    "bytes": 246758,
+    "sha256": "3dbcc7f93fbcb977dbc4791002a8263d9e97891495b9a0789b74deafa78a5223"
+  },
+  "mixer-ax.txt": {
+    "bytes": 72,
+    "sha256": "16f522cd9755e3c27bbe9bbed577bc25dea394dead8957bd496b28f989b8cc28"
+  },
+  "mixer-original.jpg": {
+    "bytes": 319091,
+    "sha256": "e2022615b6dbaed4084a435d348b83013ad8ac3c19a0648dd384609fcda61673"
+  },
+  "observation.json": {
+    "bytes": 1313,
+    "sha256": "f7b089aa5edf79214946244bf67df2392337c016d85905f9ed50bc016c8db6fd"
+  },
+  "outputs-ax.txt": {
+    "bytes": 72,
+    "sha256": "16f522cd9755e3c27bbe9bbed577bc25dea394dead8957bd496b28f989b8cc28"
+  },
+  "outputs-original.jpg": {
+    "bytes": 348666,
+    "sha256": "553f1e04743590ee0eb6ab92f3ebd135c545b35d9d54925a322244b3a63a2559"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "source_commit": "902118a60b070bb9cefdef75d5b477b5350b9847",
+  "source_tree": "3487df8646e06526b536e12450be71536172da36",
+  "profile": "debug",
+  "test_bundle_id": "au.textual.relink.screenshots",
+  "built_binary_sha256": "d4140d1f5990ea48fa9c9ea2d4fb27df57cd58c31f1aeb7c1ad9e705e0ac1df9",
+  "wrapped_binary_sha256": "e8af92c06f8f4cbe003629b069ad8716fd1c3fab28dbccc60c035f3f186035fe",
+  "fixture_sha256": "769e87ecd75c7d5f68df50df26b984cd1830b717b3543df9578246e7f6c9c97a",
+  "user_studio_before_sha256": "94efd0f900d0d205944bbd291fa87a078ea469d7a3c1b462fedc5b123f3a6615",
+  "invalid_fixture_recovery": {
+    "original_preserved_after_quit": true,
+    "unknown_field": "mute",
+    "corrected_fixture_field": "muted",
+    "user_session_affected": false
+  },
+  "user_studio_after_sha256": "94efd0f900d0d205944bbd291fa87a078ea469d7a3c1b462fedc5b123f3a6615",
+  "no_audio_started": true,
+  "no_device_defaults_changed": true
+}
