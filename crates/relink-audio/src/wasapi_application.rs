@@ -1,11 +1,13 @@
 //! Original process-loopback owner. Only the selected INCLUDE process tree is
 //! activated. Completion callbacks signal atomics; PCM stays on one MTA owner.
 use super::{
-    application::ProcessInstance,
     application_windows::Selection,
     backend,
     capture::{CaptureState, OWNER_STACK_BYTES},
     wasapi_capture::{hresult_fault, Apartment, NativeCapture},
+    wasapi_event::{
+        release_native, CleanupReservation, CloseRecord, Registry, Reserved, WasapiEventClose,
+    },
     wasapi_packet::{Encoding, Layout, Tracker},
     AudioError, AudioFault, COMMAND_TIMEOUT,
 };
@@ -37,7 +39,6 @@ use windows::{
 
 const POLL: Duration = Duration::from_millis(20);
 const MONITOR_POLLS: usize = 12;
-const MAX_RESERVED_BYTES: usize = 256 * 1024 * 1024;
 type Reply = mpsc::SyncSender<Result<(), AudioError>>;
 enum Command {
     Configure(CaptureState),
@@ -54,6 +55,8 @@ pub(crate) fn fixed_owner_bytes() -> usize {
         + size_of::<Reservation>()
         + 2 * size_of::<Reserved>()
         + size_of::<Owner>()
+        // Also charge diagnostics to retained owners after the graph is gone.
+        + CloseRecord::bytes()
         + size_of::<AUDIOCLIENT_ACTIVATION_PARAMS>()
         + size_of::<PROPVARIANT>()
         + size_of::<AtomicBool>()
@@ -68,8 +71,10 @@ impl ApplicationCapture {
         if !state.authorized() {
             return Err(AudioError::Cancelled);
         }
-        let reservation = Reservation::acquire(selection)?;
+        let close = state.event_close();
+        let reservation = Reservation::acquire(selection, close.clone())?;
         let selection = selection.clone();
+        let owner_close = close.clone();
         let (ready, received) = mpsc::sync_channel(1);
         let (commands, incoming) = mpsc::sync_channel(1);
         let active = Arc::new(AtomicBool::new(true));
@@ -77,10 +82,24 @@ impl ApplicationCapture {
         thread::Builder::new()
             .name("relink-application-wasapi".into())
             .stack_size(OWNER_STACK_BYTES)
-            .spawn(move || owner_loop(selection, reservation, running, incoming, ready))
+            .spawn(move || {
+                owner_loop(
+                    selection,
+                    reservation,
+                    running,
+                    incoming,
+                    ready,
+                    owner_close,
+                )
+            })
             .map_err(|e| backend("Windows application owner creation", None, e))?;
         let stream = Self { commands, active };
-        receive(&received, "Windows process-loopback creation")?;
+        if let Err(error) = receive(&received, "Windows process-loopback creation") {
+            if let WasapiEventClose::Failed { hresult } = close.snapshot() {
+                state.fail_status(hresult_fault(HRESULT(hresult)), hresult);
+            }
+            return Err(error);
+        }
         // An activation that completes late never retains a graph/PCM ring: the
         // state remains here until the native owner has completed activation.
         if !state.authorized() || !stream.active.load(Ordering::Acquire) {
@@ -217,28 +236,24 @@ fn activation_error(name: String, error: windows::core::Error) -> AudioError {
 
 struct Owner {
     native: Option<NativeCapture>,
-    identity: Option<Selection>,
+    cleanup: CleanupReservation<Selection, Reservation>,
+    close: Arc<CloseRecord>,
     state: Option<CaptureState>,
-    reservation: Arc<Reservation>,
     active: Arc<AtomicBool>,
 }
 impl Drop for Owner {
     fn drop(&mut self) {
         self.active.store(false, Ordering::Release);
-        if let Some(native) = self.native.as_mut() {
-            if let Err(error) = native.stop() {
-                if let Some(state) = &self.state {
-                    state.fail_status(hresult_fault(error.code()), error.code().0);
-                }
-                // Failed Stop is not proof the service released the event/client.
-                // Retain native references, process handles and reservation.
-                // The held handles keep PID identities reserved for as long as
-                // this unresolved INCLUDE-tree client can exist; numeric birth
-                // tombstones alone cannot prevent eventual PID reuse.
-                std::mem::forget(self.native.take());
-                std::mem::forget(self.identity.take());
-                std::mem::forget(self.reservation.clone());
+        if let Err(status) = release_native(&mut self.native, &self.close, |native| {
+            native.stop().map_err(|error| error.code().0)
+        }) {
+            if let Some(state) = &self.state {
+                state.fail_status(hresult_fault(HRESULT(status)), status);
             }
+            // Failed Stop retains native ownership too; failed event close has
+            // already released COM and is never retried. Both keep the selected
+            // process identity and reservation charged until process exit.
+            self.cleanup.retain();
         }
     }
 }
@@ -248,6 +263,7 @@ fn owner_loop(
     active: Arc<AtomicBool>,
     incoming: mpsc::Receiver<Command>,
     ready: Reply,
+    close: Arc<CloseRecord>,
 ) {
     struct Cancel(Arc<AtomicBool>);
     impl Drop for Cancel {
@@ -256,6 +272,9 @@ fn owner_loop(
         }
     }
     let _cancel = Cancel(active.clone());
+    // Established before any event can exist; also covers constructor unwind.
+    // This Arc contains only close evidence, never a graph, permit or PCM ring.
+    let cleanup = CleanupReservation::new(selection.clone(), reservation.clone(), close.clone());
     if !active.load(Ordering::Acquire) {
         let _ = ready.send(Err(AudioError::Cancelled));
         return;
@@ -306,19 +325,24 @@ fn owner_loop(
         channels: 2,
         encoding: Encoding::F32,
     };
-    let native =
-        match NativeCapture::from_process_client(client, apartment, config.sample_rate(), layout) {
-            Ok(native) => native,
-            Err(error) => {
-                let _ = ready.send(Err(activation_error(selection.name(), error)));
-                return;
-            }
-        };
+    let native = match NativeCapture::from_process_client(
+        client,
+        apartment,
+        config.sample_rate(),
+        layout,
+        close.clone(),
+    ) {
+        Ok(native) => native,
+        Err(error) => {
+            let _ = ready.send(Err(activation_error(selection.name(), error)));
+            return;
+        }
+    };
     let mut owner = Owner {
         native: Some(native),
-        identity: Some(selection.clone()),
+        cleanup,
+        close,
         state: None,
-        reservation: reservation.clone(),
         active: active.clone(),
     };
     if !active.load(Ordering::Acquire) || ready.send(Ok(())).is_err() {
@@ -438,56 +462,12 @@ fn owner_loop(
     }
 }
 
-struct Reserved {
-    key: String,
-    scope: Vec<ProcessInstance>,
-    bytes: usize,
-}
-struct Registry {
-    slots: Vec<Reserved>,
-    bytes: usize,
-}
-impl Registry {
-    const fn new() -> Self {
-        Self {
-            slots: Vec::new(),
-            bytes: 0,
-        }
-    }
-    fn acquire(
-        &mut self,
-        key: String,
-        scope: &[ProcessInstance],
-        bytes: usize,
-    ) -> Result<(), AudioError> {
-        if self
-            .slots
-            .iter()
-            .any(|r| r.key == key || r.scope.iter().any(|p| scope.contains(p)))
-        {
-            return Err(backend("application owner reservation", None, "a selected process tree overlaps a live or retained owner; wait for cleanup or restart ReLink"));
-        }
-        let total = self.bytes.checked_add(bytes).filter(|&n| n <= MAX_RESERVED_BYTES).ok_or_else(|| backend("application owner reservation", None, "Windows application owners exhausted their 256 MiB explicit allocation budget; no partial tree was selected"))?;
-        self.slots.push(Reserved {
-            key,
-            scope: scope.to_vec(),
-            bytes,
-        });
-        self.bytes = total;
-        Ok(())
-    }
-    fn remove(&mut self, key: &str) {
-        if let Some(index) = self.slots.iter().position(|r| r.key == key) {
-            self.bytes -= self.slots.remove(index).bytes;
-        }
-    }
-}
 static REGISTRY: Mutex<Registry> = Mutex::new(Registry::new());
 struct Reservation {
     key: String,
 }
 impl Reservation {
-    fn acquire(selection: &Selection) -> Result<Arc<Self>, AudioError> {
+    fn acquire(selection: &Selection, close: Arc<CloseRecord>) -> Result<Arc<Self>, AudioError> {
         let key = selection.key();
         REGISTRY
             .lock()
@@ -498,7 +478,12 @@ impl Reservation {
                     "owner registry is unavailable",
                 )
             })?
-            .acquire(key.clone(), selection.scope(), selection.owner_bytes()?)?;
+            .acquire(
+                key.clone(),
+                selection.scope(),
+                selection.owner_bytes()?,
+                close,
+            )?;
         Ok(Arc::new(Self { key }))
     }
 }
@@ -513,24 +498,6 @@ impl Drop for Reservation {
 #[cfg(test)]
 mod tests {
     use super::*;
-    #[test]
-    fn reservations_reject_overlap_and_retained_owner_budget() {
-        let mut r = Registry::new();
-        let a = ProcessInstance { pid: 1, started: 2 };
-        r.acquire("a".into(), &[a], 100).unwrap();
-        assert!(r.acquire("b".into(), &[a], 100).is_err());
-        assert!(r
-            .acquire(
-                "c".into(),
-                &[ProcessInstance { pid: 3, started: 4 }],
-                MAX_RESERVED_BYTES
-            )
-            .is_err());
-        assert_eq!(r.bytes, 100);
-        r.remove("a");
-        assert_eq!(r.bytes, 0);
-        r.acquire("b".into(), &[a], 100).unwrap();
-    }
     #[test]
     fn completion_is_preallocated_atomic_and_never_reads_native_results() {
         let flag = Arc::new(AtomicBool::new(false));

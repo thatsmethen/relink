@@ -3,6 +3,7 @@
 use super::{
     backend,
     capture::CaptureState,
+    wasapi_event::{prepare_resources, CloseRecord, NativeResources, OwnedEvent},
     wasapi_packet::{Encoding, Layout, Metadata, ReleaseGuard, Tracker, SILENT},
     AudioError, AudioFault, RunningInput, COMMAND_TIMEOUT, MAX_CALLBACK_FRAMES,
 };
@@ -53,6 +54,7 @@ pub(crate) fn owner_bytes(configuration: &RunningInput) -> Result<usize, AudioEr
         Some(OWNER_CHANNEL_BYTES),
         Some(size_of::<WasapiCapture>()),
         Some(size_of::<NativeCapture>()),
+        Some(CloseRecord::bytes()),
         Some(size_of::<CaptureState>()),
         Some(size_of::<Tracker>()),
         Some(size_of::<Layout>()),
@@ -178,7 +180,7 @@ fn owner_loop(
         let _ = ready.send(Err(AudioError::Cancelled));
         return;
     }
-    let mut native = match NativeCapture::open(&id, sample_rate, layout) {
+    let mut native = match NativeCapture::open(&id, sample_rate, layout, state.event_close()) {
         Ok(native) => native,
         Err(error) => {
             let _ = ready.send(Err(backend("WASAPI input creation", Some(name), error)));
@@ -224,7 +226,7 @@ fn owner_loop(
     while active.load(Ordering::Acquire) && state.authorized() {
         // Only this dedicated capture thread waits. The engine's output callback
         // reads the atomic ring and never waits for a native device or this event.
-        let waited = unsafe { WaitForSingleObject(native.event.0, 20) };
+        let waited = unsafe { WaitForSingleObject(*native.resources.event.handle(), 20) };
         // A timeout still probes the packet count so invalidation can be
         // reported even when a disconnected endpoint stops signaling events.
         if waited != WAIT_OBJECT_0 && waited != WAIT_TIMEOUT {
@@ -254,11 +256,9 @@ impl Drop for Apartment {
         }
     }
 }
-struct Event(HANDLE);
-impl Drop for Event {
-    fn drop(&mut self) {
-        let _ = unsafe { CloseHandle(self.0) };
-    }
+type Event = OwnedEvent<HANDLE>;
+fn close_event(handle: HANDLE) -> Result<(), i32> {
+    unsafe { CloseHandle(handle) }.map_err(|error| error.code().0)
 }
 struct Realtime(HANDLE);
 impl Drop for Realtime {
@@ -269,16 +269,17 @@ impl Drop for Realtime {
 pub(crate) struct NativeCapture {
     // Release capture before client and both COM objects before the event and
     // COM apartment. The client may still reference its event until destruction.
-    capture: IAudioCaptureClient,
-    client: IAudioClient,
-    event: Event,
-    _realtime: Realtime,
-    _apartment: Apartment,
+    resources: NativeResources<IAudioCaptureClient, IAudioClient, Event, Realtime, Apartment>,
     started: bool,
     maximum_frames: u32,
 }
 impl NativeCapture {
-    fn open(id: &str, sample_rate: u32, layout: Layout) -> windows::core::Result<Self> {
+    fn open(
+        id: &str,
+        sample_rate: u32,
+        layout: Layout,
+        close: Arc<CloseRecord>,
+    ) -> windows::core::Result<Self> {
         let apartment = Apartment::open()?;
         let endpoint: Vec<u16> = id.encode_utf16().chain(Some(0)).collect();
         // SAFETY: the worker owns its COM apartment and all interfaces. The ID
@@ -300,7 +301,11 @@ impl NativeCapture {
         // Locals drop in reverse declaration order on every early return. Keep
         // this event alive until the client is released even if buffer/service
         // discovery or MMCSS registration fails after SetEventHandle succeeds.
-        let event = Event(unsafe { CreateEventW(None, false, false, None)? });
+        let event = Event::new(
+            unsafe { CreateEventW(None, false, false, None)? },
+            close_event,
+            close,
+        );
         let client: IAudioClient = unsafe { device.Activate(CLSCTX_ALL, None)? };
         let format = wave_format(sample_rate, layout)?;
         let mut closest = std::ptr::null_mut();
@@ -328,7 +333,7 @@ impl NativeCapture {
                 &format.Format,
                 None,
             )?;
-            client.SetEventHandle(event.0)?;
+            client.SetEventHandle(*event.handle())?;
         }
         let maximum_frames = unsafe { client.GetBufferSize()? };
         if maximum_frames == 0 || maximum_frames as usize > MAX_CALLBACK_FRAMES {
@@ -341,11 +346,13 @@ impl NativeCapture {
         let realtime =
             Realtime(unsafe { AvSetMmThreadCharacteristicsW(w!("Pro Audio"), &mut task_index)? });
         Ok(Self {
-            capture,
-            client,
-            event,
-            _realtime: realtime,
-            _apartment: apartment,
+            resources: NativeResources {
+                capture,
+                client,
+                event,
+                realtime,
+                apartment,
+            },
             started: false,
             maximum_frames,
         })
@@ -357,51 +364,72 @@ impl NativeCapture {
         apartment: Apartment,
         sample_rate: u32,
         layout: Layout,
+        close: Arc<CloseRecord>,
     ) -> windows::core::Result<Self> {
-        let owner_apartment = apartment;
-        let activated_client = client;
-        let event = Event(unsafe { CreateEventW(None, false, false, None)? });
-        // Rebind after the event so every early return releases the client before
-        // the event that Initialize/SetEventHandle may have attached to it.
-        let client = activated_client;
-        let format = wave_format(sample_rate, layout)?;
-        unsafe {
-            client.Initialize(
-                AUDCLNT_SHAREMODE_SHARED,
-                AUDCLNT_STREAMFLAGS_LOOPBACK
-                    | AUDCLNT_STREAMFLAGS_EVENTCALLBACK
-                    | AUDCLNT_STREAMFLAGS_AUTOCONVERTPCM,
-                0,
-                0,
-                &format.Format,
-                None,
-            )?;
-            client.SetEventHandle(event.0)?;
-        }
-        let maximum_frames = unsafe { client.GetBufferSize()? };
-        if maximum_frames == 0 || maximum_frames as usize > MAX_CALLBACK_FRAMES {
-            return Err(windows::core::Error::from_hresult(
-                AUDCLNT_E_BUFFER_SIZE_ERROR,
-            ));
-        }
-        let capture: IAudioCaptureClient = unsafe { client.GetService()? };
-        let mut task_index = 0;
-        let realtime =
-            Realtime(unsafe { AvSetMmThreadCharacteristicsW(w!("Pro Audio"), &mut task_index)? });
-        Ok(Self {
+        let (resources, maximum_frames) = prepare_resources(
+            client,
+            apartment,
+            || {
+                Ok(Event::new(
+                    unsafe { CreateEventW(None, false, false, None)? },
+                    close_event,
+                    close,
+                ))
+            },
+            |resources| -> windows::core::Result<u32> {
+                let format = wave_format(sample_rate, layout)?;
+                unsafe {
+                    resources.client.Initialize(
+                        AUDCLNT_SHAREMODE_SHARED,
+                        AUDCLNT_STREAMFLAGS_LOOPBACK
+                            | AUDCLNT_STREAMFLAGS_EVENTCALLBACK
+                            | AUDCLNT_STREAMFLAGS_AUTOCONVERTPCM,
+                        0,
+                        0,
+                        &format.Format,
+                        None,
+                    )?;
+                    resources.client.SetEventHandle(*resources.event.handle())?;
+                }
+                let maximum_frames = unsafe { resources.client.GetBufferSize()? };
+                if maximum_frames == 0 || maximum_frames as usize > MAX_CALLBACK_FRAMES {
+                    return Err(windows::core::Error::from_hresult(
+                        AUDCLNT_E_BUFFER_SIZE_ERROR,
+                    ));
+                }
+                resources.capture =
+                    Some(unsafe { resources.client.GetService::<IAudioCaptureClient>()? });
+                let mut task_index = 0;
+                resources.realtime = Some(Realtime(unsafe {
+                    AvSetMmThreadCharacteristicsW(w!("Pro Audio"), &mut task_index)?
+                }));
+                Ok(maximum_frames)
+            },
+        )?;
+        let NativeResources {
             capture,
             client,
             event,
-            _realtime: realtime,
-            _apartment: owner_apartment,
+            realtime,
+            apartment,
+        } = resources;
+        Ok(Self {
+            resources: NativeResources {
+                capture: capture.expect("configured capture service"),
+                client,
+                event,
+                realtime: realtime.expect("configured realtime task"),
+                apartment,
+            },
             started: false,
             maximum_frames,
         })
     }
+
     pub(crate) fn stop(&mut self) -> windows::core::Result<()> {
         if self.started {
             unsafe {
-                self.client.Stop()?;
+                self.resources.client.Stop()?;
             }
             self.started = false;
         }
@@ -414,7 +442,7 @@ impl NativeCapture {
         layout: Layout,
         active: &AtomicBool,
     ) -> Result<(), AudioFault> {
-        let waited = unsafe { WaitForSingleObject(self.event.0, 20) };
+        let waited = unsafe { WaitForSingleObject(*self.resources.event.handle(), 20) };
         if waited != WAIT_OBJECT_0 && waited != WAIT_TIMEOUT {
             return Err(AudioFault::Backend);
         }
@@ -422,8 +450,8 @@ impl NativeCapture {
     }
     pub(crate) fn start(&mut self) -> windows::core::Result<()> {
         unsafe {
-            ResetEvent(self.event.0)?;
-            self.client.Start()?;
+            ResetEvent(*self.resources.event.handle())?;
+            self.resources.client.Start()?;
         }
         self.started = true;
         Ok(())
@@ -441,7 +469,7 @@ impl NativeCapture {
             if !active.load(Ordering::Acquire) || !state.authorized() {
                 return Ok(());
             }
-            let available = unsafe { self.capture.GetNextPacketSize() }.map_err(|e| {
+            let available = unsafe { self.resources.capture.GetNextPacketSize() }.map_err(|e| {
                 let fault = hresult_fault(e.code());
                 state.fail_status(fault, e.code().0);
                 fault
@@ -458,7 +486,7 @@ impl NativeCapture {
             let mut position = 0;
             let mut qpc_100ns = 0;
             unsafe {
-                self.capture.GetBuffer(
+                self.resources.capture.GetBuffer(
                     &mut data,
                     &mut frames,
                     &mut flags,
@@ -476,7 +504,7 @@ impl NativeCapture {
             } // AUDCLNT_S_BUFFER_EMPTY: no lease.
             let release_status = std::cell::Cell::new(None);
             let release = ReleaseGuard::new(frames, |count| {
-                unsafe { self.capture.ReleaseBuffer(count) }.map_err(|e| {
+                unsafe { self.resources.capture.ReleaseBuffer(count) }.map_err(|e| {
                     release_status.set(Some(e.code().0));
                     hresult_fault(e.code())
                 })
@@ -526,7 +554,7 @@ impl NativeCapture {
         }
         // Exactly 64 packets can exhaust the queue without exhausting resources.
         // One final count query distinguishes that case without another lease.
-        match unsafe { self.capture.GetNextPacketSize() }.map_err(|e| {
+        match unsafe { self.resources.capture.GetNextPacketSize() }.map_err(|e| {
             let fault = hresult_fault(e.code());
             state.fail_status(fault, e.code().0);
             fault
@@ -539,7 +567,7 @@ impl NativeCapture {
 impl Drop for NativeCapture {
     fn drop(&mut self) {
         if self.started {
-            let _ = unsafe { self.client.Stop() };
+            let _ = unsafe { self.resources.client.Stop() };
         }
     }
 }

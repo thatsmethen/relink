@@ -22,8 +22,11 @@ mod epoch_gate;
 mod output_render;
 #[cfg(target_os = "windows")]
 mod wasapi_application;
+#[cfg_attr(not(any(target_os = "windows", test)), allow(dead_code))]
+mod wasapi_event;
 use epoch_gate::EpochGate;
 use output_render::{FanoutRender, OutputRenderer, OutputTelemetry};
+pub use wasapi_event::WasapiEventClose;
 mod output_sink;
 #[cfg(test)]
 use output_sink::InterleavedSink;
@@ -144,6 +147,9 @@ pub struct CaptureSnapshot {
     /// Native macOS packet evidence, retained after a fault. Other backends
     /// currently return None. Reading this never waits for an audio callback.
     pub native_timing: Option<NativeTimingSnapshot>,
+    /// Independent event-close result; retained even when first_fault predates teardown.
+    /// None on platforms without the Windows event owner.
+    pub event_close: Option<WasapiEventClose>,
 }
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct RunningOutput {
@@ -723,6 +729,16 @@ impl AudioRuntime {
                         clock_correction_ppm: f64::from_bits(
                             ring.correction_ppm.load(Ordering::Relaxed),
                         ),
+                        event_close: {
+                            #[cfg(any(target_os = "windows", test))]
+                            {
+                                Some(ring.event_close.snapshot())
+                            }
+                            #[cfg(not(any(target_os = "windows", test)))]
+                            {
+                                None
+                            }
+                        },
                         native_timing: {
                             #[cfg(target_os = "macos")]
                             {

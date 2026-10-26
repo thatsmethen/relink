@@ -166,7 +166,38 @@ Windows' single excluded tree cannot honestly stand in for all selected apps.
 Subtracting independently clocked captures from a global recording is not an
 acceptable shortcut without a separately validated alignment/cancellation model.
 
-The reused Windows event RAII wrapper does not expose the result of its final
-`CloseHandle` call. A successful Stop or source-reviewed ownership sequence is
-therefore not a strict native event-cleanup observation. Native Windows capture,
-permission behavior and complete cleanup qualification remain outstanding.
+The Windows capture event now has one non-cloneable RAII owner and a preallocated
+shared close-result record. `CaptureSnapshot.event_close` reports `NotCreated`,
+`Pending`, `Succeeded`, or `Failed { hresult }` independently of `first_fault`;
+an earlier Xrun cannot hide a later close failure. `Pending` means an event exists
+and no final close result is published, including while a native owner is retained.
+This record retains no graph, PCM ring or capture permit during asynchronous
+activation. Creation failure before `CreateEventW` succeeds remains `NotCreated`.
+
+After a successful application-client Stop, the owner explicitly drops native
+resources in capture-service, audio-client, event, realtime-task, apartment order
+before inspecting the close result. Constructor failure uses the same ordered
+resource holder, including partial service/MMCSS preparation. A failed event
+close is attempted once and never retried using the numeric handle; selected
+process handles and the owner reservation remain retained. Failed Stop continues
+to quarantine the native client/event as well. The guard is established before
+activation, so constructor unwind and cancellation before Configure also preserve
+the reservation when a close fails. Cleanup failure faults an attached capture
+state while leaving an already-recorded first fault immutable; the independent
+record remains observable even before a state was attached. The bounded owner
+registry holds the same lightweight record from reservation acquisition, so a
+late close failure survives replacement of the old session telemetry and PCM
+ring. An overlapping application retry reports the retained `CloseHandle`
+HRESULT (hexadecimal and signed value); a failed matching owner takes precedence
+over another owner that is still pending. Successful reservation removal frees
+this registry reference normally.
+
+Injected controls exercise release ordering, exactly one close attempt, both
+quarantine paths, constructor failures, cancellation without retaining the graph,
+and coexistence with an earlier Xrun in a retained runtime snapshot. A separate
+late-result control replaces runtime telemetry, proves the original PCM ring was
+dropped, then injects close failure and checks the retry diagnostic and retained
+reservation. Its success control verifies normal diagnostic release. These are
+ownership/policy tests, not native Windows `CloseHandle` observations. Native
+Windows capture, permission behavior and complete cleanup qualification remain
+outstanding.

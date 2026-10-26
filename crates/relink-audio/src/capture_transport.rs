@@ -16,6 +16,8 @@ const PHASES: usize = 1024;
 pub(crate) const MAX_CORRECTION: f64 = 0.002; // +/- 2,000 ppm; nominal rates must match.
 
 pub(crate) struct Ring {
+    #[cfg(any(target_os = "windows", test))]
+    pub(crate) event_close: Arc<super::wasapi_event::CloseRecord>,
     frames: Box<[AtomicU64]>,
     written: AtomicU64,
     released: AtomicU64,
@@ -29,6 +31,8 @@ pub(crate) struct Ring {
 impl Ring {
     pub(crate) fn new() -> Arc<Self> {
         Arc::new(Self {
+            #[cfg(any(target_os = "windows", test))]
+            event_close: Arc::new(super::wasapi_event::CloseRecord::default()),
             frames: (0..CAPACITY).map(|_| AtomicU64::new(0)).collect(),
             written: AtomicU64::new(0),
             released: AtomicU64::new(0),
@@ -41,7 +45,15 @@ impl Ring {
         })
     }
     pub(crate) fn bytes() -> usize {
-        CAPACITY * std::mem::size_of::<AtomicU64>() + std::mem::size_of::<Self>()
+        let base = CAPACITY * std::mem::size_of::<AtomicU64>() + std::mem::size_of::<Self>();
+        #[cfg(any(target_os = "windows", test))]
+        {
+            base + super::wasapi_event::CloseRecord::bytes()
+        }
+        #[cfg(not(any(target_os = "windows", test)))]
+        {
+            base
+        }
     }
     #[cfg(test)]
     pub(crate) fn test_sample(&self, frame: u64) -> [f32; 2] {

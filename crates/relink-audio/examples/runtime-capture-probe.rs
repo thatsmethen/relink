@@ -679,6 +679,7 @@ mod native {
                 buffered_frames: 0,
                 clock_correction_ppm: 0.0,
                 native_timing: Some(capture_timing),
+                event_close: None,
             });
             snapshot
         }
@@ -844,6 +845,7 @@ mod native {
                 buffered_frames: 0,
                 clock_correction_ppm: 0.0,
                 native_timing: Some(timing()),
+                event_close: None,
             });
             assert!(!native_shutdown_observed(&snapshot));
             let timing = snapshot.captures[0].native_timing.as_mut().unwrap();
@@ -881,6 +883,7 @@ mod native {
                 buffered_frames: 0,
                 clock_correction_ppm: 0.0,
                 native_timing: None,
+                event_close: None,
             });
             assert!(!native_shutdown_observed(&snapshot));
         }
@@ -1022,6 +1025,7 @@ mod native {
                 buffered_frames: 0,
                 clock_correction_ppm: 0.0,
                 native_timing: Some(timing()),
+                event_close: None,
             });
             assert!(!shutdown_observation_finished(&snapshot, false));
             assert!(shutdown_observation_finished(&snapshot, true));

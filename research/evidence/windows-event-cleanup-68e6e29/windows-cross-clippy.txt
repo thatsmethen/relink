@@ -1,0 +1,4 @@
+    Blocking waiting for file lock on build directory
+    Checking relink-audio v0.1.0 (/Users/textual/projects/notify/relink/crates/relink-audio)
+    Checking relink-app v0.1.0 (/Users/textual/projects/notify/relink/crates/relink-app)
+    Finished `dev` profile [unoptimized] target(s) in 2.72s

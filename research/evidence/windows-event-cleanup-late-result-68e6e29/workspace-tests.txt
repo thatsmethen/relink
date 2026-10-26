@@ -1,0 +1,361 @@
+   Compiling relink-audio v0.1.0 (/Users/textual/projects/notify/relink/crates/relink-audio)
+   Compiling relink-app v0.1.0 (/Users/textual/projects/notify/relink/crates/relink-app)
+    Finished `test` profile [unoptimized] target(s) in 4.11s
+     Running unittests src/main.rs (target/debug/deps/relink_app-33b2d307b7a2a78c)
+
+running 20 tests
+test audio_ui::tests::dropping_ui_cancels_an_undispatched_start ... ok
+test audio_ui::tests::stopping_start_does_not_suppress_non_cancellation_errors ... ok
+test audio_ui::tests::stop_cancels_start_while_it_is_still_in_the_ui_queue ... ok
+test audio_ui::tests::asynchronous_cleanup_fault_remains_visible_after_stop ... ok
+test audio_ui::tests::healthy_restart_clears_queued_old_fault_but_faulted_start_does_not ... ok
+test audio_ui::tests::application_catalog_failure_preserves_devices_and_does_not_start_or_cancel_audio ... ok
+test routing::tests::removing_clock_requires_an_explicit_replacement ... ok
+test routing::tests::duplicate_or_incomplete_routes_never_start ... ok
+test routing::tests::saved_routes_keep_order_clock_and_mix_independent_of_editor_selection ... ok
+test shortcut_tests::application_source_rejects_transient_identity_and_busy_edits_without_changing_studio ... ok
+test audio_ui::tests::application_catalog_retry_is_independent_and_keeps_stable_selector_ids ... ok
+test shortcut_tests::application_source_add_route_save_and_undo_preserve_stable_identity_without_starting_audio ... ok
+test store::tests::invalid_recovery_document_does_not_create_backup_or_touch_original ... ok
+test shortcut_tests::only_text_focus_reserves_text_history_shortcuts ... ok
+test shortcut_tests::redo_shortcuts_never_dispatch_undo_or_dispatch_twice ... ok
+test store::tests::failed_recovery_backup_never_replaces_original_or_existing_backup ... ok
+test store::tests::corrupt_and_future_files_are_never_replaced_on_read ... ok
+test store::tests::legacy_read_preserves_bytes_and_atomic_save_migrates_with_routes ... ok
+test store::tests::replace_roundtrips_and_invalid_state_preserves_original ... ok
+test store::tests::recovery_preserves_exact_original_and_reopens_saved_work_at_canonical_path ... ok
+
+test result: ok. 20 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.10s
+
+     Running unittests src/lib.rs (target/debug/deps/relink_audio-58d5e6a79f8e0ef1)
+
+running 203 tests
+test application_macos::tests::process_admission_uses_bytes_without_a_fixed_instance_or_ancestry_count ... ok
+test capture_groups::tests::shared_raw_planes_support_distinct_groups_without_duplicate_mix_inputs ... ok
+test capture_groups::tests::short_invalid_or_unrepresentable_attempts_do_not_expose_stale_group_audio ... ok
+test application_macos::tests::helpers_belong_to_exact_outer_bundle_not_name_prefix_or_nested_bundle ... ok
+test capture_groups::tests::grouping_rejects_duplicate_aliases_members_and_invalid_budgets ... ok
+test capture_groups::tests::independent_raw_sources_sum_once_before_logical_controls_and_shared_aliases ... ok
+test application_macos::tests::dependency_cleanup_is_ordered_and_retains_tap_if_aggregate_cannot_close ... ok
+test capture_groups::tests::instance_membership_is_resource_bounded_without_a_fixed_count_or_normalization ... ok
+test capture_tests::input_configuration_is_exact_rate_and_prefers_stereo_then_mono ... ok
+test capture_tests::incomplete_or_duplicated_capture_selection_is_rejected_before_owners_start ... ok
+test capture_tests::malformed_input_identity_is_rejected_without_any_device_discovery ... ok
+test capture_tests::capture_mapping_sanitizes_float_duplicates_mono_and_ignores_extra_channels ... ok
+test capture_tests::controls_are_acknowledged_only_after_rendering_not_priming_or_underflow ... ok
+test capture_tests::missing_capture_faults_after_bounded_startup_silence ... ok
+test capture_tests::application_processes_are_summed_before_one_logical_limiter_and_live_mute ... ok
+test capture_transport::spectral_tests::bandlimited_filter_has_full_audible_passband_and_rejects_alias_band ... ok
+test capture_tests::underflow_overflow_and_invalid_capture_packets_are_explicit_faults ... ok
+test fanout::tests::checked_budget_covers_arrays_and_control_storage_and_rejects_before_allocation ... ok
+test capture_tests::cancelled_capture_cannot_publish_and_new_start_has_no_stale_audio ... ok
+test fanout::tests::delayed_first_read_retains_source_zero_impulse_and_exact_zero_prehistory ... ok
+test fanout::tests::callback_watermark_covers_all_fir_support_and_does_not_ack_prehistory_or_unrendered_versions ... ok
+test fault::tests::fault_publication_and_bounded_snapshot_allocate_nothing_and_keep_absent_fields_absent ... ok
+test fault::tests::no_fault_cannot_claim_or_publish_a_record ... ok
+test fanout::tests::distinct_route_pcm_is_published_once_per_source_frame_and_stays_separate ... ok
+test fanout::tests::post_start_quantum_growth_beyond_target_is_explicit_and_cannot_skip_or_reprime ... ok
+test fault::tests::suspended_winner_stops_audio_with_coupled_identity_and_pending_metadata ... ok
+test native_capture::tests::fixed_registry_bounds_distinct_pending_and_retained_capture_owners ... ok
+test fanout::tests::no_route_observes_private_writes_while_producer_is_suspended_between_routes ... ok
+test native_capture::tests::duplicate_blocked_create_is_rejected_before_spawning_another_worker ... ok
+test fanout::tests::transactions_priming_first_render_and_fault_paths_allocate_and_free_nothing ... ok
+test native_capture::tests::each_unproven_teardown_retains_all_ownership_and_the_bounded_uid_slot ... ok
+test native_capture::tests::native_capture_owner_estimate_charges_explicit_stack_but_not_a_second_ring ... ok
+test fanout::tests::cancellation_before_and_after_shared_commit_and_fresh_epoch_are_explicit ... ok
+test native_capture::tests::first_native_callback_variable_packet_sizes_and_metadata_allocate_nothing ... ok
+test fanout::tests::preflight_checks_every_route_and_cursor_overflow_before_private_writes ... ok
+test fanout::tests::partial_failed_and_dropped_transactions_remain_invisible_and_shorter_retry_overwrites_bytes ... ok
+test native_capture::tests::late_native_start_success_cannot_reopen_cancelled_capture ... ok
+test native_capture::tests::native_format_notification_latches_fault_without_allocating_and_gates_late_pcm ... ok
+test native_capture::tests::native_teardown_preserves_each_failure_and_attempts_every_cleanup_step ... ok
+test native_capture::tests::portable_native_constants_match_the_pinned_apple_sdk ... ok
+test native_capture::tests::native_overload_is_distinct_from_packet_and_reentry_faults_and_keeps_actual_address ... ok
+test native_capture::tests::retained_native_block_survives_owner_drop_and_refuses_late_pcm ... ok
+test native_capture::tests::original_native_callback_publishes_expected_pcm_and_exact_gap_evidence ... ok
+test native_output::tests::actual_owner_finish_preserves_context_on_failure_and_releases_before_completion ... ok
+test native_capture::tests::malformed_native_planes_are_rejected_before_pcm_is_borrowed ... ok
+test native_capture::tests::successful_owner_completion_follows_block_context_listener_and_reservation_release ... ok
+test native_output::tests::every_valid_u8_plane_is_silent_before_activation_after_cancel_and_stale_epoch ... ok
+test native_output::tests::fixed_registry_bounds_pending_retained_and_distinct_uid_owners ... ok
+test native_output::tests::late_start_and_unproven_callbacks_never_enable_program_or_reuse_uid ... ok
+test native_output::tests::blocked_native_teardown_holds_reservation_while_handle_can_revoke ... ok
+test native_output::tests::callback_first_silence_program_fault_and_late_clear_allocate_nothing ... ok
+test capture_tests::capture_and_mixer_callbacks_allocate_nothing_and_share_one_input_stream ... ok
+test native_output::tests::native_sample_gap_clears_pcm_and_preserves_presentation_pair ... ok
+test native_output::tests::output_property_fault_preserves_actual_address_without_callback_allocation ... ok
+test native_output::tests::planar_native_ranges_reject_alias_null_and_descriptor_overlap_before_writes ... ok
+test native_output::tests::reentry_cannot_mutably_alias_an_active_native_writer ... ok
+test native_output::tests::post_start_silent_progress_precedes_activation_and_program_encoding ... ok
+test native_output::tests::retained_native_block_owns_context_and_clears_late_output_after_cancel ... ok
+test native_output::tests::startup_timeout_revokes_and_owner_memory_estimate_includes_explicit_thread_stack ... ok
+test native_capture::tests::prepared_dependencies_close_only_after_quiescence_and_quarantine_failed_cleanup ... ok
+test native_output_packet::tests::ambiguous_asbds_mono_and_rate_substitution_are_rejected ... ok
+test native_output::tests::teardown_calls_all_boundaries_once_retains_first_failure_and_never_invents_completion ... ok
+test native_output_packet::tests::float_endianness_extrema_nonfinite_and_negative_zero_have_exact_bytes ... ok
+test native_output_packet::tests::inactive_incomplete_abandoned_and_cancelled_after_final_chunk_are_silent ... ok
+test native_output::tests::valid_disjoint_planar_native_output_encodes_only_the_first_pair ... ok
+test native_output_packet::tests::malformed_write_is_sticky_and_clears_partial_program_pcm ... ok
+test native_output_packet::tests::packed_signed_extrema_halves_clipping_and_nonfinite_have_exact_bytes ... ok
+test native_output_packet::tests::padded_valid_bits_zero_padding_and_endian_are_exact ... ok
+test native_output_packet::tests::malformed_extents_are_rejected_before_any_plane_is_modified ... ok
+test native_output_packet::tests::planar_and_multiple_native_streams_select_first_pair_and_silence_the_rest ... ok
+test native_output_packet::tests::sequential_partitioning_matches_whole_packet_and_empty_chunks_do_not_complete ... ok
+test native_output_packet::tests::signed_rounding_uses_nearest_ties_away_before_saturation ... ok
+test native_output_packet::tests::unsigned_eight_bit_equilibrium_rounding_and_saturation_are_exact ... ok
+test native_output_timing::tests::first_output_fault_pair_and_lifecycle_status_remain_after_later_work ... ok
+test native_output_timing::tests::malformed_output_clock_flags_extents_and_precision_are_not_capture_faults ... ok
+test native_capture::tests::stale_epoch_cancelled_and_reentrant_native_callbacks_cannot_publish ... ok
+test native_output_timing::tests::output_continuity_uses_presentation_frames_without_assuming_host_clock_rate ... ok
+test native_output_timing::tests::output_journal_first_fault_completion_and_snapshots_allocate_nothing ... ok
+test native_packet_tests::bounded_callback_size_changes_do_not_allocate_or_require_format_changes ... ok
+test native_packet_tests::first_native_sample_gap_overlap_duplicate_and_bad_clock_are_rejected_without_reanchoring ... ok
+test native_packet_tests::native_integer_alignment_endianness_and_nonfinite_float_decoding_are_explicit ... ok
+test native_packet_tests::native_fault_pair_is_preserved_independently_of_subsequent_packets ... ok
+test native_packet_tests::native_pcm_layout_accepts_exact_rates_and_rejects_ambiguous_formats ... ok
+test native_packet_tests::native_lifecycle_records_preserve_first_status_and_expose_unreturned_operations ... ok
+test native_packet_tests::native_stereo_mapping_handles_interleaved_planar_mono_and_multiple_formats ... ok
+test output_plan::tests::duplicate_endpoint_is_rejected_even_for_different_buses ... ok
+test output_plan::tests::every_route_must_reference_an_existing_bus ... ok
+test output_plan::tests::missing_clock_and_empty_plan_are_explicit_errors ... ok
+test output_plan::tests::multiple_endpoints_can_share_a_bus_and_keep_order ... ok
+test output_plan::tests::malformed_empty_wrong_host_and_noncanonical_ids_are_rejected ... ok
+test output_plan::tests::opaque_native_suffix_is_neither_normalized_nor_a_default_alias ... ok
+test output_plan::tests::single_plan_selects_exact_endpoint_without_discovery ... ok
+test output_plan::tests::validates_the_full_session_including_unrouted_bus_and_input ... ok
+test native_packet_tests::native_sample_continuity_is_independent_of_real_drifting_host_clocks ... ok
+test output_progress::tests::missing_first_callback_and_regressed_counter_fail ... ok
+test output_progress::tests::progress_deadline_covers_three_maximum_callbacks_without_shortening_two_seconds ... ok
+test output_progress::tests::silence_and_pcm_progress_use_the_same_observed_deadline ... ok
+test native_output_timing::tests::concurrent_output_reads_are_bounded_coherent_and_preserve_raw_bits ... ok
+test native_output_packet::tests::bounded_maximum_layout_and_all_packet_paths_allocate_and_free_nothing ... ok
+test output_render::tests::a_fresh_epoch_has_no_cancelled_pcm_or_fir_ack_history ... ok
+test output_progress::tests::supervisor_revokes_stalled_output_while_control_mutex_is_held ... ok
+test output_render::tests::excessive_physical_routes_are_rejected_before_discovery_and_not_a_logical_channel_cap ... ok
+test output_render::tests::dispatcher_initial_priming_program_and_fault_callbacks_allocate_nothing ... ok
+test output_render::tests::emergency_cancel_during_partial_render_blocks_publication_without_control_lock ... ok
+test native_packet_tests::concurrent_native_metadata_snapshots_never_accept_a_torn_packet ... ok
+test output_render::tests::failed_final_chunk_publishes_no_route_or_ack_and_silences_every_owner ... ok
+test fault::tests::concurrent_first_winner_keeps_its_code_origin_endpoint_and_raw_metadata ... ok
+test output_render::tests::versionless_pcm_is_submitted_without_inventing_a_device_ack ... ok
+test output_render::tests::paused_old_slot_reader_never_cancels_or_reclaims_the_new_epoch ... ok
+test output_sink_tests::callback_sink_preserves_one_source_sequence_and_reports_only_completed_render ... ok
+test output_sink_tests::first_sink_callback_and_rejected_extent_allocate_nothing ... ok
+test output_sink_tests::cancellation_during_sink_copy_clears_the_complete_callback_without_acknowledging ... ok
+test output_startup::tests::failed_native_start_progress_inputs_or_activation_preserves_error_and_cancels ... ok
+test output_startup::tests::initially_cancelled_stale_or_faulted_permit_never_starts_native_io ... ok
+test output_sink_tests::sink_failure_after_a_chunk_clears_every_frame_and_withholds_acknowledgment ... ok
+test output_render::tests::follower_underflow_cancels_every_route_and_snapshot_keeps_exact_endpoint ... ok
+test output_startup::tests::invalidation_after_each_stage_prevents_further_startup_and_revokes_wanted ... ok
+test output_startup::tests::later_endpoint_activation_failure_never_opens_common_program_gate ... ok
+test output_startup::tests::success_orders_native_start_progress_inputs_and_activation ... ok
+test output_startup::tests::unwinding_at_every_stage_cancels_the_partially_started_output ... ok
+test output_startup::tests::very_large_budget_does_not_overflow_a_monotonic_deadline ... ok
+test output_startup::tests::zero_budget_does_not_start_or_activate ... ok
+test output_startup::tests::native_progress_receives_only_the_budget_remaining_after_start ... ok
+test tests::cancelled_queued_start_never_attempts_device_discovery ... ok
+test tests::callback_has_no_application_allocation_or_deallocation ... ok
+test tests::configuration_requires_exact_session_rate_and_stereo_pcm ... ok
+test tests::creation_and_stop_never_open_a_device ... ok
+test tests::emergency_stop_revokes_callbacks_without_the_control_mutex_or_queue ... ok
+test tests::empty_callbacks_do_not_acknowledge_unrendered_controls ... ok
+test tests::faults_are_latched_and_unsigned_silence_uses_midpoint ... ok
+test tests::in_flight_control_write_keeps_the_previous_complete_bank ... ok
+test tests::invalid_callback_buffers_stop_without_partially_writing_pcm ... ok
+test tests::live_controls_preserve_phase_through_gain_pan_mute_and_unmute ... ok
+test tests::live_edit_rejects_source_dsp_rate_and_route_changes_before_publication ... ok
+test tests::live_update_while_stopped_cannot_create_a_stream ... ok
+test tests::malformed_application_identity_and_missing_mix_are_explicit_errors ... ok
+test tests::native_transport_clamps_unlimited_float_mix_before_integer_conversion ... ok
+test tests::output_error_callback_keeps_original_fault_code_and_distinct_output_origin_without_allocation ... ok
+test tests::concurrent_bank_reader_never_observes_mixed_mute_and_gain_records ... ok
+test tests::output_selection_skips_unsupported_native_formats_before_channel_ranking ... ok
+test tests::output_owner_budget_is_reserved_before_compiling_or_opening_native_devices ... ok
+test output_progress::tests::native_silence_progress_cannot_hide_unbounded_program_priming ... ok
+test tests::start_token_cancellation_remains_effective_in_an_active_callback ... ok
+test tests::stopped_snapshot_hides_stale_meter_levels_and_keeps_diagnostics ... ok
+test tests::timed_out_or_stopped_start_cannot_emit_late_audio ... ok
+test tests::selected_bus_pcm_matches_independent_sine_across_chunks_and_callbacks ... ok
+test wasapi_event::tests::event_creation_failure_releases_client_before_apartment_without_close_attempt ... ok
+test wasapi_event::tests::failed_close_retains_identity_and_reservation_without_retry_even_after_prior_fault ... ok
+test wasapi_event::tests::late_cancel_after_creation_before_configure_observes_close_and_quarantine ... ok
+test wasapi_event::tests::cancelled_before_event_creation_keeps_no_graph_and_releases_reservation ... ok
+test wasapi_event::tests::overlapping_failure_is_reported_even_when_another_owner_is_still_pending ... ok
+test wasapi_event::tests::partial_constructor_unwind_closes_once_after_client_and_retains_on_failure ... ok
+test wasapi_event::tests::reservations_reject_overlap_and_retained_owner_budget ... ok
+test wasapi_event::tests::retained_runtime_snapshot_reports_close_failure_separately_from_first_xrun ... ok
+test wasapi_event::tests::stop_failure_quarantines_native_event_and_selection_without_closing ... ok
+test wasapi_event::tests::successful_stop_releases_com_before_one_event_close_and_apartment_last ... ok
+test wasapi_output_state::tests::acquisition_failure_does_not_fabricate_a_release_hresult_or_submission ... ok
+test wasapi_output_state::tests::activation_requires_ready_native_start_and_post_start_progress ... ok
+test wasapi_output_state::tests::bounded_reservations_preserve_pending_owner_and_unproven_tombstones ... ok
+test wasapi_output_state::tests::cancellation_before_or_during_late_start_is_terminal ... ok
+test wasapi_output_state::tests::competing_activation_never_resurrects_cancellation ... ok
+test wasapi_event::tests::late_close_after_telemetry_replacement_remains_queryable_without_old_ring ... ok
+test wasapi_output_state::tests::early_open_handle_cleanup_failure_prevents_completed_reservation_release ... ok
+test tests::snapshot_resolves_fault_against_its_unique_capture_identity_and_keeps_code_coupled ... ok
+test wasapi_output_state::tests::gates_submission_and_snapshot_path_do_not_allocate_or_free ... ok
+test wasapi_output_state::tests::raw_status_first_failure_and_unreturned_operation_are_distinct ... ok
+test wasapi_output_state::tests::real_portable_lease_acks_only_after_release_and_preserves_unwind_failure ... ok
+test wasapi_output_state::tests::submission_acknowledges_release_success_not_preparation_or_prefill ... ok
+test wasapi_output_state::tests::work_pending_and_immutable_lifecycle_slots_preserve_boundaries ... ok
+test wasapi_packet::tests::acquired_packet_releases_once_on_success_processing_error_and_release_error ... ok
+test wasapi_packet::tests::discontinuity_after_initial_zero_and_position_gap_stop_capture ... ok
+test wasapi_packet::tests::pcm_decoding_obeys_signedness_valid_bits_and_channel_mapping ... ok
+test wasapi_packet::tests::silent_flag_ignores_nonzero_short_or_absent_pcm ... ok
+test wasapi_packet::tests::timestamp_error_and_nonmonotonic_qpc_do_not_publish_a_packet ... ok
+test wasapi_render_packet::tests::complete_chunks_cover_every_frame_and_clear_resets_progress_and_u8_equilibrium ... ok
+test wasapi_output_state::tests::concurrent_work_snapshots_are_coherent_or_explicitly_unavailable ... ok
+test wasapi_render_packet::tests::default_drop_and_explicit_silence_release_the_entire_acquisition_even_when_pcm_is_complete ... ok
+test wasapi_render_packet::tests::ignored_bad_write_and_zero_or_oversized_acquisitions_cannot_commit_partial_pcm ... ok
+test wasapi_render_packet::tests::independent_golden_bytes_cover_all_encodings_and_extra_channel_equilibrium ... ok
+test wasapi_render_packet::tests::integer_rounding_valid_bit_alignment_and_f32_precision_boundaries_are_explicit ... ok
+test wasapi_render_packet::tests::lease_cannot_be_sent_or_shared_across_owner_threads ... ok
+test wasapi_render_packet::tests::malformed_extents_are_unchanged_and_invalid_chunks_poison_completion ... ok
+test wasapi_render_packet::tests::neutral_sink_writes_do_not_submit_and_late_validation_error_forces_silent_release ... ok
+test wasapi_render_packet::tests::packet_and_lease_success_error_cancellation_drop_paths_allocate_and_free_nothing ... ok
+test wasapi_render_packet::tests::owner_unwind_releases_silence_once_and_retains_failure ... ok
+test wasapi_render_packet::tests::rejected_native_pointer_releases_without_forming_or_touching_a_slice ... ok
+test wasapi_packet::tests::native_encoding_selection_and_packet_to_ring_are_allocation_free ... ok
+test wasapi_render_packet::tests::release_failures_remain_observable_on_commit_error_drop_and_constructor_failure_without_retry ... ok
+test wasapi_render_packet::tests::release_once_uses_pcm_only_for_complete_authorized_commit ... ok
+test wasapi_render_packet::tests::saturation_extrema_and_nonfinite_samples_have_independent_expected_bytes ... ok
+test output_render::tests::followers_never_consume_capture_or_advance_controls_and_graph ... ok
+test output_render::tests::full_follower_preflight_happens_before_advancing_the_actual_graph ... ok
+test output_progress::tests::healthy_phase_leading_follower_needs_four_periods_before_first_pcm ... ok
+test capture_tests::capture_owner_budget_rejects_overflow_and_is_added_to_render_cost_before_allocation ... ok
+test output_render::tests::real_dispatcher_renders_one_graph_and_routes_distinct_and_duplicate_buses ... ok
+test output_render::tests::captured_maximum_quantum_startup_48khz_preserves_healthy_independent_phases ... ok
+test output_render::tests::captured_maximum_quantum_startup_44100hz_preserves_healthy_independent_phases ... ok
+test output_render::tests::captured_maximum_quantum_startup_8khz_preserves_healthy_independent_phases ... ok
+test capture_tests::bandlimited_reader_matches_independent_stereo_pcm_through_wraparound ... ok
+test output_startup::tests::late_success_at_every_stage_is_rejected_including_after_activation ... ok
+test fanout::tests::startup_uses_committed_primary_quantum_and_supports_unequal_variable_partitions_within_margin ... ok
+test capture_tests::independent_clock_drift_preserves_continuity_without_drops ... ok
+test fanout::tests::two_independent_clocks_preserve_continuous_expected_pcm_and_one_source_sequence_through_wraps ... ok
+
+test result: ok. 203 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 15.06s
+
+     Running unittests examples/runtime-application-probe.rs (target/debug/examples/runtime_application_probe-be6492f16d531fd6)
+
+running 2 tests
+test native::tests::unrelated_bundles_and_ids_are_rejected_without_native_capture ... ok
+test native::tests::incomplete_or_failed_capture_cleanup_never_qualifies ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests examples/runtime-capture-probe.rs (target/debug/examples/runtime_capture_probe-e5dff12d8e460fbe)
+
+running 12 tests
+test native::tests::report_strings_escape_control_characters ... ok
+test native::tests::shutdown_observation_does_not_skip_output_diagnostics_when_captures_are_empty ... ok
+test native::tests::output_terminal_observation_does_not_accept_retention_or_unknown_quiescence ... ok
+test native::tests::output_shutdown_rejects_native_pending_faults_and_late_runtime_failure ... ok
+test native::tests::output_shutdown_acceptance_requires_every_successful_cleanup_event ... ok
+test native::tests::fault_json_preserves_source_raw_metadata_and_explicit_pending_state ... ok
+test native::tests::output_json_preserves_presentation_clock_bits_and_unavailable_lifecycle_fields ... ok
+test native::tests::native_json_keeps_fault_pair_large_ticks_and_nonfinite_float_bits ... ok
+test native::tests::native_shutdown_observation_requires_an_explicit_terminal_phase ... ok
+test native::tests::output_shutdown_json_separates_observation_acceptance_and_latched_late_fault ... ok
+test native::tests::terminal_snapshot_waits_for_earlier_cleanup_evidence_until_existing_deadline ... ok
+test native::tests::shutdown_polling_rejects_late_fault_even_if_final_snapshot_looks_clean ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests examples/runtime-multioutput-probe.rs (target/debug/examples/runtime_multioutput_probe-13ebb12fc806648a)
+
+running 8 tests
+test native::tests::acknowledgment_rejects_overtaking_and_changed_route_identity ... ok
+test native::tests::acknowledgments_require_both_native_routes_not_graph_or_preparation ... ok
+test native::tests::later_aggregate_observation_preserves_first_native_ack_timestamps ... ok
+test native::tests::strict_cleanup_requires_every_successful_operation_for_each_owner ... ok
+test native::tests::protocol_topology_has_two_distinct_sources_and_no_cross_bus_send_or_dsp ... ok
+test native::tests::missing_cleanup_proof_fails_at_deadline_without_claiming_success ... ok
+test native::tests::failed_cleanup_observation_remains_latched_even_if_later_snapshot_is_clean ... ok
+test native::tests::partial_shutdown_snapshot_can_complete_within_original_window ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/lib.rs (target/debug/deps/relink_core-4c24780006dc7827)
+
+running 3 tests
+test application::tests::selector_paths_are_absolute_platform_specific_and_without_nul_or_traversal ... ok
+test application::tests::selectors_reject_unknown_versions_platforms_fields_and_pid_only_records ... ok
+test application::tests::stable_selectors_round_trip_across_platforms_without_runtime_process_identity ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/bus_views.rs (target/debug/deps/bus_views-ff031077371b7c53)
+
+running 6 tests
+test multiple_buses_expose_exact_post_dsp_audio_including_omitted_outputs ... ok
+test bus_filter_history_advances_once_despite_repeated_views_and_missing_destinations ... ok
+test shorter_zero_and_rejected_attempts_never_expose_an_old_tail ... ok
+test handles_reject_unknown_buses_and_other_graphs_but_survive_moves ... ok
+test rendering_and_all_view_paths_allocate_or_deallocate_nothing ... ok
+test repeated_fanout_advances_oscillator_and_control_ramps_only_once_per_frame ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/controls.rs (target/debug/deps/controls-56341cabcb574ac2)
+
+running 4 tests
+test prepared_control_memory_budget_is_enforced_before_allocation ... ok
+test malformed_late_control_does_not_partially_apply_earlier_controls ... ok
+test solo_scopes_resolve_independently_with_mute_winning ... ok
+test controls_preserve_high_pass_history ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/engine.rs (target/debug/deps/engine-b4aa2c80a3fde1d2)
+
+running 15 tests
+test bad_buffers_return_before_mutating_output_or_advancing_tone ... ok
+test bus_master_limits_the_combined_sum ... ok
+test malformed_numeric_values_and_dangling_routes_never_reach_render ... ok
+test distinct_stereo_sources_sum_only_into_their_destinations ... ok
+test render_sanitizes_nonfinite_input_and_keeps_meters_finite ... ok
+test deleting_nodes_cleans_routes_and_rejected_mutations_roll_back ... ok
+test mapped_source_iterator_preserves_routing_without_descriptor_allocation ... ok
+test stereo_gain_linking_and_pan_preserve_channel_identity ... ok
+test input_send_and_bus_solo_have_distinct_scopes_and_mute_wins ... ok
+test persistence_round_trip_preserves_every_stable_id_and_rejects_future_versions ... ok
+test compressor_reduces_level_by_ratio_and_limiter_contains_first_transient ... ok
+test resource_limits_are_explicit_and_overflow_is_an_error ... ok
+test applying_and_retargeting_live_ramps_allocate_nothing_on_the_audio_thread ... ok
+test highpass_removes_dc_and_gate_rejects_below_threshold_signal ... ok
+test rendering_and_meter_reads_allocate_nothing_including_first_callback ... ok
+
+test result: ok. 15 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+     Running tests/smoothing.rs (target/debug/deps/smoothing-38243494b68a047c)
+
+running 11 tests
+test compiled_budget_includes_ramp_state_and_enforces_the_exact_boundary ... ok
+test invalid_control_banks_and_rejected_or_empty_renders_leave_ramps_untouched ... ok
+test missing_sources_and_omitted_outputs_still_advance_ramps ... ok
+test pan_and_unlinked_stereo_levels_ramp_to_the_resolved_targets ... ok
+test mute_and_unmute_reach_exact_endpoints_at_each_stage ... ok
+test stationary_muted_routes_resume_and_finish_retargeted_ramps ... ok
+test arbitrary_callback_boundaries_are_bit_exact_with_one_contiguous_render ... ok
+test resolved_input_send_and_bus_solo_changes_use_the_same_ramp ... ok
+test rapid_retarget_starts_from_last_rendered_gain_and_repeated_banks_do_not_extend_it ... ok
+test mute_ramps_preserve_oscillator_phase_and_input_or_bus_filter_history ... ok
+test gain_changes_follow_a_five_millisecond_continuous_ramp_at_each_stage_and_rate ... ok
+
+test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/lib.rs (target/debug/deps/relink_hal-e410181146e57a28)
+
+running 8 tests
+test ring::tests::wrap_missing_overwrite_and_independent_readers ... ok
+test tests::direct_vtable_properties_reject_bad_inputs_and_validate_formats ... ok
+test tests::sdk_64_bit_layout ... ok
+test device::tests::clients_are_balanced_and_devices_are_isolated ... ok
+test tests::direct_host_lifecycle_audio_clock_and_allocation_contract ... ok
+test device::tests::clock_is_monotonic_and_period_quantized ... ok
+test tests::published_cables_have_independent_clients_audio_and_restart_state ... ok
+test ring::tests::concurrent_overwrite_never_returns_another_frames_audio ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

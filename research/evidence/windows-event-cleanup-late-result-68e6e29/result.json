@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "recordedAt": "2026-10-26T03:46:28.885326+00:00",
+  "baseCommit": "68e6e291ea0624ef2f2eb21a48fa997b66e2ac5d",
+  "scope": "Windows event cleanup ownership, independent close diagnostics, application cleanup quarantine and constructor/cancellation unwind",
+  "sourceHashesAfterChecks": {
+    "crates/relink-audio/src/wasapi_event.rs": "18d5d8235af7a53bd3026017b9e1200a5842d77d4e14dcb0ac5c9476d4f9aa87",
+    "crates/relink-audio/src/wasapi_event_tests.rs": "2a4800cb79fd03f77bd07efd6a1a128a8424ffe9b969681b857c5409b240c1bd",
+    "crates/relink-audio/src/wasapi_capture.rs": "22a982ff23baac682962a00a82e36f65d3515bbe343b9884c796925374f21864",
+    "crates/relink-audio/src/wasapi_application.rs": "28447d17c9f26b472137abf57225bf751de0e3692d203f77087266e69e54f589",
+    "crates/relink-audio/src/capture.rs": "5d1e0651bbb9cedc376e564f5bae26050d9dc7d70069aecaf0423bd1f57f8829",
+    "crates/relink-audio/src/capture_transport.rs": "70cf56d3c2b3c6d0f76890c2f91fa43c712c97487b12794a1bd3f3a87dfec76e",
+    "crates/relink-audio/src/lib.rs": "ae3e93a995a8dd0fe22e45b2c9aedf3b5aeea63effcaf06f692abd1e3e2bee47",
+    "crates/relink-audio/examples/runtime-capture-probe.rs": "dbe537802bf64c5ae8d216d7847739b3f9d7c5ac901d40391ef8ae16434a6935",
+    "docs/audio-application-capture-research.md": "79bfd0489779b9200c5a317df545a12e8195e7c8c8b1f0bd91609f9250eb7185"
+  },
+  "toolchain": "rustc 1.91.1 (ed61e7d7e 2025-11-07)\nbinary: rustc\ncommit-hash: ed61e7d7e242494fb7057f2657300d9e77bb4fcb\ncommit-date: 2025-11-07\nhost: aarch64-apple-darwin\nrelease: 1.91.1\nLLVM version: 21.1.2",
+  "checks": [
+    {
+      "command": "cargo test --workspace --all-targets",
+      "exitCode": 0,
+      "log": "workspace-tests.txt",
+      "sha256": "c2c606828d35e6349365f322f033384b8495c9a412311c47412a276504923b97",
+      "passed": 292,
+      "failed": 0,
+      "ignored": 0,
+      "suites": 11,
+      "eventOwnershipControls": 11
+    },
+    {
+      "command": "cargo clippy --workspace --all-targets --target x86_64-pc-windows-msvc -- -D warnings",
+      "exitCode": 0,
+      "log": "windows-cross-clippy.txt",
+      "sha256": "698aea91d9a2831a230ff0990f0ed95779b1220c935378a7ae8ffd695f20733a"
+    }
+  ],
+  "boundaries": [
+    "Injected close results exercise the production ownership helpers, not native Windows CloseHandle calls.",
+    "The Windows source was cross-checked from macOS; no native Windows capture or cleanup was exercised.",
+    "No native capture, privacy grant, driver installation, default-device mutation, or service restart was performed for these checks.",
+    "Portable ownership tests intentionally retain small fake resources to exercise the production quarantine policy.",
+    "The all-target test includes concurrent parent work in runtime-application-probe.rs; this record owns only the listed source hashes.",
+    "Earlier verification remains preserved; this correction was required after independent review found late HRESULT loss when newer telemetry replaced the old ring."
+  ],
+  "sourceState": "Uncommitted modified/new working-tree files; baseCommit does not contain this implementation.",
+  "previousVerification": "../windows-event-cleanup-68e6e29/result.json",
+  "reviewCorrection": "Reserved registry entries now retain lightweight CloseRecord independently of replaceable telemetry. Overlapping retry reports retained CloseHandle HRESULT; old PCM ring is not retained.",
+  "repositoryHeadAtRecord": "91661eef9d695af91be4db3d979b1f696868a4bf",
+  "repositoryHeadNote": "Root advanced HEAD with a separate frozen-observation evidence commit during verification. Cleanup source remains uncommitted; only sourceHashesAfterChecks bind this implementation."
+}

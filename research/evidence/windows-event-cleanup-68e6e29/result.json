@@ -1,0 +1,44 @@
+{
+  "schema": 1,
+  "recordedAt": "2026-10-26T03:40:01.546772+00:00",
+  "baseCommit": "68e6e291ea0624ef2f2eb21a48fa997b66e2ac5d",
+  "scope": "Windows event cleanup ownership, independent close diagnostics, application cleanup quarantine and constructor/cancellation unwind",
+  "sourceHashesAfterChecks": {
+    "crates/relink-audio/src/wasapi_event.rs": "ac7265fa4530ce2283176315577dcd90d9809988cd954f11ddfa0aba52fd5443",
+    "crates/relink-audio/src/wasapi_event_tests.rs": "1a1eaa1abf54e3615ae014030c48fbdb47894ee36e727698af566233f5e3ec23",
+    "crates/relink-audio/src/wasapi_capture.rs": "22a982ff23baac682962a00a82e36f65d3515bbe343b9884c796925374f21864",
+    "crates/relink-audio/src/wasapi_application.rs": "1958bda5ab5e9c6193842355d078c014f27da86cf31512529e8c3f7056957b54",
+    "crates/relink-audio/src/capture.rs": "5d1e0651bbb9cedc376e564f5bae26050d9dc7d70069aecaf0423bd1f57f8829",
+    "crates/relink-audio/src/capture_transport.rs": "70cf56d3c2b3c6d0f76890c2f91fa43c712c97487b12794a1bd3f3a87dfec76e",
+    "crates/relink-audio/src/lib.rs": "ae3e93a995a8dd0fe22e45b2c9aedf3b5aeea63effcaf06f692abd1e3e2bee47",
+    "crates/relink-audio/examples/runtime-capture-probe.rs": "dbe537802bf64c5ae8d216d7847739b3f9d7c5ac901d40391ef8ae16434a6935",
+    "docs/audio-application-capture-research.md": "b70ede7253b1f214d268a2b337418c54c53582dcc66d604deb559a9062c6bb12"
+  },
+  "toolchain": "rustc 1.91.1 (ed61e7d7e 2025-11-07)\nbinary: rustc\ncommit-hash: ed61e7d7e242494fb7057f2657300d9e77bb4fcb\ncommit-date: 2025-11-07\nhost: aarch64-apple-darwin\nrelease: 1.91.1\nLLVM version: 21.1.2",
+  "checks": [
+    {
+      "command": "cargo test --workspace --all-targets",
+      "exitCode": 0,
+      "log": "workspace-tests.txt",
+      "sha256": "d6796982d1302f4d87b815c9974b2210d7719ad9b41b21a4f304b8bda2d0f2f8",
+      "passed": 289,
+      "failed": 0,
+      "ignored": 0,
+      "suites": 11,
+      "eventOwnershipControls": 8
+    },
+    {
+      "command": "cargo clippy --workspace --all-targets --target x86_64-pc-windows-msvc -- -D warnings",
+      "exitCode": 0,
+      "log": "windows-cross-clippy.txt",
+      "sha256": "8a6ccd39b4e27a64cad58311f792d73734ead2a471d3f102b4d9ab2b49e118dc"
+    }
+  ],
+  "boundaries": [
+    "Injected close results exercise the production ownership helpers, not native Windows CloseHandle calls.",
+    "The Windows source was cross-checked from macOS; no native Windows capture or cleanup was exercised.",
+    "No native capture, privacy grant, driver installation, default-device mutation, or service restart was performed for these checks.",
+    "Portable ownership tests intentionally retain small fake resources to exercise the production quarantine policy.",
+    "The all-target test includes concurrent parent work in runtime-application-probe.rs; this record owns only the listed source hashes."
+  ]
+}

@@ -403,6 +403,10 @@ impl CaptureState {
     pub(crate) fn authorized(&self) -> bool {
         self.permit.authorized()
     }
+    #[cfg(target_os = "windows")]
+    pub(crate) fn event_close(&self) -> Arc<super::wasapi_event::CloseRecord> {
+        self.producer.ring.event_close.clone()
+    }
     #[cfg(not(target_os = "macos"))]
     pub(crate) fn fail(&self, fault: AudioFault) {
         self.permit
