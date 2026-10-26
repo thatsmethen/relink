@@ -170,6 +170,56 @@ fn configuration_requires_exact_session_rate_and_stereo_pcm() {
 }
 
 #[test]
+fn output_selection_skips_unsupported_native_formats_before_channel_ranking() {
+    for unsupported in [
+        cpal::SampleFormat::I8,
+        cpal::SampleFormat::I64,
+        cpal::SampleFormat::U16,
+        cpal::SampleFormat::U24,
+        cpal::SampleFormat::U32,
+        cpal::SampleFormat::U64,
+    ] {
+        let choices = [
+            config(2, unsupported, 48000, 48000),
+            config(4, cpal::SampleFormat::F32, 48000, 48000),
+        ];
+        let selected = select_config(choices.into_iter(), 48000).unwrap();
+        assert_eq!(selected.channels(), 4);
+        assert_eq!(selected.sample_format(), cpal::SampleFormat::F32);
+    }
+}
+
+#[test]
+fn output_owner_budget_is_reserved_before_compiling_or_opening_native_devices() {
+    let (session, bus) = session();
+    let runtime = AudioRuntime::new().unwrap();
+    for bytes in [GRAPH_BYTES, usize::MAX] {
+        let result = RenderState::new_with_output_budget(
+            &session,
+            bus,
+            2,
+            0,
+            Arc::new(AtomicBool::new(true)),
+            runtime.shared.clone(),
+            bytes,
+        );
+        assert!(matches!(result, Err(AudioError::InvalidSession(_))));
+    }
+    assert!(RenderState::new_with_output_budget(
+        &session,
+        bus,
+        2,
+        0,
+        Arc::new(AtomicBool::new(true)),
+        runtime.shared.clone(),
+        4 * 1024 * 1024,
+    )
+    .is_ok());
+    assert!(!runtime.snapshot().running);
+    assert!(runtime.snapshot().output_timing.is_none());
+}
+
+#[test]
 fn selected_bus_pcm_matches_independent_sine_across_chunks_and_callbacks() {
     let (mut session, bus) = session();
     session.sends[0].controls.set_gain_db(-6.0);

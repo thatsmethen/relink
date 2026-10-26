@@ -1,8 +1,9 @@
 //! Explicit-device, stopped-by-default audio runtime for macOS and Windows.
 //!
 //! Blocking control methods must run away from the GUI thread. One dedicated
-//! thread owns CPAL hosts/devices/streams; Windows capture has dedicated WASAPI
-//! owners with bounded event waits. Callbacks use a preallocated mixer,
+//! thread discovers explicit devices; original CoreAudio and WASAPI owners
+//! manage capture/output with bounded control waits and separate progress
+//! supervision. Callbacks use a preallocated mixer,
 //! planar buffers and atomic telemetry, with no application locks or allocation.
 //! A command deadline cancels late output; it cannot kill a stuck OS call. A
 //! supervising process is still required for hard recovery from driver hangs.
@@ -11,8 +12,14 @@ mod capture;
 mod capture_transport;
 mod control_bank;
 mod output_sink;
-use output_sink::{InterleavedSink, RenderOutcome, StereoSink};
+#[cfg(test)]
+use output_sink::InterleavedSink;
+use output_sink::{RenderOutcome, StereoSink};
+mod output;
+pub use output::OutputTimingSnapshot;
 mod output_plan;
+mod output_progress;
+mod output_startup;
 pub use output_plan::{OutputPlan, OutputPlanError, OutputRoute};
 mod fault;
 // Offline transport prerequisite; runtime/OS integration is a separate checkpoint.
@@ -22,9 +29,20 @@ pub use fault::{FaultAttribution, FaultDirection, FaultMetadata, FaultOrigin, Fa
 use fault::{FaultLatch, FaultSource};
 #[cfg(target_os = "macos")]
 mod native_capture;
+#[cfg(target_os = "macos")]
+mod native_output;
+#[cfg(any(target_os = "macos", test))]
+#[cfg_attr(not(target_os = "macos"), allow(dead_code))]
+mod native_output_timing;
+#[cfg(target_os = "macos")]
+pub use native_output_timing::{
+    NativeOutputCompletion, NativeOutputFault, NativeOutputFaultReason, NativeOutputLifecycleEvent,
+    NativeOutputLifecyclePhase, NativeOutputOutcome, NativeOutputPacket, NativeOutputStamp,
+    NativeOutputTimingSnapshot, NATIVE_OUTPUT_LIFECYCLE_PHASES,
+};
 #[cfg(any(target_os = "macos", test))]
 mod native_packet;
-// Portable prerequisite only; no native CoreAudio render owner is connected yet.
+// Portable PCM encoder used by the original CoreAudio output owner.
 #[cfg(any(target_os = "macos", test))]
 #[allow(dead_code)]
 mod native_output_packet;
@@ -35,16 +53,26 @@ pub use native_timing::{
 };
 #[cfg(target_os = "windows")]
 mod wasapi_capture;
+#[cfg(target_os = "windows")]
+mod wasapi_output;
+#[cfg(any(target_os = "windows", test))]
+#[cfg_attr(not(target_os = "windows"), allow(dead_code))]
+mod wasapi_output_state;
+#[cfg(target_os = "windows")]
+pub use wasapi_output_state::{
+    WasapiOutputCall, WasapiOutputCompletion, WasapiOutputEvent, WasapiOutputOperation,
+    WasapiOutputPhase, WasapiOutputSnapshot, WasapiOutputWork, WASAPI_OUTPUT_PHASES,
+};
 #[cfg(any(target_os = "windows", test))]
 mod wasapi_packet;
-// Portable prerequisite only; no native WASAPI render owner is connected yet.
+// Portable PCM encoder/lease used by the original WASAPI output owner.
 #[cfg(any(target_os = "windows", test))]
 #[allow(dead_code)]
 mod wasapi_render_packet;
 use capture::{CaptureRender, CaptureState};
 use control_bank::ControlBank;
 
-use cpal::traits::{DeviceTrait, HostTrait, StreamTrait};
+use cpal::traits::{DeviceTrait, HostTrait};
 use ravelink_core::{
     CompiledMixer, InputKind, MeterReading, PreparedControls, ResourceBudget, Session, StereoInput,
     StereoOutput, Uuid,
@@ -242,6 +270,8 @@ pub struct AudioSnapshot {
     /// intermediate (possibly coalesced) control request was rendered.
     pub applied_control_version: u64,
     pub captures: Vec<CaptureSnapshot>,
+    /// Original output-owner observations, retained after stop or failed startup.
+    pub output_timing: Option<OutputTimingSnapshot>,
     pub input_meters: Vec<MeterReading>,
     pub bus_meters: Vec<MeterReading>,
     pub fault: AudioFault,
@@ -339,6 +369,7 @@ struct ControlState {
     telemetry: Option<Arc<Telemetry>>,
     error: Option<AudioError>,
     authorization: Option<(Arc<AtomicBool>, u64)>,
+    output_diagnostics: Option<output::Diagnostics>,
 }
 struct Shared {
     state: Mutex<ControlState>,
@@ -497,6 +528,8 @@ impl AudioRuntime {
     }
     /// Immediately prevents subsequent callback output, then asks the owner to
     /// release the stream. Already handed-off hardware samples cannot be recalled.
+    /// Success acknowledges cancellation and handle disposal, not completed native
+    /// teardown. Retained `output_timing` reports completion or unresolved ownership.
     pub fn stop(&self) -> Result<(), AudioError> {
         self.shared.epoch.fetch_add(1, Ordering::AcqRel);
         self.shared.state().running = false;
@@ -571,6 +604,10 @@ impl AudioRuntime {
                     })
                     .collect()
             }),
+            output_timing: state
+                .output_diagnostics
+                .as_ref()
+                .map(output::Diagnostics::snapshot),
             input_meters: inputs,
             bus_meters: buses,
             fault,
@@ -699,13 +736,15 @@ fn prepare_live_update(current: &Session, next: &Session) -> Result<PreparedCont
         .map_err(|e| AudioError::InvalidSession(e.to_string()))
 }
 
+#[cfg(any(target_os = "windows", test))]
 fn select_config(
     configs: impl Iterator<Item = cpal::SupportedStreamConfigRange>,
     sample_rate: u32,
 ) -> Option<cpal::SupportedStreamConfig> {
     configs
         .filter(|c| {
-            (2..=MAX_DEVICE_CHANNELS).contains(&c.channels()) && supported_pcm(c.sample_format())
+            (2..=MAX_DEVICE_CHANNELS).contains(&c.channels())
+                && wasapi_packet::Encoding::from_cpal(c.sample_format()).is_some()
         })
         .filter_map(|c| c.try_with_sample_rate(sample_rate))
         .min_by_key(|c| {
@@ -719,6 +758,7 @@ fn select_config(
             )
         })
 }
+#[cfg(any(not(target_os = "macos"), test))]
 fn supported_pcm(format: cpal::SampleFormat) -> bool {
     matches!(
         format,
@@ -738,7 +778,7 @@ fn supported_pcm(format: cpal::SampleFormat) -> bool {
 }
 
 struct Running {
-    _stream: cpal::Stream,
+    _stream: output::Stream,
     _input_streams: InputStreams,
     session: Session,
     controls: Arc<ControlBank>,
@@ -907,39 +947,44 @@ fn start_stream(
         .map_err(|e| backend("device description", Some(output.0.clone()), e))?
         .name()
         .to_owned();
-    let config = select_config(
-        device
-            .supported_output_configs()
-            .map_err(|e| backend("output format discovery", Some(name.clone()), e))?,
-        session.sample_rate,
-    )
-    .ok_or_else(|| AudioError::UnsupportedConfiguration {
-        device: name.clone(),
-        sample_rate: session.sample_rate,
-    })?;
-    let selected_inputs = capture::select(&session, &host)?;
-    let configuration = RunningConfiguration {
-        inputs: selected_inputs
-            .iter()
-            .map(|s| s.configuration.clone())
-            .collect(),
-        output: OutputDevice {
+    let selected_output = output::select(
+        &device,
+        OutputDevice {
             id: output,
             name: name.clone(),
         },
-        bus_id: bus,
-        sample_rate: config.sample_rate(),
-        device_channels: config.channels(),
-        sample_format: config.sample_format().to_string(),
-    };
-    let render = RenderState::new(
+        session.sample_rate,
+    )?;
+    let selected_inputs = capture::select(&session, &host)?;
+    let configuration = selected_output.configuration(
+        bus,
+        selected_inputs
+            .iter()
+            .map(|s| s.configuration.clone())
+            .collect(),
+    );
+    let render = RenderState::new_with_output_budget(
         &session,
         bus,
-        usize::from(config.channels()),
+        usize::from(selected_output.channels()),
         epoch,
         wanted.clone(),
         shared.clone(),
+        selected_output.owner_bytes()?,
     )?;
+    let permit = render.permit();
+    let diagnostics = selected_output.diagnostics();
+    // Publish diagnostic ownership before any native open/start operation, so
+    // failed or blocked startup remains observable after its handle is gone.
+    {
+        let mut state = shared.state();
+        state.running = false;
+        state.configuration = Some(configuration.clone());
+        state.telemetry = Some(render.telemetry.clone());
+        state.authorization = Some((wanted.clone(), epoch));
+        state.output_diagnostics = Some(diagnostics.clone());
+        state.error = None;
+    }
     let mut input_streams = InputStreams {
         streams: Vec::with_capacity(selected_inputs.len()),
         wanted: wanted.clone(),
@@ -974,73 +1019,36 @@ fn start_stream(
     if !render.authorized() {
         return Err(AudioError::Cancelled);
     }
-    let stream_config = config.config();
-    macro_rules! build {
-        ($ty:ty) => {
-            make_stream::<$ty>(&device, &stream_config, render, telemetry.clone())
-        };
-    }
-    let stream = match config.sample_format() {
-        cpal::SampleFormat::F32 => build!(f32),
-        cpal::SampleFormat::F64 => build!(f64),
-        cpal::SampleFormat::I8 => build!(i8),
-        cpal::SampleFormat::I16 => build!(i16),
-        cpal::SampleFormat::I24 => build!(cpal::I24),
-        cpal::SampleFormat::I32 => build!(i32),
-        cpal::SampleFormat::I64 => build!(i64),
-        cpal::SampleFormat::U8 => build!(u8),
-        cpal::SampleFormat::U16 => build!(u16),
-        cpal::SampleFormat::U24 => build!(cpal::U24),
-        cpal::SampleFormat::U32 => build!(u32),
-        cpal::SampleFormat::U64 => build!(u64),
-        _ => {
-            return Err(AudioError::UnsupportedConfiguration {
-                device: name,
-                sample_rate: session.sample_rate,
-            })
+    let stream = selected_output.build(render, &diagnostics)?;
+    output_startup::start_output(&stream, &permit, COMMAND_TIMEOUT, || {
+        for (input_stream, input) in input_streams.streams.iter().zip(&configuration.inputs) {
+            if !permit.authorized() {
+                return Err(AudioError::Cancelled);
+            }
+            input_stream.play().map_err(|error| {
+                backend("input activation", Some(input.device.name.clone()), error)
+            })?;
+            let fault = AudioFault::from_code(telemetry.fault.load(Ordering::Acquire));
+            if fault != AudioFault::None {
+                return Err(backend(
+                    "input activation",
+                    Some(input.device.name.clone()),
+                    fault.message(),
+                ));
+            }
         }
-    }
-    .map_err(|e| backend("stream creation", Some(name.clone()), e))?;
-    if !wanted.load(Ordering::Acquire) || shared.epoch.load(Ordering::Acquire) != epoch {
-        return Err(AudioError::Cancelled);
-    }
-    let initial_fault = AudioFault::from_code(telemetry.fault.load(Ordering::Acquire));
-    if initial_fault != AudioFault::None {
-        return Err(backend(
-            "stream creation",
-            Some(name),
-            initial_fault.message(),
-        ));
-    }
-    for (input_stream, input) in input_streams.streams.iter().zip(&configuration.inputs) {
-        if !wanted.load(Ordering::Acquire) || shared.epoch.load(Ordering::Acquire) != epoch {
-            return Err(AudioError::Cancelled);
-        }
-        input_stream
-            .play()
-            .map_err(|e| backend("input activation", Some(input.device.name.clone()), e))?;
-        let fault = AudioFault::from_code(telemetry.fault.load(Ordering::Acquire));
-        if fault != AudioFault::None {
-            return Err(backend(
-                "input activation",
-                Some(input.device.name.clone()),
-                fault.message(),
-            ));
-        }
-    }
-    if let Err(error) = stream.play() {
-        wanted.store(false, Ordering::Release);
-        return Err(backend("stream activation", Some(name.clone()), error));
-    }
-    let initial_fault = AudioFault::from_code(telemetry.fault.load(Ordering::Acquire));
-    if initial_fault != AudioFault::None {
-        return Err(backend(
-            "stream activation",
-            Some(name),
-            initial_fault.message(),
-        ));
-    }
-    if !wanted.load(Ordering::Acquire) || shared.epoch.load(Ordering::Acquire) != epoch {
+        // Supervision must exist before activation. If thread creation fails,
+        // the startup guard revokes the still-silent output and every input.
+        let progress_diagnostics = diagnostics.clone();
+        output_progress::supervise(
+            permit.clone(),
+            output_progress::deadline(configuration.sample_rate),
+            move || progress_diagnostics.progress_count(),
+        )?;
+        Ok(())
+    })?;
+    if !permit.authorized() {
+        permit.cancel();
         return Err(AudioError::Cancelled);
     }
     Ok((
@@ -1056,33 +1064,7 @@ fn start_stream(
         configuration,
     ))
 }
-fn make_stream<T>(
-    device: &cpal::Device,
-    config: &cpal::StreamConfig,
-    mut render: RenderState,
-    telemetry: Arc<Telemetry>,
-) -> Result<cpal::Stream, cpal::Error>
-where
-    T: cpal::SizedSample + cpal::FromSample<f32>,
-{
-    let epoch = render.epoch;
-    device.build_output_stream_raw(
-        *config,
-        T::FORMAT,
-        move |data, _| {
-            if let Some(samples) = data.as_slice_mut::<T>() {
-                render.write(samples);
-            } else {
-                render.fail(AudioFault::InvalidBuffer, FaultOrigin::OutputBuffer);
-            }
-        },
-        move |error| {
-            record_output_error(&telemetry, epoch, error.kind());
-        },
-        Some(COMMAND_TIMEOUT),
-    )
-}
-
+#[cfg(test)]
 fn record_output_error(telemetry: &Telemetry, epoch: u64, kind: cpal::ErrorKind) {
     telemetry.fault.record(
         stream_fault(kind),
@@ -1092,6 +1074,7 @@ fn record_output_error(telemetry: &Telemetry, epoch: u64, kind: cpal::ErrorKind)
     );
 }
 
+#[cfg(test)]
 fn output_error_origin(kind: cpal::ErrorKind) -> FaultOrigin {
     if cfg!(target_os = "macos") && kind == cpal::ErrorKind::Xrun {
         FaultOrigin::CpalCoreAudioOutputOverload
@@ -1100,6 +1083,7 @@ fn output_error_origin(kind: cpal::ErrorKind) -> FaultOrigin {
     }
 }
 
+#[cfg(any(test, not(any(target_os = "macos", target_os = "windows"))))]
 fn stream_fault(kind: cpal::ErrorKind) -> AudioFault {
     use cpal::ErrorKind;
     match kind {
@@ -1120,6 +1104,7 @@ struct RenderState {
     control_scratch: PreparedControls,
     applied_version: u64,
     bus: Uuid,
+    #[cfg(test)]
     channels: usize,
     captures: Vec<CaptureRender>,
     priming_frames: u64,
@@ -1131,7 +1116,41 @@ struct RenderState {
     shared: Arc<Shared>,
     telemetry: Arc<Telemetry>,
 }
+
+/// Cloned only while constructing a native owner. A callback or listener uses
+/// these atomics without borrowing the single-writer mixer or control mutex.
+/// Program activation is a separate, owner-local gate.
+#[derive(Clone)]
+struct OutputPermit {
+    epoch: u64,
+    wanted: Arc<AtomicBool>,
+    shared: Arc<Shared>,
+    telemetry: Arc<Telemetry>,
+}
+impl OutputPermit {
+    fn cancel(&self) {
+        self.wanted.store(false, Ordering::Release);
+    }
+    fn authorized(&self) -> bool {
+        self.wanted.load(Ordering::Acquire)
+            && self.shared.epoch.load(Ordering::Acquire) == self.epoch
+            && self.telemetry.fault.load(Ordering::Acquire) == 0
+    }
+    fn epoch(&self) -> u64 {
+        self.epoch
+    }
+    fn metadata(&self) -> FaultMetadata {
+        FaultMetadata::now(self.epoch)
+    }
+    fn fail_at(&self, fault: AudioFault, origin: FaultOrigin, metadata: FaultMetadata) {
+        self.telemetry
+            .fault
+            .record(fault, origin, FaultSource::OUTPUT, metadata);
+    }
+}
+
 impl RenderState {
+    #[cfg(test)]
     fn new(
         session: &Session,
         bus: Uuid,
@@ -1140,6 +1159,24 @@ impl RenderState {
         wanted: Arc<AtomicBool>,
         shared: Arc<Shared>,
     ) -> Result<Self, AudioError> {
+        Self::new_with_output_budget(session, bus, channels, epoch, wanted, shared, 0)
+    }
+
+    #[allow(clippy::too_many_arguments)]
+    fn new_with_output_budget(
+        session: &Session,
+        bus: Uuid,
+        channels: usize,
+        epoch: u64,
+        wanted: Arc<AtomicBool>,
+        shared: Arc<Shared>,
+        output_bytes: usize,
+    ) -> Result<Self, AudioError> {
+        if !(2..=usize::from(MAX_DEVICE_CHANNELS)).contains(&channels) {
+            return Err(AudioError::InvalidSession(
+                "output needs a supported stereo PCM layout".into(),
+            ));
+        }
         let control_records = session
             .inputs
             .len()
@@ -1176,6 +1213,7 @@ impl RenderState {
             .and_then(|n| n.checked_add(2 * RENDER_CHUNK * std::mem::size_of::<f32>()))
             .and_then(|n| n.checked_add(control_bytes))
             .and_then(|n| n.checked_add(capture_bytes))
+            .and_then(|n| n.checked_add(output_bytes))
             .and_then(|n| n.checked_add(std::mem::size_of::<Telemetry>()))
             .and_then(|n| GRAPH_BYTES.checked_sub(n))
             .ok_or_else(|| {
@@ -1215,6 +1253,7 @@ impl RenderState {
             control_scratch,
             applied_version: 0,
             bus,
+            #[cfg(test)]
             channels,
             captures,
             priming_frames: 0,
@@ -1235,11 +1274,20 @@ impl RenderState {
             FaultMetadata::now(self.epoch),
         );
     }
+    fn permit(&self) -> OutputPermit {
+        OutputPermit {
+            epoch: self.epoch,
+            wanted: self.wanted.clone(),
+            shared: self.shared.clone(),
+            telemetry: self.telemetry.clone(),
+        }
+    }
     fn authorized(&self) -> bool {
         self.wanted.load(Ordering::Acquire)
             && self.shared.epoch.load(Ordering::Acquire) == self.epoch
             && self.telemetry.fault.load(Ordering::Acquire) == 0
     }
+    #[cfg(test)]
     fn write<T: cpal::SizedSample + cpal::FromSample<f32>>(&mut self, output: &mut [T]) {
         let mut sink = InterleavedSink {
             samples: output,

@@ -1,13 +1,20 @@
-# Native output ownership — owner implementation still pending
+# Native output ownership — design and integration status
 
-Reviewed 2026-10-24. The [whole-callback sink](OUTPUT-SINK.md) and portable
-CoreAudio/WASAPI encoding and lease prerequisites are now implemented and tested.
-The native owner work below remains a feasibility/design review. Original Rust
-CoreAudio IOProc and WASAPI render owners can
-replace CPAL output while keeping the mixer, coherent control bank, capture
-consumers, epoch cancellation and offline fanout transport. This is a source/SDK
-review, not evidence of native startup, timing, permissions or teardown. No device
-was queried or opened. The failed installed observations remain unchanged.
+Reviewed 2026-10-24. The original Rust CoreAudio IOProc and WASAPI render owners
+are now connected to the single-output runtime through the
+[whole-callback sink](OUTPUT-SINK.md), preserving the mixer, coherent control bank,
+capture consumers and epoch cancellation. CPAL supplies discovery, identity and
+configuration types; the original owners perform output I/O. Fanout remains an
+offline transport prerequisite and is not connected to running multiple outputs.
+
+The sections below retain the SDK-based design and implementation sequence that
+preceded this integration; their original source line references are historical.
+The [native-output validation checkpoint](NATIVE-OUTPUT-VALIDATION.md) records
+the implemented ownership, independent source review, offline checks and the
+preregistered cleanup gate. These do not establish native startup, timing,
+permissions or teardown on an installed device. No device was queried or opened
+for this review. Failed installed observations remain unchanged, and Windows
+audio runtime execution remains pending.
 
 ## Minimal shared boundary
 

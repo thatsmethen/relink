@@ -1,4 +1,5 @@
 //! A validated, callback-scoped stereo destination. Native submission is separate.
+#[cfg(test)]
 use crate::{MAX_CALLBACK_FRAMES, MAX_DEVICE_CHANNELS};
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -30,10 +31,12 @@ pub(crate) enum RenderOutcome {
     },
 }
 
+#[cfg(test)]
 pub(crate) struct InterleavedSink<'a, T> {
     pub(crate) samples: &'a mut [T],
     pub(crate) channels: usize,
 }
+#[cfg(test)]
 impl<T: cpal::SizedSample + cpal::FromSample<f32>> StereoSink for InterleavedSink<'_, T> {
     fn frames(&self) -> Result<usize, InvalidOutputBuffer> {
         if !(2..=usize::from(MAX_DEVICE_CHANNELS)).contains(&self.channels)

@@ -34,8 +34,12 @@ pub(crate) enum Error {
 
 /// Created off the callback. Uses the same conservative supported-ASBD policy
 /// as capture, with at least two total channels and a positive exact rate.
+#[derive(Debug, PartialEq, Eq)]
 pub(crate) struct OutputLayout(Layout);
 impl OutputLayout {
+    pub(crate) fn native_layout(&self) -> &Layout {
+        &self.0
+    }
     pub(crate) fn new(formats: &[Format], rate: u32) -> Result<Self, Error> {
         if rate == 0 {
             return Err(Error::InvalidRate);

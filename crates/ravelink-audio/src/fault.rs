@@ -33,6 +33,14 @@ pub enum FaultOrigin {
     MixerRender = 13,
     WasapiInput = 14,
     CpalInputError = 15,
+    NativeOutputPacket = 16,
+    NativeOutputReentry = 17,
+    NativeOutputProperty = 18,
+    NativeOutputOverload = 19,
+    NativeOutputLifecycle = 20,
+    NativeOutputStartup = 21,
+    WasapiOutput = 22,
+    NativeOutputProgress = 23,
 }
 impl FaultOrigin {
     fn decode(value: u8) -> Self {
@@ -52,6 +60,14 @@ impl FaultOrigin {
             13 => Self::MixerRender,
             14 => Self::WasapiInput,
             15 => Self::CpalInputError,
+            16 => Self::NativeOutputPacket,
+            17 => Self::NativeOutputReentry,
+            18 => Self::NativeOutputProperty,
+            19 => Self::NativeOutputOverload,
+            20 => Self::NativeOutputLifecycle,
+            21 => Self::NativeOutputStartup,
+            22 => Self::WasapiOutput,
+            23 => Self::NativeOutputProgress,
             _ => Self::Runtime,
         }
     }

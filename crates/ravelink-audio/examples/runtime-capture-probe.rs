@@ -5,7 +5,9 @@
 mod native {
     use ravelink_audio::{
         AudioFault, AudioRuntime, AudioSnapshot, FaultAttribution, NativeCallbackOutcome,
-        NativeCapturePacket, NativeLifecyclePhase, NativeTimingSnapshot, OutputId,
+        NativeCapturePacket, NativeLifecyclePhase, NativeOutputLifecyclePhase, NativeOutputOutcome,
+        NativeOutputPacket, NativeOutputStamp, NativeTimingSnapshot, OutputId,
+        OutputTimingSnapshot,
     };
     use ravelink_core::{Bus, DspConfig, Input, InputKind, Send, Session};
     use serde_json::{json, Value};
@@ -93,8 +95,143 @@ mod native {
             }))
         })
     }
+    fn output_stamp_json(stamp: NativeOutputStamp) -> Value {
+        json!({
+            "sample_time":stamp.sample_time, "sample_time_bits":stamp.sample_time.to_bits(),
+            "host_time":stamp.host_time, "flags":stamp.flags,
+            "rate_scalar":stamp.rate_scalar, "rate_scalar_bits":stamp.rate_scalar.to_bits(),
+        })
+    }
+    fn output_packet_json(packet: NativeOutputPacket) -> Value {
+        json!({
+            "callback_index":packet.callback_index, "epoch":packet.epoch, "frames":packet.frames,
+            "entry_host_time":packet.entry_host_time, "now":output_stamp_json(packet.now),
+            "presentation":output_stamp_json(packet.presentation),
+        })
+    }
+    fn output_timing_json(timing: &OutputTimingSnapshot) -> Value {
+        let OutputTimingSnapshot::CoreAudio(timing) = timing;
+        let lifecycle: Vec<_> = timing
+            .lifecycle
+            .iter()
+            .flatten()
+            .map(|event| {
+                json!({
+                    "phase":format!("{:?}",event.phase), "host_time":event.host_time,
+                    "status":event.status, "callbacks_in_flight":event.callbacks_in_flight,
+                })
+            })
+            .collect();
+        let completion = timing.last_completion.map(|completion| {
+            let outcome = match completion.outcome {
+                NativeOutputOutcome::InactiveSilence => json!({"kind":"inactive_silence"}),
+                NativeOutputOutcome::PrimingSilence => json!({"kind":"priming_silence"}),
+                NativeOutputOutcome::Encoded { accepted_version } => {
+                    json!({"kind":"encoded", "accepted_version":accepted_version})
+                }
+                NativeOutputOutcome::Cancelled => json!({"kind":"cancelled"}),
+                NativeOutputOutcome::Rejected(fault) => {
+                    json!({"kind":"rejected", "fault":fault as u32})
+                }
+            };
+            json!({"packet":output_packet_json(completion.packet),
+                "after_render_host_time":completion.after_render_host_time,
+                "completion_host_time":completion.completion_host_time, "outcome":outcome})
+        });
+        json!({"backend":"coreaudio", "callbacks_seen":timing.callbacks_seen,
+            "progress_count":timing.progress_count, "last_packet":timing.last_packet.map(output_packet_json),
+            "last_packet_contended":timing.last_packet_contended,
+            "first_fault":timing.first_fault.map(|fault| json!({"fault":fault.fault as u32,
+                "reason":format!("{:?}",fault.reason), "previous":fault.previous.map(output_packet_json),
+                "current":output_packet_json(fault.current)})),
+            "first_fault_pending":timing.first_fault_pending, "last_completion":completion,
+            "completion_contended":timing.completion_contended, "lifecycle":lifecycle})
+    }
+    fn output_shutdown_observed(snapshot: &AudioSnapshot) -> bool {
+        snapshot.output_timing.as_ref().is_some_and(|timing| {
+            let OutputTimingSnapshot::CoreAudio(timing) = timing;
+            timing.lifecycle[NativeOutputLifecyclePhase::OwnerCompleted as usize].is_some()
+                || timing.lifecycle[NativeOutputLifecyclePhase::ContextRetained as usize].is_some()
+        })
+    }
+    fn output_shutdown_proven(snapshot: &AudioSnapshot) -> bool {
+        if snapshot.fault != AudioFault::None || snapshot.error.is_some() {
+            return false;
+        }
+        snapshot.output_timing.as_ref().is_some_and(|timing| {
+            let OutputTimingSnapshot::CoreAudio(timing) = timing;
+            let event = |phase: NativeOutputLifecyclePhase| {
+                timing.lifecycle[phase as usize].filter(|event| event.phase == phase)
+            };
+            timing.first_fault.is_none()
+                && !timing.first_fault_pending
+                && timing.lifecycle[NativeOutputLifecyclePhase::ContextRetained as usize].is_none()
+                && [
+                    NativeOutputLifecyclePhase::StopReturned,
+                    NativeOutputLifecyclePhase::DestroyReturned,
+                    NativeOutputLifecyclePhase::ListenerRemovalReturned,
+                ]
+                .into_iter()
+                .all(|phase| event(phase).is_some_and(|event| event.status == Some(0)))
+                && [
+                    NativeOutputLifecyclePhase::QuiescenceChecked,
+                    NativeOutputLifecyclePhase::OwnerCompleted,
+                ]
+                .into_iter()
+                .all(|phase| event(phase).is_some_and(|event| event.callbacks_in_flight == Some(0)))
+        })
+    }
+    fn shutdown_fault(snapshot: &AudioSnapshot) -> Option<String> {
+        if snapshot.fault != AudioFault::None || snapshot.error.is_some() {
+            return Some(format!(
+                "runtime fault during shutdown: fault={:?}, error={:?}",
+                snapshot.fault, snapshot.error
+            ));
+        }
+        if let Some(OutputTimingSnapshot::CoreAudio(timing)) = &snapshot.output_timing {
+            if timing.first_fault.is_some() || timing.first_fault_pending {
+                return Some(format!(
+                    "native output fault during shutdown: first_fault={:?}, pending={}",
+                    timing.first_fault, timing.first_fault_pending
+                ));
+            }
+        }
+        None
+    }
+    fn output_shutdown_failed(snapshot: &AudioSnapshot) -> bool {
+        if snapshot.fault != AudioFault::None || snapshot.error.is_some() {
+            return true;
+        }
+        snapshot.output_timing.as_ref().is_some_and(|timing| {
+            let OutputTimingSnapshot::CoreAudio(timing) = timing;
+            timing.first_fault.is_some()
+                || timing.first_fault_pending
+                || timing.lifecycle[NativeOutputLifecyclePhase::ContextRetained as usize].is_some()
+                || [
+                    NativeOutputLifecyclePhase::StopReturned,
+                    NativeOutputLifecyclePhase::DestroyReturned,
+                    NativeOutputLifecyclePhase::ListenerRemovalReturned,
+                ]
+                .into_iter()
+                .any(|phase| {
+                    timing.lifecycle[phase as usize]
+                        .is_some_and(|event| event.status.is_some_and(|status| status != 0))
+                })
+                || [
+                    NativeOutputLifecyclePhase::QuiescenceChecked,
+                    NativeOutputLifecyclePhase::OwnerCompleted,
+                ]
+                .into_iter()
+                .any(|phase| {
+                    timing.lifecycle[phase as usize].is_some_and(|event| {
+                        event.callbacks_in_flight.is_some_and(|count| count != 0)
+                    })
+                })
+        })
+    }
     fn native_shutdown_observed(snapshot: &AudioSnapshot) -> bool {
-        !snapshot.captures.is_empty()
+        output_shutdown_observed(snapshot)
+            && !snapshot.captures.is_empty()
             && snapshot.captures.iter().all(|capture| {
                 capture.native_timing.is_some_and(|timing| {
                     timing.lifecycle[NativeLifecyclePhase::OwnerCompleted as usize].is_some()
@@ -102,6 +239,16 @@ mod native {
                             .is_some()
                 })
             })
+    }
+    fn shutdown_observation_finished(snapshot: &AudioSnapshot, deadline_elapsed: bool) -> bool {
+        // Lifecycle slots are read individually. A concurrently published final
+        // slot can be visible while an earlier slot was read as absent. Wait for
+        // complete proof or explicit failure; missing evidence gets the same
+        // bounded observation window rather than an immediate false rejection.
+        (native_shutdown_observed(snapshot)
+            && (output_shutdown_proven(snapshot) || output_shutdown_failed(snapshot)))
+            || (snapshot.captures.is_empty() && snapshot.output_timing.is_none())
+            || deadline_elapsed
     }
     fn write_new(path: &Path, text: &str) -> Result<(), String> {
         let mut file = OpenOptions::new()
@@ -123,6 +270,8 @@ mod native {
         events: BufWriter<File>,
         telemetry: BufWriter<File>,
         native_timing: BufWriter<File>,
+        shutdown_fault_observed: bool,
+        native_output_shutdown_proven: bool,
     }
     impl Evidence {
         fn new(directory: &Path) -> Result<Self, String> {
@@ -139,6 +288,8 @@ mod native {
                 events: BufWriter::new(create("runtime-events.jsonl")?),
                 telemetry,
                 native_timing: BufWriter::new(create("runtime-native-timing.jsonl")?),
+                shutdown_fault_observed: false,
+                native_output_shutdown_proven: false,
             })
         }
         fn event(&mut self, text: &str) -> Result<(), String> {
@@ -193,20 +344,42 @@ mod native {
                 "running":snapshot.running, "fault": snapshot.fault as u32,
                 "first_fault":snapshot.first_fault.as_ref().map(fault_json),
                 "error":snapshot.error.as_ref().map(ToString::to_string), "captures": captures,
+                "output_timing":snapshot.output_timing.as_ref().map(output_timing_json),
+                "native_output_shutdown_observed":output_shutdown_observed(snapshot),
+                "native_output_shutdown_proven":!self.shutdown_fault_observed && output_shutdown_proven(snapshot),
                 "native_shutdown_observed":shutdown_complete});
             writeln!(self.native_timing, "{record}")
                 .and_then(|_| self.native_timing.flush())
                 .map_err(|e| e.to_string())
         }
         fn observe_shutdown(&mut self, runtime: &AudioRuntime) -> Result<(), String> {
-            // Diagnostics only: preserve every acceptance threshold and legacy
-            // CSV row. Bound the added process lifetime even if an OS call hangs.
+            // The separate output teardown gate leaves PCM/control/timestamp
+            // thresholds and legacy CSV rows unchanged. Observation is bounded
+            // even if an owner is stuck in a native call. Capture terminal events
+            // remain observations, not proof that all capture fields were freed.
             let deadline = Instant::now() + Duration::from_secs(2);
+            self.observe_shutdown_with(
+                || runtime.snapshot(),
+                || Instant::now() >= deadline,
+                || thread::sleep(Duration::from_millis(10)),
+            )
+        }
+        fn observe_shutdown_with(
+            &mut self,
+            mut snapshot: impl FnMut() -> AudioSnapshot,
+            mut deadline_elapsed: impl FnMut() -> bool,
+            mut poll: impl FnMut(),
+        ) -> Result<(), String> {
+            let mut first_fault = None;
             loop {
-                let snapshot = runtime.snapshot();
+                let snapshot = snapshot();
+                if first_fault.is_none() {
+                    first_fault = shutdown_fault(&snapshot);
+                }
+                self.shutdown_fault_observed |= first_fault.is_some();
                 let completed = native_shutdown_observed(&snapshot);
                 let final_observation =
-                    completed || snapshot.captures.is_empty() || Instant::now() >= deadline;
+                    shutdown_observation_finished(&snapshot, deadline_elapsed());
                 self.native_snapshot(
                     &snapshot,
                     if final_observation {
@@ -217,9 +390,17 @@ mod native {
                     final_observation.then_some(completed),
                 )?;
                 if final_observation {
-                    return Ok(());
+                    self.native_output_shutdown_proven =
+                        !self.shutdown_fault_observed && output_shutdown_proven(&snapshot);
+                    return if let Some(error) = first_fault {
+                        Err(error)
+                    } else if self.native_output_shutdown_proven {
+                        Ok(())
+                    } else {
+                        Err("Native output shutdown was not proven by successful cleanup and zero callbacks in flight".into())
+                    };
                 }
-                thread::sleep(Duration::from_millis(10));
+                poll();
             }
         }
     }
@@ -412,8 +593,8 @@ mod native {
         write_new(
             &directory.join("runtime-result.json"),
             &format!(
-                "{{\"schema\":1,\"pass\":{},\"error\":{error}}}\n",
-                result.is_ok()
+                "{{\"schema\":1,\"pass\":{},\"native_output_shutdown_proven\":{},\"error\":{error}}}\n",
+                result.is_ok(), evidence.native_output_shutdown_proven
             ),
         )?;
         result
@@ -422,9 +603,84 @@ mod native {
     mod tests {
         use super::*;
         use ravelink_audio::{
-            CaptureSnapshot, InputId, NativeCallbackCompletion, NativeCaptureFault,
-            NativeLifecycleEvent, NATIVE_LIFECYCLE_PHASES,
+            AudioError, CaptureSnapshot, InputId, NativeCallbackCompletion, NativeCaptureFault,
+            NativeLifecycleEvent, NativeOutputFault, NativeOutputFaultReason,
+            NativeOutputLifecycleEvent, NativeOutputTimingSnapshot, NATIVE_LIFECYCLE_PHASES,
+            NATIVE_OUTPUT_LIFECYCLE_PHASES,
         };
+
+        fn output_timing() -> OutputTimingSnapshot {
+            OutputTimingSnapshot::CoreAudio(NativeOutputTimingSnapshot {
+                callbacks_seen: 0,
+                progress_count: 0,
+                last_packet: None,
+                last_packet_contended: false,
+                first_fault: None,
+                first_fault_pending: false,
+                last_completion: None,
+                completion_contended: false,
+                lifecycle: [None; NATIVE_OUTPUT_LIFECYCLE_PHASES],
+            })
+        }
+
+        fn output_shutdown_snapshot() -> AudioSnapshot {
+            let mut snapshot = AudioSnapshot {
+                running: false,
+                configuration: None,
+                rendered_frames: 512,
+                callback_count: 1,
+                applied_control_version: 1,
+                captures: Vec::new(),
+                output_timing: Some(output_timing()),
+                input_meters: Vec::new(),
+                bus_meters: Vec::new(),
+                fault: AudioFault::None,
+                first_fault: None,
+                error: None,
+            };
+            let OutputTimingSnapshot::CoreAudio(output) = snapshot.output_timing.as_mut().unwrap();
+            for phase in [
+                NativeOutputLifecyclePhase::StopReturned,
+                NativeOutputLifecyclePhase::DestroyReturned,
+                NativeOutputLifecyclePhase::ListenerRemovalReturned,
+                NativeOutputLifecyclePhase::QuiescenceChecked,
+                NativeOutputLifecyclePhase::OwnerCompleted,
+            ] {
+                output.lifecycle[phase as usize] = Some(NativeOutputLifecycleEvent {
+                    phase,
+                    host_time: 123 + phase as u64,
+                    status: match phase {
+                        NativeOutputLifecyclePhase::StopReturned
+                        | NativeOutputLifecyclePhase::DestroyReturned
+                        | NativeOutputLifecyclePhase::ListenerRemovalReturned => Some(0),
+                        _ => None,
+                    },
+                    callbacks_in_flight: Some(0),
+                });
+            }
+            snapshot
+        }
+
+        fn all_shutdown_snapshot() -> AudioSnapshot {
+            let mut snapshot = output_shutdown_snapshot();
+            let mut capture_timing = timing();
+            capture_timing.first_fault = None;
+            capture_timing.lifecycle[NativeLifecyclePhase::OwnerCompleted as usize] =
+                Some(NativeLifecycleEvent {
+                    phase: NativeLifecyclePhase::OwnerCompleted,
+                    host_time: 999,
+                    status: None,
+                    callbacks_in_flight: Some(0),
+                });
+            snapshot.captures.push(CaptureSnapshot {
+                device: InputId("synthetic".into()),
+                captured_frames: 512,
+                buffered_frames: 0,
+                clock_correction_ppm: 0.0,
+                native_timing: Some(capture_timing),
+            });
+            snapshot
+        }
 
         fn timing() -> NativeTimingSnapshot {
             let packet = NativeCapturePacket {
@@ -606,6 +862,17 @@ mod native {
                     status: None,
                     callbacks_in_flight: Some(1),
                 });
+            assert!(!native_shutdown_observed(&snapshot));
+            snapshot.output_timing = Some(output_timing());
+            assert!(!native_shutdown_observed(&snapshot));
+            let OutputTimingSnapshot::CoreAudio(output) = snapshot.output_timing.as_mut().unwrap();
+            output.lifecycle[NativeOutputLifecyclePhase::OwnerCompleted as usize] =
+                Some(NativeOutputLifecycleEvent {
+                    phase: NativeOutputLifecyclePhase::OwnerCompleted,
+                    host_time: 567,
+                    status: None,
+                    callbacks_in_flight: Some(0),
+                });
             assert!(native_shutdown_observed(&snapshot));
             snapshot.captures.push(CaptureSnapshot {
                 device: InputId("second-synthetic".into()),
@@ -615,6 +882,354 @@ mod native {
                 native_timing: None,
             });
             assert!(!native_shutdown_observed(&snapshot));
+        }
+
+        #[test]
+        fn output_shutdown_acceptance_requires_every_successful_cleanup_event() {
+            let complete = output_shutdown_snapshot();
+            assert!(output_shutdown_observed(&complete));
+            assert!(output_shutdown_proven(&complete));
+            assert_eq!(shutdown_fault(&complete), None);
+            let mut absent = complete.clone();
+            absent.output_timing = None;
+            assert!(!output_shutdown_proven(&absent));
+            for phase in [
+                NativeOutputLifecyclePhase::StopReturned,
+                NativeOutputLifecyclePhase::DestroyReturned,
+                NativeOutputLifecyclePhase::ListenerRemovalReturned,
+                NativeOutputLifecyclePhase::QuiescenceChecked,
+                NativeOutputLifecyclePhase::OwnerCompleted,
+            ] {
+                let mut missing = complete.clone();
+                let OutputTimingSnapshot::CoreAudio(output) =
+                    missing.output_timing.as_mut().unwrap();
+                output.lifecycle[phase as usize] = None;
+                assert!(!output_shutdown_proven(&missing), "missing {phase:?}");
+            }
+            for phase in [
+                NativeOutputLifecyclePhase::StopReturned,
+                NativeOutputLifecyclePhase::DestroyReturned,
+                NativeOutputLifecyclePhase::ListenerRemovalReturned,
+            ] {
+                for status in [None, Some(-2000), Some(1)] {
+                    let mut failed = complete.clone();
+                    let OutputTimingSnapshot::CoreAudio(output) =
+                        failed.output_timing.as_mut().unwrap();
+                    output.lifecycle[phase as usize].as_mut().unwrap().status = status;
+                    assert!(!output_shutdown_proven(&failed), "{phase:?}: {status:?}");
+                    assert_eq!(output_shutdown_failed(&failed), status.is_some());
+                }
+            }
+        }
+
+        #[test]
+        fn output_terminal_observation_does_not_accept_retention_or_unknown_quiescence() {
+            let complete = output_shutdown_snapshot();
+            for phase in [
+                NativeOutputLifecyclePhase::QuiescenceChecked,
+                NativeOutputLifecyclePhase::OwnerCompleted,
+            ] {
+                for inflight in [None, Some(1), Some(u64::MAX)] {
+                    let mut changed = complete.clone();
+                    let OutputTimingSnapshot::CoreAudio(output) =
+                        changed.output_timing.as_mut().unwrap();
+                    output.lifecycle[phase as usize]
+                        .as_mut()
+                        .unwrap()
+                        .callbacks_in_flight = inflight;
+                    assert!(output_shutdown_observed(&changed));
+                    assert!(!output_shutdown_proven(&changed));
+                }
+            }
+            let mut retained = complete.clone();
+            let OutputTimingSnapshot::CoreAudio(output) = retained.output_timing.as_mut().unwrap();
+            output.lifecycle[NativeOutputLifecyclePhase::ContextRetained as usize] =
+                Some(NativeOutputLifecycleEvent {
+                    phase: NativeOutputLifecyclePhase::ContextRetained,
+                    host_time: 789,
+                    status: None,
+                    callbacks_in_flight: Some(0),
+                });
+            assert!(output_shutdown_observed(&retained));
+            assert!(!output_shutdown_proven(&retained));
+            assert!(output_shutdown_failed(&retained));
+            let OutputTimingSnapshot::CoreAudio(output) = retained.output_timing.as_mut().unwrap();
+            output.lifecycle[NativeOutputLifecyclePhase::OwnerCompleted as usize] = None;
+            assert!(output_shutdown_observed(&retained));
+            assert!(!output_shutdown_proven(&retained));
+        }
+
+        #[test]
+        fn output_shutdown_rejects_native_pending_faults_and_late_runtime_failure() {
+            let complete = output_shutdown_snapshot();
+            let mut pending = complete.clone();
+            let OutputTimingSnapshot::CoreAudio(output) = pending.output_timing.as_mut().unwrap();
+            output.first_fault_pending = true;
+            assert!(!output_shutdown_proven(&pending));
+            assert!(shutdown_fault(&pending).unwrap().contains("pending=true"));
+            let mut faulted = complete.clone();
+            let OutputTimingSnapshot::CoreAudio(output) = faulted.output_timing.as_mut().unwrap();
+            let stamp = NativeOutputStamp {
+                sample_time: 512.0,
+                host_time: 456,
+                rate_scalar: 1.0,
+                flags: 7,
+            };
+            output.first_fault = Some(NativeOutputFault {
+                fault: AudioFault::Xrun,
+                reason: NativeOutputFaultReason::SampleDiscontinuity,
+                previous: None,
+                current: NativeOutputPacket {
+                    callback_index: 2,
+                    epoch: 1,
+                    frames: 512,
+                    entry_host_time: 456,
+                    now: stamp,
+                    presentation: stamp,
+                },
+            });
+            assert!(!output_shutdown_proven(&faulted));
+            assert!(shutdown_fault(&faulted)
+                .unwrap()
+                .contains("SampleDiscontinuity"));
+            let mut late_fault = complete.clone();
+            late_fault.fault = AudioFault::Backend;
+            assert!(!output_shutdown_proven(&late_fault));
+            assert!(shutdown_fault(&late_fault)
+                .unwrap()
+                .contains("fault=Backend"));
+            let mut late_error = complete;
+            late_error.error = Some(AudioError::RuntimeUnavailable);
+            assert!(!output_shutdown_proven(&late_error));
+            assert!(shutdown_fault(&late_error)
+                .unwrap()
+                .contains("RuntimeUnavailable"));
+        }
+
+        #[test]
+        fn shutdown_observation_does_not_skip_output_diagnostics_when_captures_are_empty() {
+            let mut snapshot = output_shutdown_snapshot();
+            snapshot.output_timing = Some(output_timing());
+            assert!(!shutdown_observation_finished(&snapshot, false));
+            assert!(shutdown_observation_finished(&snapshot, true));
+            snapshot.output_timing = None;
+            assert!(shutdown_observation_finished(&snapshot, false));
+            assert!(!output_shutdown_proven(&snapshot));
+            snapshot.captures.push(CaptureSnapshot {
+                device: InputId("synthetic".into()),
+                captured_frames: 512,
+                buffered_frames: 0,
+                clock_correction_ppm: 0.0,
+                native_timing: Some(timing()),
+            });
+            assert!(!shutdown_observation_finished(&snapshot, false));
+            assert!(shutdown_observation_finished(&snapshot, true));
+        }
+
+        #[test]
+        fn output_shutdown_json_separates_observation_acceptance_and_latched_late_fault() {
+            let directory = env::temp_dir().join(format!(
+                "relink-output-shutdown-test-{}-{}",
+                std::process::id(),
+                ticks()
+            ));
+            fs::create_dir(&directory).unwrap();
+            let mut evidence = Evidence::new(&directory).unwrap();
+            let complete = output_shutdown_snapshot();
+            evidence
+                .native_snapshot(&complete, "synthetic-cleanup", Some(true))
+                .unwrap();
+            evidence.shutdown_fault_observed = true;
+            evidence
+                .native_snapshot(&complete, "synthetic-latched-fault", Some(true))
+                .unwrap();
+            drop(evidence);
+            let records: Vec<Value> =
+                fs::read_to_string(directory.join("runtime-native-timing.jsonl"))
+                    .unwrap()
+                    .lines()
+                    .map(|line| serde_json::from_str(line).unwrap())
+                    .collect();
+            assert_eq!(records[0]["native_output_shutdown_observed"], true);
+            assert_eq!(records[0]["native_output_shutdown_proven"], true);
+            assert_eq!(records[1]["native_output_shutdown_observed"], true);
+            assert_eq!(records[1]["native_output_shutdown_proven"], false);
+            fs::remove_dir_all(directory).unwrap();
+        }
+
+        #[test]
+        fn shutdown_polling_rejects_late_fault_even_if_final_snapshot_looks_clean() {
+            let directory = env::temp_dir().join(format!(
+                "relink-output-shutdown-poll-test-{}-{}",
+                std::process::id(),
+                ticks()
+            ));
+            fs::create_dir(&directory).unwrap();
+            let complete = all_shutdown_snapshot();
+            let mut late_fault = complete.clone();
+            late_fault.output_timing = Some(output_timing());
+            late_fault.error = Some(AudioError::RuntimeUnavailable);
+            let mut snapshots = [late_fault, complete.clone()].into_iter();
+            let mut polls = 0;
+            let mut evidence = Evidence::new(&directory).unwrap();
+            let diagnostics = evidence.observe_shutdown_with(
+                || snapshots.next().expect("bounded two-snapshot observation"),
+                || false,
+                || polls += 1,
+            );
+            assert_eq!(polls, 1);
+            assert!(diagnostics
+                .as_ref()
+                .unwrap_err()
+                .contains("RuntimeUnavailable"));
+            assert!(!evidence.native_output_shutdown_proven);
+            // execute() retains the active-run error before the diagnostics error.
+            let original = Err::<(), _>("original active-run failure".to_string());
+            assert_eq!(
+                original.and(diagnostics).unwrap_err(),
+                "original active-run failure"
+            );
+            drop(evidence);
+            let records: Vec<Value> =
+                fs::read_to_string(directory.join("runtime-native-timing.jsonl"))
+                    .unwrap()
+                    .lines()
+                    .map(|line| serde_json::from_str(line).unwrap())
+                    .collect();
+            assert_eq!(records.len(), 2);
+            assert_eq!(records[1]["observation"], "post-stop-final");
+            assert_eq!(records[1]["native_output_shutdown_observed"], true);
+            assert_eq!(records[1]["native_output_shutdown_proven"], false);
+            assert_eq!(records[1]["error"], Value::Null);
+
+            let clean_directory = directory.join("clean");
+            fs::create_dir(&clean_directory).unwrap();
+            let mut clean = Evidence::new(&clean_directory).unwrap();
+            clean
+                .observe_shutdown_with(|| complete.clone(), || false, || panic!("already complete"))
+                .unwrap();
+            assert!(clean.native_output_shutdown_proven);
+            drop(clean);
+
+            let incomplete_directory = directory.join("incomplete");
+            fs::create_dir(&incomplete_directory).unwrap();
+            let mut incomplete = Evidence::new(&incomplete_directory).unwrap();
+            let mut expired = complete;
+            expired.output_timing = Some(output_timing());
+            let failure = incomplete
+                .observe_shutdown_with(|| expired.clone(), || true, || panic!("deadline expired"))
+                .unwrap_err();
+            assert!(failure.contains("shutdown was not proven"));
+            assert!(!incomplete.native_output_shutdown_proven);
+            drop(incomplete);
+            fs::remove_dir_all(directory).unwrap();
+        }
+
+        #[test]
+        fn terminal_snapshot_waits_for_earlier_cleanup_evidence_until_existing_deadline() {
+            let directory = env::temp_dir().join(format!(
+                "relink-output-shutdown-publication-test-{}-{}",
+                std::process::id(),
+                ticks()
+            ));
+            fs::create_dir(&directory).unwrap();
+            let complete = all_shutdown_snapshot();
+            let mut incomplete = complete.clone();
+            let OutputTimingSnapshot::CoreAudio(output) =
+                incomplete.output_timing.as_mut().unwrap();
+            output.lifecycle[NativeOutputLifecyclePhase::StopReturned as usize] = None;
+            assert!(native_shutdown_observed(&incomplete));
+            assert!(!output_shutdown_proven(&incomplete));
+            assert!(!output_shutdown_failed(&incomplete));
+            assert!(!shutdown_observation_finished(&incomplete, false));
+
+            let mut snapshots = [incomplete.clone(), complete].into_iter();
+            let mut polls = 0;
+            let mut evidence = Evidence::new(&directory).unwrap();
+            evidence
+                .observe_shutdown_with(
+                    || snapshots.next().expect("two bounded observations"),
+                    || false,
+                    || polls += 1,
+                )
+                .unwrap();
+            assert_eq!(polls, 1);
+            assert!(evidence.native_output_shutdown_proven);
+            drop(evidence);
+            let records: Vec<Value> =
+                fs::read_to_string(directory.join("runtime-native-timing.jsonl"))
+                    .unwrap()
+                    .lines()
+                    .map(|line| serde_json::from_str(line).unwrap())
+                    .collect();
+            assert_eq!(records.len(), 2);
+            assert_eq!(records[0]["observation"], "post-stop");
+            assert_eq!(records[0]["native_output_shutdown_observed"], true);
+            assert_eq!(records[0]["native_output_shutdown_proven"], false);
+            assert_eq!(records[1]["observation"], "post-stop-final");
+            assert_eq!(records[1]["native_output_shutdown_proven"], true);
+
+            let expired_directory = directory.join("expired");
+            fs::create_dir(&expired_directory).unwrap();
+            let mut expired = Evidence::new(&expired_directory).unwrap();
+            let mut deadlines = [false, true].into_iter();
+            let mut polls = 0;
+            let failure = expired
+                .observe_shutdown_with(
+                    || incomplete.clone(),
+                    || deadlines.next().expect("unchanged bounded deadline"),
+                    || polls += 1,
+                )
+                .unwrap_err();
+            assert_eq!(polls, 1);
+            assert!(failure.contains("shutdown was not proven"));
+            assert!(!expired.native_output_shutdown_proven);
+            drop(expired);
+            fs::remove_dir_all(directory).unwrap();
+        }
+
+        #[test]
+        fn output_json_preserves_presentation_clock_bits_and_unavailable_lifecycle_fields() {
+            let mut timing = output_timing();
+            let OutputTimingSnapshot::CoreAudio(output) = &mut timing;
+            output.last_packet = Some(NativeOutputPacket {
+                callback_index: 8,
+                epoch: 4,
+                frames: 512,
+                entry_host_time: u64::MAX - 3,
+                now: NativeOutputStamp {
+                    sample_time: f64::NAN,
+                    host_time: u64::MAX - 4,
+                    rate_scalar: 1.0,
+                    flags: 7,
+                },
+                presentation: NativeOutputStamp {
+                    sample_time: 1024.0,
+                    host_time: u64::MAX - 1,
+                    rate_scalar: 1.0,
+                    flags: 7,
+                },
+            });
+            output.lifecycle[NativeOutputLifecyclePhase::HandleCancelled as usize] =
+                Some(NativeOutputLifecycleEvent {
+                    phase: NativeOutputLifecyclePhase::HandleCancelled,
+                    host_time: u64::MAX,
+                    status: None,
+                    callbacks_in_flight: None,
+                });
+            let value = output_timing_json(&timing);
+            let decoded: Value = serde_json::from_str(&value.to_string()).unwrap();
+            assert_eq!(decoded["last_packet"]["now"]["sample_time"], Value::Null);
+            assert_eq!(
+                decoded["last_packet"]["now"]["sample_time_bits"].as_u64(),
+                Some(f64::NAN.to_bits())
+            );
+            assert_eq!(
+                decoded["last_packet"]["presentation"]["host_time"].as_u64(),
+                Some(u64::MAX - 1)
+            );
+            assert_eq!(decoded["lifecycle"][0]["callbacks_in_flight"], Value::Null);
+            assert_eq!(decoded["lifecycle"][0]["status"], Value::Null);
         }
     }
 }
