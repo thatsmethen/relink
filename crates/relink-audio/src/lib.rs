@@ -24,6 +24,8 @@ mod output_render;
 mod wasapi_application;
 #[cfg_attr(not(any(target_os = "windows", test)), allow(dead_code))]
 mod wasapi_event;
+#[cfg_attr(not(any(target_os = "windows", test)), allow(dead_code))]
+mod wasapi_hardware_owner;
 use epoch_gate::EpochGate;
 use output_render::{FanoutRender, OutputRenderer, OutputTelemetry};
 pub use wasapi_event::WasapiEventClose;

@@ -4,13 +4,14 @@ use super::{
     backend,
     capture::CaptureState,
     wasapi_event::{prepare_resources, CloseRecord, NativeResources, OwnedEvent},
+    wasapi_hardware_owner::{self, Record, Registry, Reserved, StopRequirement},
     wasapi_packet::{Encoding, Layout, Metadata, ReleaseGuard, Tracker, SILENT},
     AudioError, AudioFault, RunningInput, COMMAND_TIMEOUT, MAX_CALLBACK_FRAMES,
 };
 use std::{
     sync::{
         atomic::{AtomicBool, Ordering},
-        mpsc, Arc,
+        mpsc, Arc, Mutex,
     },
     thread,
     time::Duration,
@@ -47,13 +48,18 @@ pub(crate) fn owner_bytes(configuration: &RunningInput) -> Result<usize, AudioEr
     use std::mem::size_of;
     // Ring, ASRC and render scratch are charged separately by RenderState.
     // This covers application-owned worker storage; COM/driver-private memory
-    // is opaque. It does not establish bounded Windows owner retention.
+    // is opaque. Retained session-wide telemetry is not charged by this worker
+    // estimate, so this is not a total retained-memory bound.
     let id_bytes = configuration.device.id.0.len();
     checked_owner_bytes([
         Some(OWNER_STACK_BYTES),
         Some(OWNER_CHANNEL_BYTES),
         Some(size_of::<WasapiCapture>()),
         Some(size_of::<NativeCapture>()),
+        Some(size_of::<Owner>()),
+        Some(size_of::<Reservation>()),
+        Some(size_of::<Reserved>()),
+        Some(Record::bytes()),
         Some(CloseRecord::bytes()),
         Some(size_of::<CaptureState>()),
         Some(size_of::<Tracker>()),
@@ -61,7 +67,7 @@ pub(crate) fn owner_bytes(configuration: &RunningInput) -> Result<usize, AudioEr
         Some(size_of::<AtomicBool>() + size_of::<[usize; 2]>()),
         Some(configuration.device.name.len()),
         // Parsed and owned ID strings plus the NUL-terminated UTF-16 endpoint.
-        id_bytes.checked_mul(2),
+        id_bytes.checked_mul(4),
         id_bytes
             .checked_add(1)
             .and_then(|n| n.checked_mul(size_of::<u16>())),
@@ -104,6 +110,9 @@ impl WasapiCapture {
             encoding,
         };
         let native_id = parsed.id().to_owned();
+        let record = Arc::new(Record::new(state.event_close()));
+        let reservation =
+            Reservation::acquire(&native_id, owner_bytes(configuration)?, record.clone())?;
         let name = configuration.device.name.clone();
         let sample_rate = config.sample_rate();
         let (ready_tx, ready_rx) = mpsc::sync_channel(1);
@@ -123,6 +132,8 @@ impl WasapiCapture {
                     active,
                     receiver,
                     ready_tx,
+                    reservation,
+                    record,
                 );
             })
             .map_err(|e| backend("WASAPI capture thread creation", None, e))?;
@@ -165,29 +176,86 @@ impl Drop for WasapiCapture {
 }
 
 type StartReply = mpsc::SyncSender<Result<(), AudioError>>;
+static HARDWARE_REGISTRY: Mutex<Registry> = Mutex::new(Registry::new());
+struct Reservation {
+    index: usize,
+}
+impl Reservation {
+    fn acquire(id: &str, bytes: usize, record: Arc<Record>) -> Result<Self, AudioError> {
+        let index = HARDWARE_REGISTRY
+            .lock()
+            .map_err(|_| {
+                backend(
+                    "WASAPI hardware owner reservation",
+                    None,
+                    "owner registry is unavailable",
+                )
+            })?
+            .acquire(id, bytes, record)?;
+        Ok(Self { index })
+    }
+}
+impl Drop for Reservation {
+    fn drop(&mut self) {
+        if let Ok(mut registry) = HARDWARE_REGISTRY.lock() {
+            registry.release(self.index);
+        }
+    }
+}
+struct Owner {
+    native: Option<NativeCapture>,
+    state: CaptureState,
+    active: Arc<AtomicBool>,
+    record: Arc<Record>,
+    // Drops after native cleanup and fault reporting, including constructor errors.
+    _reservation: Reservation,
+}
+impl Drop for Owner {
+    fn drop(&mut self) {
+        self.active.store(false, Ordering::Release);
+        if let Err(status) =
+            wasapi_hardware_owner::release(&mut self.native, &self.record, |native| {
+                native.stop_status().map_err(|error| error.code().0)
+            })
+        {
+            self.state
+                .fail_status(hresult_fault(windows::core::HRESULT(status)), status);
+        }
+    }
+}
 #[allow(clippy::too_many_arguments)]
 fn owner_loop(
     id: String,
     name: String,
     sample_rate: u32,
     layout: Layout,
-    mut state: CaptureState,
+    state: CaptureState,
     active: Arc<AtomicBool>,
     commands: mpsc::Receiver<StartReply>,
     ready: StartReply,
+    reservation: Reservation,
+    record: Arc<Record>,
 ) {
-    if !active.load(Ordering::Acquire) || !state.authorized() {
+    let mut owner = Owner {
+        native: None,
+        state,
+        active: active.clone(),
+        record,
+        _reservation: reservation,
+    };
+    if !active.load(Ordering::Acquire) || !owner.state.authorized() {
         let _ = ready.send(Err(AudioError::Cancelled));
         return;
     }
-    let mut native = match NativeCapture::open(&id, sample_rate, layout, state.event_close()) {
+    let native = match NativeCapture::open(&id, sample_rate, layout, owner.record.close.clone()) {
         Ok(native) => native,
         Err(error) => {
             let _ = ready.send(Err(backend("WASAPI input creation", Some(name), error)));
             return;
         }
     };
-    if !active.load(Ordering::Acquire) || !state.authorized() {
+    owner.native = Some(native);
+    if !active.load(Ordering::Acquire) || !owner.state.authorized() {
         let _ = ready.send(Err(AudioError::Cancelled));
         return;
     }
@@ -195,21 +263,23 @@ fn owner_loop(
         return;
     }
     loop {
-        if !active.load(Ordering::Acquire) || !state.authorized() {
+        if !active.load(Ordering::Acquire) || !owner.state.authorized() {
             return;
         }
         match commands.recv_timeout(Duration::from_millis(20)) {
             Ok(reply) => {
-                if !active.load(Ordering::Acquire) || !state.authorized() {
+                if !active.load(Ordering::Acquire) || !owner.state.authorized() {
                     let _ = reply.send(Err(AudioError::Cancelled));
                     return;
                 }
-                if let Err(error) = native.start() {
-                    state.fail_status(hresult_fault(error.code()), error.code().0);
+                if let Err(error) = owner.native.as_mut().unwrap().start() {
+                    owner
+                        .state
+                        .fail_status(hresult_fault(error.code()), error.code().0);
                     let _ = reply.send(Err(backend("WASAPI input activation", Some(name), error)));
                     return;
                 }
-                if !active.load(Ordering::Acquire) || !state.authorized() {
+                if !active.load(Ordering::Acquire) || !owner.state.authorized() {
                     let _ = reply.send(Err(AudioError::Cancelled));
                     return;
                 }
@@ -223,18 +293,19 @@ fn owner_loop(
         }
     }
     let mut tracker = Tracker::default();
-    while active.load(Ordering::Acquire) && state.authorized() {
+    while active.load(Ordering::Acquire) && owner.state.authorized() {
         // Only this dedicated capture thread waits. The engine's output callback
         // reads the atomic ring and never waits for a native device or this event.
+        let native = owner.native.as_mut().unwrap();
         let waited = unsafe { WaitForSingleObject(*native.resources.event.handle(), 20) };
         // A timeout still probes the packet count so invalidation can be
         // reported even when a disconnected endpoint stops signaling events.
         if waited != WAIT_OBJECT_0 && waited != WAIT_TIMEOUT {
-            state.fail(AudioFault::Backend);
+            owner.state.fail(AudioFault::Backend);
             return;
         }
-        if let Err(fault) = native.drain(&mut state, &mut tracker, layout, &active) {
-            state.fail(fault);
+        if let Err(fault) = native.drain(&mut owner.state, &mut tracker, layout, &active) {
+            owner.state.fail(fault);
             return;
         }
     }
@@ -270,7 +341,9 @@ pub(crate) struct NativeCapture {
     // Release capture before client and both COM objects before the event and
     // COM apartment. The client may still reference its event until destruction.
     resources: NativeResources<IAudioCaptureClient, IAudioClient, Event, Realtime, Apartment>,
-    started: bool,
+    // Start failure can leave native state uncertain; Stop is owed after any
+    // Start call that was entered, until a successful Stop return.
+    stop_required: StopRequirement,
     maximum_frames: u32,
 }
 impl NativeCapture {
@@ -294,6 +367,22 @@ impl NativeCapture {
             ));
         }
         if unsafe { device.GetState()? } != DEVICE_STATE_ACTIVE {
+            return Err(windows::core::Error::from_hresult(
+                AUDCLNT_E_DEVICE_INVALIDATED,
+            ));
+        }
+        // Admission uses the exact native ID returned by discovery. Reject
+        // alternate strings resolving to this endpoint before creating an event.
+        let actual = unsafe { device.GetId()? };
+        let matches = if actual.is_null() {
+            false
+        } else {
+            // GetId returns a NUL-terminated allocation. Comparing both whole
+            // slices avoids reading past a shorter ID while rejecting aliases.
+            (unsafe { actual.as_wide() }) == &endpoint[..endpoint.len() - 1]
+        };
+        unsafe { CoTaskMemFree(Some(actual.0.cast())) };
+        if !matches {
             return Err(windows::core::Error::from_hresult(
                 AUDCLNT_E_DEVICE_INVALIDATED,
             ));
@@ -353,7 +442,7 @@ impl NativeCapture {
                 realtime,
                 apartment,
             },
-            started: false,
+            stop_required: StopRequirement::default(),
             maximum_frames,
         })
     }
@@ -421,19 +510,28 @@ impl NativeCapture {
                 realtime: realtime.expect("configured realtime task"),
                 apartment,
             },
-            started: false,
+            stop_required: StopRequirement::default(),
             maximum_frames,
         })
     }
 
+    fn stop_status(&mut self) -> windows::core::Result<Option<i32>> {
+        // Preserve S_FALSE as well as S_OK. A failed Stop cannot establish that
+        // the producer is quiescent or permit event/client destruction.
+        self.stop_required
+            .stop(|| {
+                let status = unsafe {
+                    (self.resources.client.vtable().Stop)(self.resources.client.as_raw())
+                };
+                status
+                    .ok()
+                    .map(|()| status.0)
+                    .map_err(|error| error.code().0)
+            })
+            .map_err(|status| windows::core::Error::from_hresult(windows::core::HRESULT(status)))
+    }
     pub(crate) fn stop(&mut self) -> windows::core::Result<()> {
-        if self.started {
-            unsafe {
-                self.resources.client.Stop()?;
-            }
-            self.started = false;
-        }
-        Ok(())
+        self.stop_status().map(|_| ())
     }
     pub(crate) fn wait_and_drain(
         &mut self,
@@ -451,9 +549,9 @@ impl NativeCapture {
     pub(crate) fn start(&mut self) -> windows::core::Result<()> {
         unsafe {
             ResetEvent(*self.resources.event.handle())?;
+            self.stop_required.start_entered();
             self.resources.client.Start()?;
         }
-        self.started = true;
         Ok(())
     }
     fn drain(
@@ -566,7 +664,7 @@ impl NativeCapture {
 }
 impl Drop for NativeCapture {
     fn drop(&mut self) {
-        if self.started {
+        if self.stop_required.required() {
             let _ = unsafe { self.resources.client.Stop() };
         }
     }

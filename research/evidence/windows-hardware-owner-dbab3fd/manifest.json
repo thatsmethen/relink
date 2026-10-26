@@ -1,0 +1,33 @@
+{
+  "schema": 1,
+  "files": {
+    "focused-controls.log": {
+      "bytes": 1338,
+      "sha256": "c7f405489f3fad34260865efe198c2c38b33719043f94f8afb4bd4b39f622a17"
+    },
+    "format.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "macos-clippy.log": {
+      "bytes": 60,
+      "sha256": "4b395c9c76c7f7fb5221d30df7320c7a2387ff3842c426dbee6a59a54b5cffab"
+    },
+    "prior-windows-hardware-owner-macos-clippy.log": {
+      "bytes": 153,
+      "sha256": "4987652dd2bb38ef78dd088765b88f32d55ffa88f9fe1cd89a87f410a9a6104f"
+    },
+    "prior-windows-hardware-owner-tests.log": {
+      "bytes": 22014,
+      "sha256": "98d0b83a8b4aa5ab1fcd80ae17190f087c0d68a4b2615f5fef1aafa37461cd3d"
+    },
+    "validation.json": {
+      "bytes": 3388,
+      "sha256": "8e3a17aa56c04fff320c144b93f7ccc49a635b06d722180c1103daaaa55c2766"
+    },
+    "windows-clippy.log": {
+      "bytes": 153,
+      "sha256": "6be9f00502cc0b4006f03d8c1d61f50d403cc8d450f499757010158b89f7301d"
+    }
+  }
+}

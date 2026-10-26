@@ -1,0 +1,17 @@
+    Finished `test` profile [unoptimized] target(s) in 0.11s
+     Running unittests src/lib.rs (target/debug/deps/relink_audio-4f5664f2367b057f)
+
+running 10 tests
+test wasapi_hardware_owner::tests::cancellation_before_and_after_construction_without_start_releases_reservation ... ok
+test wasapi_hardware_owner::tests::missing_stop_return_and_unclosed_event_never_reopen_admission ... ok
+test wasapi_hardware_owner::tests::constructor_unwind_retains_only_failed_close_and_never_fabricates_stop ... ok
+test wasapi_hardware_owner::tests::endpoint_identity_is_exact_and_live_ownership_blocks_duplicate ... ok
+test wasapi_hardware_owner::tests::close_failure_remains_separate_after_successful_stop ... ok
+test wasapi_hardware_owner::tests::failed_stop_retains_native_and_endpoint_without_retry_or_false_success ... ok
+test wasapi_hardware_owner::tests::stop_requirement_covers_failed_start_and_preserves_success_codes ... ok
+test wasapi_hardware_owner::tests::success_releases_native_before_endpoint_and_allows_reacquisition ... ok
+test wasapi_hardware_owner::tests::count_byte_and_overflow_boundaries_reject_without_partial_admission ... ok
+test wasapi_hardware_owner::tests::retained_diagnostics_outlive_graph_and_preserve_prior_fault ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 203 filtered out; finished in 0.00s
+

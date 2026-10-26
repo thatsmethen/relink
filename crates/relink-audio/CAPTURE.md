@@ -13,7 +13,8 @@ Mono input is duplicated to left and right. Stereo and wider PCM devices use
 channels 1 and 2 only. Input and output formats must expose the exact nominal
 session rate. Physical PCM layouts are bounded to 256 device channels and
 16,384 frames per callback; the number of logical inputs is memory-derived.
-Application/process capture still requires a separate platform implementation.
+Application/process capture uses separate native adapters; see the
+[application-capture preview and limits](../../docs/application-capture.md).
 
 ## Clock transport
 
@@ -69,8 +70,8 @@ disconnection, the ASRC servo with real clocks, and operating-system buffer flag
 ### Original macOS CoreAudio capture adapter
 
 macOS input now uses original `native_capture.rs` and portable `native_packet.rs`,
-with pinned `objc2` SDK bindings. CPAL still supplies input identity discovery and
-output. The capture owner resolves the selected CoreAudio UID again and requires
+with pinned `objc2` SDK bindings. CPAL supplies device discovery and configuration
+types; native owners perform capture and output. The capture owner resolves the selected CoreAudio UID again and requires
 the same AudioObjectID, stream identities, channel order, ASBDs and nominal rate
 at activation. It rejects a disappeared/replaced device rather than following a
 new object with the same UID during that start. It does not select a default,
@@ -196,6 +197,12 @@ position/QPC checks, PCM valid bits, packet release errors, and no application
 allocation while converting packets into the ring. Windows-only tests also check
 SDK flag values, WAVEFORMATEXTENSIBLE layout values and device-error mapping.
 Cross-target compilation is not native Windows execution or qualification.
+
+[Hardware cleanup ownership](../../docs/windows-hardware-capture-lifecycle.md)
+now checks Stop before releasing native resources and retains failed Stop or
+CloseHandle diagnostics across graph replacement. Failed cleanup blocks reuse of
+that endpoint until ReLink restarts. The document distinguishes the admission
+caps from the unverified total memory retained by hung native calls.
 
 Primary API contracts used for this original implementation:
 

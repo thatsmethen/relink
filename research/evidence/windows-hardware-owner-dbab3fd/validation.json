@@ -1,0 +1,94 @@
+{
+  "utc_started": "2026-10-26T04:57:08.913926+00:00",
+  "implementation_source_base": "dbab3fdeefe1c4833f8b56f3fb00cbe49cf3d0e1",
+  "head_at_check": "fb9689d77de686a2f824e43bf28e566dbd7c0485",
+  "scope": "Uncommitted owned source hashes; native Windows operations not executed. No whole-commit validation claim.",
+  "owned_source_hashes_before": {
+    "crates/relink-audio/src/lib.rs": "bc21b612bd042bf0056f7b301f503d8ff32185c23a4e8605045255f3e1e49a0c",
+    "crates/relink-audio/src/wasapi_capture.rs": "95386ef810c5fab110ef2a2d31fd6bfdb0c513b02444b00e94da5f9cd96a8ba3",
+    "crates/relink-audio/src/wasapi_hardware_owner.rs": "232975d43da0be97f2bf1fb14ce3ac8530cbeb3236e69bb181c7d530ac7ed6fb",
+    "crates/relink-audio/src/wasapi_hardware_owner_tests.rs": "bac46ea22a991ec8897ead98e7b53704ecec1d06348277169bb9ecd0bdd8230a",
+    "docs/windows-hardware-capture-lifecycle.md": "8f3b0f4ed45048a9e898564eff9237fa369c6575daa8dad0adb3107018d5a872"
+  },
+  "checks": [
+    {
+      "name": "format",
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log": "format.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "focused-controls",
+      "command": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "relink-audio",
+        "--lib",
+        "wasapi_hardware_owner",
+        "--",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "log": "focused-controls.log",
+      "sha256": "c7f405489f3fad34260865efe198c2c38b33719043f94f8afb4bd4b39f622a17"
+    },
+    {
+      "name": "macos-clippy",
+      "command": [
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "relink-audio",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "log": "macos-clippy.log",
+      "sha256": "4b395c9c76c7f7fb5221d30df7320c7a2387ff3842c426dbee6a59a54b5cffab"
+    },
+    {
+      "name": "windows-clippy",
+      "command": [
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "relink-audio",
+        "--all-targets",
+        "--target",
+        "x86_64-pc-windows-msvc",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "log": "windows-clippy.log",
+      "sha256": "6be9f00502cc0b4006f03d8c1d61f50d403cc8d450f499757010158b89f7301d"
+    }
+  ],
+  "owned_source_hashes_after": {
+    "crates/relink-audio/src/lib.rs": "bc21b612bd042bf0056f7b301f503d8ff32185c23a4e8605045255f3e1e49a0c",
+    "crates/relink-audio/src/wasapi_capture.rs": "95386ef810c5fab110ef2a2d31fd6bfdb0c513b02444b00e94da5f9cd96a8ba3",
+    "crates/relink-audio/src/wasapi_hardware_owner.rs": "232975d43da0be97f2bf1fb14ce3ac8530cbeb3236e69bb181c7d530ac7ed6fb",
+    "crates/relink-audio/src/wasapi_hardware_owner_tests.rs": "bac46ea22a991ec8897ead98e7b53704ecec1d06348277169bb9ecd0bdd8230a",
+    "docs/windows-hardware-capture-lifecycle.md": "8f3b0f4ed45048a9e898564eff9237fa369c6575daa8dad0adb3107018d5a872"
+  },
+  "owned_sources_unchanged": true,
+  "prior_audio_lib_controls": {
+    "log": "prior-windows-hardware-owner-tests.log",
+    "observed_result": "213 passed, 0 failed",
+    "scope": "Ran before the final documentation wording correction; owned Rust source unchanged."
+  },
+  "utc_finished": "2026-10-26T04:57:11.063125+00:00"
+}
