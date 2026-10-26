@@ -1,0 +1,90 @@
+{
+  "all_three_original_archives_recovered_on_first_fresh_attempt": true,
+  "fresh_attempts": [
+    {
+      "accepted": true,
+      "attempt": 1,
+      "bytes": 10534447,
+      "completed_at_utc": "2026-10-26T03:27:46.064200+00:00",
+      "deadline_seconds": 55,
+      "exit_code": 0,
+      "expected_api_bytes": 10534447,
+      "expected_github_digest": "sha256:ed987c066e544582a363caa468718b3d289823df49f5426dd23330e985b3ace7",
+      "fresh_destination": "download-attempts/original-hal.zip.attempt01.bytes",
+      "github_digest_matches": true,
+      "sha256": "ed987c066e544582a363caa468718b3d289823df49f5426dd23330e985b3ace7",
+      "started_at_utc": "2026-10-26T03:27:27.182051+00:00",
+      "timed_out": false,
+      "unique_zip_members": true,
+      "url": "https://api.github.com/repos/thatsmethen/relink/actions/artifacts/12624925840/zip",
+      "zip_crc_error": null,
+      "zip_opened": true
+    },
+    {
+      "accepted": true,
+      "attempt": 1,
+      "bytes": 6929117,
+      "completed_at_utc": "2026-10-26T03:28:00.779673+00:00",
+      "deadline_seconds": 55,
+      "exit_code": 0,
+      "expected_api_bytes": 6929117,
+      "expected_github_digest": "sha256:a5ff3d5328dfb5f091d54992c065d35d08c0e4b1dd084b05e21d2befbcc067f5",
+      "fresh_destination": "download-attempts/original-runtime.zip.attempt01.bytes",
+      "github_digest_matches": true,
+      "sha256": "a5ff3d5328dfb5f091d54992c065d35d08c0e4b1dd084b05e21d2befbcc067f5",
+      "started_at_utc": "2026-10-26T03:27:46.182328+00:00",
+      "timed_out": false,
+      "unique_zip_members": true,
+      "url": "https://api.github.com/repos/thatsmethen/relink/actions/artifacts/12624609662/zip",
+      "zip_crc_error": null,
+      "zip_opened": true
+    },
+    {
+      "accepted": true,
+      "attempt": 1,
+      "bytes": 36962,
+      "completed_at_utc": "2026-10-26T03:27:27.179221+00:00",
+      "deadline_seconds": 55,
+      "exit_code": 0,
+      "expected_api_bytes": null,
+      "expected_github_digest": null,
+      "fresh_destination": "download-attempts/original-workflow-logs.zip.attempt01.bytes",
+      "github_digest_matches": null,
+      "sha256": "2b593d729c97518a9d0eb58a5a8cd932c7c81cfa9c78e66bd40399421cefb4c8",
+      "started_at_utc": "2026-10-26T03:27:24.889790+00:00",
+      "timed_out": false,
+      "unique_zip_members": true,
+      "url": "https://api.github.com/repos/thatsmethen/relink/actions/runs/40261653701/logs",
+      "zip_crc_error": null,
+      "zip_opened": true
+    }
+  ],
+  "no_acquisition_rerun": true,
+  "original_partial_modified": false,
+  "original_partial_repaired_or_accepted": false,
+  "prior_partial": {
+    "accepted": false,
+    "expected_artifact_bytes": 10534447,
+    "expected_github_digest": "sha256:ed987c066e544582a363caa468718b3d289823df49f5426dd23330e985b3ace7",
+    "kind": "preserved prior incomplete download, not an accepted original artifact",
+    "matches_expected_digest": false,
+    "observed_at_utc": "2026-10-26T03:27:18.925046+00:00",
+    "observed_bytes": {
+      "bytes": 10076160,
+      "sha256": "adb8248d68df98883d47ad26be6877d79176e8c66c63093b36f1b71f90e4ca72"
+    },
+    "original_file_mtime_utc": "2026-10-26T03:06:10.133050+00:00",
+    "original_partial_modified": false,
+    "original_path": "build/application-capture-ci-3533993/installed/original-rust-hal-40261653701-1.zip",
+    "preserved_path": "failed-downloads/preexisting-hal-download.partial",
+    "reported_attempt": "Parent reported gh api download timed out; precise start/deadline/exit output unavailable to this collector",
+    "zip_check": {
+      "exception_type": "BadZipFile",
+      "message": "File is not a zip file",
+      "opened": false
+    }
+  },
+  "prior_partial_is_exact_prefix_of_verified_hal": true,
+  "prior_partial_missing_bytes": 458287,
+  "schema": 1
+}

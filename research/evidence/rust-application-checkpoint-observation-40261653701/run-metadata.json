@@ -1,0 +1,234 @@
+{
+  "conclusion": "success",
+  "created_at": "2026-10-26T02:57:27Z",
+  "event": "push",
+  "head_branch": "main",
+  "head_sha": "353399309004a1be5a196ebaa68c08218aff0555",
+  "html_url": "https://github.com/thatsmethen/relink/actions/runs/40261653701",
+  "id": 40261653701,
+  "jobs": [
+    {
+      "completed_at": "2026-10-26T03:01:20Z",
+      "conclusion": "success",
+      "html_url": "https://github.com/thatsmethen/relink/actions/runs/40261653701/job/121375127721",
+      "id": 121375127721,
+      "name": "installed-runtime-capture",
+      "started_at": "2026-10-26T02:57:31Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completed_at": "2026-10-26T02:57:32Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "started_at": "2026-10-26T02:57:31Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-26T02:57:36Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@v4",
+          "number": 2,
+          "started_at": "2026-10-26T02:57:32Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-26T02:57:45Z",
+          "conclusion": "success",
+          "name": "Install pinned Rust",
+          "number": 3,
+          "started_at": "2026-10-26T02:57:36Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-26T02:58:20Z",
+          "conclusion": "success",
+          "name": "Build original dual-cable driver, actual runtime client and independent observer",
+          "number": 4,
+          "started_at": "2026-10-26T02:57:45Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-26T03:00:07Z",
+          "conclusion": "success",
+          "name": "Fixed runtime analyzer and ownership controls without audio",
+          "number": 5,
+          "started_at": "2026-10-26T02:58:20Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-26T03:01:13Z",
+          "conclusion": "success",
+          "name": "Install, capture Cable1 through actual mixer into Cable2, verify live controls and stop",
+          "number": 6,
+          "started_at": "2026-10-26T03:00:07Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-26T03:01:13Z",
+          "conclusion": "success",
+          "name": "Ensure owned driver cleanup and both device UIDs absent",
+          "number": 7,
+          "started_at": "2026-10-26T03:01:13Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-26T03:01:14Z",
+          "conclusion": "success",
+          "name": "Hash original evidence including failed observations",
+          "number": 8,
+          "started_at": "2026-10-26T03:01:13Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-26T03:01:16Z",
+          "conclusion": "success",
+          "name": "Preserve original runtime PCM, timestamps and failed results",
+          "number": 9,
+          "started_at": "2026-10-26T03:01:14Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-26T03:01:16Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4",
+          "number": 18,
+          "started_at": "2026-10-26T03:01:16Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-26T03:01:18Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 19,
+          "started_at": "2026-10-26T03:01:16Z",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "completed_at": "2026-10-26T03:00:08Z",
+      "conclusion": "success",
+      "html_url": "https://github.com/thatsmethen/relink/actions/runs/40261653701/job/121375127815",
+      "id": 121375127815,
+      "name": "installed-hal",
+      "started_at": "2026-10-26T02:57:31Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completed_at": "2026-10-26T02:57:32Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "started_at": "2026-10-26T02:57:31Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-26T02:57:36Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@v4",
+          "number": 2,
+          "started_at": "2026-10-26T02:57:32Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-26T02:57:43Z",
+          "conclusion": "success",
+          "name": "Install pinned Rust",
+          "number": 3,
+          "started_at": "2026-10-26T02:57:36Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-26T02:57:52Z",
+          "conclusion": "success",
+          "name": "Build original driver bundle and independent observer",
+          "number": 4,
+          "started_at": "2026-10-26T02:57:43Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-26T02:59:14Z",
+          "conclusion": "success",
+          "name": "Observer and analyzer controls without audio",
+          "number": 5,
+          "started_at": "2026-10-26T02:57:52Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-26T03:00:02Z",
+          "conclusion": "success",
+          "name": "Install, observe independent clients, verify silence after restart, remove",
+          "number": 6,
+          "started_at": "2026-10-26T02:59:14Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-26T03:00:02Z",
+          "conclusion": "success",
+          "name": "Ensure owned driver cleanup",
+          "number": 7,
+          "started_at": "2026-10-26T03:00:02Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-26T03:00:02Z",
+          "conclusion": "success",
+          "name": "Hash original evidence including failed observations",
+          "number": 8,
+          "started_at": "2026-10-26T03:00:02Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-26T03:00:05Z",
+          "conclusion": "success",
+          "name": "Preserve original observations and failed results",
+          "number": 9,
+          "started_at": "2026-10-26T03:00:02Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-26T03:00:05Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4",
+          "number": 18,
+          "started_at": "2026-10-26T03:00:05Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-26T03:00:06Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 19,
+          "started_at": "2026-10-26T03:00:05Z",
+          "status": "completed"
+        }
+      ]
+    }
+  ],
+  "metadata_projection": true,
+  "note": "Selected fields from original API bodies; original bytes remain unchanged under the local build collection. Repository URL reflects the rename at collection time.",
+  "original_api": {
+    "original-artifacts.json": {
+      "bytes": 1430,
+      "sha256": "e47e0654eb5c8268adf2977108bcb59498a4a8d03b4fa0518def78cce20d9b92"
+    },
+    "original-jobs.json": {
+      "bytes": 5836,
+      "sha256": "a0c192717657c97d38b73be3929a8b1f60f95aa53677200408ebd6b931b438e2"
+    },
+    "original-run.json": {
+      "bytes": 12134,
+      "sha256": "6088c0c5e3bdb44b2477df724c53b645c044037a2f6585b4d9e7248437d5bb55"
+    },
+    "original-source-commit.json": {
+      "bytes": 1193,
+      "sha256": "ba40dc1e52befd86738ae2e934335a52f7b42405fa02b19633bf608e6faa55c2"
+    }
+  },
+  "run_attempt": 1,
+  "source_tree": "ad5f11535be216e38b4d80145e47aba3b8ee7463",
+  "status": "completed",
+  "updated_at": "2026-10-26T03:01:21Z",
+  "workflow_id": 394666442
+}

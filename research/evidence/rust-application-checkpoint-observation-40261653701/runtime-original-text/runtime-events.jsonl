@@ -1,0 +1,6 @@
+{"event":"started","host_time":8381211281,"input_id":"coreaudio:au.textual.ravelink.cable.1","output_id":"coreaudio:au.textual.ravelink.cable.2","sample_rate":48000,"input_format":"2ch 32-bit float","output_format":"2ch 32-bit float"}
+{"event":"phase","phase":0,"gain_db":-6,"muted":false,"requested_host_time":8408121240,"acknowledged_host_time":8409196752,"version":2,"rendered_frames":54784,"callback_count":107}
+{"event":"phase","phase":1,"gain_db":-12,"muted":false,"requested_host_time":8554902843,"acknowledged_host_time":8555841295,"version":4,"rendered_frames":348160,"callback_count":680}
+{"event":"phase","phase":2,"gain_db":-12,"muted":true,"requested_host_time":8701126960,"acknowledged_host_time":8701992705,"version":6,"rendered_frames":640512,"callback_count":1251}
+{"event":"phase","phase":3,"gain_db":-6,"muted":false,"requested_host_time":8798009971,"acknowledged_host_time":8799036583,"version":8,"rendered_frames":834560,"callback_count":1630}
+{"event":"stopped","requested_host_time":8943446881,"returned_host_time":8943504620,"rendered_frames":1123328,"callback_count":2194}
