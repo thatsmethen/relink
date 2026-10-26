@@ -1,0 +1,56 @@
+{
+  "schema": 1,
+  "source_report": "/Users/runner/work/relink/relink/build/rust-hal-system/reader-b.json",
+  "clock": {
+    "callback_count": 1875,
+    "sample_gaps": [
+      {
+        "after_sample": 466564.0,
+        "delta_frames": 1340.0
+      }
+    ],
+    "host_reversals": 0,
+    "measured_sample_rate": 48000.0,
+    "pass": false
+  },
+  "frames": 960000,
+  "mode": "record",
+  "failures": [
+    "sample clock or callback continuity failed",
+    "channel 0 tone amplitude outside 1%",
+    "channel 0 continuous PCM residual above 0.1% of amplitude",
+    "channel 1 tone amplitude outside 1%",
+    "channel 1 continuous PCM residual above 0.1% of amplitude",
+    "interior contains an exact-zero hole of at least eight stereo frames"
+  ],
+  "channels": [
+    {
+      "frequency_hz": 440,
+      "amplitude": 0.07976032821787826,
+      "phase_radians": 2.9960884100830514,
+      "rms": 0.08828550511595104,
+      "residual_rms": 0.06792256940713255
+    },
+    {
+      "frequency_hz": 997,
+      "amplitude": 0.10830489094172077,
+      "phase_radians": 1.685824633289142,
+      "rms": 0.08828413564847583,
+      "residual_rms": 0.043921679228480316
+    }
+  ],
+  "wrong_channel_amplitude": [
+    6.785428045665794e-06,
+    4.131621420364013e-06
+  ],
+  "longest_stereo_zero_run": 1812,
+  "interior_frames": 768000,
+  "trim_seconds": 2.0,
+  "criteria": {
+    "relative_amplitude_error": 0.01,
+    "residual_relative_to_peak": 0.001,
+    "wrong_channel_relative_peak": 0.005,
+    "forbidden_zero_run_frames": 8
+  },
+  "pass": false
+}

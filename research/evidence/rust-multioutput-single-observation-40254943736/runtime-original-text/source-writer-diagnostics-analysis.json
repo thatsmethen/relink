@@ -1,0 +1,156 @@
+{
+  "schema": 1,
+  "pass": true,
+  "failures": [],
+  "accepted_pcm_callbacks": 5625,
+  "max_callback_work_seconds": 0.00196175,
+  "max_entry_minus_native_seconds": 0.008746833333333332,
+  "sample_gap_context": [
+    {
+      "delta_frames": 1532.0,
+      "previous": {
+        "index": 844,
+        "entry_minus_native_seconds": 0.001313625,
+        "callback_work_seconds": 1.2083333333333332e-05,
+        "entry_minus_os_current_seconds": 4.379166666666666e-05
+      },
+      "current": {
+        "index": 845,
+        "entry_minus_native_seconds": -0.010603291666666665,
+        "callback_work_seconds": 8.374999999999999e-06,
+        "entry_minus_os_current_seconds": 5.379166666666666e-05
+      }
+    },
+    {
+      "delta_frames": 940.0,
+      "previous": {
+        "index": 1111,
+        "entry_minus_native_seconds": 0.008746833333333332,
+        "callback_work_seconds": 8.333333333333332e-06,
+        "entry_minus_os_current_seconds": 6.408333333333332e-05
+      },
+      "current": {
+        "index": 1112,
+        "entry_minus_native_seconds": -0.010261416666666665,
+        "callback_work_seconds": 7.958333333333333e-06,
+        "entry_minus_os_current_seconds": 5.083333333333333e-05
+      }
+    }
+  ],
+  "notifications": [
+    {
+      "index": 0,
+      "host_time": 5980786672,
+      "object": 92,
+      "selector": 1735354734,
+      "scope": 1735159650,
+      "element": 0
+    },
+    {
+      "index": 1,
+      "host_time": 6197396867,
+      "object": 92,
+      "selector": 1870030194,
+      "scope": 1735159650,
+      "element": 0
+    },
+    {
+      "index": 2,
+      "host_time": 6266692641,
+      "object": 92,
+      "selector": 1870030194,
+      "scope": 1735159650,
+      "element": 0
+    },
+    {
+      "index": 3,
+      "host_time": 7422187285,
+      "object": 92,
+      "selector": 1735354734,
+      "scope": 1735159650,
+      "element": 0
+    }
+  ],
+  "listeners": [
+    {
+      "object": 92,
+      "selector": 1870030194,
+      "scope": 1735159650,
+      "element": 0,
+      "available": true,
+      "added": true,
+      "add_status": 0,
+      "remove_status": 0
+    },
+    {
+      "object": 92,
+      "selector": 1735354734,
+      "scope": 1735159650,
+      "element": 0,
+      "available": true,
+      "added": true,
+      "add_status": 0,
+      "remove_status": 0
+    },
+    {
+      "object": 92,
+      "selector": 1818850926,
+      "scope": 1735159650,
+      "element": 0,
+      "available": true,
+      "added": true,
+      "add_status": 0,
+      "remove_status": 0
+    },
+    {
+      "object": 92,
+      "selector": 1853059700,
+      "scope": 1735159650,
+      "element": 0,
+      "available": true,
+      "added": true,
+      "add_status": 0,
+      "remove_status": 0
+    },
+    {
+      "object": 92,
+      "selector": 1718839674,
+      "scope": 1735159650,
+      "element": 0,
+      "available": true,
+      "added": true,
+      "add_status": 0,
+      "remove_status": 0
+    },
+    {
+      "object": 94,
+      "selector": 1885762592,
+      "scope": 1735159650,
+      "element": 0,
+      "available": true,
+      "added": true,
+      "add_status": 0,
+      "remove_status": 0
+    },
+    {
+      "object": 93,
+      "selector": 1885762592,
+      "scope": 1735159650,
+      "element": 0,
+      "available": true,
+      "added": true,
+      "add_status": 0,
+      "remove_status": 0
+    }
+  ],
+  "lifecycle": {
+    "start_request": 5980325413,
+    "start_return": 5983834799,
+    "stop_request": 7422028556,
+    "stop_return": 7422249274,
+    "destroy_request": 7422249282,
+    "destroy_return": 7422255544
+  },
+  "dropped_notifications": 0,
+  "note": "Diagnostic integrity only. No scheduling performance limit or PCM acceptance threshold is changed."
+}

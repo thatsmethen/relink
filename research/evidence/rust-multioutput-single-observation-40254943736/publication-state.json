@@ -1,0 +1,66 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-10-26T01:55:40.123029+00:00",
+  "kind": "later publication metadata projection; collection-time metadata remains unchanged",
+  "status": "PUBLIC_ANONYMOUS_ROUNDTRIP_VERIFIED",
+  "release": {
+    "id": 423786291,
+    "html_url": "https://github.com/thatsmethen/relink/releases/tag/evidence-multioutput-single-40254943736",
+    "tag_name": "evidence-multioutput-single-40254943736",
+    "name": "Evidence 40254943736 \u2014 single-output observation FAILED",
+    "prerelease": true,
+    "draft": false,
+    "published_at": "2026-10-26T01:54:03Z"
+  },
+  "tag": {
+    "type": "commit",
+    "revision": "902118a60b070bb9cefdef75d5b477b5350b9847",
+    "tagger_metadata": "none: lightweight tag"
+  },
+  "source_tree": "3487df8646e06526b536e12450be71536172da36",
+  "public_verification": {
+    "name": "public-verification.json",
+    "bytes": 19230,
+    "sha256": "2a87d3eb78bb3dedfe45efa32199192599fb94b2c2a16db4015adb39b97fae3a"
+  },
+  "total_release_assets": 32,
+  "lossless_original_zip_parts": 28,
+  "maximum_part_bytes": 524288,
+  "whole_archives": [
+    "original-workflow-logs.zip",
+    "collection-evidence-40254943736.zip"
+  ],
+  "source_repository_required": false,
+  "pinned_source_files_bundled_and_hash_verified": 8,
+  "source_analysis": "Eight exact source files are bundled in the frozen snapshot. Offline verification uses no Git checkout, source fetch or network.",
+  "frozen_collection_files_preserved": 126,
+  "original_zip_archives_verified": 3,
+  "original_manifest_files_verified": 121,
+  "original_analysis_reports_recomputed": 13,
+  "original_observer_error_reproduced_exactly": true,
+  "complete_runtime_pcm_protocol_analysis_available": false,
+  "unchanged_original_outcomes": {
+    "overall": "FAIL",
+    "installed-hal": "FAIL",
+    "installed-runtime-capture": "FAIL"
+  },
+  "scope": "Single-output capture/mix observation; immutable NativeInputOverload on Cable 1, original protocol incomplete and failed. Successful native cleanup does not clear the latched fault. HAL separately fails PCM/clock checks. Cause unknown; no simultaneous-output or production qualification.",
+  "underlying_cause": "Unknown; clock gaps and nearby overload notifications are observations, not proof of causal onset or a source-code regression.",
+  "accepted_asset_replacement": false,
+  "explicit_content_length_for_every_upload": true,
+  "raw_public_api_bodies_retained_locally": {
+    "public-release-api.json": {
+      "bytes": 55913,
+      "sha256": "8aa148fdb658fe654da78f7b080a8518f0b106571a2af3d1c4cf6d321c32b8a7"
+    },
+    "public-tag-api.json": {
+      "bytes": 450,
+      "sha256": "fa881d6ebf5eb560398a965c8f474dbd9046c5a685bfa54ed8d9f1caf05840d8"
+    },
+    "public-source-commit-api.json": {
+      "bytes": 1183,
+      "sha256": "31e9ee6356c67479210835bc483d246a0a1d92dc6516e3549590d9aef8d777a0"
+    }
+  },
+  "git_operations_or_audio_rerun_or_acceptance_changes": false
+}

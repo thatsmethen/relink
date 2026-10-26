@@ -1,0 +1,179 @@
+{
+  "schema": 1,
+  "pass": true,
+  "failures": [],
+  "accepted_pcm_callbacks": 3000,
+  "max_callback_work_seconds": 0.00033541666666666664,
+  "max_entry_minus_native_seconds": 0.029017791666666664,
+  "sample_gap_context": [
+    {
+      "delta_frames": 624.0,
+      "previous": {
+        "index": 780,
+        "entry_minus_native_seconds": 0.02352733333333333,
+        "callback_work_seconds": 4.458333333333333e-06,
+        "entry_minus_os_current_seconds": 0.0018642083333333332
+      },
+      "current": {
+        "index": 781,
+        "entry_minus_native_seconds": 0.010735416666666666,
+        "callback_work_seconds": 1.5416666666666666e-06,
+        "entry_minus_os_current_seconds": 7e-05
+      }
+    },
+    {
+      "delta_frames": 884.0,
+      "previous": {
+        "index": 1049,
+        "entry_minus_native_seconds": 0.029017791666666664,
+        "callback_work_seconds": 2.208333333333333e-06,
+        "entry_minus_os_current_seconds": 5.979166666666666e-05
+      },
+      "current": {
+        "index": 1050,
+        "entry_minus_native_seconds": 0.013384249999999999,
+        "callback_work_seconds": 2.1666666666666665e-06,
+        "entry_minus_os_current_seconds": 0.00010083333333333332
+      }
+    },
+    {
+      "delta_frames": 560.0,
+      "previous": {
+        "index": 1055,
+        "entry_minus_native_seconds": 0.022210583333333332,
+        "callback_work_seconds": 2.2916666666666666e-06,
+        "entry_minus_os_current_seconds": 0.0001530833333333333
+      },
+      "current": {
+        "index": 1056,
+        "entry_minus_native_seconds": 0.010758083333333333,
+        "callback_work_seconds": 2.6666666666666664e-06,
+        "entry_minus_os_current_seconds": 8.470833333333332e-05
+      }
+    }
+  ],
+  "notifications": [
+    {
+      "index": 0,
+      "host_time": 5997158668,
+      "object": 100,
+      "selector": 1735354734,
+      "scope": 1735159650,
+      "element": 0
+    },
+    {
+      "index": 1,
+      "host_time": 6197404995,
+      "object": 100,
+      "selector": 1870030194,
+      "scope": 1735159650,
+      "element": 0
+    },
+    {
+      "index": 2,
+      "host_time": 6266712064,
+      "object": 100,
+      "selector": 1870030194,
+      "scope": 1735159650,
+      "element": 0
+    },
+    {
+      "index": 3,
+      "host_time": 6268526946,
+      "object": 100,
+      "selector": 1870030194,
+      "scope": 1735159650,
+      "element": 0
+    },
+    {
+      "index": 4,
+      "host_time": 6766671533,
+      "object": 100,
+      "selector": 1735354734,
+      "scope": 1735159650,
+      "element": 0
+    }
+  ],
+  "listeners": [
+    {
+      "object": 100,
+      "selector": 1870030194,
+      "scope": 1735159650,
+      "element": 0,
+      "available": true,
+      "added": true,
+      "add_status": 0,
+      "remove_status": 0
+    },
+    {
+      "object": 100,
+      "selector": 1735354734,
+      "scope": 1735159650,
+      "element": 0,
+      "available": true,
+      "added": true,
+      "add_status": 0,
+      "remove_status": 0
+    },
+    {
+      "object": 100,
+      "selector": 1818850926,
+      "scope": 1735159650,
+      "element": 0,
+      "available": true,
+      "added": true,
+      "add_status": 0,
+      "remove_status": 0
+    },
+    {
+      "object": 100,
+      "selector": 1853059700,
+      "scope": 1735159650,
+      "element": 0,
+      "available": true,
+      "added": true,
+      "add_status": 0,
+      "remove_status": 0
+    },
+    {
+      "object": 100,
+      "selector": 1718839674,
+      "scope": 1735159650,
+      "element": 0,
+      "available": true,
+      "added": true,
+      "add_status": 0,
+      "remove_status": 0
+    },
+    {
+      "object": 102,
+      "selector": 1885762592,
+      "scope": 1735159650,
+      "element": 0,
+      "available": true,
+      "added": true,
+      "add_status": 0,
+      "remove_status": 0
+    },
+    {
+      "object": 101,
+      "selector": 1885762592,
+      "scope": 1735159650,
+      "element": 0,
+      "available": true,
+      "added": true,
+      "add_status": 0,
+      "remove_status": 0
+    }
+  ],
+  "lifecycle": {
+    "start_request": 5996970303,
+    "start_return": 5997380952,
+    "stop_request": 6766409182,
+    "stop_return": 6767024944,
+    "destroy_request": 6767024957,
+    "destroy_return": 6767036671
+  },
+  "dropped_notifications": 0,
+  "note": "Diagnostic integrity only. No scheduling performance limit or PCM acceptance threshold is changed."
+}

@@ -1,0 +1,66 @@
+{
+  "original-artifacts.json": {
+    "bytes": 1430,
+    "sha256": "5b8e122ef21fc2ea69c430b60022418c93f8c173e451f540d57fc2afb3314bf6"
+  },
+  "original-hal.zip": {
+    "bytes": 10523192,
+    "sha256": "c58fc70b4a6033da20fe27f7d6301530053993347788c1e6652f436024b59423"
+  },
+  "original-jobs.json": {
+    "bytes": 5836,
+    "sha256": "3e3835c5f11713bdcec8d43980d5235c08b8027a6e1b6bded3e44cc620e942d3"
+  },
+  "original-run.json": {
+    "bytes": 12122,
+    "sha256": "6d61537014c93a0db2714fb99577f4fb885fe05af665f740f973d4cfab983282"
+  },
+  "original-runtime.zip": {
+    "bytes": 3340292,
+    "sha256": "8f2a0bcfedf264df71d0f70c6aac9f8fec13e0b752676a0158d77cbf9700adc3"
+  },
+  "original-source-blob-4880d6f2e81a790e161c15c93ae9d8cd6bccc828.json": {
+    "bytes": 13338,
+    "sha256": "a47977dfd5de622560a2084e45abebce3d2ad586b83b3eed161d491388ac6d91"
+  },
+  "original-source-blob-576b39d4711e497fac3abcb80f0b4b12bb511ba3.json": {
+    "bytes": 42831,
+    "sha256": "73bb3fd89b67a2b23fae468d4236d754a04ab3d4f65b390946e4943a8367c6ce"
+  },
+  "original-source-blob-7bfa6822f4afc00e95e1e81e121f10993fd5bca9.json": {
+    "bytes": 80249,
+    "sha256": "995ccffca23a52b31e234ebcfab0c7ff192b071674dcc2791ecfeacd50df44be"
+  },
+  "original-source-blob-ab0a9d36e5063f123f9d3a5a3f481c7a257dc01e.json": {
+    "bytes": 30199,
+    "sha256": "acd05d1d00bfcdead5694d016d6cefd05436f5d2e1c624b98ff93f3e34df9c29"
+  },
+  "original-source-blob-ca839637601c1a70bda8a14d26bbf0c59e598530.json": {
+    "bytes": 19329,
+    "sha256": "3054cd9109073cd0bd4f1517294e51b98dbe9542d3a7551e109fda6817c3cd5e"
+  },
+  "original-source-blob-d5ba3a9e6ff063c5885dd1382ff80433d785d6b2.json": {
+    "bytes": 9324,
+    "sha256": "13a5d812c36bdc365fe78848937bc851d9316b9e935bbeba2cf624e2901b8252"
+  },
+  "original-source-blob-f735b550f54f894ac08967eb219cb5fd412b72c0.json": {
+    "bytes": 7606,
+    "sha256": "c1b568ffb390870ddc33b7f06dd1b77724822e5a284d83ba2c43d0072a804de6"
+  },
+  "original-source-blob-f8479b940bb3d5498d988975ba75cf51f36a75c5.json": {
+    "bytes": 8362,
+    "sha256": "96ec0c58c2f506937dbed9e17afe4196d7e70ff9f2e64e90b5f1d32f65c6c05b"
+  },
+  "original-source-commit.json": {
+    "bytes": 1183,
+    "sha256": "31e9ee6356c67479210835bc483d246a0a1d92dc6516e3549590d9aef8d777a0"
+  },
+  "original-source-tree.json": {
+    "bytes": 680900,
+    "sha256": "e06f403439c4294464af6a8447efc1231dbefd760f8936f4305556f7accb03b3"
+  },
+  "original-workflow-logs.zip": {
+    "bytes": 34836,
+    "sha256": "fc52600abb26d69d467d7dbe40432f7bd5d53a45a5381a4954b22bd79bc7163a"
+  }
+}

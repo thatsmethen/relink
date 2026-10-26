@@ -1,0 +1,415 @@
+{
+  "schema": 2,
+  "verification_started_at_utc": "2026-10-26T01:54:13.417187+00:00",
+  "verified_at_utc": "2026-10-26T01:54:52.523226+00:00",
+  "kind": "metadata projection and independent public byte verification; not an original API body",
+  "anonymous_public_requests": {
+    "authorization_header": false,
+    "cookie_header": false,
+    "gh_credentials_read": false
+  },
+  "release": {
+    "id": 423786291,
+    "html_url": "https://github.com/thatsmethen/relink/releases/tag/evidence-multioutput-single-40254943736",
+    "tag_name": "evidence-multioutput-single-40254943736",
+    "name": "Evidence 40254943736 \u2014 single-output observation FAILED",
+    "prerelease": true,
+    "draft": false,
+    "published_at": "2026-10-26T01:54:03Z"
+  },
+  "tag": {
+    "type": "commit",
+    "revision": "902118a60b070bb9cefdef75d5b477b5350b9847",
+    "tagger_metadata": "none: lightweight tag"
+  },
+  "source_tree": "3487df8646e06526b536e12450be71536172da36",
+  "source_author_and_committer_are_anonymous_contributor_identity": true,
+  "notes_match_local_utf8": true,
+  "assets": [
+    {
+      "name": "collection-evidence-40254943736.zip",
+      "asset_id": 676691457,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-multioutput-single-40254943736/collection-evidence-40254943736.zip",
+      "bytes": 264176,
+      "sha256": "71d4b7703f0b7ca1abb44cacde99b0a9bb6e4e321533a24ec1bf45c4655b27e8",
+      "github_release_digest_matches": true
+    },
+    {
+      "name": "original-hal.zip.part000",
+      "asset_id": 676688149,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-multioutput-single-40254943736/original-hal.zip.part000",
+      "bytes": 524288,
+      "sha256": "96f9eda8fe7d88773a91de9bf70ebf0c2b6e1451831f57b7f1461f9f1e12e8b8",
+      "github_release_digest_matches": true
+    },
+    {
+      "name": "original-hal.zip.part001",
+      "asset_id": 676688176,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-multioutput-single-40254943736/original-hal.zip.part001",
+      "bytes": 524288,
+      "sha256": "47d2d3136bead4c38aa3f6e29b8adc8ca3ef5279b75255938d9bd45ed0b99493",
+      "github_release_digest_matches": true
+    },
+    {
+      "name": "original-hal.zip.part002",
+      "asset_id": 676688312,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-multioutput-single-40254943736/original-hal.zip.part002",
+      "bytes": 524288,
+      "sha256": "a7729197a2923ab7534a325402acfc23066fc623c796176f6c96a919e4b9b2fd",
+      "github_release_digest_matches": true
+    },
+    {
+      "name": "original-hal.zip.part003",
+      "asset_id": 676688331,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-multioutput-single-40254943736/original-hal.zip.part003",
+      "bytes": 524288,
+      "sha256": "d6aa1d670629e6ad2bcada117b1a7fc2b57625356158df13ce0abacd27a5cd7e",
+      "github_release_digest_matches": true
+    },
+    {
+      "name": "original-hal.zip.part004",
+      "asset_id": 676688496,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-multioutput-single-40254943736/original-hal.zip.part004",
+      "bytes": 524288,
+      "sha256": "f08e2149abe5fe36e6d5d31ee2535c26ed854a9c29b1f857ca42c82be528c8db",
+      "github_release_digest_matches": true
+    },
+    {
+      "name": "original-hal.zip.part005",
+      "asset_id": 676688514,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-multioutput-single-40254943736/original-hal.zip.part005",
+      "bytes": 524288,
+      "sha256": "2f1ab9ac1c47c29dc3c42987846b7a5e80616727a528075e4679d40bf646e497",
+      "github_release_digest_matches": true
+    },
+    {
+      "name": "original-hal.zip.part006",
+      "asset_id": 676688767,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-multioutput-single-40254943736/original-hal.zip.part006",
+      "bytes": 524288,
+      "sha256": "cd9b9a2434053ce649ae020052cc9105e02bbd893aa9036c187d1d7181d424d6",
+      "github_release_digest_matches": true
+    },
+    {
+      "name": "original-hal.zip.part007",
+      "asset_id": 676688820,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-multioutput-single-40254943736/original-hal.zip.part007",
+      "bytes": 524288,
+      "sha256": "d4037d3a8f8112496794e44dfb751b35a72c00fd2716f46d711ef7dfb8c379cc",
+      "github_release_digest_matches": true
+    },
+    {
+      "name": "original-hal.zip.part008",
+      "asset_id": 676689088,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-multioutput-single-40254943736/original-hal.zip.part008",
+      "bytes": 524288,
+      "sha256": "d8e31dc825c080d62d920719951b96eef017b07a10615a6fd27a39d5f2aa4993",
+      "github_release_digest_matches": true
+    },
+    {
+      "name": "original-hal.zip.part009",
+      "asset_id": 676689162,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-multioutput-single-40254943736/original-hal.zip.part009",
+      "bytes": 524288,
+      "sha256": "168ee087c8843e26508fe681603df32f96ce70605ea01e8db0d01e9223051759",
+      "github_release_digest_matches": true
+    },
+    {
+      "name": "original-hal.zip.part010",
+      "asset_id": 676689230,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-multioutput-single-40254943736/original-hal.zip.part010",
+      "bytes": 524288,
+      "sha256": "7d83b4e653e41d4f9c22ad1d8551a458e60479a21cdd5b2ef34087fe9eedbb19",
+      "github_release_digest_matches": true
+    },
+    {
+      "name": "original-hal.zip.part011",
+      "asset_id": 676689263,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-multioutput-single-40254943736/original-hal.zip.part011",
+      "bytes": 524288,
+      "sha256": "f95e71793bf0d84e336e3442ebd7c5f4051ed49525b024d259168bc2456dbaaf",
+      "github_release_digest_matches": true
+    },
+    {
+      "name": "original-hal.zip.part012",
+      "asset_id": 676689344,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-multioutput-single-40254943736/original-hal.zip.part012",
+      "bytes": 524288,
+      "sha256": "db7c6e7dea4e3674da514d47098edacc0664195294e92f04342b706f70b2d728",
+      "github_release_digest_matches": true
+    },
+    {
+      "name": "original-hal.zip.part013",
+      "asset_id": 676689459,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-multioutput-single-40254943736/original-hal.zip.part013",
+      "bytes": 524288,
+      "sha256": "95dbd095944f6ba6db0c8f1cd395a7de64c9339e78502f0d0b52b7b124eadd19",
+      "github_release_digest_matches": true
+    },
+    {
+      "name": "original-hal.zip.part014",
+      "asset_id": 676689629,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-multioutput-single-40254943736/original-hal.zip.part014",
+      "bytes": 524288,
+      "sha256": "1062dd50543d97c77ec1a9ccea86b017d04fa9d1c4c8c08abf698071f749cabe",
+      "github_release_digest_matches": true
+    },
+    {
+      "name": "original-hal.zip.part015",
+      "asset_id": 676689699,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-multioutput-single-40254943736/original-hal.zip.part015",
+      "bytes": 524288,
+      "sha256": "44b557c6311aaaec3feebde623b9e0cce79c7013d1d260a56c23e422f0fea3f7",
+      "github_release_digest_matches": true
+    },
+    {
+      "name": "original-hal.zip.part016",
+      "asset_id": 676689839,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-multioutput-single-40254943736/original-hal.zip.part016",
+      "bytes": 524288,
+      "sha256": "f27f2ea88e3194812612a236ec059834c3aa7dc998f24ecc0eefc967211b8e4d",
+      "github_release_digest_matches": true
+    },
+    {
+      "name": "original-hal.zip.part017",
+      "asset_id": 676690063,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-multioutput-single-40254943736/original-hal.zip.part017",
+      "bytes": 524288,
+      "sha256": "472b0956b0a45d11e9c9b9f06c2d5645d7217d27929dfe2aa2ea426e8e3fc12e",
+      "github_release_digest_matches": true
+    },
+    {
+      "name": "original-hal.zip.part018",
+      "asset_id": 676690426,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-multioutput-single-40254943736/original-hal.zip.part018",
+      "bytes": 524288,
+      "sha256": "187b14558087e4cfd2d640545899983d496bec2d601d6b71c047924681956bea",
+      "github_release_digest_matches": true
+    },
+    {
+      "name": "original-hal.zip.part019",
+      "asset_id": 676691362,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-multioutput-single-40254943736/original-hal.zip.part019",
+      "bytes": 524288,
+      "sha256": "9d90a024c2273b767275a6de015ddd49449104e6c951716bf4ce54f18c7f54f8",
+      "github_release_digest_matches": true
+    },
+    {
+      "name": "original-hal.zip.part020",
+      "asset_id": 676691397,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-multioutput-single-40254943736/original-hal.zip.part020",
+      "bytes": 37432,
+      "sha256": "313918784c8d4585f905a4350396a9c4795935d3842d329032f38afa675aae27",
+      "github_release_digest_matches": true
+    },
+    {
+      "name": "original-runtime.zip.part000",
+      "asset_id": 676687365,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-multioutput-single-40254943736/original-runtime.zip.part000",
+      "bytes": 524288,
+      "sha256": "1d60a3dd99c4120b65b3a25e4e05d09fbc31d92162cca68a981021db54c10d13",
+      "github_release_digest_matches": true
+    },
+    {
+      "name": "original-runtime.zip.part001",
+      "asset_id": 676687404,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-multioutput-single-40254943736/original-runtime.zip.part001",
+      "bytes": 524288,
+      "sha256": "0e69c4f567b5dbc35afe5315f466866149ee18f4c93c5f683eef8bddbbc9b03b",
+      "github_release_digest_matches": true
+    },
+    {
+      "name": "original-runtime.zip.part002",
+      "asset_id": 676687411,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-multioutput-single-40254943736/original-runtime.zip.part002",
+      "bytes": 524288,
+      "sha256": "c115d7927ac0260504f7aaf060c1107e29659bdb85be4facdaccdd0f5dd03af6",
+      "github_release_digest_matches": true
+    },
+    {
+      "name": "original-runtime.zip.part003",
+      "asset_id": 676687747,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-multioutput-single-40254943736/original-runtime.zip.part003",
+      "bytes": 524288,
+      "sha256": "b16f85f694f4a2f5ca33360013facd90472b22fe2f14fbf2fe1f119597b4d0a3",
+      "github_release_digest_matches": true
+    },
+    {
+      "name": "original-runtime.zip.part004",
+      "asset_id": 676687790,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-multioutput-single-40254943736/original-runtime.zip.part004",
+      "bytes": 524288,
+      "sha256": "52af146f85bc016da419f7ccea95bd885886035ef4214965bc481988430988b0",
+      "github_release_digest_matches": true
+    },
+    {
+      "name": "original-runtime.zip.part005",
+      "asset_id": 676687936,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-multioutput-single-40254943736/original-runtime.zip.part005",
+      "bytes": 524288,
+      "sha256": "bac55baebe12dc8ef67598e36e836ab888d8d3658c06c846d1d607c9ece254dd",
+      "github_release_digest_matches": true
+    },
+    {
+      "name": "original-runtime.zip.part006",
+      "asset_id": 676688032,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-multioutput-single-40254943736/original-runtime.zip.part006",
+      "bytes": 194564,
+      "sha256": "6a4401117228d0b328405ffc8c04fc67fa5c5bc949877e1de44faf66c5f5ed9e",
+      "github_release_digest_matches": true
+    },
+    {
+      "name": "original-workflow-logs.zip",
+      "asset_id": 676687366,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-multioutput-single-40254943736/original-workflow-logs.zip",
+      "bytes": 34836,
+      "sha256": "fc52600abb26d69d467d7dbe40432f7bd5d53a45a5381a4954b22bd79bc7163a",
+      "github_release_digest_matches": true
+    },
+    {
+      "name": "publication-assets.json",
+      "asset_id": 676691464,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-multioutput-single-40254943736/publication-assets.json",
+      "bytes": 14871,
+      "sha256": "ab665b3536ffbcf7b8bd82ccf804cb2cda6e30f2acea03afca234d06a3f4b657",
+      "github_release_digest_matches": true
+    },
+    {
+      "name": "verify-release.py",
+      "asset_id": 676691544,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-multioutput-single-40254943736/verify-release.py",
+      "bytes": 5309,
+      "sha256": "a7ef4a735852d69fd6f5f92a4788226dad89c0ac729df345e9b724df20272aee",
+      "github_release_digest_matches": true
+    }
+  ],
+  "raw_public_api_responses_retained_locally": {
+    "public-release-api.json": {
+      "bytes": 55913,
+      "sha256": "8aa148fdb658fe654da78f7b080a8518f0b106571a2af3d1c4cf6d321c32b8a7"
+    },
+    "public-tag-api.json": {
+      "bytes": 450,
+      "sha256": "fa881d6ebf5eb560398a965c8f474dbd9046c5a685bfa54ed8d9f1caf05840d8"
+    },
+    "public-source-commit-api.json": {
+      "bytes": 1183,
+      "sha256": "31e9ee6356c67479210835bc483d246a0a1d92dc6516e3549590d9aef8d777a0"
+    }
+  },
+  "compact_collection_snapshot_manifest_verified": true,
+  "offline_custody_and_failure_verification": {
+    "schema": 1,
+    "all_release_payload_hashes_verified": true,
+    "complete_original_archive_hashes_verified": true,
+    "archives": [
+      {
+        "name": "original-workflow-logs.zip",
+        "bytes": 34836,
+        "sha256": "fc52600abb26d69d467d7dbe40432f7bd5d53a45a5381a4954b22bd79bc7163a"
+      },
+      {
+        "name": "original-runtime.zip",
+        "bytes": 3340292,
+        "sha256": "8f2a0bcfedf264df71d0f70c6aac9f8fec13e0b752676a0158d77cbf9700adc3"
+      },
+      {
+        "name": "original-hal.zip",
+        "bytes": 10523192,
+        "sha256": "c58fc70b4a6033da20fe27f7d6301530053993347788c1e6652f436024b59423"
+      },
+      {
+        "name": "collection-evidence-40254943736.zip",
+        "bytes": 264176,
+        "sha256": "71d4b7703f0b7ca1abb44cacde99b0a9bb6e4e321533a24ec1bf45c4655b27e8"
+      }
+    ],
+    "source_revision": "902118a60b070bb9cefdef75d5b477b5350b9847",
+    "source_tree": "3487df8646e06526b536e12450be71536172da36",
+    "frozen_collection_files_verified": 126,
+    "unchanged_bundled_verifier": {
+      "original_archives_verified": 3,
+      "original_manifest_files_verified": 121,
+      "original_analysis_reports_recomputed": 13,
+      "original_observer_error_reproduced_exactly": true,
+      "complete_runtime_pcm_protocol_analysis_available": false,
+      "outcomes": {
+        "overall": "FAIL",
+        "hal": "FAIL",
+        "runtime": "FAIL"
+      },
+      "git_network_or_audio_operations": false
+    },
+    "pinned_source_identities": {
+      "files": [
+        {
+          "bytes": 5311,
+          "git_blob_sha": "f735b550f54f894ac08967eb219cb5fd412b72c0",
+          "original_blob_api_sha256": "c1b568ffb390870ddc33b7f06dd1b77724822e5a284d83ba2c43d0072a804de6",
+          "path": ".github/workflows/rust-hal.yml",
+          "sha256": "a1aeef812ec762019fcd0a1880506b8556ab0fa969c3f656919a93fe6ade9247"
+        },
+        {
+          "bytes": 9472,
+          "git_blob_sha": "4880d6f2e81a790e161c15c93ae9d8cd6bccc828",
+          "original_blob_api_sha256": "a47977dfd5de622560a2084e45abebce3d2ad586b83b3eed161d491388ac6d91",
+          "path": "drivers/macos/tests/analyze_system.py",
+          "sha256": "6f2e070cf855d18fb45a7686e79c1f7da6627061079f44ebe32b0ed8b76cfe0f"
+        },
+        {
+          "bytes": 13821,
+          "git_blob_sha": "ca839637601c1a70bda8a14d26bbf0c59e598530",
+          "original_blob_api_sha256": "3054cd9109073cd0bd4f1517294e51b98dbe9542d3a7551e109fda6817c3cd5e",
+          "path": "drivers/macos/tests/analyze_runtime.py",
+          "sha256": "6742811826f6fef7dc243b688a10eafa6c669a3cf0a9bb5eb5ea14b1887fab43"
+        },
+        {
+          "bytes": 6559,
+          "git_blob_sha": "d5ba3a9e6ff063c5885dd1382ff80433d785d6b2",
+          "original_blob_api_sha256": "13a5d812c36bdc365fe78848937bc851d9316b9e935bbeba2cf624e2901b8252",
+          "path": "drivers/macos/tests/analyze_diagnostics.py",
+          "sha256": "39e626866d67400a18d328996ff45ef715b7e94e0c96f27b53de016546e9bc20"
+        },
+        {
+          "bytes": 5862,
+          "git_blob_sha": "f8479b940bb3d5498d988975ba75cf51f36a75c5",
+          "original_blob_api_sha256": "96ec0c58c2f506937dbed9e17afe4196d7e70ff9f2e64e90b5f1d32f65c6c05b",
+          "path": "drivers/macos/tests/run_runtime.py",
+          "sha256": "4ef48ba4bdf8f42c3679b4d773aabfd24b94864bc588ee3697391b0aaccfc4d4"
+        },
+        {
+          "bytes": 21710,
+          "git_blob_sha": "ab0a9d36e5063f123f9d3a5a3f481c7a257dc01e",
+          "original_blob_api_sha256": "acd05d1d00bfcdead5694d016d6cefd05436f5d2e1c624b98ff93f3e34df9c29",
+          "path": "drivers/macos/tests/run_system.py",
+          "sha256": "f5f4604f14740265dd31acae26729b8bdf47a8fdeb8b580992dc6a3bdbda73ec"
+        },
+        {
+          "bytes": 30878,
+          "git_blob_sha": "576b39d4711e497fac3abcb80f0b4b12bb511ba3",
+          "original_blob_api_sha256": "73bb3fd89b67a2b23fae468d4236d754a04ab3d4f65b390946e4943a8367c6ce",
+          "path": "drivers/macos/tests/system-probe.c",
+          "sha256": "8549f79ddc04c52a8970c605ce2772da4c072910dabdbdb4c796006157115b4d"
+        },
+        {
+          "bytes": 58037,
+          "git_blob_sha": "7bfa6822f4afc00e95e1e81e121f10993fd5bca9",
+          "original_blob_api_sha256": "995ccffca23a52b31e234ebcfab0c7ff192b071674dcc2791ecfeacd50df44be",
+          "path": "crates/ravelink-audio/examples/runtime-capture-probe.rs",
+          "sha256": "1fc11d998a4952db96190a8656f0277629444dbcc2735d224804b1c541dcb6b6"
+        }
+      ],
+      "original_source_tree_api_sha256": "e06f403439c4294464af6a8447efc1231dbefd760f8936f4305556f7accb03b3",
+      "source_revision": "902118a60b070bb9cefdef75d5b477b5350b9847",
+      "source_tree": "3487df8646e06526b536e12450be71536172da36"
+    },
+    "original_verifier_modified": false,
+    "original_outcomes_changed": false,
+    "git_network_or_audio_operations": false,
+    "temporary_pcm_extraction": "The frozen verifier extracts original PCM/clock/control inputs into a temporary directory for offline analysis and removes it afterward."
+  },
+  "temporary_pcm_extraction": "The frozen verifier extracts original PCM/clock/control inputs into a temporary directory for offline analysis and removes it afterward.",
+  "git_operations": false,
+  "rerun_or_original_outcome_changes": false,
+  "runtime_output_boundary": "Single-output capture/mix observation; immutable NativeInputOverload on Cable 1, original protocol incomplete and failed. Successful native cleanup does not clear the latched fault. HAL separately fails PCM/clock checks. Cause unknown; no simultaneous-output or production qualification."
+}

@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "verified_outside_checkout_without_git_or_source_repo": true,
+  "frozen_collection_files_verified": 126,
+  "original_manifest_files_verified": 121,
+  "original_analysis_reports_recomputed": 13,
+  "outcomes_preserved": {
+    "overall": "FAIL",
+    "hal": "FAIL",
+    "runtime": "FAIL"
+  },
+  "one_byte_corruption_rejected": {
+    "asset": "original-workflow-logs.zip",
+    "returncode": 1,
+    "original_sha256": "fc52600abb26d69d467d7dbe40432f7bd5d53a45a5381a4954b22bd79bc7163a",
+    "corrupted_sha256": "7e062f214661afd7a0b1805e15619a747b8512fa47b956d1b9bac5558ba22e69"
+  },
+  "git_network_or_audio_operations": false
+}

@@ -1,0 +1,13 @@
+{
+  "original_archives_verified": 3,
+  "original_manifest_files_verified": 121,
+  "original_analysis_reports_recomputed": 13,
+  "original_observer_error_reproduced_exactly": true,
+  "complete_runtime_pcm_protocol_analysis_available": false,
+  "outcomes": {
+    "overall": "FAIL",
+    "hal": "FAIL",
+    "runtime": "FAIL"
+  },
+  "git_network_or_audio_operations": false
+}

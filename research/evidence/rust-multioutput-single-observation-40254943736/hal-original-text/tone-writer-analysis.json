@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "source_report": "/Users/runner/work/relink/relink/build/rust-hal-system/tone-writer.json",
+  "clock": {
+    "callback_count": 3750,
+    "sample_gaps": [
+      {
+        "after_sample": 467668.0,
+        "delta_frames": 1404.0
+      }
+    ],
+    "host_reversals": 0,
+    "measured_sample_rate": 47999.99999999999,
+    "pass": false
+  },
+  "frames": 1920000,
+  "mode": "play",
+  "failures": [
+    "sample clock or callback continuity failed"
+  ],
+  "pass": false
+}
