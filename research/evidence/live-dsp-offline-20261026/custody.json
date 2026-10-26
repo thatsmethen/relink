@@ -1,0 +1,40 @@
+{
+  "schema": 1,
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 2642,
+      "sha256": "90e28d6d2a9d6ce30cef3cd2fe008e66d417478ebeaac8198c7580929912841c"
+    },
+    {
+      "path": "ci-summary-tests.log",
+      "bytes": 2213,
+      "sha256": "7850c309c7e14e4e1cf77ac842b82b9ef0c015a4bf4e5b7e9d1170d820225e52"
+    },
+    {
+      "path": "clippy.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "format.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tests.log",
+      "bytes": 1810,
+      "sha256": "557517e1adbef38644772bf7a0c288186c02b0b9636382a78177dda6f261c095"
+    },
+    {
+      "path": "validation.json",
+      "bytes": 20723,
+      "sha256": "93be5e23327fef1c176585554d62dae0dd9f6f5e467c7e0b43d6038d0e65c9c3"
+    },
+    {
+      "path": "windows-clippy.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

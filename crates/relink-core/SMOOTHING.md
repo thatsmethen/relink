@@ -24,7 +24,7 @@ send can still leave a previously excited *downstream bus filter* tail; muting
 the bus itself suppresses its output exactly. Solo scopes and mute precedence
 remain those defined by `PreparedControls`.
 
-Every input oscillator, input/bus processor and ramp advances once per rendered
+Every input oscillator, active input/bus processor and ramp advances once per rendered
 frame, including missing source buffers, muted channels and omitted output buses.
 This preserves oscillator phase and filter/envelope history. A control change
 does not rebuild the graph or restart DSP. Invalid control banks and rejected
@@ -32,6 +32,11 @@ buffer sets are detected before changing any ramp state; zero-frame renders do
 not advance it. Sends whose ramp has already finished at zero can skip their
 sample loop; an active ramp to or from zero must still advance. Retargeting a
 completed muted route resumes its sample loop immediately.
+
+Built-in effect parameters and bypass also support live updates. Each fully
+bypassed stage freezes its own history until re-enabled; bypass retains the
+configured settings in the saved session. See [DSP transitions and their
+limits](LIVE-DSP.md), including limiter behavior during a dry/wet transition.
 
 Ramp state is inline in `CompiledChannel` and `CompiledSend`, and is included by
 the graph's existing `size_of` memory accounting before allocation. Rendering

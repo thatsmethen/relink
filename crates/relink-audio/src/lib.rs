@@ -594,10 +594,10 @@ impl AudioRuntime {
         }
         result
     }
-    /// Publish gain/pan/link/mute/solo changes for the current graph. Returns a
+    /// Publish gain/pan/link/mute/solo and built-in effect changes for the current graph. Returns a
     /// bank version; `snapshot().applied_control_version` acknowledges callback
     /// application. A timeout cancels output rather than applying a queued edit
-    /// later. Sources, route identities/order, DSP and sample rate must match.
+    /// later. Sources, route identities/order and sample rate must match.
     pub fn update_controls(&self, session: Session) -> Result<u64, AudioError> {
         let wanted = Arc::new(AtomicBool::new(true));
         let (tx, rx) = mpsc::sync_channel(1);
@@ -873,19 +873,22 @@ fn prepare_live_update(current: &Session, next: &Session) -> Result<PreparedCont
             .inputs
             .iter()
             .zip(&next.inputs)
-            .all(|(a, b)| a.id == b.id && a.kind == b.kind && a.dsp == b.dsp)
+            .all(|(a, b)| a.id == b.id && a.kind == b.kind)
         && current
             .buses
             .iter()
             .zip(&next.buses)
-            .all(|(a, b)| a.id == b.id && a.dsp == b.dsp)
+            .all(|(a, b)| a.id == b.id)
         && current
             .sends
             .iter()
             .zip(&next.sends)
             .all(|(a, b)| a.id == b.id && a.input_id == b.input_id && a.bus_id == b.bus_id);
     if !same {
-        return Err(AudioError::InvalidSession("sources, effects, route topology or sample rate changed; stop audio before applying this edit".into()));
+        return Err(AudioError::InvalidSession(
+            "sources, route topology or sample rate changed; stop audio before applying this edit"
+                .into(),
+        ));
     }
     PreparedControls::compile(next, GRAPH_BYTES)
         .map_err(|e| AudioError::InvalidSession(e.to_string()))
@@ -1477,7 +1480,12 @@ impl RenderState {
             .checked_add(session.sends.len())
             .and_then(|n| n.checked_add(session.buses.len()))
             .ok_or_else(|| AudioError::InvalidSession("control count overflow".into()))?;
-        let control_bytes = ControlBank::estimated_bytes(control_records)
+        let dsp_channels = session
+            .inputs
+            .len()
+            .checked_add(session.buses.len())
+            .ok_or_else(|| AudioError::InvalidSession("effect channel count overflow".into()))?;
+        let control_bytes = ControlBank::estimated_bytes(control_records, dsp_channels)
             .ok_or_else(|| AudioError::InvalidSession("control memory overflow".into()))?;
         let group_bytes = CaptureGroups::required_bytes(&groups, source_keys.len(), RENDER_CHUNK)
             .map_err(|error| AudioError::InvalidSession(error.to_string()))?;
@@ -1855,6 +1863,9 @@ fn validate_capture_layout(
 
 #[cfg(test)]
 mod tests;
+
+#[cfg(test)]
+mod live_dsp_tests;
 
 #[cfg(test)]
 mod capture_tests;

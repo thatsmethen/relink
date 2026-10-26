@@ -1,0 +1,17 @@
+test_failure_cleanup_and_missing_reports_remain_distinct (test_ci_summary.ConsoleSummaryTests.test_failure_cleanup_and_missing_reports_remain_distinct) ... ok
+test_large_json_is_explicitly_truncated_and_not_partially_parsed (test_ci_summary.ConsoleSummaryTests.test_large_json_is_explicitly_truncated_and_not_partially_parsed) ... ok
+test_large_jsonl_samples_tail_fault_without_claiming_full_observation (test_ci_summary.ConsoleSummaryTests.test_large_jsonl_samples_tail_fault_without_claiming_full_observation) ... ok
+test_malformed_duplicate_nonfinite_and_deep_inputs_fail_explicitly (test_ci_summary.ConsoleSummaryTests.test_malformed_duplicate_nonfinite_and_deep_inputs_fail_explicitly) ... ok
+test_manifest_only_prints_fixed_names_and_never_opens_pcm (test_ci_summary.ConsoleSummaryTests.test_manifest_only_prints_fixed_names_and_never_opens_pcm) ... ok
+test_missing_reports_do_not_change_acceptance_exit_status_or_write_files (test_ci_summary.ConsoleSummaryTests.test_missing_reports_do_not_change_acceptance_exit_status_or_write_files) ... ok
+test_output_cap_retains_reported_failure_and_explicit_omission (test_ci_summary.ConsoleSummaryTests.test_output_cap_retains_reported_failure_and_explicit_omission) ... ok
+test_private_strings_commands_unknown_keys_and_paths_are_not_printed (test_ci_summary.ConsoleSummaryTests.test_private_strings_commands_unknown_keys_and_paths_are_not_printed) ... ok
+test_runner_identity_is_available_without_manifest_and_is_allowlisted (test_ci_summary.ConsoleSummaryTests.test_runner_identity_is_available_without_manifest_and_is_allowlisted) ... ok
+test_symlinked_directory_and_missing_directory_are_reported (test_ci_summary.ConsoleSummaryTests.test_symlinked_directory_and_missing_directory_are_reported) ... ok
+test_symlinks_fifo_and_permission_error_are_explicit_without_following (test_ci_summary.ConsoleSummaryTests.test_symlinks_fifo_and_permission_error_are_explicit_without_following) ... ok
+test_workflow_keeps_original_result_and_always_upload_semantics (test_ci_summary.ConsoleSummaryTests.test_workflow_keeps_original_result_and_always_upload_semantics) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 0.012s
+
+OK

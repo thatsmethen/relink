@@ -1,0 +1,638 @@
+{
+  "schema": 1,
+  "head": "b864bc6430b6ccc5b6b861395a2071be29c0a096",
+  "scope": "Uncommitted source identified by hashes; generated buffers and headless UI only. No native audio devices or recording. Windows is cross-target static checking, not Windows execution.",
+  "utc": "2026-10-26T05:31:43.829781+00:00",
+  "sources": [
+    {
+      "path": "crates/relink-app/Cargo.toml",
+      "bytes": 739,
+      "sha256": "1c20847f3ea26330c17e0db8d5d7f860d02498e4e8d765b03885480bfe91e1e5"
+    },
+    {
+      "path": "crates/relink-app/build.rs",
+      "bytes": 614,
+      "sha256": "64c71a5f4b92e5e90a65b9d06507880bdaeaf8fc87bc5dc51718460ef0486d11"
+    },
+    {
+      "path": "crates/relink-app/src/audio_ui.rs",
+      "bytes": 28912,
+      "sha256": "66c0ddb98cf582f34628a173ea040388326b11908e6d0c6b62bbc37437a8fffe"
+    },
+    {
+      "path": "crates/relink-app/src/effects.rs",
+      "bytes": 11715,
+      "sha256": "b0e00ebb9d4d49fef099e9fa9cf59dda99a544aefc412342e36b95f02c59a3f0"
+    },
+    {
+      "path": "crates/relink-app/src/main.rs",
+      "bytes": 65206,
+      "sha256": "5b91f7e5eb7f7d7e286d153b87be30da8150bcf0eee68f5f219fe34de9c70b97"
+    },
+    {
+      "path": "crates/relink-app/src/routing.rs",
+      "bytes": 5993,
+      "sha256": "d7781a5b1251a77ba58796cf3f1d8d9a3c2337bd48c8f6978994e407aabcd83c"
+    },
+    {
+      "path": "crates/relink-app/src/store.rs",
+      "bytes": 12409,
+      "sha256": "c938e034bbd33a20f355a9faf0bbc74c429da653e76e03628dde8692a9a3c4bc"
+    },
+    {
+      "path": "crates/relink-audio/CAPTURE-OWNER-LIFECYCLE.md",
+      "bytes": 5436,
+      "sha256": "401fd346b8e2ce46855f49f60c956e19ce69f2cd0fc47b0eaac84003cb06396e"
+    },
+    {
+      "path": "crates/relink-audio/CAPTURE.md",
+      "bytes": 14519,
+      "sha256": "b16e39dcf8979ec762502eb3da699a6880655d68d412bd4af6bbd53558035dac"
+    },
+    {
+      "path": "crates/relink-audio/Cargo.toml",
+      "bytes": 1441,
+      "sha256": "52b94e9e1afa94b964de5ba6e11aa43963fbd649cd34abf3eff8cbd36c466f21"
+    },
+    {
+      "path": "crates/relink-audio/FANOUT-TRANSPORT.md",
+      "bytes": 8262,
+      "sha256": "a942149cfbf7ba97f3967d6c377018e34495e4ce38880d8d1fe21e0ef45193e2"
+    },
+    {
+      "path": "crates/relink-audio/FAULT-ATTRIBUTION.md",
+      "bytes": 5993,
+      "sha256": "ae09f8abffe8537abdb62317972a39d66fe23bc240b71a2a8d52716999ebf281"
+    },
+    {
+      "path": "crates/relink-audio/MULTI-OUTPUT-ACCEPTANCE.md",
+      "bytes": 12776,
+      "sha256": "51907d3fbd032ed5439b09d6dbc8cd16da18a59f15b1d8c8f261da5ef2b75702"
+    },
+    {
+      "path": "crates/relink-audio/MULTI-OUTPUT-DESIGN.md",
+      "bytes": 11309,
+      "sha256": "c561de0c8c2e99e5899717e3658fc654dcb3fe6ca1c68989b82612f40246c549"
+    },
+    {
+      "path": "crates/relink-audio/MULTI-OUTPUT-RUNTIME.md",
+      "bytes": 9699,
+      "sha256": "c738b7c5105dde7eaa8582a7b8672981d4797833467659f9424f0420bec07036"
+    },
+    {
+      "path": "crates/relink-audio/NATIVE-CAPTURE-VALIDATION.md",
+      "bytes": 4639,
+      "sha256": "b9ae8bda511e00cee0a113d769fc54c59ddba7e658e6b362f880b2c514d0d42c"
+    },
+    {
+      "path": "crates/relink-audio/NATIVE-OUTPUT-PCM.md",
+      "bytes": 4827,
+      "sha256": "1efa2d83b83b49fd6f406968a01e19e87237564508042a807ee93141feab0adf"
+    },
+    {
+      "path": "crates/relink-audio/NATIVE-OUTPUT-VALIDATION.md",
+      "bytes": 7833,
+      "sha256": "eeea309da4a6070c4cecf5735d2a8b5bbf9504d2bd5e4edc65021be7b826c43a"
+    },
+    {
+      "path": "crates/relink-audio/NATIVE-OUTPUT.md",
+      "bytes": 8108,
+      "sha256": "381f2103ce503c9e5ccc0b56ae42b15163266abe1ee81b7b76b8509b39d9d797"
+    },
+    {
+      "path": "crates/relink-audio/OUTPUT-OWNERSHIP-DESIGN.md",
+      "bytes": 12499,
+      "sha256": "cae3f94ba3a77b8abac3f07550ed2ecf9aa6f72850c132a8324aaea3a4dfa98a"
+    },
+    {
+      "path": "crates/relink-audio/OUTPUT-SINK.md",
+      "bytes": 2926,
+      "sha256": "7759f66b49932806d4bf9e9d751204b762cc2efe2d27e8e6dc80c00d1e7d209e"
+    },
+    {
+      "path": "crates/relink-audio/WASAPI-OUTPUT-OWNER.md",
+      "bytes": 6059,
+      "sha256": "a5700267580be14cffa746b6148c2a817606566b1dd68a5f7c6d67b5a594dfb6"
+    },
+    {
+      "path": "crates/relink-audio/WASAPI-RENDER-PACKET.md",
+      "bytes": 5867,
+      "sha256": "56161bd04a2fb19baff176e09004822872ba04264c50afeb618864a5a1b8842c"
+    },
+    {
+      "path": "crates/relink-audio/examples/runtime-application-probe.rs",
+      "bytes": 37602,
+      "sha256": "a47afae3d4d17f68bdb30b49a4b9665d4ce7274bc6d422f44711f06d3aa8d632"
+    },
+    {
+      "path": "crates/relink-audio/examples/runtime-capture-probe.rs",
+      "bytes": 58169,
+      "sha256": "dbe537802bf64c5ae8d216d7847739b3f9d7c5ac901d40391ef8ae16434a6935"
+    },
+    {
+      "path": "crates/relink-audio/examples/runtime-multioutput-probe.rs",
+      "bytes": 40000,
+      "sha256": "a5b0e51d45cf0828239efc3cba2cec7c1a31456b67a28046f7aef081b813671c"
+    },
+    {
+      "path": "crates/relink-audio/src/application.rs",
+      "bytes": 1141,
+      "sha256": "eef9fe8442e89c3a4e77bc1f2c721e46aaa96f208707e3a509a353ac58d235e8"
+    },
+    {
+      "path": "crates/relink-audio/src/application_macos.rs",
+      "bytes": 27188,
+      "sha256": "538a9fd817ec15b9b930b2cec92704f1608e676300ecdf48c49d6b00897036af"
+    },
+    {
+      "path": "crates/relink-audio/src/application_windows.rs",
+      "bytes": 20236,
+      "sha256": "7adaac3abdb14888e6c748fc560230d916f513dd8112ceddbce86b1e95f8dec2"
+    },
+    {
+      "path": "crates/relink-audio/src/capture.rs",
+      "bytes": 20078,
+      "sha256": "5d1e0651bbb9cedc376e564f5bae26050d9dc7d70069aecaf0423bd1f57f8829"
+    },
+    {
+      "path": "crates/relink-audio/src/capture_groups.rs",
+      "bytes": 18327,
+      "sha256": "f93d0267a3e7ac7cc87f9eb89120138fdcb558786817e81c83424947ff3fb5ab"
+    },
+    {
+      "path": "crates/relink-audio/src/capture_tests.rs",
+      "bytes": 18382,
+      "sha256": "45a4a0a379119c3d72e47465174c8c4d3a42f4c3077847c7d5a7517a2cad8456"
+    },
+    {
+      "path": "crates/relink-audio/src/capture_transport.rs",
+      "bytes": 12920,
+      "sha256": "70cf56d3c2b3c6d0f76890c2f91fa43c712c97487b12794a1bd3f3a87dfec76e"
+    },
+    {
+      "path": "crates/relink-audio/src/control_bank.rs",
+      "bytes": 7807,
+      "sha256": "5b66977de7510b6d697963d1326912e903a14dffa8d535a9813e5d329ea3ad56"
+    },
+    {
+      "path": "crates/relink-audio/src/epoch_gate.rs",
+      "bytes": 2052,
+      "sha256": "d5910fe13f486f00c63705564b75cafab0c886361f82bd671e937cd841cbe511"
+    },
+    {
+      "path": "crates/relink-audio/src/fanout.rs",
+      "bytes": 16950,
+      "sha256": "42c449ac97b7891112e73da4d6f2feb483f6c1512f951091ebccfd6229a85375"
+    },
+    {
+      "path": "crates/relink-audio/src/fanout_tests.rs",
+      "bytes": 21875,
+      "sha256": "fa76fb0dad89e5529c588751ed9b1ac2544dafe61bf86a84001ab67e3fad75ca"
+    },
+    {
+      "path": "crates/relink-audio/src/fault.rs",
+      "bytes": 9666,
+      "sha256": "bcd8cb4e5b7989bb2c8e6f62d337880fd6e73497579c8de6c74952756629509e"
+    },
+    {
+      "path": "crates/relink-audio/src/fault_tests.rs",
+      "bytes": 5081,
+      "sha256": "194eeb905f057cf5eda291914a129eba70d160488307d106800c2e430be7e31f"
+    },
+    {
+      "path": "crates/relink-audio/src/lib.rs",
+      "bytes": 69930,
+      "sha256": "12990811933a76afa31a1b7d4d35f6dd40aaf9c209b1511edea69594c03c90bc"
+    },
+    {
+      "path": "crates/relink-audio/src/live_dsp_tests.rs",
+      "bytes": 6377,
+      "sha256": "e4a7388f74e33bf86d427c87d3fee81ccd6c7571bc74a25729ada4f5ed04473e"
+    },
+    {
+      "path": "crates/relink-audio/src/multioutput_tests.rs",
+      "bytes": 23816,
+      "sha256": "9c30d5ecdf0163abcbe40e3e05e0cc5c7ff4bb4190e9c5c8c204c8a4aacc2f09"
+    },
+    {
+      "path": "crates/relink-audio/src/native_capture.rs",
+      "bytes": 48569,
+      "sha256": "871d33475ec8a36153d209e51aae46db5692e9150f717536ca8cfb7a8ab2c7ad"
+    },
+    {
+      "path": "crates/relink-audio/src/native_capture_tests.rs",
+      "bytes": 30910,
+      "sha256": "faf891cfb61c72f9148fb0a092c33d7f63a17f6802d416857cd80555c5eb6855"
+    },
+    {
+      "path": "crates/relink-audio/src/native_output.rs",
+      "bytes": 50334,
+      "sha256": "4b8ad8e2adfa07312c388bc7f40dc1493e1a279667de616beb82cf88c42e1147"
+    },
+    {
+      "path": "crates/relink-audio/src/native_output_packet.rs",
+      "bytes": 9373,
+      "sha256": "011806ff694a6eb235d1340a26ef6ab46e100bd0f086fc2f3c37c7a9f8779419"
+    },
+    {
+      "path": "crates/relink-audio/src/native_output_packet_tests.rs",
+      "bytes": 18602,
+      "sha256": "97ae0f1c616791494c3116b78ffb3f2245d528af375bc13a5207d83250159269"
+    },
+    {
+      "path": "crates/relink-audio/src/native_output_tests.rs",
+      "bytes": 21685,
+      "sha256": "67cd7fef86db7232b0aa38fc8e14e2a96d435f56ca811b6dae0138b9f6957c8d"
+    },
+    {
+      "path": "crates/relink-audio/src/native_output_timing.rs",
+      "bytes": 16423,
+      "sha256": "3a01806b4d6cc361605449c26c2a31da3942c65a5d613a217b665b5cdf0bf4b1"
+    },
+    {
+      "path": "crates/relink-audio/src/native_output_timing_tests.rs",
+      "bytes": 7775,
+      "sha256": "74cfebdf8220b65b0d8163b43bdec42a31986bef07fd1f94b83bdb77e3735abf"
+    },
+    {
+      "path": "crates/relink-audio/src/native_packet.rs",
+      "bytes": 20098,
+      "sha256": "21e1d258ced03267c91772c93f10726b212454950d1cdf87b551e539e3c0d5a4"
+    },
+    {
+      "path": "crates/relink-audio/src/native_packet_tests.rs",
+      "bytes": 12474,
+      "sha256": "025709ace31e8a6bf74ee978588f08c31acfbeaab0504540f190dc9c96732969"
+    },
+    {
+      "path": "crates/relink-audio/src/native_timing.rs",
+      "bytes": 3371,
+      "sha256": "f482abf64838e4ec5af167be4437bb5b7f3e8a0eaf34b234cbe178c9e279ac46"
+    },
+    {
+      "path": "crates/relink-audio/src/output.rs",
+      "bytes": 8728,
+      "sha256": "7df5009fa510ebd5022a144b97cd2b422b29e6817182809f126e8acf34016816"
+    },
+    {
+      "path": "crates/relink-audio/src/output_plan.rs",
+      "bytes": 13084,
+      "sha256": "563388fbbd21a461f8ba140006e7e2216ef5ae34baabd0932a1ac603bef078bf"
+    },
+    {
+      "path": "crates/relink-audio/src/output_progress.rs",
+      "bytes": 10143,
+      "sha256": "771931aca98372c4058052c328c04a80d129abd4162e228a7e5d859513bf7e5f"
+    },
+    {
+      "path": "crates/relink-audio/src/output_render.rs",
+      "bytes": 13342,
+      "sha256": "4a5f0ab891c55ddb1abd176abde68f085a7ee42b18b7bcc0bdf510663f6ffaf2"
+    },
+    {
+      "path": "crates/relink-audio/src/output_sink.rs",
+      "bytes": 2526,
+      "sha256": "da0a1dbd0112dcf647b48446b11bf22aff309a2ee02beb72610e65e0b32ab7a1"
+    },
+    {
+      "path": "crates/relink-audio/src/output_sink_tests.rs",
+      "bytes": 5832,
+      "sha256": "a4b014161f84579e3bd7f0de444edb734ec0cc4e567d431b7a216e92356935cc"
+    },
+    {
+      "path": "crates/relink-audio/src/output_startup.rs",
+      "bytes": 3743,
+      "sha256": "72c5fe978ed8eae4e6862efe24d8531607e7e212fcf201d7fa9ad0a73600f9b0"
+    },
+    {
+      "path": "crates/relink-audio/src/output_startup_tests.rs",
+      "bytes": 10851,
+      "sha256": "2a8f5a44223d78e691416c7399f3bbc270d3922e4890050d821bcd46da8d343a"
+    },
+    {
+      "path": "crates/relink-audio/src/tests.rs",
+      "bytes": 24692,
+      "sha256": "8ea8bf48de777f74d9126a10db80359c8e963cb700186cf2e6640829e34bfb96"
+    },
+    {
+      "path": "crates/relink-audio/src/wasapi_application.rs",
+      "bytes": 18318,
+      "sha256": "28447d17c9f26b472137abf57225bf751de0e3692d203f77087266e69e54f589"
+    },
+    {
+      "path": "crates/relink-audio/src/wasapi_capture.rs",
+      "bytes": 28742,
+      "sha256": "95386ef810c5fab110ef2a2d31fd6bfdb0c513b02444b00e94da5f9cd96a8ba3"
+    },
+    {
+      "path": "crates/relink-audio/src/wasapi_event.rs",
+      "bytes": 7466,
+      "sha256": "18d5d8235af7a53bd3026017b9e1200a5842d77d4e14dcb0ac5c9476d4f9aa87"
+    },
+    {
+      "path": "crates/relink-audio/src/wasapi_event_tests.rs",
+      "bytes": 16152,
+      "sha256": "2a4800cb79fd03f77bd07efd6a1a128a8424ffe9b969681b857c5409b240c1bd"
+    },
+    {
+      "path": "crates/relink-audio/src/wasapi_hardware_owner.rs",
+      "bytes": 6787,
+      "sha256": "232975d43da0be97f2bf1fb14ce3ac8530cbeb3236e69bb181c7d530ac7ed6fb"
+    },
+    {
+      "path": "crates/relink-audio/src/wasapi_hardware_owner_tests.rs",
+      "bytes": 11720,
+      "sha256": "bac46ea22a991ec8897ead98e7b53704ecec1d06348277169bb9ecd0bdd8230a"
+    },
+    {
+      "path": "crates/relink-audio/src/wasapi_output.rs",
+      "bytes": 33517,
+      "sha256": "fa91a5a6c06566fb2c145efc7cad8f0bed412f1b61682e91dee4aafa8b3787a3"
+    },
+    {
+      "path": "crates/relink-audio/src/wasapi_output_state.rs",
+      "bytes": 15018,
+      "sha256": "3790a9f6f80bbf5932336fdba28150e0fbddcffd0a03aabd3dbf99fd4b0d1a4a"
+    },
+    {
+      "path": "crates/relink-audio/src/wasapi_output_state_tests.rs",
+      "bytes": 11461,
+      "sha256": "6abdc23545356c657cf34f16405807f41e60377457e440cec2709809a9e1be51"
+    },
+    {
+      "path": "crates/relink-audio/src/wasapi_packet.rs",
+      "bytes": 13942,
+      "sha256": "03fec9526ecd17ca87b78b7ee1405ed23dbe87a99375789163f20b7c4294cb1a"
+    },
+    {
+      "path": "crates/relink-audio/src/wasapi_render_packet.rs",
+      "bytes": 8919,
+      "sha256": "fad18cf767ac74660fcd23c383d447a667726acd3c86845de26695c66f21174f"
+    },
+    {
+      "path": "crates/relink-audio/src/wasapi_render_packet_tests.rs",
+      "bytes": 17487,
+      "sha256": "b9095a42bcaf5076a1495c70ca04313c23a704020fa0221f7c739fa2aa7f9c06"
+    },
+    {
+      "path": "crates/relink-core/BUS-ACCESS.md",
+      "bytes": 3523,
+      "sha256": "7091b1b3203c1eebfd162d501dbabd1a55184b692e1d4174baf61fa3402fe9d5"
+    },
+    {
+      "path": "crates/relink-core/Cargo.toml",
+      "bytes": 338,
+      "sha256": "a34099952c59014c3c577621f57e24f20e80f776fe3d16f5192fc1ab90d7f97f"
+    },
+    {
+      "path": "crates/relink-core/LIVE-DSP.md",
+      "bytes": 4854,
+      "sha256": "be1be1b414c78d2a9e8efb3a990549844a211735f34956abf58c693d15e33938"
+    },
+    {
+      "path": "crates/relink-core/SMOOTHING.md",
+      "bytes": 3440,
+      "sha256": "0cb7518be8e74573e8d6a8a08fdeda9a5c5ba7ad8ec49542f568cbe75cd9cfc6"
+    },
+    {
+      "path": "crates/relink-core/src/application.rs",
+      "bytes": 10386,
+      "sha256": "0eb2c0f7664b09a417bdc6562d352ee2754fac922f2aacb6758e4c84511a6f84"
+    },
+    {
+      "path": "crates/relink-core/src/controls.rs",
+      "bytes": 5755,
+      "sha256": "1cebde3bf080a4689d7615448cc1e37cdc27cf548a524d593045992b7fa0b624"
+    },
+    {
+      "path": "crates/relink-core/src/dsp.rs",
+      "bytes": 13418,
+      "sha256": "df777314807628b2c0f6f13ae9b60019983169228131633c6c5c1414df829bfe"
+    },
+    {
+      "path": "crates/relink-core/src/dsp_tests.rs",
+      "bytes": 17634,
+      "sha256": "1d30d327367aba635a817b00266e1584940874be7c721a319f7cadd2a5c3db31"
+    },
+    {
+      "path": "crates/relink-core/src/lib.rs",
+      "bytes": 1357,
+      "sha256": "e9897963f6ce2648a567bcf2b121bdca9e9692274961082f094b1541596dfb7f"
+    },
+    {
+      "path": "crates/relink-core/src/mixer.rs",
+      "bytes": 25831,
+      "sha256": "b54ecc085c2e7414cbe22c761cd3f2ae5fac96cdd4823a12e40cb741165b2b64"
+    },
+    {
+      "path": "crates/relink-core/src/session.rs",
+      "bytes": 18324,
+      "sha256": "c588d88339fe3fe1d611e9fe40848511b124f82cd85024656ada99090eea176e"
+    },
+    {
+      "path": "crates/relink-core/src/smoothing.rs",
+      "bytes": 2091,
+      "sha256": "2789936bfd454b47efcff13eab42ad7b3d3d24efba0afc3c067ec46dc04353e7"
+    },
+    {
+      "path": "crates/relink-core/tests/bus_views.rs",
+      "bytes": 12883,
+      "sha256": "081775e512e6d4fee43bd9bd4500060b26f417b7b2d1763c10329b0458aaaabe"
+    },
+    {
+      "path": "crates/relink-core/tests/controls.rs",
+      "bytes": 5335,
+      "sha256": "a643caf83ef933d464213efb60215f860791390f27e22e2ff2755109ac32c95b"
+    },
+    {
+      "path": "crates/relink-core/tests/dsp_bypass.rs",
+      "bytes": 8961,
+      "sha256": "6e9ac2c864e5e8f5e2470cc554cd5df50f83894384e604b3d7cc7466b66583cc"
+    },
+    {
+      "path": "crates/relink-core/tests/engine.rs",
+      "bytes": 20544,
+      "sha256": "d686e27f2914dc5c31c672689d48eb07b7c440d7ed5c54056d04c24ac189fe9d"
+    },
+    {
+      "path": "crates/relink-core/tests/live_dsp.rs",
+      "bytes": 10216,
+      "sha256": "a4b55dfbcddbc79b4f28ae0a541402348f8db4d9920497c9aba54190fcb7101c"
+    },
+    {
+      "path": "crates/relink-core/tests/smoothing.rs",
+      "bytes": 15834,
+      "sha256": "75b8bd68eed2d2afb2c5e71a79b0da4b46c0b81c5e2a58d2bbc8f3b8fe336872"
+    },
+    {
+      "path": "crates/relink-hal/Cargo.toml",
+      "bytes": 259,
+      "sha256": "73e4cd5c195465c2103753fa6a4498c1f4b984b744f8b0751ba51437808f3f72"
+    },
+    {
+      "path": "crates/relink-hal/src/abi.rs",
+      "bytes": 7372,
+      "sha256": "b075c915e8c0ef933c092a98ae52a329cc04a0fa506aaff136d942d19bf2e43b"
+    },
+    {
+      "path": "crates/relink-hal/src/device.rs",
+      "bytes": 5678,
+      "sha256": "f6b2148e0139c9bbe33d9865e4a97aebb53bf9485d1e9b2360172b91522f8d38"
+    },
+    {
+      "path": "crates/relink-hal/src/lib.rs",
+      "bytes": 10786,
+      "sha256": "b8e803dcff5ca36142934fb818129414d4a52824f1d004d3358008985e31c846"
+    },
+    {
+      "path": "crates/relink-hal/src/properties.rs",
+      "bytes": 12588,
+      "sha256": "59cc314e5bed24896108b3e606ae5e6c55e9260fd1545d2fdeecc57c19340ab0"
+    },
+    {
+      "path": "crates/relink-hal/src/ring.rs",
+      "bytes": 3729,
+      "sha256": "f2c439320118db8c2b3a6884b1c63e6af312341340b338310b8aef8fbaad14b6"
+    },
+    {
+      "path": "crates/relink-hal/src/tests.rs",
+      "bytes": 16011,
+      "sha256": "044611698add49635db2123f6acad951453ad067650c5eeb53663e565f4b658f"
+    },
+    {
+      "path": "Cargo.toml",
+      "bytes": 615,
+      "sha256": "114ada6cd770ece5f1600b0bea2cb3810d275cea5a3458d7389cb8a034049718"
+    },
+    {
+      "path": "Cargo.lock",
+      "bytes": 101791,
+      "sha256": "fbc76aa3376b6eb1b3f9ccf0b2d714e839f345f0f9eeeeff797d20c15cbbdd12"
+    },
+    {
+      "path": "rust-toolchain.toml",
+      "bytes": 86,
+      "sha256": "2645003e83d0075da4fc5119dcfc4dfba02df3b9cf3cde702abfa27dc7221ae3"
+    },
+    {
+      "path": "scripts/ci-acceptance-summary.py",
+      "bytes": 16098,
+      "sha256": "d5a62aea413ba70c29f2e42eaceabe31d7bf56d8635475f7ac75dc2f511a70f9"
+    },
+    {
+      "path": ".github/workflows/rust-hal.yml",
+      "bytes": 5764,
+      "sha256": "1eb14965270ee6cc38f6d8ecede11be6ba2dd56166767a670c90443eb02aad99"
+    }
+  ],
+  "unchanged_after_checks": true,
+  "checks": [
+    {
+      "name": "format",
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.505,
+      "log": "format.log"
+    },
+    {
+      "name": "tests",
+      "command": [
+        "cargo",
+        "test",
+        "--locked",
+        "--workspace",
+        "--quiet"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 20.382,
+      "log": "tests.log"
+    },
+    {
+      "name": "clippy",
+      "command": [
+        "cargo",
+        "clippy",
+        "--locked",
+        "--workspace",
+        "--all-targets",
+        "--quiet",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 2.156,
+      "log": "clippy.log"
+    },
+    {
+      "name": "windows-clippy",
+      "command": [
+        "cargo",
+        "clippy",
+        "--locked",
+        "--workspace",
+        "--all-targets",
+        "--target",
+        "x86_64-pc-windows-msvc",
+        "--quiet",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 2.231,
+      "log": "windows-clippy.log"
+    },
+    {
+      "name": "ci-summary-tests",
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "drivers/macos/tests",
+        "-p",
+        "test_ci_summary.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.086,
+      "log": "ci-summary-tests.log"
+    }
+  ],
+  "all_checks_passed": true,
+  "logs": [
+    {
+      "path": "ci-summary-tests.log",
+      "bytes": 2213,
+      "sha256": "7850c309c7e14e4e1cf77ac842b82b9ef0c015a4bf4e5b7e9d1170d820225e52"
+    },
+    {
+      "path": "clippy.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "format.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tests.log",
+      "bytes": 1810,
+      "sha256": "557517e1adbef38644772bf7a0c288186c02b0b9636382a78177dda6f261c095"
+    },
+    {
+      "path": "windows-clippy.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

@@ -25,58 +25,272 @@ fn flush_denormal(sample: f32) -> f32 {
     }
 }
 
-pub(crate) struct Processor {
-    high_pass: Option<HighPass>,
-    gate: Option<Gate>,
-    compressor: Option<Compressor>,
-    limiter: Option<Limiter>,
+/// Fixed-size built-in DSP coefficients prepared off the callback. The wire
+/// representation contains no pointers, history or heap ownership. Decoding
+/// checks finite, stable coefficient ranges without transcendentals/allocation.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct PreparedDsp {
+    words: [u32; Self::WORD_COUNT],
 }
+impl PreparedDsp {
+    pub const WORD_COUNT: usize = 14;
 
-impl Processor {
-    pub(crate) fn new(config: &DspConfig, sample_rate: u32) -> Self {
-        Self {
-            high_pass: config.high_pass.as_ref().map(|p| HighPass {
-                alpha: (-std::f32::consts::TAU * p.cutoff_hz / sample_rate as f32).exp(),
-                previous_input: [0.0; 2],
-                previous_output: [0.0; 2],
-            }),
-            gate: config.gate.as_ref().map(|p| Gate {
-                threshold: db_to_gain(p.threshold_db),
-                attack: coefficient(p.attack_ms, sample_rate),
-                release: coefficient(p.release_ms, sample_rate),
-                hold_samples: (p.hold_ms * 0.001 * sample_rate as f32).round() as u32,
-                remaining_hold: 0,
-                gain: 0.0,
-            }),
-            compressor: config.compressor.as_ref().map(|p| Compressor {
-                threshold: db_to_gain(p.threshold_db),
-                exponent: 1.0 - 1.0 / p.ratio,
-                attack: coefficient(p.attack_ms, sample_rate),
-                release: coefficient(p.release_ms, sample_rate),
-                makeup_gain: db_to_gain(p.makeup_gain_db),
-                gain: 1.0,
-            }),
-            limiter: config.limiter.as_ref().map(|p| Limiter {
-                ceiling: db_to_gain(p.ceiling_db),
-                release: coefficient(p.release_ms, sample_rate),
-                gain: 1.0,
-            }),
+    pub fn to_words(self) -> [u32; Self::WORD_COUNT] {
+        self.words
+    }
+    pub fn sample_rate(&self) -> u32 {
+        self.words[0]
+    }
+    pub fn from_words(words: [u32; Self::WORD_COUNT]) -> Result<Self, crate::ControlError> {
+        let value = Self { words };
+        if value.valid() {
+            Ok(value)
+        } else {
+            Err(crate::ControlError::InvalidDsp)
         }
     }
+    pub(crate) fn valid(&self) -> bool {
+        if !(8000..=384000).contains(&self.sample_rate()) || self.words[1] > 15 {
+            return false;
+        }
+        // Gate hold is an integer sample count. All other parameters are
+        // finite scalar coefficients; convex interpolation stays in these ranges.
+        if self.words[6] > self.sample_rate() * 5 {
+            return false;
+        }
+        [
+            (2, 0.0, 1.0),
+            (3, 0.000001, 1.0),
+            (4, 0.0, 1.0),
+            (5, 0.0, 1.0),
+            (7, 0.000001, 1.0),
+            (8, 0.0, 0.99),
+            (9, 0.0, 1.0),
+            (10, 0.0, 1.0),
+            (11, 0.063, 16.0),
+            (12, 0.001, 1.0),
+            (13, 0.0, 1.0),
+        ]
+        .into_iter()
+        .all(|(index, min, max)| {
+            let value = self.float(index);
+            value.is_finite() && (min..=max).contains(&value)
+        })
+    }
+    // The calling session has already validated user parameters and sample rate.
+    pub(crate) fn compile(config: &DspConfig, sample_rate: u32) -> Self {
+        let gate = config.gate.clone().unwrap_or_default();
+        let compressor = config.compressor.clone().unwrap_or_default();
+        let limiter = config.limiter.clone().unwrap_or_default();
+        let mask = u32::from(config.high_pass.is_some() && !config.bypass.high_pass)
+            | (u32::from(config.gate.is_some() && !config.bypass.gate) << 1)
+            | (u32::from(config.compressor.is_some() && !config.bypass.compressor) << 2)
+            | (u32::from(config.limiter.is_some() && !config.bypass.limiter) << 3);
+        Self {
+            words: [
+                sample_rate,
+                mask,
+                config
+                    .high_pass
+                    .as_ref()
+                    .map_or(1.0, |p| {
+                        (-std::f32::consts::TAU * p.cutoff_hz / sample_rate as f32).exp()
+                    })
+                    .to_bits(),
+                db_to_gain(gate.threshold_db).to_bits(),
+                coefficient(gate.attack_ms, sample_rate).to_bits(),
+                coefficient(gate.release_ms, sample_rate).to_bits(),
+                (gate.hold_ms * 0.001 * sample_rate as f32).round() as u32,
+                db_to_gain(compressor.threshold_db).to_bits(),
+                (1.0 - 1.0 / compressor.ratio).to_bits(),
+                coefficient(compressor.attack_ms, sample_rate).to_bits(),
+                coefficient(compressor.release_ms, sample_rate).to_bits(),
+                db_to_gain(compressor.makeup_gain_db).to_bits(),
+                db_to_gain(limiter.ceiling_db).to_bits(),
+                coefficient(limiter.release_ms, sample_rate).to_bits(),
+            ],
+        }
+    }
+    fn float(&self, index: usize) -> f32 {
+        f32::from_bits(self.words[index])
+    }
+    fn enabled(&self, stage: usize) -> f32 {
+        f32::from(self.words[1] & (1 << stage) != 0)
+    }
+    fn high_pass(&self) -> [f32; 1] {
+        [self.float(2)]
+    }
+    fn gate(&self) -> [f32; 4] {
+        [
+            self.float(3),
+            self.float(4),
+            self.float(5),
+            self.words[6] as f32,
+        ]
+    }
+    fn compressor(&self) -> [f32; 5] {
+        [
+            self.float(7),
+            self.float(8),
+            self.float(9),
+            self.float(10),
+            self.float(11),
+        ]
+    }
+    fn limiter(&self) -> [f32; 2] {
+        [self.float(12), self.float(13)]
+    }
+}
 
+struct Stage<P, const N: usize> {
+    processor: P,
+    coefficients: crate::smoothing::ControlRamp<N>,
+    wet: crate::smoothing::ControlRamp<1>,
+    last_wet: f32,
+}
+impl<P, const N: usize> Stage<P, N> {
+    fn new(processor: P, coefficients: [f32; N], wet: f32) -> Self {
+        Self {
+            processor,
+            coefficients: crate::smoothing::ControlRamp::new(coefficients),
+            wet: crate::smoothing::ControlRamp::new([wet]),
+            last_wet: wet,
+        }
+    }
+    fn retarget(&mut self, coefficients: [f32; N], wet: f32, frames: u32) {
+        // Disabling keeps the last parameter target while fading dry. Its
+        // history/envelope is frozen only after this stage becomes fully dry.
+        if wet != 0.0 {
+            if self.last_wet == 0.0 {
+                // At exact bypass no processed sample is audible. Use the new
+                // parameters immediately, then fade in their output. Ramping
+                // from unused default parameters could spuriously close a gate
+                // or compress before reaching the user's requested setting.
+                self.coefficients = crate::smoothing::ControlRamp::new(coefficients);
+            } else {
+                self.coefficients.retarget(coefficients, frames);
+            }
+        }
+        self.wet.retarget([wet], frames);
+    }
+    fn next_wet(&mut self) -> f32 {
+        self.last_wet = self.wet.next()[0];
+        self.last_wet
+    }
+}
+fn blend(dry: Frame, wet: Frame, amount: f32) -> Frame {
+    if amount == 1.0 {
+        wet // Preserve the existing settled processing bit-for-bit.
+    } else {
+        [
+            dry[0] + (wet[0] - dry[0]) * amount,
+            dry[1] + (wet[1] - dry[1]) * amount,
+        ]
+    }
+}
+
+pub(crate) struct Processor {
+    prepared: PreparedDsp,
+    high_pass: Stage<HighPass, 1>,
+    gate: Stage<Gate, 4>,
+    compressor: Stage<Compressor, 5>,
+    limiter: Stage<Limiter, 2>,
+}
+impl Processor {
+    pub(crate) fn new(config: &DspConfig, sample_rate: u32) -> Self {
+        let p = PreparedDsp::compile(config, sample_rate);
+        Self {
+            prepared: p,
+            high_pass: Stage::new(
+                HighPass {
+                    alpha: p.float(2),
+                    previous_input: [0.0; 2],
+                    previous_output: [0.0; 2],
+                },
+                p.high_pass(),
+                p.enabled(0),
+            ),
+            gate: Stage::new(
+                Gate {
+                    threshold: p.float(3),
+                    attack: p.float(4),
+                    release: p.float(5),
+                    hold_samples: p.words[6],
+                    remaining_hold: 0,
+                    gain: 0.0,
+                },
+                p.gate(),
+                p.enabled(1),
+            ),
+            compressor: Stage::new(
+                Compressor {
+                    threshold: p.float(7),
+                    exponent: p.float(8),
+                    attack: p.float(9),
+                    release: p.float(10),
+                    makeup_gain: p.float(11),
+                    gain: 1.0,
+                },
+                p.compressor(),
+                p.enabled(2),
+            ),
+            limiter: Stage::new(
+                Limiter {
+                    ceiling: p.float(12),
+                    release: p.float(13),
+                    gain: 1.0,
+                },
+                p.limiter(),
+                p.enabled(3),
+            ),
+        }
+    }
+    pub(crate) fn retarget(&mut self, p: PreparedDsp, frames: u32) {
+        if p == self.prepared {
+            return;
+        }
+        self.high_pass.retarget(p.high_pass(), p.enabled(0), frames);
+        self.gate.retarget(p.gate(), p.enabled(1), frames);
+        self.compressor
+            .retarget(p.compressor(), p.enabled(2), frames);
+        self.limiter.retarget(p.limiter(), p.enabled(3), frames);
+        self.prepared = p;
+    }
     pub(crate) fn process(&mut self, input: Frame) -> Frame {
         let mut frame = [sanitize(input[0]), sanitize(input[1])];
-        if let Some(stage) = &mut self.high_pass {
-            frame = stage.process(frame);
+        let stage = &mut self.high_pass;
+        let wet = stage.next_wet();
+        if wet != 0.0 {
+            [stage.processor.alpha] = stage.coefficients.next();
+            frame = blend(frame, stage.processor.process(frame), wet);
         }
-        if let Some(stage) = &mut self.gate {
-            frame = stage.process(frame);
+        let stage = &mut self.gate;
+        let wet = stage.next_wet();
+        if wet != 0.0 {
+            let [threshold, attack, release, hold] = stage.coefficients.next();
+            stage.processor.threshold = threshold;
+            stage.processor.attack = attack;
+            stage.processor.release = release;
+            stage.processor.hold_samples = hold.round() as u32;
+            frame = blend(frame, stage.processor.process(frame), wet);
         }
-        if let Some(stage) = &mut self.compressor {
-            frame = stage.process(frame);
+        let stage = &mut self.compressor;
+        let wet = stage.next_wet();
+        if wet != 0.0 {
+            [
+                stage.processor.threshold,
+                stage.processor.exponent,
+                stage.processor.attack,
+                stage.processor.release,
+                stage.processor.makeup_gain,
+            ] = stage.coefficients.next();
+            frame = blend(frame, stage.processor.process(frame), wet);
         }
-        if let Some(stage) = &mut self.limiter {
-            frame = stage.process(frame);
+        let stage = &mut self.limiter;
+        let wet = stage.next_wet();
+        if wet != 0.0 {
+            [stage.processor.ceiling, stage.processor.release] = stage.coefficients.next();
+            frame = blend(frame, stage.processor.process(frame), wet);
         }
         [
             flush_denormal(sanitize(frame[0])),
@@ -186,3 +400,7 @@ impl Limiter {
         ]
     }
 }
+
+#[cfg(test)]
+#[path = "dsp_tests.rs"]
+mod tests;

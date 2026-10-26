@@ -538,6 +538,7 @@ fn rendering_and_meter_reads_allocate_nothing_including_first_callback() {
         gate: Some(GateConfig::default()),
         compressor: Some(CompressorConfig::default()),
         limiter: Some(LimiterConfig::default()),
+        bypass: Default::default(),
     };
     session.buses[0].dsp = DspConfig::master_default();
     let tone = session

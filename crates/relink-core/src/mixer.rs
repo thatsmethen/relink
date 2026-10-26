@@ -356,6 +356,12 @@ impl CompiledMixer {
     /// and reapplying an unchanged target does not restart an existing ramp.
     /// Gain/pan ramp before input/bus DSP; mute/solo ramp after it. Sends ramp
     /// their combined resolved gain. Initial compiled controls apply exactly.
+    /// Built-in DSP parameters ramp over the same interval while audible;
+    /// enable/bypass crossfades each stage's dry/processed output. Enabling from
+    /// exact bypass adopts the requested coefficients before fading in. Filter
+    /// and dynamics state survives changes and freezes during full bypass.
+    /// During limiter bypass transitions the dry path is not ceiling-limited;
+    /// a fully wet limiter enforces its current interpolated sample ceiling.
     pub fn apply_controls(
         &mut self,
         controls: &crate::PreparedControls,
@@ -364,6 +370,8 @@ impl CompiledMixer {
         if controls.inputs.len() != self.inputs.len()
             || controls.sends.len() != self.sends.len()
             || controls.buses.len() != self.buses.len()
+            || controls.input_dsp.len() != self.inputs.len()
+            || controls.bus_dsp.len() != self.buses.len()
             || controls
                 .inputs
                 .iter()
@@ -391,7 +399,30 @@ impl CompiledMixer {
         {
             return Err(ControlError::InvalidGain);
         }
-        for (target, c) in self.inputs.iter_mut().zip(&controls.inputs) {
+        if controls.sample_rate != self.sample_rate
+            || controls
+                .input_dsp
+                .iter()
+                .chain(&controls.bus_dsp)
+                .any(|dsp| dsp.sample_rate() != self.sample_rate)
+        {
+            return Err(ControlError::SampleRateMismatch);
+        }
+        if controls
+            .input_dsp
+            .iter()
+            .chain(&controls.bus_dsp)
+            .any(|dsp| !dsp.valid())
+        {
+            return Err(ControlError::InvalidDsp);
+        }
+        for ((target, c), dsp) in self
+            .inputs
+            .iter_mut()
+            .zip(&controls.inputs)
+            .zip(&controls.input_dsp)
+        {
+            target.processor.retarget(*dsp, self.control_ramp_frames);
             target.gains.retarget(c.gains, self.control_ramp_frames);
             target
                 .activity
@@ -403,7 +434,13 @@ impl CompiledMixer {
                 self.control_ramp_frames,
             );
         }
-        for (target, c) in self.buses.iter_mut().zip(&controls.buses) {
+        for ((target, c), dsp) in self
+            .buses
+            .iter_mut()
+            .zip(&controls.buses)
+            .zip(&controls.bus_dsp)
+        {
+            target.processor.retarget(*dsp, self.control_ramp_frames);
             target.gains.retarget(c.gains, self.control_ramp_frames);
             target
                 .activity

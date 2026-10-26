@@ -117,3 +117,22 @@ devices were not loaded, and no audio-service restart occurred. Local recording
 is outside current authorization: the fixture remains unexecuted and no macOS
 recording permission was granted. Continue source review and offline checks;
 do not run local capture or request recording access.
+
+## Live built-in effects — 26 October 2026
+
+The Rust mixer now accepts input and mix high-pass, gate, compressor and limiter
+edits during playback through the same coherent control bank as gain and mute.
+Persistent per-stage bypass retains tuned parameters across save/reopen. The
+interface exposes these edits while keeping source and route changes guarded;
+failed control dispatch revokes audio instead of leaving the old bank running.
+[DSP behavior and limits](../crates/relink-core/LIVE-DSP.md) distinguish parameter
+ramps, envelope state and accepted-target acknowledgements. The [311 workspace
+checks and source inventory](evidence/live-dsp-offline-20261026/README.md) exercise
+generated buffers and headless interface behavior without native audio.
+Native timing, listening quality and sustained load remain unqualified.
+
+The [Sound Check requirements note](../docs/sound-check-research.md) separates
+official documented behavior from proposed ReLink policies. Live effect edits
+are a prerequisite; Sound Check capture, audition and its complete interface
+remain unimplemented in the maintained Rust application. Local recording stays
+excluded from this work.

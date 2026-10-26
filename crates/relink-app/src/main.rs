@@ -191,12 +191,14 @@ impl Studio {
             Edit::RenameInput(..)
             | Edit::RenameBus(..)
             | Edit::InputControls(..)
-            | Edit::BusControls(..) => true,
+            | Edit::BusControls(..)
+            | Edit::InputDsp(..)
+            | Edit::BusDsp(..) => true,
             Edit::Route(input, bus, Some(_)) => self.route_index.contains_key(&(*input, *bus)),
             _ => false,
         };
         if self.audio.running() && !live_edit {
-            self.notice = "Stop audio before changing sources, effects or routing.".into();
+            self.notice = "Stop audio before changing sources or routing.".into();
             return;
         }
         let previous = self.session.clone();
@@ -752,19 +754,13 @@ impl Studio {
                         egui::CollapsingHeader::new("Mix effects")
                             .id_salt(("mix-effects", bus.id))
                             .show(ui, |ui| {
-                                if self.audio.running() {
-                                    ui.label("Stop audio to edit effects.");
-                                }
-                                ui.add_enabled_ui(
-                                    !self.audio.running() && !self.audio.busy,
-                                    |ui| {
-                                        let mut dsp = bus.dsp.clone();
-                                        effects::editor(ui, &mut dsp, self.session.sample_rate);
-                                        if dsp != bus.dsp {
-                                            edits.push(Edit::BusDsp(bus.id, dsp));
-                                        }
-                                    },
-                                );
+                                ui.add_enabled_ui(!self.audio.busy, |ui| {
+                                    let mut dsp = bus.dsp.clone();
+                                    effects::editor(ui, &mut dsp, self.session.sample_rate);
+                                    if dsp != bus.dsp {
+                                        edits.push(Edit::BusDsp(bus.id, dsp));
+                                    }
+                                });
                             });
                         ui.add_enabled_ui(!self.audio.running() && !self.audio.busy, |ui| {
                             ui.add_space(8.0);
@@ -843,6 +839,8 @@ impl Studio {
                                     edits.push(Edit::Tone(input.id, freq, amp));
                                 }
                             }
+                        });
+                        ui.add_enabled_ui(!self.audio.busy, |ui| {
                             ui.separator();
                             ui.label(RichText::new("EFFECTS · ALL MIXES").size(11.0).color(MUTED));
                             let mut dsp = input.dsp.clone();
@@ -852,6 +850,8 @@ impl Studio {
                             if dsp != input.dsp {
                                 edits.push(Edit::InputDsp(input.id, dsp));
                             }
+                        });
+                        ui.add_enabled_ui(!self.audio.running() && !self.audio.busy, |ui| {
                             ui.add_space(10.0);
                             if ui.button("Remove source").clicked() {
                                 edits.push(Edit::RemoveInput(input.id));
@@ -1300,6 +1300,52 @@ mod shortcut_tests {
         studio.edit(Edit::AddApplication(id, "Player".into()));
         assert_eq!(studio.document(), before);
         assert!(studio.undo.is_empty());
+    }
+
+    #[test]
+    fn running_effect_edits_queue_complete_studio_and_preserve_routing() {
+        let mut studio = offline_studio();
+        studio.edit(Edit::AddInput);
+        let input = studio.session.inputs[0].id;
+        let bus = studio.session.buses[0].id;
+        studio.edit(Edit::Route(input, bus, Some(ChannelControls::default())));
+        let routes = studio.session.sends.clone();
+        let source = studio.session.inputs[0].kind.clone();
+        studio.audio.set_running_for_test();
+        let mut input_dsp = studio.session.inputs[0].dsp.clone();
+        input_dsp.high_pass = Some(relink_core::HighPassConfig { cutoff_hz: 100.0 });
+        studio.edit(Edit::InputDsp(input, input_dsp.clone()));
+        let mut bus_dsp = studio.session.buses[0].dsp.clone();
+        bus_dsp.compressor = Some(relink_core::CompressorConfig::default());
+        studio.edit(Edit::BusDsp(bus, bus_dsp.clone()));
+        assert_eq!(studio.session.inputs[0].dsp, input_dsp);
+        assert_eq!(studio.session.buses[0].dsp, bus_dsp);
+        assert_eq!(studio.session.sends, routes);
+        assert_eq!(studio.session.inputs[0].kind, source);
+        assert_eq!(
+            studio.audio.pending_controls_for_test(),
+            Some(&studio.session)
+        );
+        assert!(studio.audio.controls_pending());
+        let document = studio.document();
+        studio.edit(Edit::RemoveInput(input));
+        assert_eq!(studio.document(), document, "topology still requires Stop");
+        let history = studio.undo.len();
+        input_dsp.high_pass.as_mut().unwrap().cutoff_hz = f32::NAN;
+        studio.edit(Edit::InputDsp(input, input_dsp));
+        assert_eq!(studio.document(), document);
+        assert_eq!(studio.undo.len(), history);
+        assert_eq!(
+            studio.audio.pending_controls_for_test(),
+            Some(&studio.session)
+        );
+        studio.audio.busy = true;
+        studio.edit(Edit::BusDsp(bus, relink_core::DspConfig::default()));
+        assert_eq!(
+            studio.document(),
+            document,
+            "device operation still guards edits"
+        );
     }
 
     #[test]

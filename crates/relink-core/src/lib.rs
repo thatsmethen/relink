@@ -20,12 +20,13 @@ mod smoothing;
 
 pub use application::{ApplicationSelector, ApplicationSelectorError};
 pub use controls::{ControlError, PreparedControls, ResolvedControl};
+pub use dsp::PreparedDsp;
 pub use mixer::{
     BusHandle, BusReadError, CompiledMixer, MeterReading, RenderError, ResourceBudget, StereoInput,
     StereoOutput,
 };
 pub use session::{
-    Bus, ChannelControls, CompressorConfig, DspConfig, GateConfig, HighPassConfig, Input,
-    InputKind, LimiterConfig, Send, Session, SessionError, SESSION_VERSION,
+    Bus, ChannelControls, CompressorConfig, DspBypass, DspConfig, GateConfig, HighPassConfig,
+    Input, InputKind, LimiterConfig, Send, Session, SessionError, SESSION_VERSION,
 };
 pub use uuid::Uuid;

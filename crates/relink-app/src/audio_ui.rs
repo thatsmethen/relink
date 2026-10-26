@@ -234,6 +234,18 @@ impl AudioUi {
                 }
             }
             Err(e) => {
+                if matches!(operation, Operation::Update) {
+                    // A dropped or saturated worker cannot acknowledge this
+                    // edit. Revoke the active token directly instead of leaving
+                    // old audio running behind the newly edited controls.
+                    self.cancellation.cancel();
+                    if let Some(runtime) = &self.runtime {
+                        runtime.cancel_output();
+                    }
+                    self.cancelled = true;
+                    self.pending_update = None;
+                    self.updating = false;
+                }
                 let error = Some(format!("Audio control unavailable: {e}"));
                 if matches!(operation, Operation::RefreshApplications) {
                     self.applications_error = error;
@@ -382,6 +394,16 @@ impl AudioUi {
     pub(crate) fn offline_for_test() -> Self {
         tests::fixture().0
     }
+
+    #[cfg(test)]
+    pub(crate) fn set_running_for_test(&mut self) {
+        self.snapshot = Some(tests::snapshot(true, relink_audio::AudioFault::None));
+    }
+
+    #[cfg(test)]
+    pub(crate) fn pending_controls_for_test(&self) -> Option<&Session> {
+        self.pending_update.as_ref()
+    }
 }
 impl Drop for AudioUi {
     fn drop(&mut self) {
@@ -474,7 +496,120 @@ mod tests {
         assert!(requests.recv().unwrap().cancellation.is_cancelled());
     }
 
-    fn snapshot(running: bool, fault: relink_audio::AudioFault) -> AudioSnapshot {
+    #[test]
+    fn failed_live_edit_dispatch_revokes_audio_for_disconnected_and_full_workers() {
+        for disconnected in [true, false] {
+            let (mut ui, requests, events) = fixture();
+            let mut requests = Some(requests);
+            if disconnected {
+                drop(requests.take());
+            } else {
+                for _ in 0..4 {
+                    ui.commands
+                        .try_send(Command {
+                            request: Request::Refresh,
+                            cancellation: ui.cancellation.clone(),
+                        })
+                        .unwrap();
+                }
+            }
+            ui.set_running_for_test();
+            let active_token = ui.cancellation.clone();
+            let mut edit = Session::new("Offline effects edit", 48000);
+            let mut bus = relink_core::Bus::new("Mix");
+            bus.dsp.compressor = Some(relink_core::CompressorConfig::default());
+            edit.add_bus(bus).unwrap();
+            ui.queue_controls(edit);
+            assert!(ui.controls_pending());
+            ui.poll();
+            assert!(active_token.is_cancelled());
+            assert!(!ui.running());
+            assert!(ui
+                .error
+                .as_deref()
+                .unwrap()
+                .contains("Audio control unavailable"));
+            assert_eq!(
+                ui.wanted_version, 0,
+                "dispatch failure is never acknowledged"
+            );
+            assert!(ui.pending_update.is_none());
+            // A stale healthy snapshot must not resurrect the failed edit.
+            events
+                .send(Event::Snapshot(Box::new(snapshot(
+                    true,
+                    relink_audio::AudioFault::None,
+                ))))
+                .unwrap();
+            ui.poll();
+            assert!(!ui.running());
+            assert!(active_token.is_cancelled());
+        }
+    }
+
+    #[test]
+    fn rapid_effect_edits_coalesce_to_latest_complete_bank_and_wait_for_render_ack() {
+        let (mut ui, requests, events) = fixture();
+        ui.set_running_for_test();
+        let mut edit = Session::new("Generated control sequence", 48000);
+        let mut bus = relink_core::Bus::new("Mix");
+        bus.dsp.compressor = Some(relink_core::CompressorConfig::default());
+        edit.add_bus(bus).unwrap();
+        ui.queue_controls(edit.clone());
+        ui.poll();
+        let Request::Update(first) = requests.try_recv().unwrap().request else {
+            panic!("expected effects update")
+        };
+        assert_eq!(first, edit);
+        edit.buses[0].dsp.compressor.as_mut().unwrap().ratio = 7.0;
+        ui.queue_controls(edit.clone());
+        edit.buses[0].dsp.bypass.compressor = true;
+        edit.buses[0].controls.set_gain_db(-9.0);
+        ui.queue_controls(edit.clone());
+        ui.poll();
+        assert!(
+            requests.try_recv().is_err(),
+            "only one update may be in flight"
+        );
+        events
+            .send(Event::Finished {
+                operation: Operation::Update,
+                result: Ok(Some(2)),
+            })
+            .unwrap();
+        ui.poll();
+        let Request::Update(latest) = requests.try_recv().unwrap().request else {
+            panic!("expected latest effects update")
+        };
+        assert_eq!(
+            latest, edit,
+            "gain, parameters and bypass travel in one complete session"
+        );
+        assert!(ui.controls_pending());
+        events
+            .send(Event::Finished {
+                operation: Operation::Update,
+                result: Ok(Some(4)),
+            })
+            .unwrap();
+        let mut old_ack = snapshot(true, relink_audio::AudioFault::None);
+        old_ack.applied_control_version = 2;
+        events.send(Event::Snapshot(Box::new(old_ack))).unwrap();
+        ui.poll();
+        assert!(
+            ui.controls_pending(),
+            "worker completion alone cannot acknowledge rendering"
+        );
+        let mut latest_ack = snapshot(true, relink_audio::AudioFault::None);
+        latest_ack.applied_control_version = 4;
+        events.send(Event::Snapshot(Box::new(latest_ack))).unwrap();
+        ui.poll();
+        assert!(!ui.controls_pending());
+        assert_eq!(ui.wanted_version(), 4);
+        assert!(ui.running());
+    }
+
+    pub(super) fn snapshot(running: bool, fault: relink_audio::AudioFault) -> AudioSnapshot {
         AudioSnapshot {
             outputs: vec![],
             running,

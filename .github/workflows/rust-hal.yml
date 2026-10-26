@@ -8,6 +8,7 @@ on:
       - 'crates/relink-audio/**'
       - 'crates/relink-core/**'
       - 'drivers/macos/**'
+      - 'scripts/ci-acceptance-summary.py'
       - '.github/workflows/rust-hal.yml'
       - 'Cargo.lock'
       - 'rust-toolchain.toml'
@@ -46,6 +47,11 @@ jobs:
       - name: Hash original evidence including failed observations
         if: always()
         run: python3 drivers/macos/tests/run_system.py manifest
+      - name: Print bounded report fallback before artifact upload
+        if: always()
+        continue-on-error: true
+        timeout-minutes: 1
+        run: python3 scripts/ci-acceptance-summary.py --kind hal
       - name: Preserve original observations and failed results
         if: always()
         uses: actions/upload-artifact@v4
@@ -84,6 +90,11 @@ jobs:
       - name: Hash original evidence including failed observations
         if: always()
         run: python3 drivers/macos/tests/run_runtime.py manifest
+      - name: Print bounded report fallback before artifact upload
+        if: always()
+        continue-on-error: true
+        timeout-minutes: 1
+        run: python3 scripts/ci-acceptance-summary.py --kind runtime
       - name: Preserve original runtime PCM, timestamps and failed results
         if: always()
         uses: actions/upload-artifact@v4

@@ -159,8 +159,20 @@ impl Default for LimiterConfig {
     }
 }
 
+/// Persistent stage bypass switches. True bypasses processing while preserving
+/// the configured parameters for later A/B comparison. Missing flags are false.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(default, deny_unknown_fields)]
+pub struct DspBypass {
+    pub high_pass: bool,
+    pub gate: bool,
+    pub compressor: bool,
+    pub limiter: bool,
+}
+
 /// Processing order: high-pass, stereo-linked gate, stereo-linked compressor,
-/// stereo-linked sample-peak limiter. `None` bypasses a stage. This limiter is
+/// stereo-linked sample-peak limiter. `None` omits a stage; `bypass` temporarily
+/// disables a configured stage without deleting its parameters. This limiter is
 /// causal with immediate attenuation; it is not a look-ahead or true-peak limiter.
 #[derive(Clone, Debug, Default, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -169,6 +181,8 @@ pub struct DspConfig {
     pub gate: Option<GateConfig>,
     pub compressor: Option<CompressorConfig>,
     pub limiter: Option<LimiterConfig>,
+    #[serde(default)]
+    pub bypass: DspBypass,
 }
 
 impl DspConfig {

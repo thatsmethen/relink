@@ -527,10 +527,18 @@ fn empty_callbacks_do_not_acknowledge_unrendered_controls() {
 }
 
 #[test]
-fn concurrent_bank_reader_never_observes_mixed_mute_and_gain_records() {
+fn concurrent_bank_reader_never_observes_mixed_gain_mute_or_effect_records() {
     let (session, _) = session();
     let mut a = PreparedControls::compile(&session, GRAPH_BYTES).unwrap();
-    let mut b = a.clone();
+    let mut other = session.clone();
+    other.inputs[0].dsp.high_pass = Some(relink_core::HighPassConfig { cutoff_hz: 2000.0 });
+    other.buses[0].dsp.compressor = Some(relink_core::CompressorConfig {
+        makeup_gain_db: -9.0,
+        ..Default::default()
+    });
+    let mut b = PreparedControls::compile(&other, GRAPH_BYTES).unwrap();
+    let effects_a = (a.input_dsp.clone(), a.bus_dsp.clone());
+    let effects_b = (b.input_dsp.clone(), b.bus_dsp.clone());
     for control in a.inputs.iter_mut().chain(&mut a.sends).chain(&mut a.buses) {
         control.gains = [0.25, 0.5];
         control.active = false;
@@ -563,6 +571,9 @@ fn concurrent_bank_reader_never_observes_mixed_mute_and_gain_records() {
                 [0.25, 0.5]
             };
             let active = scratch.inputs[0].active;
+            let effects = if active { &effects_b } else { &effects_a };
+            assert_eq!(scratch.input_dsp, effects.0);
+            assert_eq!(scratch.bus_dsp, effects.1);
             for control in scratch
                 .inputs
                 .iter()
@@ -582,7 +593,7 @@ fn concurrent_bank_reader_never_observes_mixed_mute_and_gain_records() {
 }
 
 #[test]
-fn live_edit_rejects_source_dsp_rate_and_route_changes_before_publication() {
+fn live_edit_accepts_valid_effects_but_rejects_source_rate_and_route_changes() {
     let (session, _) = session();
     let mut metadata = session.clone();
     metadata.name = "Renamed".into();
@@ -599,6 +610,10 @@ fn live_edit_rejects_source_dsp_rate_and_route_changes_before_publication() {
     assert!(prepare_live_update(&session, &changed).is_err());
     changed = session.clone();
     changed.buses[0].dsp = DspConfig::default();
+    assert!(prepare_live_update(&session, &changed).is_ok());
+    changed.inputs[0].dsp.high_pass = Some(relink_core::HighPassConfig {
+        cutoff_hz: f32::NAN,
+    });
     assert!(prepare_live_update(&session, &changed).is_err());
     changed = session.clone();
     changed.sends[0].id = Uuid::new_v4();
