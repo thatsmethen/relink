@@ -1,0 +1,620 @@
+{
+  "schema": 1,
+  "observer_diagnostics_enabled": true,
+  "pass": true,
+  "exceptions": [],
+  "processes": [
+    {
+      "name": "tone-writer",
+      "mode": "play",
+      "exit_code": 0,
+      "timed_out": false,
+      "deadline_seconds": 55.0,
+      "completion_observed_seconds": 40.26457712499996,
+      "supervision_finished_seconds": 40.26615674999999,
+      "term_sent": false,
+      "kill_sent": false,
+      "supervision_error": null
+    },
+    {
+      "name": "reader-a",
+      "mode": "record",
+      "exit_code": 0,
+      "timed_out": false,
+      "deadline_seconds": 35.0,
+      "completion_observed_seconds": 20.227579291999973,
+      "supervision_finished_seconds": 20.229083624999987,
+      "term_sent": false,
+      "kill_sent": false,
+      "supervision_error": null
+    },
+    {
+      "name": "reader-b",
+      "mode": "record",
+      "exit_code": 0,
+      "timed_out": false,
+      "deadline_seconds": 35.0,
+      "completion_observed_seconds": 20.18201970900003,
+      "supervision_finished_seconds": 20.182894542000042,
+      "term_sent": false,
+      "kill_sent": false,
+      "supervision_error": null
+    },
+    {
+      "name": "restarted-silence",
+      "mode": "record",
+      "exit_code": 0,
+      "timed_out": false,
+      "deadline_seconds": 18.0,
+      "completion_observed_seconds": 3.293489416,
+      "supervision_finished_seconds": 3.293558125000004,
+      "term_sent": false,
+      "kill_sent": false,
+      "supervision_error": null
+    }
+  ],
+  "observations": [
+    {
+      "schema": 1,
+      "source_report": "/Users/runner/work/relink/relink/build/rust-hal-system/tone-writer.json",
+      "clock": {
+        "callback_count": 3750,
+        "sample_gaps": [],
+        "host_reversals": 0,
+        "measured_sample_rate": 48000.0,
+        "pass": true
+      },
+      "frames": 1920000,
+      "mode": "play",
+      "failures": [],
+      "pass": true
+    },
+    {
+      "schema": 1,
+      "pass": true,
+      "failures": [],
+      "accepted_pcm_callbacks": 3750,
+      "max_callback_work_seconds": 0.001405333333333333,
+      "max_entry_minus_native_seconds": -0.003696958333333333,
+      "sample_gap_context": [],
+      "notifications": [
+        {
+          "index": 0,
+          "host_time": 9600564840,
+          "object": 92,
+          "selector": 1735354734,
+          "scope": 1735159650,
+          "element": 0
+        },
+        {
+          "index": 1,
+          "host_time": 10561100572,
+          "object": 92,
+          "selector": 1735354734,
+          "scope": 1735159650,
+          "element": 0
+        }
+      ],
+      "listeners": [
+        {
+          "object": 92,
+          "selector": 1870030194,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        },
+        {
+          "object": 92,
+          "selector": 1735354734,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        },
+        {
+          "object": 92,
+          "selector": 1818850926,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        },
+        {
+          "object": 92,
+          "selector": 1853059700,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        },
+        {
+          "object": 92,
+          "selector": 1718839674,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        },
+        {
+          "object": 94,
+          "selector": 1885762592,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        },
+        {
+          "object": 93,
+          "selector": 1885762592,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        }
+      ],
+      "lifecycle": {
+        "start_request": 9600013973,
+        "start_return": 9604576934,
+        "stop_request": 10560729364,
+        "stop_return": 10561253084,
+        "destroy_request": 10561253098,
+        "destroy_return": 10561261636
+      },
+      "dropped_notifications": 0,
+      "note": "Diagnostic integrity only. No scheduling performance limit or PCM acceptance threshold is changed."
+    },
+    {
+      "schema": 1,
+      "source_report": "/Users/runner/work/relink/relink/build/rust-hal-system/reader-a.json",
+      "clock": {
+        "callback_count": 1875,
+        "sample_gaps": [],
+        "host_reversals": 0,
+        "measured_sample_rate": 48000.00000000001,
+        "pass": true
+      },
+      "frames": 960000,
+      "mode": "record",
+      "failures": [],
+      "channels": [
+        {
+          "frequency_hz": 440,
+          "amplitude": 0.12499999974753317,
+          "phase_radians": 1.9268434942004715,
+          "rms": 0.08838834746984237,
+          "residual_rms": 8.963185742614545e-08
+        },
+        {
+          "frequency_hz": 997,
+          "amplitude": 0.1249999999959404,
+          "phase_radians": 2.295457032218907,
+          "rms": 0.08838834764545977,
+          "residual_rms": 4.5899446745344296e-08
+        }
+      ],
+      "wrong_channel_amplitude": [
+        3.5172917871056386e-17,
+        1.4786615569346131e-13
+      ],
+      "longest_stereo_zero_run": 0,
+      "interior_frames": 768000,
+      "trim_seconds": 2.0,
+      "criteria": {
+        "relative_amplitude_error": 0.01,
+        "residual_relative_to_peak": 0.001,
+        "wrong_channel_relative_peak": 0.005,
+        "forbidden_zero_run_frames": 8
+      },
+      "pass": true
+    },
+    {
+      "schema": 1,
+      "pass": true,
+      "failures": [],
+      "accepted_pcm_callbacks": 1875,
+      "max_callback_work_seconds": 0.0012464999999999998,
+      "max_entry_minus_native_seconds": 0.016617999999999997,
+      "sample_gap_context": [],
+      "notifications": [
+        {
+          "index": 0,
+          "host_time": 9610258490,
+          "object": 92,
+          "selector": 1735354734,
+          "scope": 1735159650,
+          "element": 0
+        },
+        {
+          "index": 1,
+          "host_time": 10090693469,
+          "object": 92,
+          "selector": 1735354734,
+          "scope": 1735159650,
+          "element": 0
+        }
+      ],
+      "listeners": [
+        {
+          "object": 92,
+          "selector": 1870030194,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        },
+        {
+          "object": 92,
+          "selector": 1735354734,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        },
+        {
+          "object": 92,
+          "selector": 1818850926,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        },
+        {
+          "object": 92,
+          "selector": 1853059700,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        },
+        {
+          "object": 92,
+          "selector": 1718839674,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        },
+        {
+          "object": 94,
+          "selector": 1885762592,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        },
+        {
+          "object": 93,
+          "selector": 1885762592,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        }
+      ],
+      "lifecycle": {
+        "start_request": 9610165440,
+        "start_return": 9612163447,
+        "stop_request": 10090583046,
+        "stop_return": 10090840462,
+        "destroy_request": 10090840473,
+        "destroy_return": 10090848772
+      },
+      "dropped_notifications": 0,
+      "note": "Diagnostic integrity only. No scheduling performance limit or PCM acceptance threshold is changed."
+    },
+    {
+      "schema": 1,
+      "source_report": "/Users/runner/work/relink/relink/build/rust-hal-system/reader-b.json",
+      "clock": {
+        "callback_count": 1875,
+        "sample_gaps": [],
+        "host_reversals": 0,
+        "measured_sample_rate": 48000.00000000001,
+        "pass": true
+      },
+      "frames": 960000,
+      "mode": "record",
+      "failures": [],
+      "channels": [
+        {
+          "frequency_hz": 440,
+          "amplitude": 0.12499999974753272,
+          "phase_radians": 1.9268434942004269,
+          "rms": 0.08838834746984235,
+          "residual_rms": 8.969129281428197e-08
+        },
+        {
+          "frequency_hz": 997,
+          "amplitude": 0.12499999999590576,
+          "phase_radians": 2.295457032218713,
+          "rms": 0.08838834764543571,
+          "residual_rms": 4.673678201926018e-08
+        }
+      ],
+      "wrong_channel_amplitude": [
+        1.6638657783776443e-17,
+        1.6468055323161954e-13
+      ],
+      "longest_stereo_zero_run": 0,
+      "interior_frames": 768000,
+      "trim_seconds": 2.0,
+      "criteria": {
+        "relative_amplitude_error": 0.01,
+        "residual_relative_to_peak": 0.001,
+        "wrong_channel_relative_peak": 0.005,
+        "forbidden_zero_run_frames": 8
+      },
+      "pass": true
+    },
+    {
+      "schema": 1,
+      "pass": true,
+      "failures": [],
+      "accepted_pcm_callbacks": 1875,
+      "max_callback_work_seconds": 9.079166666666666e-05,
+      "max_entry_minus_native_seconds": 0.017988749999999998,
+      "sample_gap_context": [],
+      "notifications": [
+        {
+          "index": 0,
+          "host_time": 9619542730,
+          "object": 92,
+          "selector": 1735354734,
+          "scope": 1735159650,
+          "element": 0
+        },
+        {
+          "index": 1,
+          "host_time": 10099966770,
+          "object": 92,
+          "selector": 1735354734,
+          "scope": 1735159650,
+          "element": 0
+        }
+      ],
+      "listeners": [
+        {
+          "object": 92,
+          "selector": 1870030194,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        },
+        {
+          "object": 92,
+          "selector": 1735354734,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        },
+        {
+          "object": 92,
+          "selector": 1818850926,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        },
+        {
+          "object": 92,
+          "selector": 1853059700,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        },
+        {
+          "object": 92,
+          "selector": 1718839674,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        },
+        {
+          "object": 94,
+          "selector": 1885762592,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        },
+        {
+          "object": 93,
+          "selector": 1885762592,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        }
+      ],
+      "lifecycle": {
+        "start_request": 9619352315,
+        "start_return": 9619773863,
+        "stop_request": 10099918798,
+        "stop_return": 10100018808,
+        "destroy_request": 10100018817,
+        "destroy_return": 10100025167
+      },
+      "dropped_notifications": 0,
+      "note": "Diagnostic integrity only. No scheduling performance limit or PCM acceptance threshold is changed."
+    },
+    {
+      "pass": true,
+      "overlap_frames": 749432,
+      "maximum_difference": 0.0,
+      "differing_samples_above_1e-6": 0,
+      "relative_start_frames": 18568.0
+    },
+    {
+      "schema": 1,
+      "pass": true,
+      "failures": [],
+      "accepted_pcm_callbacks": 282,
+      "max_callback_work_seconds": 2.2125e-05,
+      "max_entry_minus_native_seconds": 0.016029625,
+      "sample_gap_context": [],
+      "notifications": [
+        {
+          "index": 0,
+          "host_time": 10666761589,
+          "object": 92,
+          "selector": 1735354734,
+          "scope": 1735159650,
+          "element": 0
+        },
+        {
+          "index": 1,
+          "host_time": 10739671486,
+          "object": 92,
+          "selector": 1735354734,
+          "scope": 1735159650,
+          "element": 0
+        }
+      ],
+      "listeners": [
+        {
+          "object": 92,
+          "selector": 1870030194,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        },
+        {
+          "object": 92,
+          "selector": 1735354734,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        },
+        {
+          "object": 92,
+          "selector": 1818850926,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        },
+        {
+          "object": 92,
+          "selector": 1853059700,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        },
+        {
+          "object": 92,
+          "selector": 1718839674,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        },
+        {
+          "object": 94,
+          "selector": 1885762592,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        },
+        {
+          "object": 93,
+          "selector": 1885762592,
+          "scope": 1735159650,
+          "element": 0,
+          "available": true,
+          "added": true,
+          "add_status": 0,
+          "remove_status": 0
+        }
+      ],
+      "lifecycle": {
+        "start_request": 10665942487,
+        "start_return": 10667315360,
+        "stop_request": 10739577060,
+        "stop_return": 10739716886,
+        "destroy_request": 10739716894,
+        "destroy_return": 10739720155
+      },
+      "dropped_notifications": 0,
+      "note": "Diagnostic integrity only. No scheduling performance limit or PCM acceptance threshold is changed."
+    },
+    {
+      "schema": 1,
+      "source_report": "/Users/runner/work/relink/relink/build/rust-hal-system/restarted-silence.json",
+      "clock": {
+        "callback_count": 282,
+        "sample_gaps": [],
+        "host_reversals": 0,
+        "measured_sample_rate": 47999.99999999999,
+        "pass": true
+      },
+      "frames": 144000,
+      "mode": "silence",
+      "failures": [],
+      "peak": 0.0,
+      "pass": true
+    }
+  ]
+}

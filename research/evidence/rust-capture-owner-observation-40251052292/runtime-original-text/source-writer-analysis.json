@@ -1,0 +1,34 @@
+{
+  "schema": 1,
+  "source_report": "/Users/runner/work/relink/relink/build/rust-runtime-system/source-writer.json",
+  "clock": {
+    "callback_count": 5625,
+    "sample_gaps": [
+      {
+        "after_sample": 132540.0,
+        "delta_frames": 1472.0
+      },
+      {
+        "after_sample": 1369468.0,
+        "delta_frames": 576.0
+      },
+      {
+        "after_sample": 1372092.0,
+        "delta_frames": 580.0
+      },
+      {
+        "after_sample": 2227200.0,
+        "delta_frames": 572.0
+      }
+    ],
+    "host_reversals": 0,
+    "measured_sample_rate": 48000.0,
+    "pass": false
+  },
+  "frames": 2880000,
+  "mode": "play",
+  "failures": [
+    "sample clock or callback continuity failed"
+  ],
+  "pass": false
+}

@@ -1,0 +1,435 @@
+{
+  "analyzer_sources": {
+    "drivers/macos/tests/analyze_runtime.py": {
+      "bytes": 13821,
+      "sha256": "6742811826f6fef7dc243b688a10eafa6c669a3cf0a9bb5eb5ea14b1887fab43"
+    },
+    "drivers/macos/tests/analyze_system.py": {
+      "bytes": 9472,
+      "sha256": "6f2e070cf855d18fb45a7686e79c1f7da6627061079f44ebe32b0ed8b76cfe0f"
+    }
+  },
+  "capture_fault_path": {
+    "captured_frames": 90624,
+    "first_fault": null,
+    "lifecycle": [
+      {
+        "callbacks_in_flight": 0,
+        "host_time": 6082659285,
+        "phase": "CreateRequested",
+        "status": null
+      },
+      {
+        "callbacks_in_flight": 0,
+        "host_time": 6082702834,
+        "phase": "CreateReturned",
+        "status": 0
+      },
+      {
+        "callbacks_in_flight": 0,
+        "host_time": 6085095493,
+        "phase": "StartRequested",
+        "status": null
+      },
+      {
+        "callbacks_in_flight": 0,
+        "host_time": 6085398866,
+        "phase": "StartReturned",
+        "status": 0
+      },
+      {
+        "callbacks_in_flight": null,
+        "host_time": 6131275761,
+        "phase": "HandleCancelled",
+        "status": null
+      },
+      {
+        "callbacks_in_flight": 0,
+        "host_time": 6131319752,
+        "phase": "GatesRevoked",
+        "status": null
+      },
+      {
+        "callbacks_in_flight": 0,
+        "host_time": 6131319756,
+        "phase": "StopRequested",
+        "status": null
+      },
+      {
+        "callbacks_in_flight": 0,
+        "host_time": 6131536839,
+        "phase": "StopReturned",
+        "status": 0
+      },
+      {
+        "callbacks_in_flight": 0,
+        "host_time": 6131536850,
+        "phase": "DestroyRequested",
+        "status": null
+      },
+      {
+        "callbacks_in_flight": 0,
+        "host_time": 6131547057,
+        "phase": "DestroyReturned",
+        "status": 0
+      },
+      {
+        "callbacks_in_flight": 0,
+        "host_time": 6131547063,
+        "phase": "ListenersRemovalRequested",
+        "status": null
+      },
+      {
+        "callbacks_in_flight": 0,
+        "host_time": 6131578027,
+        "phase": "ListenersRemovalReturned",
+        "status": 0
+      },
+      {
+        "callbacks_in_flight": 0,
+        "host_time": 6131578059,
+        "phase": "QuiescenceChecked",
+        "status": null
+      },
+      {
+        "callbacks_in_flight": 0,
+        "host_time": 6131578240,
+        "phase": "OwnerCompleted",
+        "status": null
+      }
+    ],
+    "packets_seen": 177,
+    "scope": "This source implements OwnerCompleted after release. The recorded fault-path completion does not qualify all lifecycle paths or the complete mixing protocol."
+  },
+  "complete_pcm_protocol_analysis_available": false,
+  "driver_cleanup": {
+    "hal": {
+      "attempt": 3,
+      "both_owned_devices_absent": true,
+      "pass": true
+    },
+    "runtime": {
+      "attempt": 3,
+      "both_owned_devices_absent": true,
+      "pass": true
+    }
+  },
+  "first_fault": {
+    "direction": "Output",
+    "endpoint_id": "coreaudio:au.textual.ravelink.cable.2",
+    "endpoint_index": 0,
+    "fault": 5,
+    "metadata": {
+      "epoch": 1,
+      "native_object": 100,
+      "observed_mach_host_time": 6131263519,
+      "packet_index": null,
+      "property": {
+        "element": 0,
+        "scope": 1735159650,
+        "selector": 1870030194
+      },
+      "status": null
+    },
+    "metadata_pending": false,
+    "origin": "NativeOutputOverload"
+  },
+  "first_fault_immutable_through_terminal": true,
+  "first_fault_row_index": 39,
+  "hal_conclusion": "PASS",
+  "independent_clock_gaps": {
+    "runtime-reader": [
+      {
+        "current": {
+          "flags": 7,
+          "frames": 512,
+          "host_time": 6131275217,
+          "observed_host_time": 6131534750,
+          "sample_time": 132776.0,
+          "stored_frames": 512
+        },
+        "delta_frames": 764.0,
+        "index": 151,
+        "previous": {
+          "flags": 7,
+          "frames": 512,
+          "host_time": 6130637217,
+          "observed_host_time": 6131273901,
+          "sample_time": 131500.0,
+          "stored_frames": 512
+        }
+      }
+    ],
+    "source-writer": [
+      {
+        "current": {
+          "flags": 7,
+          "frames": 512,
+          "host_time": 6132149217,
+          "observed_host_time": 6131920271,
+          "sample_time": 134524.0,
+          "stored_frames": 512
+        },
+        "delta_frames": 1472.0,
+        "index": 210,
+        "previous": {
+          "flags": 7,
+          "frames": 512,
+          "host_time": 6131157217,
+          "observed_host_time": 6131255454,
+          "sample_time": 132540.0,
+          "stored_frames": 512
+        }
+      },
+      {
+        "current": {
+          "flags": 7,
+          "frames": 512,
+          "host_time": 6750165217,
+          "observed_host_time": 6749955705,
+          "sample_time": 1370556.0,
+          "stored_frames": 512
+        },
+        "delta_frames": 576.0,
+        "index": 2623,
+        "previous": {
+          "flags": 7,
+          "frames": 512,
+          "host_time": 6749621217,
+          "observed_host_time": 6749640441,
+          "sample_time": 1369468.0,
+          "stored_frames": 512
+        }
+      },
+      {
+        "current": {
+          "flags": 7,
+          "frames": 512,
+          "host_time": 6751479217,
+          "observed_host_time": 6751322560,
+          "sample_time": 1373184.0,
+          "stored_frames": 512
+        },
+        "delta_frames": 580.0,
+        "index": 2627,
+        "previous": {
+          "flags": 7,
+          "frames": 512,
+          "host_time": 6750933217,
+          "observed_host_time": 6750963505,
+          "sample_time": 1372092.0,
+          "stored_frames": 512
+        }
+      },
+      {
+        "current": {
+          "flags": 7,
+          "frames": 512,
+          "host_time": 7179029217,
+          "observed_host_time": 7178791525,
+          "sample_time": 2228284.0,
+          "stored_frames": 512
+        },
+        "delta_frames": 572.0,
+        "index": 4296,
+        "previous": {
+          "flags": 7,
+          "frames": 512,
+          "host_time": 7178487217,
+          "observed_host_time": 7178511514,
+          "sample_time": 2227200.0,
+          "stored_frames": 512
+        }
+      }
+    ]
+  },
+  "independent_clocks_recomputed": {
+    "runtime-reader": {
+      "callback_count": 3000,
+      "host_reversals": 0,
+      "measured_sample_rate": 48000.00000000001,
+      "pass": false,
+      "sample_gaps": [
+        {
+          "after_sample": 131500.0,
+          "delta_frames": 764.0
+        }
+      ]
+    },
+    "source-writer": {
+      "callback_count": 5625,
+      "host_reversals": 0,
+      "measured_sample_rate": 48000.0,
+      "pass": false,
+      "sample_gaps": [
+        {
+          "after_sample": 132540.0,
+          "delta_frames": 1472.0
+        },
+        {
+          "after_sample": 1369468.0,
+          "delta_frames": 576.0
+        },
+        {
+          "after_sample": 1372092.0,
+          "delta_frames": 580.0
+        },
+        {
+          "after_sample": 2227200.0,
+          "delta_frames": 572.0
+        }
+      ]
+    }
+  },
+  "last_output_callback_timing": {
+    "callback_index": 187,
+    "callback_wall_seconds": 0.014325499999999998,
+    "completion_host_time": 6131261981,
+    "completion_minus_presentation_seconds": 0.008865166666666665,
+    "entry_host_time": 6130918169,
+    "frames": 512,
+    "nominal_audio_seconds": 0.010666666666666666,
+    "overload_observation_minus_completion_seconds": 6.408333333333332e-05,
+    "overload_observed_host_time": 6131263519,
+    "presentation_host_time": 6131049217,
+    "scope": "Elapsed callback wall time and supplied presentation timestamp; not CPU use, physical playback timing, fault onset or causal attribution.",
+    "timebase_denom": 3,
+    "timebase_numer": 125
+  },
+  "native_timing_rows": 42,
+  "original_observer_error_recomputed_exactly": true,
+  "output_cleanup": {
+    "lifecycle": [
+      {
+        "callbacks_in_flight": 0,
+        "host_time": 6082766223,
+        "phase": "ReservationAcquired",
+        "status": null
+      },
+      {
+        "callbacks_in_flight": 0,
+        "host_time": 6082775315,
+        "phase": "CreateRequested",
+        "status": null
+      },
+      {
+        "callbacks_in_flight": 0,
+        "host_time": 6082808322,
+        "phase": "CreateReturned",
+        "status": 0
+      },
+      {
+        "callbacks_in_flight": 0,
+        "host_time": 6082840431,
+        "phase": "Ready",
+        "status": null
+      },
+      {
+        "callbacks_in_flight": 0,
+        "host_time": 6082853411,
+        "phase": "StartRequested",
+        "status": null
+      },
+      {
+        "callbacks_in_flight": 0,
+        "host_time": 6083221970,
+        "phase": "StartReturned",
+        "status": 0
+      },
+      {
+        "callbacks_in_flight": null,
+        "host_time": 6131275654,
+        "phase": "HandleCancelled",
+        "status": null
+      },
+      {
+        "callbacks_in_flight": 0,
+        "host_time": 6131278630,
+        "phase": "GatesRevoked",
+        "status": null
+      },
+      {
+        "callbacks_in_flight": 0,
+        "host_time": 6131278633,
+        "phase": "StopRequested",
+        "status": null
+      },
+      {
+        "callbacks_in_flight": 0,
+        "host_time": 6131528285,
+        "phase": "StopReturned",
+        "status": 0
+      },
+      {
+        "callbacks_in_flight": 0,
+        "host_time": 6131528286,
+        "phase": "DestroyRequested",
+        "status": null
+      },
+      {
+        "callbacks_in_flight": 0,
+        "host_time": 6131542991,
+        "phase": "DestroyReturned",
+        "status": 0
+      },
+      {
+        "callbacks_in_flight": 0,
+        "host_time": 6131542994,
+        "phase": "ListenerRemovalRequested",
+        "status": null
+      },
+      {
+        "callbacks_in_flight": 0,
+        "host_time": 6131579383,
+        "phase": "ListenerRemovalReturned",
+        "status": 0
+      },
+      {
+        "callbacks_in_flight": 0,
+        "host_time": 6131579402,
+        "phase": "QuiescenceChecked",
+        "status": null
+      },
+      {
+        "callbacks_in_flight": 0,
+        "host_time": 6131579820,
+        "phase": "OwnerCompleted",
+        "status": null
+      }
+    ],
+    "retained_context": false,
+    "strict_gate_failure_reason": "Global Xrun remains latched; successful API cleanup does not clear the fault or make the run pass.",
+    "strict_shutdown_gate": false,
+    "successful_native_api_statuses": true,
+    "zero_callbacks_in_flight_at_drain_and_completion": true
+  },
+  "overall_conclusion": "FAIL",
+  "protocol_event_counts": {
+    "phase": 1,
+    "started": 1,
+    "stop": 0
+  },
+  "run_id": 40251052292,
+  "runtime_conclusion": "FAIL",
+  "runtime_process": {
+    "completion_observed_seconds": 2.177194166999982,
+    "deadline_seconds": 49.99999999999997,
+    "exit_code": 1,
+    "kill_sent": false,
+    "mode": "capture-mix",
+    "name": "runtime",
+    "supervision_error": null,
+    "supervision_finished_seconds": 2.177362125000002,
+    "term_sent": false,
+    "timed_out": false
+  },
+  "schema": 1,
+  "source_revision": "910ef63b20782268af8cbd2e35a56b606f4a6b82",
+  "terminal_result": {
+    "error": "runtime stopped: fault=Xrun, error=None",
+    "native_output_shutdown_proven": false,
+    "pass": false,
+    "schema": 1
+  },
+  "uncertainty": "Output overload attribution identifies where the failure was recorded, not the scheduling, host, driver, processing or observer cause. Same-run clock gaps and the source change do not establish a capture regression. HAL PASS was a separate hosted job; runtime protocol remains incomplete and failed."
+}

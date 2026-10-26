@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "valid_transport_verified_from_outside_checkout": true,
+  "source_repository_supplied_explicitly": true,
+  "original_outcome_preserved": "FAIL",
+  "all_original_manifest_files_verified": 121,
+  "one_byte_corruption": {
+    "asset": "original-workflow-logs.zip",
+    "original_sha256": "3fc510c3a55b9a34f592cdefbe940964afedebbcc30923330161c35c1f8d104d",
+    "corrupted_sha256": "1be0161fb28805a8b9e6ad27e41819e96be9359f8f371404f99c2ee1f84e67f3",
+    "returncode": 1,
+    "expected_hash_assertion_rejected_corruption": true
+  },
+  "temporary_control_directory_removed_on_exit": true,
+  "audio_or_network_operations": false
+}

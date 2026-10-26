@@ -1,0 +1,64 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-10-26T01:20:46.720743+00:00",
+  "kind": "later publication metadata projection; collection-time metadata remains unchanged",
+  "status": "PUBLIC_ANONYMOUS_ROUNDTRIP_VERIFIED",
+  "release": {
+    "id": 423768973,
+    "html_url": "https://github.com/thatsmethen/relink/releases/tag/evidence-capture-owner-40251052292",
+    "tag_name": "evidence-capture-owner-40251052292",
+    "name": "Evidence 40251052292: overall FAIL, HAL PASS, native runtime overload",
+    "prerelease": true,
+    "draft": false,
+    "published_at": "2026-10-26T01:18:56Z"
+  },
+  "tag": {
+    "type": "commit",
+    "revision": "910ef63b20782268af8cbd2e35a56b606f4a6b82",
+    "tagger_metadata": "none: lightweight tag"
+  },
+  "source_tree": "f94a2198714611f6447452951c40050338e044b1",
+  "public_verification": {
+    "name": "public-verification.json",
+    "bytes": 13758,
+    "sha256": "f12c8141851f73f808a294f7103c145a6c8ca30dfca419fc99e1b2e6e54a5a6c"
+  },
+  "total_release_assets": 26,
+  "lossless_original_zip_parts": 21,
+  "maximum_part_bytes": 524288,
+  "whole_archives": [
+    "original-workflow-logs.zip",
+    "original-runtime.zip",
+    "collection-evidence-40251052292.zip"
+  ],
+  "source_repository_required": "Local clone containing exact 910ef63b20782268af8cbd2e35a56b606f4a6b82, used without checkout or fetch for original analyzer modules.",
+  "frozen_collection_files_preserved": 117,
+  "original_manifest_files_verified": 121,
+  "original_observer_error_recomputed_exactly": true,
+  "independent_clock_gaps_recomputed": true,
+  "complete_pcm_protocol_analysis_available": false,
+  "unchanged_original_outcomes": {
+    "overall": "FAIL",
+    "installed-hal": "PASS",
+    "installed-runtime-capture": "FAIL"
+  },
+  "scope": "Native macOS runtime aborted on an attributed output overload; original fixed protocol incomplete and failed. Successful native cleanup does not clear the fault. No causal capture-regression or production qualification.",
+  "callback_timing_precision": "14.3255 ms is the recorded entry-to-completion interval; completion is sampled before final timing publication, guard destruction and return. It is not total callback duration or CPU usage.",
+  "failed_unaccepted_upload_starters_removed": [],
+  "accepted_asset_replacement": false,
+  "raw_public_api_bodies_retained_locally": {
+    "public-release-api.json": {
+      "bytes": 46114,
+      "sha256": "95ca08973ba107afe89f355ccc4753f62924eeb1a4630bc5eabcdf7adc1a6ce7"
+    },
+    "public-tag-api.json": {
+      "bytes": 433,
+      "sha256": "1baf721def62f22073899b4398ccbada1fad63638157c8bb433b5ad329aa5356"
+    },
+    "public-source-commit-api.json": {
+      "bytes": 1179,
+      "sha256": "f2226ddc34f6c76cd2a8a78b5bf66f33b038720b302d5967f7826b6a5143ba02"
+    }
+  },
+  "audio_rerun_or_acceptance_changes": false
+}

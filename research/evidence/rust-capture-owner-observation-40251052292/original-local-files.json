@@ -1,0 +1,30 @@
+{
+  "original-artifacts.json": {
+    "bytes": 1429,
+    "sha256": "eb9b967a1cf2c064ed9bc35660171a6dfb2a999956884b1bcaf32cdc66738473"
+  },
+  "original-hal.zip": {
+    "bytes": 10533562,
+    "sha256": "253cb82db338b9671ad741b79d0bbe961d1014cc17092155d7da3e4f31f270c4"
+  },
+  "original-jobs.json": {
+    "bytes": 5836,
+    "sha256": "1e1826d6fca366a2f782e090ca17299831d67aeda1273487458d5956cfe9b2cf"
+  },
+  "original-run.json": {
+    "bytes": 12114,
+    "sha256": "d910056d1be9f33089187abb11863681dbadd1acd987d8046a23254caa1a610f"
+  },
+  "original-runtime.zip": {
+    "bytes": 943176,
+    "sha256": "24a704c7fc9a586b53cadc50b9060b38d54da7023df246f932d739c46a8b0848"
+  },
+  "original-source-commit.json": {
+    "bytes": 1179,
+    "sha256": "f2226ddc34f6c76cd2a8a78b5bf66f33b038720b302d5967f7826b6a5143ba02"
+  },
+  "original-workflow-logs.zip": {
+    "bytes": 34799,
+    "sha256": "3fc510c3a55b9a34f592cdefbe940964afedebbcc30923330161c35c1f8d104d"
+  }
+}

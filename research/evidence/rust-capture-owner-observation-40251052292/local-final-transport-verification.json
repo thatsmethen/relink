@@ -1,0 +1,53 @@
+{
+  "schema": 1,
+  "all_release_payload_hashes_verified": true,
+  "complete_original_archive_hashes_verified": true,
+  "archives": [
+    {
+      "name": "original-workflow-logs.zip",
+      "bytes": 34799,
+      "sha256": "3fc510c3a55b9a34f592cdefbe940964afedebbcc30923330161c35c1f8d104d"
+    },
+    {
+      "name": "original-hal.zip",
+      "bytes": 10533562,
+      "sha256": "253cb82db338b9671ad741b79d0bbe961d1014cc17092155d7da3e4f31f270c4"
+    },
+    {
+      "name": "original-runtime.zip",
+      "bytes": 943176,
+      "sha256": "24a704c7fc9a586b53cadc50b9060b38d54da7023df246f932d739c46a8b0848"
+    },
+    {
+      "name": "collection-evidence-40251052292.zip",
+      "bytes": 195335,
+      "sha256": "f070ff98322e40d90ea1c2ddecc61cacaffde8cb88d17b75c9376cab27b38749"
+    }
+  ],
+  "local_source_revision": "910ef63b20782268af8cbd2e35a56b606f4a6b82",
+  "local_source_tree": "f94a2198714611f6447452951c40050338e044b1",
+  "unchanged_bundled_verifier": {
+    "original_archives_verified": 3,
+    "original_manifest_files_verified": 121,
+    "original_observer_error_recomputed_exactly": true,
+    "independent_clock_gaps_recomputed": true,
+    "complete_pcm_protocol_analysis_available": false,
+    "cleanup_observations_verified": true,
+    "overall_result": "FAIL",
+    "audio_or_network_operations": false
+  },
+  "original_analyzer_sha256": {
+    "drivers/macos/tests/analyze_runtime.py": {
+      "bytes": 13821,
+      "sha256": "6742811826f6fef7dc243b688a10eafa6c669a3cf0a9bb5eb5ea14b1887fab43"
+    },
+    "drivers/macos/tests/analyze_system.py": {
+      "bytes": 9472,
+      "sha256": "6f2e070cf855d18fb45a7686e79c1f7da6627061079f44ebe32b0ed8b76cfe0f"
+    }
+  },
+  "original_verifier_modified": false,
+  "original_outcomes_changed": false,
+  "network_or_audio_operations": false,
+  "temporary_pcm_extraction": "The original verifier temporarily extracts original PCM/clock/control inputs for its offline recomputation, then removes its temporary directory."
+}

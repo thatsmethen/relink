@@ -1,0 +1,2 @@
+{"event":"started","host_time":6085400614,"input_id":"coreaudio:au.textual.ravelink.cable.1","output_id":"coreaudio:au.textual.ravelink.cable.2","sample_rate":48000,"input_format":"2ch 32-bit float","output_format":"2ch 32-bit float"}
+{"event":"phase","phase":0,"gain_db":-6,"muted":false,"requested_host_time":6108013079,"acknowledged_host_time":6108622413,"version":2,"rendered_frames":45056,"callback_count":88}

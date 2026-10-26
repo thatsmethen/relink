@@ -1,0 +1,184 @@
+[
+  {
+    "name": "original-workflow-logs.zip",
+    "attempt": 1,
+    "exit_code": 0,
+    "stderr": "",
+    "at_utc": "2026-10-26T01:11:46.557471+00:00"
+  },
+  {
+    "name": "original-hal.zip.part001",
+    "attempt": 1,
+    "exit_code": 0,
+    "stderr": "",
+    "at_utc": "2026-10-26T01:12:29.646119+00:00"
+  },
+  {
+    "name": "original-hal.zip.part000",
+    "attempt": 1,
+    "exit_code": 0,
+    "stderr": "",
+    "at_utc": "2026-10-26T01:12:31.840180+00:00"
+  },
+  {
+    "name": "original-hal.zip.part002",
+    "attempt": 1,
+    "exit_code": 0,
+    "stderr": "",
+    "at_utc": "2026-10-26T01:12:51.584607+00:00"
+  },
+  {
+    "name": "original-hal.zip.part003",
+    "attempt": 1,
+    "exit_code": 0,
+    "stderr": "",
+    "at_utc": "2026-10-26T01:12:53.152396+00:00"
+  },
+  {
+    "name": "original-hal.zip.part004",
+    "attempt": 1,
+    "exit_code": 0,
+    "stderr": "",
+    "at_utc": "2026-10-26T01:13:32.156261+00:00"
+  },
+  {
+    "name": "original-hal.zip.part005",
+    "attempt": 1,
+    "exit_code": 0,
+    "stderr": "",
+    "at_utc": "2026-10-26T01:13:32.979179+00:00"
+  },
+  {
+    "name": "original-hal.zip.part006",
+    "attempt": 1,
+    "exit_code": 0,
+    "stderr": "",
+    "at_utc": "2026-10-26T01:14:13.167220+00:00"
+  },
+  {
+    "name": "original-hal.zip.part007",
+    "attempt": 1,
+    "exit_code": 0,
+    "stderr": "",
+    "at_utc": "2026-10-26T01:14:13.947878+00:00"
+  },
+  {
+    "name": "original-hal.zip.part009",
+    "attempt": 1,
+    "exit_code": 0,
+    "stderr": "",
+    "at_utc": "2026-10-26T01:15:08.720242+00:00"
+  },
+  {
+    "name": "original-hal.zip.part008",
+    "attempt": 1,
+    "exit_code": 0,
+    "stderr": "",
+    "at_utc": "2026-10-26T01:15:08.992488+00:00"
+  },
+  {
+    "name": "original-hal.zip.part011",
+    "attempt": 1,
+    "exit_code": 0,
+    "stderr": "",
+    "at_utc": "2026-10-26T01:15:54.460742+00:00"
+  },
+  {
+    "name": "original-hal.zip.part010",
+    "attempt": 1,
+    "exit_code": 0,
+    "stderr": "",
+    "at_utc": "2026-10-26T01:15:57.735904+00:00"
+  },
+  {
+    "name": "original-hal.zip.part013",
+    "attempt": 1,
+    "exit_code": 0,
+    "stderr": "",
+    "at_utc": "2026-10-26T01:16:52.093599+00:00"
+  },
+  {
+    "name": "original-hal.zip.part012",
+    "attempt": 1,
+    "exit_code": 0,
+    "stderr": "",
+    "at_utc": "2026-10-26T01:16:52.257727+00:00"
+  },
+  {
+    "name": "original-hal.zip.part015",
+    "attempt": 1,
+    "exit_code": 0,
+    "stderr": "",
+    "at_utc": "2026-10-26T01:17:10.445253+00:00"
+  },
+  {
+    "name": "original-hal.zip.part014",
+    "attempt": 1,
+    "exit_code": 0,
+    "stderr": "",
+    "at_utc": "2026-10-26T01:17:11.031107+00:00"
+  },
+  {
+    "name": "original-hal.zip.part016",
+    "attempt": 1,
+    "exit_code": 0,
+    "stderr": "",
+    "at_utc": "2026-10-26T01:17:27.182295+00:00"
+  },
+  {
+    "name": "original-hal.zip.part017",
+    "attempt": 1,
+    "exit_code": 0,
+    "stderr": "",
+    "at_utc": "2026-10-26T01:17:27.957039+00:00"
+  },
+  {
+    "name": "original-hal.zip.part018",
+    "attempt": 1,
+    "exit_code": 0,
+    "stderr": "",
+    "at_utc": "2026-10-26T01:17:47.676706+00:00"
+  },
+  {
+    "name": "original-hal.zip.part019",
+    "attempt": 1,
+    "exit_code": 0,
+    "stderr": "",
+    "at_utc": "2026-10-26T01:17:47.788354+00:00"
+  },
+  {
+    "name": "original-hal.zip.part020",
+    "attempt": 1,
+    "exit_code": 0,
+    "stderr": "",
+    "at_utc": "2026-10-26T01:17:51.630459+00:00"
+  },
+  {
+    "name": "original-runtime.zip",
+    "attempt": 1,
+    "exit_code": 0,
+    "stderr": "",
+    "at_utc": "2026-10-26T01:18:12.291451+00:00"
+  },
+  {
+    "name": "collection-evidence-40251052292.zip",
+    "attempt": 1,
+    "exit_code": 0,
+    "stderr": "",
+    "at_utc": "2026-10-26T01:18:16.257475+00:00"
+  },
+  {
+    "name": "publication-assets.json",
+    "attempt": 1,
+    "exit_code": 0,
+    "stderr": "",
+    "at_utc": "2026-10-26T01:18:19.372997+00:00"
+  },
+  {
+    "name": "verify-release.py",
+    "attempt": 1,
+    "exit_code": 0,
+    "stderr": "",
+    "at_utc": "2026-10-26T01:18:22.737475+00:00"
+  }
+]
