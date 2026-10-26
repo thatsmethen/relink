@@ -1,0 +1,84 @@
+$ ['rustc', '-vV']
+rustc 1.91.1 (ed61e7d7e 2025-11-07)
+binary: rustc
+commit-hash: ed61e7d7e242494fb7057f2657300d9e77bb4fcb
+commit-date: 2025-11-07
+host: aarch64-apple-darwin
+release: 1.91.1
+LLVM version: 21.1.2
+$ ['git', 'rev-parse', 'HEAD']
+c792488b4a0731203303433183f055570fb2b87e
+$ ['git', 'status', '--porcelain=v1']
+ M drivers/macos/README.md
+ M drivers/macos/build-bundle.sh
+ M drivers/macos/tests/system-probe.c
+?? crates/relink-audio/examples/runtime-application-probe.rs
+?? drivers/macos/TEST-INSTALL.md
+?? drivers/macos/build-test-package.py
+?? drivers/macos/build-test-package.sh
+?? drivers/macos/test-install-preflight.sh
+?? drivers/macos/tests/APPLICATION-ACCEPTANCE.md
+?? drivers/macos/tests/analyze_application.py
+?? drivers/macos/tests/application_generator_controls.c
+?? drivers/macos/tests/application_protocol.py
+?? drivers/macos/tests/run_application.py
+?? drivers/macos/tests/test_application.py
+?? drivers/macos/tests/test_test_package.py
+$ ['cargo', '--version']
+cargo 1.91.1 (ea2d97820 2025-10-10)
+$ ['xcrun', '--show-sdk-version']
+26.1
+$ ['xcrun', '--show-sdk-path']
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
+$ ['cargo', 'metadata', '--locked', '--no-deps', '--format-version', '1']
+{"packages":[{"name":"relink-core","version":"0.1.0","id":"path+file:///Users/textual/projects/notify/relink/crates/relink-core#0.1.0","license":null,"license_file":"../../LICENSE","description":"Independently authored session and stereo mixing engine for ReLink","source":null,"dependencies":[{"name":"serde","source":"registry+https://github.com/rust-lang/crates.io-index","req":"^1.0","kind":null,"rename":null,"optional":false,"uses_default_features":true,"features":["derive"],"target":null,"registry":null},{"name":"serde_json","source":"registry+https://github.com/rust-lang/crates.io-index","req":"^1.0","kind":null,"rename":null,"optional":false,"uses_default_features":true,"features":[],"target":null,"registry":null},{"name":"uuid","source":"registry+https://github.com/rust-lang/crates.io-index","req":"^1.0","kind":null,"rename":null,"optional":false,"uses_default_features":true,"features":["v4","serde"],"target":null,"registry":null}],"targets":[{"kind":["lib"],"crate_types":["lib"],"name":"relink_core","src_path":"/Users/textual/projects/notify/relink/crates/relink-core/src/lib.rs","edition":"2021","doc":true,"doctest":true,"test":true},{"kind":["test"],"crate_types":["bin"],"name":"bus_views","src_path":"/Users/textual/projects/notify/relink/crates/relink-core/tests/bus_views.rs","edition":"2021","doc":false,"doctest":false,"test":true},{"kind":["test"],"crate_types":["bin"],"name":"controls","src_path":"/Users/textual/projects/notify/relink/crates/relink-core/tests/controls.rs","edition":"2021","doc":false,"doctest":false,"test":true},{"kind":["test"],"crate_types":["bin"],"name":"engine","src_path":"/Users/textual/projects/notify/relink/crates/relink-core/tests/engine.rs","edition":"2021","doc":false,"doctest":false,"test":true},{"kind":["test"],"crate_types":["bin"],"name":"smoothing","src_path":"/Users/textual/projects/notify/relink/crates/relink-core/tests/smoothing.rs","edition":"2021","doc":false,"doctest":false,"test":true}],"features":{},"manifest_path":"/Users/textual/projects/notify/relink/crates/relink-core/Cargo.toml","metadata":null,"publish":[],"authors":[],"categories":[],"keywords":[],"readme":null,"repository":null,"homepage":null,"documentation":null,"edition":"2021","links":null,"default_run":null,"rust_version":"1.88"},{"name":"relink-audio","version":"0.1.0","id":"path+file:///Users/textual/projects/notify/relink/crates/relink-audio#0.1.0","license":null,"license_file":"../../LICENSE","description":null,"source":null,"dependencies":[{"name":"arc-swap","source":"registry+https://github.com/rust-lang/crates.io-index","req":"=1.9.3","kind":null,"rename":null,"optional":false,"uses_default_features":true,"features":[],"target":null,"registry":null},{"name":"cpal","source":"registry+https://github.com/rust-lang/crates.io-index","req":"=0.18.2","kind":null,"rename":null,"optional":false,"uses_default_features":false,"features":[],"target":null,"registry":null},{"name":"relink-core","source":null,"req":"*","kind":null,"rename":null,"optional":false,"uses_default_features":true,"features":[],"target":null,"registry":null,"path":"/Users/textual/projects/notify/relink/crates/relink-core"},{"name":"serde_json","source":"registry+https://github.com/rust-lang/crates.io-index","req":"^1.0","kind":"dev","rename":null,"optional":false,"uses_default_features":true,"features":[],"target":null,"registry":null},{"name":"block2","source":"registry+https://github.com/rust-lang/crates.io-index","req":"=0.6.2","kind":null,"rename":null,"optional":false,"uses_default_features":true,"features":[],"target":"cfg(target_os = \"macos\")","registry":null},{"name":"libc","source":"registry+https://github.com/rust-lang/crates.io-index","req":"=0.2.191","kind":null,"rename":null,"optional":false,"uses_default_features":true,"features":[],"target":"cfg(target_os = \"macos\")","registry":null},{"name":"objc2","source":"registry+https://github.com/rust-lang/crates.io-index","req":"=0.6.5","kind":null,"rename":null,"optional":false,"uses_default_features":true,"features":[],"target":"cfg(target_os = \"macos\")","registry":null},{"name":"objc2-core-audio","source":"registry+https://github.com/rust-lang/crates.io-index","req":"=0.3.2","kind":null,"rename":null,"optional":false,"uses_default_features":false,"features":["std","AudioHardware","HostTime","objc2-core-audio-types","block2","dispatch2"],"target":"cfg(target_os = \"macos\")","registry":null},{"name":"objc2-core-audio-types","source":"registry+https://github.com/rust-lang/crates.io-index","req":"=0.3.2","kind":null,"rename":null,"optional":false,"uses_default_features":false,"features":["std","CoreAudioBaseTypes"],"target":"cfg(target_os = \"macos\")","registry":null},{"name":"objc2-core-foundation","source":"registry+https://github.com/rust-lang/crates.io-index","req":"=0.3.2","kind":null,"rename":null,"optional":false,"uses_default_features":false,"features":["std","CFBase","CFString","CFDictionary"],"target":"cfg(target_os = \"macos\")","registry":null},{"name":"objc2-foundation","source":"registry+https://github.com/rust-lang/crates.io-index","req":"=0.3.2","kind":null,"rename":null,"optional":false,"uses_default_features":false,"features":["std","NSArray","NSDictionary","NSString","NSValue","NSBundle","NSObject"],"target":"cfg(target_os = \"macos\")","registry":null},{"name":"windows","source":"registry+https://github.com/rust-lang/crates.io-index","req":"=0.62.2","kind":null,"rename":null,"optional":false,"uses_default_features":true,"features":["Win32_Foundation","Win32_Media_Audio","Win32_Media_KernelStreaming","Win32_Media_Multimedia","Win32_Security","Win32_System_Com","Win32_System_Com_StructuredStorage","Win32_System_Variant","Win32_System_Diagnostics_ToolHelp","Win32_System_Performance","Win32_System_Threading"],"target":"cfg(target_os = \"windows\")","registry":null},{"name":"windows-core","source":"registry+https://github.com/rust-lang/crates.io-index","req":"=0.62.2","kind":null,"rename":null,"optional":false,"uses_default_features":true,"features":[],"target":"cfg(target_os = \"windows\")","registry":null}],"targets":[{"kind":["lib"],"crate_types":["lib"],"name":"relink_audio","src_path":"/Users/textual/projects/notify/relink/crates/relink-audio/src/lib.rs","edition":"2021","doc":true,"doctest":true,"test":true},{"kind":["example"],"crate_types":["bin"],"name":"runtime-application-probe","src_path":"/Users/textual/projects/notify/relink/crates/relink-audio/examples/runtime-application-probe.rs","edition":"2021","doc":false,"doctest":false,"test":false},{"kind":["example"],"crate_types":["bin"],"name":"runtime-capture-probe","src_path":"/Users/textual/projects/notify/relink/crates/relink-audio/examples/runtime-capture-probe.rs","edition":"2021","doc":false,"doctest":false,"test":false},{"kind":["example"],"crate_types":["bin"],"name":"runtime-multioutput-probe","src_path":"/Users/textual/projects/notify/relink/crates/relink-audio/examples/runtime-multioutput-probe.rs","edition":"2021","doc":false,"doctest":false,"test":false}],"features":{},"manifest_path":"/Users/textual/projects/notify/relink/crates/relink-audio/Cargo.toml","metadata":null,"publish":[],"authors":[],"categories":[],"keywords":[],"readme":null,"repository":null,"homepage":null,"documentation":null,"edition":"2021","links":null,"default_run":null,"rust_version":"1.88"},{"name":"relink-app","version":"0.1.0","id":"path+file:///Users/textual/projects/notify/relink/crates/relink-app#0.1.0","license":null,"license_file":"../../LICENSE","description":null,"source":null,"dependencies":[{"name":"eframe","source":"registry+https://github.com/rust-lang/crates.io-index","req":"=0.33.3","kind":null,"rename":null,"optional":false,"uses_default_features":false,"features":["accesskit","default_fonts","wgpu"],"target":null,"registry":null},{"name":"relink-audio","source":null,"req":"*","kind":null,"rename":null,"optional":false,"uses_default_features":true,"features":[],"target":null,"registry":null,"path":"/Users/textual/projects/notify/relink/crates/relink-audio"},{"name":"relink-core","source":null,"req":"*","kind":null,"rename":null,"optional":false,"uses_default_features":true,"features":[],"target":null,"registry":null,"path":"/Users/textual/projects/notify/relink/crates/relink-core"},{"name":"serde","source":"registry+https://github.com/rust-lang/crates.io-index","req":"^1.0","kind":null,"rename":null,"optional":false,"uses_default_features":true,"features":["derive"],"target":null,"registry":null},{"name":"serde_json","source":"registry+https://github.com/rust-lang/crates.io-index","req":"^1.0","kind":null,"rename":null,"optional":false,"uses_default_features":true,"features":[],"target":null,"registry":null},{"name":"uuid","source":"registry+https://github.com/rust-lang/crates.io-index","req":"^1.0","kind":null,"rename":null,"optional":false,"uses_default_features":true,"features":["v4","serde"],"target":null,"registry":null},{"name":"wgpu","source":"registry+https://github.com/rust-lang/crates.io-index","req":"=27.0.1","kind":null,"rename":null,"optional":false,"uses_default_features":false,"features":["metal","std","wgsl"],"target":"cfg(target_os = \"macos\")","registry":null},{"name":"wgpu","source":"registry+https://github.com/rust-lang/crates.io-index","req":"=27.0.1","kind":null,"rename":null,"optional":false,"uses_default_features":false,"features":["dx12","std","wgsl"],"target":"cfg(target_os = \"windows\")","registry":null}],"targets":[{"kind":["bin"],"crate_types":["bin"],"name":"relink-app","src_path":"/Users/textual/projects/notify/relink/crates/relink-app/src/main.rs","edition":"2021","doc":true,"doctest":false,"test":true},{"kind":["custom-build"],"crate_types":["bin"],"name":"build-script-build","src_path":"/Users/textual/projects/notify/relink/crates/relink-app/build.rs","edition":"2021","doc":false,"doctest":false,"test":false}],"features":{},"manifest_path":"/Users/textual/projects/notify/relink/crates/relink-app/Cargo.toml","metadata":null,"publish":[],"authors":[],"categories":[],"keywords":[],"readme":null,"repository":null,"homepage":null,"documentation":null,"edition":"2021","links":null,"default_run":null,"rust_version":"1.88"},{"name":"relink-hal","version":"0.1.0","id":"path+file:///Users/textual/projects/notify/relink/crates/relink-hal#0.1.0","license":null,"license_file":"../../LICENSE","description":"Independently authored ReLink macOS AudioServerPlugIn","source":null,"dependencies":[],"targets":[{"kind":["cdylib","rlib"],"crate_types":["cdylib","rlib"],"name":"relink_hal","src_path":"/Users/textual/projects/notify/relink/crates/relink-hal/src/lib.rs","edition":"2021","doc":true,"doctest":true,"test":true}],"features":{},"manifest_path":"/Users/textual/projects/notify/relink/crates/relink-hal/Cargo.toml","metadata":null,"publish":[],"authors":[],"categories":[],"keywords":[],"readme":null,"repository":null,"homepage":null,"documentation":null,"edition":"2021","links":null,"default_run":null,"rust_version":"1.85"}],"workspace_members":["path+file:///Users/textual/projects/notify/relink/crates/relink-core#0.1.0","path+file:///Users/textual/projects/notify/relink/crates/relink-audio#0.1.0","path+file:///Users/textual/projects/notify/relink/crates/relink-app#0.1.0","path+file:///Users/textual/projects/notify/relink/crates/relink-hal#0.1.0"],"workspace_default_members":["path+file:///Users/textual/projects/notify/relink/crates/relink-core#0.1.0","path+file:///Users/textual/projects/notify/relink/crates/relink-audio#0.1.0","path+file:///Users/textual/projects/notify/relink/crates/relink-app#0.1.0","path+file:///Users/textual/projects/notify/relink/crates/relink-hal#0.1.0"],"resolve":null,"target_directory":"/Users/textual/projects/notify/relink/build/local-hal-test-20261026-v4/cargo-target","build_directory":"/Users/textual/projects/notify/relink/build/local-hal-test-20261026-v4/cargo-target","version":1,"workspace_root":"/Users/textual/projects/notify/relink","metadata":null}
+$ ['/bin/sh', '/Users/textual/projects/notify/relink/drivers/macos/build-bundle.sh']
+   Compiling relink-hal v0.1.0 (/Users/textual/projects/notify/relink/crates/relink-hal)
+    Finished `release` profile [optimized] target(s) in 0.79s
+/Users/textual/projects/notify/relink/build/local-hal-test-20261026-v4/staging/ReLink.driver/Contents/Info.plist: OK
+/Users/textual/projects/notify/relink/build/local-hal-test-20261026-v4/staging/ReLink.driver: replacing existing signature
+/Users/textual/projects/notify/relink/build/local-hal-test-20261026-v4/staging/ReLink.driver
+$ ['/usr/bin/lipo', '-archs', '/Users/textual/projects/notify/relink/build/local-hal-test-20261026-v4/staging/ReLink.driver/Contents/MacOS/ReLinkHAL']
+arm64
+$ ['/usr/bin/codesign', '--force', '--sign', '-', '/Users/textual/projects/notify/relink/build/local-hal-test-20261026-v4/staging/ReLink.driver']
+/Users/textual/projects/notify/relink/build/local-hal-test-20261026-v4/staging/ReLink.driver: replacing existing signature
+$ ['/usr/bin/codesign', '--verify', '--strict', '/Users/textual/projects/notify/relink/build/local-hal-test-20261026-v4/staging/ReLink.driver']
+$ ['/usr/bin/codesign', '--display', '--verbose=4', '/Users/textual/projects/notify/relink/build/local-hal-test-20261026-v4/staging/ReLink.driver']
+Executable=/Users/textual/projects/notify/relink/build/local-hal-test-20261026-v4/staging/ReLink.driver/Contents/MacOS/ReLinkHAL
+Identifier=au.textual.ravelink.hal
+Format=bundle with Mach-O thin (arm64)
+CodeDirectory v=20400 size=2000 flags=0x2(adhoc) hashes=56+3 location=embedded
+VersionPlatform=1
+VersionMin=720896
+VersionSDK=1704192
+Hash type=sha256 size=32
+CandidateCDHash sha256=18cc90be91526a03193c5e7c1c09eaf7132f3d77
+CandidateCDHashFull sha256=18cc90be91526a03193c5e7c1c09eaf7132f3d77406b513380a85e7feba27805
+Hash choices=sha256
+CMSDigest=18cc90be91526a03193c5e7c1c09eaf7132f3d77406b513380a85e7feba27805
+CMSDigestType=2
+Executable Segment base=0
+Executable Segment limit=278528
+Executable Segment flags=0x0
+Page size=16384
+CDHash=18cc90be91526a03193c5e7c1c09eaf7132f3d77
+Signature=adhoc
+Info.plist entries=12
+TeamIdentifier=not set
+Sealed Resources version=2 rules=13 files=6
+Internal requirements count=0 size=12
+Total signatures=1
+Chosen signature=1
+$ ['/usr/bin/pkgbuild', '--root', '/Users/textual/projects/notify/relink/build/local-hal-test-20261026-v4/staging', '--component-plist', '/Users/textual/projects/notify/relink/build/local-hal-test-20261026-v4/component.plist', '--identifier', 'au.textual.relink.test-hal', '--version', '1', '--install-location', '/Library/Audio/Plug-Ins/HAL', '--ownership', 'recommended', '--scripts', '/Users/textual/projects/notify/relink/build/local-hal-test-20261026-v4/scripts', '/Users/textual/projects/notify/relink/build/local-hal-test-20261026-v4/ReLink-Rust-HAL-Test-arm64.pkg']
+write: Permission denied
+write: Permission denied
+write: Permission denied
+write: Permission denied
+pkgbuild: Reading components from /Users/textual/projects/notify/relink/build/local-hal-test-20261026-v4/component.plist
+pkgbuild: Adding component at ReLink.driver
+pkgbuild: Adding top-level preinstall script
+pkgbuild: Wrote package to /Users/textual/projects/notify/relink/build/local-hal-test-20261026-v4/ReLink-Rust-HAL-Test-arm64.pkg
+$ ['/usr/sbin/pkgutil', '--expand-full', '/Users/textual/projects/notify/relink/build/local-hal-test-20261026-v4/ReLink-Rust-HAL-Test-arm64.pkg', '/Users/textual/projects/notify/relink/build/local-hal-test-20261026-v4/expanded']
+$ ['/usr/bin/codesign', '--verify', '--strict', '/Users/textual/projects/notify/relink/build/local-hal-test-20261026-v4/expanded/Payload/ReLink.driver']
+Package "ReLink-Rust-HAL-Test-arm64.pkg":
+   Status: no signature

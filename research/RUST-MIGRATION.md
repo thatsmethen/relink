@@ -95,3 +95,10 @@ summed before one logical channel DSP pass. Native permission, idle/resume,
 process-relaunch, Stop/cleanup and independent PCM observations remain unqualified.
 The interface marks this as an early preview. See [usage and limits](../docs/application-capture.md)
 and [API research and ownership boundaries](../docs/audio-application-capture-research.md).
+
+At `dbab3fd`, the [native synthetic application fixture](evidence/application-fixture-preparation-dbab3fd/README.md)
+was prepared from a source-bound Rust build and ad-hoc signed generator
+bundles. All 92 offline instrument/installer controls passed. The reviewed local
+Rust HAL test package preserves its exact source, final signed binary and payload
+hashes. Preparation launched no audio; the local preflight found neither owned
+cable loaded. This is preparation evidence, not an application-capture result.

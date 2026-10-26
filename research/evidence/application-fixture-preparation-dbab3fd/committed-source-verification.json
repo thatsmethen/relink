@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "checks": {
+    "prepared_fixture": {
+      "matched_source_files": 107,
+      "commit": "dbab3fdeefe1c4833f8b56f3fb00cbe49cf3d0e1"
+    },
+    "test_package": {
+      "matched_source_files": 24,
+      "commit": "dbab3fdeefe1c4833f8b56f3fb00cbe49cf3d0e1"
+    }
+  },
+  "note": "Source hashes match committed files. The original package record correctly retains its earlier HEAD and modified working-tree status; this comparison does not rewrite that build history."
+}

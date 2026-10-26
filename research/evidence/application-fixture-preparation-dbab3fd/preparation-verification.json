@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "source_revision": "dbab3fdeefe1c4833f8b56f3fb00cbe49cf3d0e1",
+  "build_record_sha256": "b7115e3a6304d496d77670a76dfd1d40630d3175b0bca4b534bffe0f00049b8e",
+  "prepared_manifest_sha256": "669ebff172cb849871a8f4fcb2fbe62e62989b33a4f04284639dde9d2b9f290a",
+  "fixture": "/Users/textual/projects/notify/relink/build/application-capture-fixture-dbab3fd-20261026",
+  "supplied_runtime_sha256": "81d69b6b9232870a08d1d9d52ec6556ea94dcee21feae322ff59c395a73f1950",
+  "source_hashes_matched": 107,
+  "files_verified": 17,
+  "test_package": {
+    "path": "/Users/textual/projects/notify/relink/build/local-hal-test-20261026-v4/ReLink-Rust-HAL-Test-arm64.pkg",
+    "bytes": 190952,
+    "sha256": "3d0c22953f79e2264c73290260e813754fdc83cddf52194e67c1cb26eda1bba3",
+    "provenance_sha256": "3a367528a70b5fce3d6fe12bb806894911638398663134d0fc38a80b3b537faf",
+    "verification_sha256": "ec9b3fb2d397d6c779edc3e1e6e545b791c9b8e89abfb2868cae2ff3effdf7ab"
+  },
+  "execution": "Preparation only. No fixture executable, audio capture, installation, or permission grant performed."
+}

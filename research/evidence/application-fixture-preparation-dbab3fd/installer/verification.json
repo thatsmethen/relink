@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "verifiedUTC": "2026-10-26T04:19:44.461377+00:00",
+  "packageSHA256": "3d0c22953f79e2264c73290260e813754fdc83cddf52194e67c1cb26eda1bba3",
+  "binarySHA256": "804c545dd1ac44a25d8727b2bcd51be15ec646f87680de911bf060d8023335e2",
+  "exactSourceSnapshotVerified": true,
+  "expandedPayloadSignatureVerified": true,
+  "packagedBinaryPrivateHostResult": "PASS: Apple SDK ABI, factory, COM, two-cable enumeration, independent clients/rings/restarts, timestamps, and stereo loopback (local host only)",
+  "privateHostFixtureSHA256": "4fd6e17a497cb0af385a632fc8d8e0367c8a8fd89386c2ef8027375bf9a3e3e6",
+  "privateHostExecutableSHA256": "a41b4be68c2d3f35d1231382e98496065d668790c26a20713e4c56c8310b9b29",
+  "guardControlTests": {
+    "tests": 9,
+    "result": "passed",
+    "scope": "temporary paths; no system installation"
+  },
+  "installationPerformed": false,
+  "note": "pkgbuild emitted four write: Permission denied warnings; successful archive expansion, exact payload bytes and strict signed-bundle verification established the packaged content. No installed behavior inferred."
+}

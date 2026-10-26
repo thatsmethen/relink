@@ -1,0 +1,119 @@
+{
+  "schema": 1,
+  "purpose": "local first-install test; not a production release",
+  "createdUTC": "2026-10-26T04:19:26.225057+00:00",
+  "gitHEAD": "c792488b4a0731203303433183f055570fb2b87e",
+  "workingTreeStatus": [
+    "M drivers/macos/README.md",
+    " M drivers/macos/build-bundle.sh",
+    " M drivers/macos/tests/system-probe.c",
+    "?? crates/relink-audio/examples/runtime-application-probe.rs",
+    "?? drivers/macos/TEST-INSTALL.md",
+    "?? drivers/macos/build-test-package.py",
+    "?? drivers/macos/build-test-package.sh",
+    "?? drivers/macos/test-install-preflight.sh",
+    "?? drivers/macos/tests/APPLICATION-ACCEPTANCE.md",
+    "?? drivers/macos/tests/analyze_application.py",
+    "?? drivers/macos/tests/application_generator_controls.c",
+    "?? drivers/macos/tests/application_protocol.py",
+    "?? drivers/macos/tests/run_application.py",
+    "?? drivers/macos/tests/test_application.py",
+    "?? drivers/macos/tests/test_test_package.py"
+  ],
+  "sourceSHA256": {
+    "Cargo.lock": "fbc76aa3376b6eb1b3f9ccf0b2d714e839f345f0f9eeeeff797d20c15cbbdd12",
+    "Cargo.toml": "114ada6cd770ece5f1600b0bea2cb3810d275cea5a3458d7389cb8a034049718",
+    "LICENSE": "81e89942ae4b17621060badb304d7ffc1db6f8232e284d46cd041d4e3ce7c3ea",
+    "crates/relink-app/Cargo.toml": "1c20847f3ea26330c17e0db8d5d7f860d02498e4e8d765b03885480bfe91e1e5",
+    "crates/relink-audio/Cargo.toml": "52b94e9e1afa94b964de5ba6e11aa43963fbd649cd34abf3eff8cbd36c466f21",
+    "crates/relink-core/Cargo.toml": "a34099952c59014c3c577621f57e24f20e80f776fe3d16f5192fc1ab90d7f97f",
+    "crates/relink-hal/Cargo.toml": "73e4cd5c195465c2103753fa6a4498c1f4b984b744f8b0751ba51437808f3f72",
+    "crates/relink-hal/src/abi.rs": "b075c915e8c0ef933c092a98ae52a329cc04a0fa506aaff136d942d19bf2e43b",
+    "crates/relink-hal/src/device.rs": "f6b2148e0139c9bbe33d9865e4a97aebb53bf9485d1e9b2360172b91522f8d38",
+    "crates/relink-hal/src/lib.rs": "b8e803dcff5ca36142934fb818129414d4a52824f1d004d3358008985e31c846",
+    "crates/relink-hal/src/properties.rs": "59cc314e5bed24896108b3e606ae5e6c55e9260fd1545d2fdeecc57c19340ab0",
+    "crates/relink-hal/src/ring.rs": "f2c439320118db8c2b3a6884b1c63e6af312341340b338310b8aef8fbaad14b6",
+    "crates/relink-hal/src/tests.rs": "044611698add49635db2123f6acad951453ad067650c5eeb53663e565f4b658f",
+    "crates/relink-windows-driver/Cargo.toml": "aff30fc6df18006f82dba33f5292179368cac72a95d235d0b46246942b261aea",
+    "docs/third-party-licenses/rust-1.91.1/COPYRIGHT-library.html": "3aa41caccecaeddad6fcf2f36ce14146ab7baae57064b05b12ecc6b52d5e917f",
+    "docs/third-party-licenses/rust-1.91.1/LICENSE-APACHE.txt": "074e6e32c86a4c0ef8b3ed25b721ca23aca83df277cd88106ef7177c354615ff",
+    "docs/third-party-licenses/rust-1.91.1/LICENSE-MIT.txt": "b85dcd3e453d05982552c52b5fc9e0bdd6d23c6f8e844b984a88af32570b0cc0",
+    "docs/third-party-licenses/rust-1.91.1/sources.json": "82bc318b768c18639a8a317fa72df9933f215678c9378c98ee60676e28a4b374",
+    "drivers/macos/Info.plist": "80c7d9a262d07b13ff36636fcdab76e5cd92c44bc3df6e6756eaf267ba107e97",
+    "drivers/macos/build-bundle.sh": "11dd7b5f5505c84622bf7575599edd1ec4862809e4a3534ea678cf26f17e91a6",
+    "drivers/macos/build-test-package.py": "f24205f76f38fd0066391d0449c6277c85045c15511d6c32f123bf051236bc0c",
+    "drivers/macos/build-test-package.sh": "a5c9047adfc72023392d9b675eea15fc5e865a3fd89f529278ec466550b81d10",
+    "drivers/macos/test-install-preflight.sh": "2f913e3a0394b20cfabf975990506545e87f36d8472e22dd85d667ab1527093f",
+    "rust-toolchain.toml": "2645003e83d0075da4fc5119dcfc4dfba02df3b9cf3cde702abfa27dc7221ae3"
+  },
+  "compiler": "rustc 1.91.1 (ed61e7d7e 2025-11-07)\nbinary: rustc\ncommit-hash: ed61e7d7e242494fb7057f2657300d9e77bb4fcb\ncommit-date: 2025-11-07\nhost: aarch64-apple-darwin\nrelease: 1.91.1\nLLVM version: 21.1.2",
+  "cargo": "cargo 1.91.1 (ea2d97820 2025-10-10)",
+  "sdkVersion": "26.1",
+  "sdkPath": "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+  "target": "aarch64-apple-darwin",
+  "architecture": "arm64",
+  "bundleID": "au.textual.ravelink.hal",
+  "deviceUIDs": [
+    "au.textual.ravelink.cable.1",
+    "au.textual.ravelink.cable.2"
+  ],
+  "bundleSigning": "ad-hoc",
+  "packageSigning": "unsigned",
+  "notarized": false,
+  "installationPerformed": false,
+  "preFinalSigningBinarySHA256": "d8d274be41eb24f84df0973590ea1d696f7c82d6b8a0922f7d3a6f5de7e71f28",
+  "binarySHA256": "804c545dd1ac44a25d8727b2bcd51be15ec646f87680de911bf060d8023335e2",
+  "packageFile": "ReLink-Rust-HAL-Test-arm64.pkg",
+  "packageSHA256": "3d0c22953f79e2264c73290260e813754fdc83cddf52194e67c1cb26eda1bba3",
+  "packageBytes": 190952,
+  "inspection": {
+    "identifier": "au.textual.relink.test-hal",
+    "installLocation": "/Library/Audio/Plug-Ins/HAL",
+    "payloadFiles": {
+      "Contents/Info.plist": {
+        "bytes": 1140,
+        "sha256": "80c7d9a262d07b13ff36636fcdab76e5cd92c44bc3df6e6756eaf267ba107e97"
+      },
+      "Contents/MacOS/ReLinkHAL": {
+        "bytes": 908272,
+        "sha256": "804c545dd1ac44a25d8727b2bcd51be15ec646f87680de911bf060d8023335e2"
+      },
+      "Contents/Resources/ReLink-LICENSE.txt": {
+        "bytes": 865,
+        "sha256": "81e89942ae4b17621060badb304d7ffc1db6f8232e284d46cd041d4e3ce7c3ea"
+      },
+      "Contents/Resources/Rust-runtime-notices/COPYRIGHT-library.html": {
+        "bytes": 398128,
+        "sha256": "3aa41caccecaeddad6fcf2f36ce14146ab7baae57064b05b12ecc6b52d5e917f"
+      },
+      "Contents/Resources/Rust-runtime-notices/LICENSE-APACHE.txt": {
+        "bytes": 10280,
+        "sha256": "074e6e32c86a4c0ef8b3ed25b721ca23aca83df277cd88106ef7177c354615ff"
+      },
+      "Contents/Resources/Rust-runtime-notices/LICENSE-MIT.txt": {
+        "bytes": 1078,
+        "sha256": "b85dcd3e453d05982552c52b5fc9e0bdd6d23c6f8e844b984a88af32570b0cc0"
+      },
+      "Contents/Resources/Rust-runtime-notices/sources.json": {
+        "bytes": 1188,
+        "sha256": "82bc318b768c18639a8a317fa72df9933f215678c9378c98ee60676e28a4b374"
+      },
+      "Contents/Resources/test-build-provenance.json": {
+        "bytes": 4348,
+        "sha256": "9ff836b45016848b14f88345d333cafbbef92b9e68ad7027d81f33ab10be69c0"
+      },
+      "Contents/_CodeSignature/CodeResources": {
+        "bytes": 3842,
+        "sha256": "9daa3a04237769283e7492f3bc87fc810c29e69e39700c2ec3dc34fc048942dc"
+      }
+    },
+    "scripts": {
+      "preinstall": {
+        "bytes": 1558,
+        "sha256": "bfc8b9c4b8e6d77a78678e560f9536c61a0078cea05f1c381f1b08464afb759d"
+      }
+    },
+    "onlyDestination": "/Library/Audio/Plug-Ins/HAL/ReLink.driver"
+  },
+  "packageSignatureInspection": "Package \"ReLink-Rust-HAL-Test-arm64.pkg\":\n   Status: no signature"
+}
