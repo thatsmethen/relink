@@ -8,7 +8,7 @@ case "$target" in aarch64-apple-darwin|x86_64-apple-darwin) ;; *) echo "A macOS 
 output=${RELINK_HAL_OUTPUT:-${RAVELINK_HAL_OUTPUT:-"$repo_dir/dist/macos/ReLink.driver"}}
 build_root=${CARGO_TARGET_DIR:-"$repo_dir/target"}
 cd "$repo_dir"
-cargo build -p relink-hal --release --target "$target"
+cargo build --locked -p relink-hal --release --target "$target"
 mkdir -p "$output/Contents/MacOS" "$output/Contents/Resources"
 # A custom output may contain the previous generated executable/resource names.
 rm -f -- "$output/Contents/MacOS/RaveLinkHAL" \
