@@ -1,0 +1,38 @@
+{
+  "PUBLICATION.md": {
+    "bytes": 4216,
+    "sha256": "0744f08f90e70ec0caceb3b93717417e5288f57686a8dde0426a2f7c48ccbb5e"
+  },
+  "public-verification.json": {
+    "bytes": 10737,
+    "sha256": "02ce201d57cf0167f4f3cb198337b6bfcb078dbde0b30e3165b2363e2faa5e4b"
+  },
+  "publication-assets.json": {
+    "bytes": 7021,
+    "sha256": "d2f6814e28927754ab157acacf47431ef09ca9cfeb268c9400d67de323f5dbf2"
+  },
+  "verify-release.py": {
+    "bytes": 6932,
+    "sha256": "5a665a7c7b163e6bf207ea22619d039e9b8651f0d429b690132937d149b88eb3"
+  },
+  "verify-public.py": {
+    "bytes": 5267,
+    "sha256": "10873e4d531a598a96b7fd81b5ae61ce6db546412fe25af1daef7c086f395cb6"
+  },
+  "release-notes.md": {
+    "bytes": 2747,
+    "sha256": "0a08a7af752dd1b1e0709f100c3b10a11adc78ada1ed7d4ab8c772057d65f198"
+  },
+  "local-wrapper-controls.json": {
+    "bytes": 249,
+    "sha256": "aab29393702ba51fdb7ad1d543efd42be2a82a8bd5140d6daf3de41245d245f1"
+  },
+  "publication-upload.json": {
+    "bytes": 35557,
+    "sha256": "cf117f671619dc3fbde4cda14367b93c081cc37133f02281e454834a1c0209c1"
+  },
+  "publication-upload-attempts.json": {
+    "bytes": 3464,
+    "sha256": "44b1b845755560b1b78289460903e456c2e2b782dee29359950a1f93bc27607b"
+  }
+}

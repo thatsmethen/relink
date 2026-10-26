@@ -1,0 +1,102 @@
+{
+  "artifact_identities_verified": {
+    "packaged_executable": {
+      "bytes": 39946656,
+      "sha256": "a4df8ac10312a4b5eac82d87a55a04c632f1720024dae4423d7b88643b617596"
+    },
+    "test_executable": {
+      "bytes": 39946656,
+      "sha256": "7bac331de9b2cd1b18c09c26f0a0d4362cd983f744c81bcc4682a9d394d39819"
+    },
+    "test_plist": {
+      "bytes": 1396,
+      "sha256": "cc65b034ea7730993f59cce379b410dc19a9e7b886d4b6a3e391f314a90492c1"
+    }
+  },
+  "automated": {
+    "isolated_debug_bundle_strict_signature": "PASS; independent current codesign verification, not notarization",
+    "notices": "Earlier stale-record failure and regeneration preserved; independent current read-only check PASS",
+    "windows_audio_app_all_targets_strict_cross_clippy": "PASS; compile/lint only, invocation reported by root, output preserved",
+    "workspace_all_targets": {
+      "failed": 0,
+      "ignored": 0,
+      "log": "logs/workspace-tests.log",
+      "passed": 279,
+      "suites": 10
+    },
+    "workspace_strict_clippy": "PASS; invocation reported by root, output preserved"
+  },
+  "final_fixture": {
+    "bytes": 10049,
+    "file": "ui/studio.json",
+    "routes": 13,
+    "sha256": "fc3dd9acfb698a237869dbdab22a34fa451be674d26f132506af6bbecf4d354f",
+    "sources": 5,
+    "stable_application_selector": {
+      "bundle_id": "com.google.Chrome",
+      "path": "/Applications/Google Chrome.app",
+      "type": "mac_bundle"
+    }
+  },
+  "limitations": [
+    "No native application audio capture or permission-flow acceptance",
+    "No Windows execution or native Windows audio",
+    "No app-relaunch/membership-change audio qualification",
+    "No idle/resume, sustained reliability or production qualification",
+    "The precommit add/route/undo/redo journey is not claimed as a repeat of every action on the committed binary",
+    "Ad-hoc local signing is not Developer ID signing or notarization"
+  ],
+  "manual_observations": {
+    "committed": {
+      "audio_started": false,
+      "binding": "ui/committed-build-binding.json",
+      "fixture_ax": "ui/committed-reopen-ax.txt",
+      "inventory_observation": "Reported by root; full picker AX and screenshots withheld to avoid publishing real application inventory",
+      "native_capture_verified": false,
+      "operations": [
+        "Rebuilt and signed isolated debug bundle from exact commit",
+        "Reopened saved fixture with 5 sources and 13 routes",
+        "Independently rediscovered and selected Google Chrome in application picker"
+      ],
+      "permission_accepted": false
+    },
+    "observer": "root agent via native UI; no UI replay by this record collector",
+    "precommit": {
+      "audio_started": false,
+      "executable_sha256": "b65780c58911132bc1410953279afc9cd53e7010136b1543657cda9349d3265e",
+      "initial_fixture_sha256": "be80d298afc607574cdff6821e2db8434894d92a13b98ca5333122d5fa8006db",
+      "initial_hash_note": "The before/after records both carry this initial fixture hash; it is not the saved final fixture hash.",
+      "native_capture_verified": false,
+      "operations": [
+        "Discovered actual applications",
+        "Added Google Chrome as an application source",
+        "Routed application to Monitor",
+        "Undid and redid route",
+        "Saved studio",
+        "Quit and reopened saved studio"
+      ],
+      "routes": 13,
+      "sources": 5
+    }
+  },
+  "normal_user_studio": {
+    "contents_included": false,
+    "sha256_after_reported": "94efd0f900d0d205944bbd291fa87a078ea469d7a3c1b462fedc5b123f3a6615",
+    "sha256_before": "94efd0f900d0d205944bbd291fa87a078ea469d7a3c1b462fedc5b123f3a6615",
+    "sha256_current_independently_checked": "94efd0f900d0d205944bbd291fa87a078ea469d7a3c1b462fedc5b123f3a6615",
+    "unchanged": true
+  },
+  "privacy": {
+    "excluded": [
+      "Original normal user studio contents",
+      "Full actual application catalog AX",
+      "Actual application-picker screenshots"
+    ],
+    "included": "Generated fixture, fixture-only committed reopen AX, safe build hashes and test logs"
+  },
+  "recorded_at_utc": "2026-10-26T03:04:15.659938+00:00",
+  "schema": 1,
+  "scope": "Local deterministic tests, static cross-target checks, macOS debug bundle signing, and stopped-audio application-picker/persistence observations. No native application capture.",
+  "source_commit": "353399309004a1be5a196ebaa68c08218aff0555",
+  "source_tree": "ad5f11535be216e38b4d80145e47aba3b8ee7463"
+}

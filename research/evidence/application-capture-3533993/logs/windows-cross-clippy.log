@@ -1,0 +1,9 @@
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Checking windows v0.62.2
+    Checking relink-core v0.1.0 (/Users/textual/projects/notify/relink/crates/relink-core)
+    Checking cpal v0.18.2
+    Checking relink-audio v0.1.0 (/Users/textual/projects/notify/relink/crates/relink-audio)
+    Checking relink-app v0.1.0 (/Users/textual/projects/notify/relink/crates/relink-app)
+    Finished `dev` profile [unoptimized] target(s) in 6.69s

@@ -1,0 +1,145 @@
+[
+  {
+    "name": "original-multioutput.zip",
+    "attempt": 1,
+    "started_at_utc": "2026-10-26T03:03:03.462470+00:00",
+    "timeout_seconds": 90
+  },
+  {
+    "name": "original-multioutput.zip",
+    "removed_unaccepted_digestless_starter": 676832041
+  },
+  {
+    "name": "original-multioutput.zip.part000",
+    "attempt": 1,
+    "started_at_utc": "2026-10-26T03:11:04.638350+00:00",
+    "returncode": 0,
+    "stderr": ""
+  },
+  {
+    "name": "original-multioutput.zip.part001",
+    "attempt": 1,
+    "started_at_utc": "2026-10-26T03:11:24.066604+00:00",
+    "returncode": 0,
+    "stderr": ""
+  },
+  {
+    "name": "original-multioutput.zip.part002",
+    "attempt": 1,
+    "started_at_utc": "2026-10-26T03:11:37.135756+00:00",
+    "returncode": 0,
+    "stderr": ""
+  },
+  {
+    "name": "original-multioutput.zip.part003",
+    "attempt": 1,
+    "started_at_utc": "2026-10-26T03:11:44.842652+00:00",
+    "returncode": 0,
+    "stderr": ""
+  },
+  {
+    "name": "original-multioutput.zip.part004",
+    "attempt": 1,
+    "started_at_utc": "2026-10-26T03:11:55.485468+00:00",
+    "returncode": 0,
+    "stderr": ""
+  },
+  {
+    "name": "original-multioutput.zip.part005",
+    "attempt": 1,
+    "started_at_utc": "2026-10-26T03:12:09.908171+00:00",
+    "returncode": 0,
+    "stderr": ""
+  },
+  {
+    "name": "original-multioutput.zip.part006",
+    "attempt": 1,
+    "started_at_utc": "2026-10-26T03:12:31.974543+00:00",
+    "returncode": 0,
+    "stderr": ""
+  },
+  {
+    "name": "original-multioutput.zip.part007",
+    "attempt": 1,
+    "started_at_utc": "2026-10-26T03:12:53.932527+00:00",
+    "returncode": 0,
+    "stderr": ""
+  },
+  {
+    "name": "original-multioutput.zip.part008",
+    "attempt": 1,
+    "started_at_utc": "2026-10-26T03:13:22.977656+00:00",
+    "returncode": 0,
+    "stderr": ""
+  },
+  {
+    "name": "original-multioutput.zip.part009",
+    "attempt": 1,
+    "started_at_utc": "2026-10-26T03:13:41.117320+00:00",
+    "returncode": 0,
+    "stderr": ""
+  },
+  {
+    "name": "original-multioutput.zip.part010",
+    "attempt": 1,
+    "started_at_utc": "2026-10-26T03:14:00.376956+00:00",
+    "returncode": 0,
+    "stderr": ""
+  },
+  {
+    "name": "original-multioutput.zip.part011",
+    "attempt": 1,
+    "started_at_utc": "2026-10-26T03:14:49.227490+00:00",
+    "returncode": 0,
+    "stderr": ""
+  },
+  {
+    "name": "original-multioutput.zip.part012",
+    "attempt": 1,
+    "started_at_utc": "2026-10-26T03:15:27.796169+00:00",
+    "returncode": 0,
+    "stderr": ""
+  },
+  {
+    "name": "original-multioutput.zip.part013",
+    "attempt": 1,
+    "started_at_utc": "2026-10-26T03:15:58.451951+00:00",
+    "returncode": 0,
+    "stderr": ""
+  },
+  {
+    "name": "original-workflow-logs.zip",
+    "attempt": 1,
+    "started_at_utc": "2026-10-26T03:16:01.363054+00:00",
+    "returncode": 0,
+    "stderr": ""
+  },
+  {
+    "name": "collection-evidence-40257448775.zip",
+    "attempt": 1,
+    "started_at_utc": "2026-10-26T03:16:04.436586+00:00",
+    "returncode": 0,
+    "stderr": ""
+  },
+  {
+    "name": "verify-release.py",
+    "attempt": 1,
+    "started_at_utc": "2026-10-26T03:16:34.176559+00:00",
+    "returncode": 0,
+    "stderr": ""
+  },
+  {
+    "name": "release-notes.md",
+    "attempt": 1,
+    "started_at_utc": "2026-10-26T03:16:37.416467+00:00",
+    "returncode": 0,
+    "stderr": ""
+  },
+  {
+    "name": "publication-assets.json",
+    "attempt": 1,
+    "started_at_utc": "2026-10-26T03:16:40.492034+00:00",
+    "returncode": 0,
+    "stderr": ""
+  }
+]

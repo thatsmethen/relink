@@ -1,0 +1,7 @@
+{
+  "whole_original_one_byte_corruption_rejected": true,
+  "lossless_512KiB_parts_reconstruction_and_exact_original_analysis_pass": true,
+  "missing_last_part_rejected": true,
+  "original_files_modified": false,
+  "audio_acquisition_rerun": false
+}

@@ -1,0 +1,643 @@
+{
+  "files": [
+    {
+      "bytes": 101791,
+      "git_blob_sha": "0d79fc475a4587b34194d0a600258cb1522af4a1",
+      "path": "Cargo.lock",
+      "sha256": "fbc76aa3376b6eb1b3f9ccf0b2d714e839f345f0f9eeeeff797d20c15cbbdd12"
+    },
+    {
+      "bytes": 615,
+      "git_blob_sha": "98d38ba57c8e689046af12329a6ff27850ba5549",
+      "path": "Cargo.toml",
+      "sha256": "114ada6cd770ece5f1600b0bea2cb3810d275cea5a3458d7389cb8a034049718"
+    },
+    {
+      "bytes": 2133463,
+      "git_blob_sha": "719cac1145ae6eaec1623484d2c75fd514668017",
+      "path": "THIRD-PARTY-NOTICES.txt",
+      "sha256": "c643941caadc1a3e57917378af4c3cdf2fbd9836b006eadd1c24b67d995d83b4"
+    },
+    {
+      "bytes": 739,
+      "git_blob_sha": "5563c317228613472a7324c76c8f9d6b5bdc166e",
+      "path": "crates/relink-app/Cargo.toml",
+      "sha256": "1c20847f3ea26330c17e0db8d5d7f860d02498e4e8d765b03885480bfe91e1e5"
+    },
+    {
+      "bytes": 614,
+      "git_blob_sha": "2e5e6f28a30e695816e392a8ce2050a82961c827",
+      "path": "crates/relink-app/build.rs",
+      "sha256": "64c71a5f4b92e5e90a65b9d06507880bdaeaf8fc87bc5dc51718460ef0486d11"
+    },
+    {
+      "bytes": 23653,
+      "git_blob_sha": "851c9a45f7b3ab5a8cc0d37db60965b91b6f3bb7",
+      "path": "crates/relink-app/src/audio_ui.rs",
+      "sha256": "e3621cb7b8633f8099c1bb1e17105266ec9f418c159bb2d2f1778b1b75789a96"
+    },
+    {
+      "bytes": 5600,
+      "git_blob_sha": "432007071cfcd7923b47d61ee02b6bf2c9e08028",
+      "path": "crates/relink-app/src/effects.rs",
+      "sha256": "5195cd51cf02f30ce530b9133ecfc3140b38d792dc6c62eec7807f660688f799"
+    },
+    {
+      "bytes": 63154,
+      "git_blob_sha": "9409b30b2521e11c6a1938722ffd1d8f7f4940f0",
+      "path": "crates/relink-app/src/main.rs",
+      "sha256": "b0b70123bb2696538b746f7adde17080b8213083db86209dc6eac33c011ec600"
+    },
+    {
+      "bytes": 5993,
+      "git_blob_sha": "8f85ed0f24c26f938c5aebad3d12ec84da992d0b",
+      "path": "crates/relink-app/src/routing.rs",
+      "sha256": "d7781a5b1251a77ba58796cf3f1d8d9a3c2337bd48c8f6978994e407aabcd83c"
+    },
+    {
+      "bytes": 12409,
+      "git_blob_sha": "9705e5b62b955fc8d3f9a9ffc9dc4aa0a0e7ceb5",
+      "path": "crates/relink-app/src/store.rs",
+      "sha256": "c938e034bbd33a20f355a9faf0bbc74c429da653e76e03628dde8692a9a3c4bc"
+    },
+    {
+      "bytes": 5436,
+      "git_blob_sha": "663d3638caa41aa9329c5cdee2b1d5b264ea6934",
+      "path": "crates/relink-audio/CAPTURE-OWNER-LIFECYCLE.md",
+      "sha256": "401fd346b8e2ce46855f49f60c956e19ce69f2cd0fc47b0eaac84003cb06396e"
+    },
+    {
+      "bytes": 14028,
+      "git_blob_sha": "ad6547b341a2012f375ccc41b84d973cf4f17480",
+      "path": "crates/relink-audio/CAPTURE.md",
+      "sha256": "a16c53fdd353ee53bc63aaf7fb09b53f5789d52c7d45f668a9ef8bc9bb7f20e1"
+    },
+    {
+      "bytes": 1441,
+      "git_blob_sha": "96151ed6010caced500a308bb2470d52605f74ae",
+      "path": "crates/relink-audio/Cargo.toml",
+      "sha256": "52b94e9e1afa94b964de5ba6e11aa43963fbd649cd34abf3eff8cbd36c466f21"
+    },
+    {
+      "bytes": 8262,
+      "git_blob_sha": "24808b499ae37011ca01087207a3c263cb6eecf7",
+      "path": "crates/relink-audio/FANOUT-TRANSPORT.md",
+      "sha256": "a942149cfbf7ba97f3967d6c377018e34495e4ce38880d8d1fe21e0ef45193e2"
+    },
+    {
+      "bytes": 5993,
+      "git_blob_sha": "ad420bc8ebb62e21d8527caa3673e6d849b5e46c",
+      "path": "crates/relink-audio/FAULT-ATTRIBUTION.md",
+      "sha256": "ae09f8abffe8537abdb62317972a39d66fe23bc240b71a2a8d52716999ebf281"
+    },
+    {
+      "bytes": 12776,
+      "git_blob_sha": "c3345f150d99dc678ded22930fb3c63ed8cf1bcf",
+      "path": "crates/relink-audio/MULTI-OUTPUT-ACCEPTANCE.md",
+      "sha256": "51907d3fbd032ed5439b09d6dbc8cd16da18a59f15b1d8c8f261da5ef2b75702"
+    },
+    {
+      "bytes": 11309,
+      "git_blob_sha": "63923e230e40148e65fcde52b116e40a1f2fd487",
+      "path": "crates/relink-audio/MULTI-OUTPUT-DESIGN.md",
+      "sha256": "c561de0c8c2e99e5899717e3658fc654dcb3fe6ca1c68989b82612f40246c549"
+    },
+    {
+      "bytes": 9699,
+      "git_blob_sha": "e1fb3c499e8ddac3bd930140b4ca70f6000fcdac",
+      "path": "crates/relink-audio/MULTI-OUTPUT-RUNTIME.md",
+      "sha256": "c738b7c5105dde7eaa8582a7b8672981d4797833467659f9424f0420bec07036"
+    },
+    {
+      "bytes": 4639,
+      "git_blob_sha": "08c08e7ad323aad3fbbbb22be777d02ab7374b2a",
+      "path": "crates/relink-audio/NATIVE-CAPTURE-VALIDATION.md",
+      "sha256": "b9ae8bda511e00cee0a113d769fc54c59ddba7e658e6b362f880b2c514d0d42c"
+    },
+    {
+      "bytes": 4827,
+      "git_blob_sha": "1a8423f1606cb5c13b71d01140de5a8fa623cded",
+      "path": "crates/relink-audio/NATIVE-OUTPUT-PCM.md",
+      "sha256": "1efa2d83b83b49fd6f406968a01e19e87237564508042a807ee93141feab0adf"
+    },
+    {
+      "bytes": 7833,
+      "git_blob_sha": "1e8a5de95898aabd529ffc7e9fccb929e973d5cd",
+      "path": "crates/relink-audio/NATIVE-OUTPUT-VALIDATION.md",
+      "sha256": "eeea309da4a6070c4cecf5735d2a8b5bbf9504d2bd5e4edc65021be7b826c43a"
+    },
+    {
+      "bytes": 8108,
+      "git_blob_sha": "67c2aef969737491337854975129a441f89e52f4",
+      "path": "crates/relink-audio/NATIVE-OUTPUT.md",
+      "sha256": "381f2103ce503c9e5ccc0b56ae42b15163266abe1ee81b7b76b8509b39d9d797"
+    },
+    {
+      "bytes": 12499,
+      "git_blob_sha": "62319a13fe6077fd55bda5d163aa6b32b07b36bb",
+      "path": "crates/relink-audio/OUTPUT-OWNERSHIP-DESIGN.md",
+      "sha256": "cae3f94ba3a77b8abac3f07550ed2ecf9aa6f72850c132a8324aaea3a4dfa98a"
+    },
+    {
+      "bytes": 2926,
+      "git_blob_sha": "2b69e5c4695c9aed0e1356f27df4517cb1b4fc3f",
+      "path": "crates/relink-audio/OUTPUT-SINK.md",
+      "sha256": "7759f66b49932806d4bf9e9d751204b762cc2efe2d27e8e6dc80c00d1e7d209e"
+    },
+    {
+      "bytes": 6059,
+      "git_blob_sha": "e2d7f3f72824c4e54ddb54db1768bd9e957aefb4",
+      "path": "crates/relink-audio/WASAPI-OUTPUT-OWNER.md",
+      "sha256": "a5700267580be14cffa746b6148c2a817606566b1dd68a5f7c6d67b5a594dfb6"
+    },
+    {
+      "bytes": 5867,
+      "git_blob_sha": "dea5129976ba2dc61452988177bfb7d3a8be2464",
+      "path": "crates/relink-audio/WASAPI-RENDER-PACKET.md",
+      "sha256": "56161bd04a2fb19baff176e09004822872ba04264c50afeb618864a5a1b8842c"
+    },
+    {
+      "bytes": 58029,
+      "git_blob_sha": "6134fcb1f1f36eaa9de82cd823ab44ab88a69492",
+      "path": "crates/relink-audio/examples/runtime-capture-probe.rs",
+      "sha256": "7c4edc79d8cf423e374020e4f9bd37f496800d0c84011c78ab85ccda91d9f39d"
+    },
+    {
+      "bytes": 40000,
+      "git_blob_sha": "be689b733b85c5a537bc3fa7012162b08d7d7651",
+      "path": "crates/relink-audio/examples/runtime-multioutput-probe.rs",
+      "sha256": "a5b0e51d45cf0828239efc3cba2cec7c1a31456b67a28046f7aef081b813671c"
+    },
+    {
+      "bytes": 1141,
+      "git_blob_sha": "506860f4e7a5606f497ef4a228ffd4c5132d6aaf",
+      "path": "crates/relink-audio/src/application.rs",
+      "sha256": "eef9fe8442e89c3a4e77bc1f2c721e46aaa96f208707e3a509a353ac58d235e8"
+    },
+    {
+      "bytes": 27188,
+      "git_blob_sha": "de29bd2be7674fe4b930bc17ea08d65edbc955a7",
+      "path": "crates/relink-audio/src/application_macos.rs",
+      "sha256": "538a9fd817ec15b9b930b2cec92704f1608e676300ecdf48c49d6b00897036af"
+    },
+    {
+      "bytes": 20236,
+      "git_blob_sha": "e8543ba2e41d80537ae55e414b04058350db6a44",
+      "path": "crates/relink-audio/src/application_windows.rs",
+      "sha256": "7adaac3abdb14888e6c748fc560230d916f513dd8112ceddbce86b1e95f8dec2"
+    },
+    {
+      "bytes": 19911,
+      "git_blob_sha": "a9deb919ae641c61a681c527f0d35cfca4150722",
+      "path": "crates/relink-audio/src/capture.rs",
+      "sha256": "159eff0ada631f92bbd34f8d7c0121fc4bf30acbdfb7b87bc5a2836afabc4155"
+    },
+    {
+      "bytes": 18327,
+      "git_blob_sha": "ff2872ca9d7829c94dbc9f380da2b5db252ee166",
+      "path": "crates/relink-audio/src/capture_groups.rs",
+      "sha256": "f93d0267a3e7ac7cc87f9eb89120138fdcb558786817e81c83424947ff3fb5ab"
+    },
+    {
+      "bytes": 18382,
+      "git_blob_sha": "c4e7ebe3c7c558d82f138f4fa91a9905d5716cf9",
+      "path": "crates/relink-audio/src/capture_tests.rs",
+      "sha256": "45a4a0a379119c3d72e47465174c8c4d3a42f4c3077847c7d5a7517a2cad8456"
+    },
+    {
+      "bytes": 12442,
+      "git_blob_sha": "60e6cfa090cebde8bbd9617f4e251897dda29e41",
+      "path": "crates/relink-audio/src/capture_transport.rs",
+      "sha256": "4b433f61eeb1fee24bd99d68b365fdf9571140ee91d233305773e87aa58ee09d"
+    },
+    {
+      "bytes": 5107,
+      "git_blob_sha": "e9396a5db5659052a790a63f858e50b5e10344e7",
+      "path": "crates/relink-audio/src/control_bank.rs",
+      "sha256": "ee2ed0cd46bdd64fde9c501289020e5307dd1b3606220e86c0ce18f8346d64d9"
+    },
+    {
+      "bytes": 2052,
+      "git_blob_sha": "cf69914258f28ed90833843f754e686049a5a076",
+      "path": "crates/relink-audio/src/epoch_gate.rs",
+      "sha256": "d5910fe13f486f00c63705564b75cafab0c886361f82bd671e937cd841cbe511"
+    },
+    {
+      "bytes": 16950,
+      "git_blob_sha": "b295f22b69bc47fc25cbebdb55395f29f6c899cd",
+      "path": "crates/relink-audio/src/fanout.rs",
+      "sha256": "42c449ac97b7891112e73da4d6f2feb483f6c1512f951091ebccfd6229a85375"
+    },
+    {
+      "bytes": 21875,
+      "git_blob_sha": "ecf87155bbb9ee633b2f939c2571b49833d61e33",
+      "path": "crates/relink-audio/src/fanout_tests.rs",
+      "sha256": "fa76fb0dad89e5529c588751ed9b1ac2544dafe61bf86a84001ab67e3fad75ca"
+    },
+    {
+      "bytes": 9666,
+      "git_blob_sha": "f349ac761111dc644a6248bb3c8912390e5729ab",
+      "path": "crates/relink-audio/src/fault.rs",
+      "sha256": "bcd8cb4e5b7989bb2c8e6f62d337880fd6e73497579c8de6c74952756629509e"
+    },
+    {
+      "bytes": 5081,
+      "git_blob_sha": "c30a0232ddce170be6689db0e78904e961961e75",
+      "path": "crates/relink-audio/src/fault_tests.rs",
+      "sha256": "194eeb905f057cf5eda291914a129eba70d160488307d106800c2e430be7e31f"
+    },
+    {
+      "bytes": 68804,
+      "git_blob_sha": "c5728dc6a49e47bb54ada3cbfe04f535001bc4b5",
+      "path": "crates/relink-audio/src/lib.rs",
+      "sha256": "2fea78cff38be735af6f7ca6a37f3219b70cf4c97eee578f8a2da8fe02412227"
+    },
+    {
+      "bytes": 23816,
+      "git_blob_sha": "05129507ef894afc2effbf2e95c0c586f39236fd",
+      "path": "crates/relink-audio/src/multioutput_tests.rs",
+      "sha256": "9c30d5ecdf0163abcbe40e3e05e0cc5c7ff4bb4190e9c5c8c204c8a4aacc2f09"
+    },
+    {
+      "bytes": 48569,
+      "git_blob_sha": "11fe06b75fb74de7422c1f24d63d98f0f1f41574",
+      "path": "crates/relink-audio/src/native_capture.rs",
+      "sha256": "871d33475ec8a36153d209e51aae46db5692e9150f717536ca8cfb7a8ab2c7ad"
+    },
+    {
+      "bytes": 30910,
+      "git_blob_sha": "849d57d22c744fc2b7c55cf1e15bba0594303767",
+      "path": "crates/relink-audio/src/native_capture_tests.rs",
+      "sha256": "faf891cfb61c72f9148fb0a092c33d7f63a17f6802d416857cd80555c5eb6855"
+    },
+    {
+      "bytes": 50334,
+      "git_blob_sha": "8f8153d6d36c5b79fe288fe67317bce5affa2b67",
+      "path": "crates/relink-audio/src/native_output.rs",
+      "sha256": "4b8ad8e2adfa07312c388bc7f40dc1493e1a279667de616beb82cf88c42e1147"
+    },
+    {
+      "bytes": 9373,
+      "git_blob_sha": "23f967288d9275581456bce70ce00ec146cdbd48",
+      "path": "crates/relink-audio/src/native_output_packet.rs",
+      "sha256": "011806ff694a6eb235d1340a26ef6ab46e100bd0f086fc2f3c37c7a9f8779419"
+    },
+    {
+      "bytes": 18602,
+      "git_blob_sha": "6ee4322173928270c3ab48ad931fe38d5ffb4c70",
+      "path": "crates/relink-audio/src/native_output_packet_tests.rs",
+      "sha256": "97ae0f1c616791494c3116b78ffb3f2245d528af375bc13a5207d83250159269"
+    },
+    {
+      "bytes": 21685,
+      "git_blob_sha": "53bed1bef3018119a6134e1de78749bc43e8a448",
+      "path": "crates/relink-audio/src/native_output_tests.rs",
+      "sha256": "67cd7fef86db7232b0aa38fc8e14e2a96d435f56ca811b6dae0138b9f6957c8d"
+    },
+    {
+      "bytes": 16423,
+      "git_blob_sha": "fbb53c53d6d2562bfa0976a07f9f6855b6b73fa9",
+      "path": "crates/relink-audio/src/native_output_timing.rs",
+      "sha256": "3a01806b4d6cc361605449c26c2a31da3942c65a5d613a217b665b5cdf0bf4b1"
+    },
+    {
+      "bytes": 7775,
+      "git_blob_sha": "2d97453ddf3f616d1d62742c5bf743f2d1af7ba1",
+      "path": "crates/relink-audio/src/native_output_timing_tests.rs",
+      "sha256": "74cfebdf8220b65b0d8163b43bdec42a31986bef07fd1f94b83bdb77e3735abf"
+    },
+    {
+      "bytes": 20098,
+      "git_blob_sha": "d23a8fe072f5a5729799f6eaa789b772e12cfcdf",
+      "path": "crates/relink-audio/src/native_packet.rs",
+      "sha256": "21e1d258ced03267c91772c93f10726b212454950d1cdf87b551e539e3c0d5a4"
+    },
+    {
+      "bytes": 12474,
+      "git_blob_sha": "0dad464db70e12a669cedc98d37f2b28f29b6290",
+      "path": "crates/relink-audio/src/native_packet_tests.rs",
+      "sha256": "025709ace31e8a6bf74ee978588f08c31acfbeaab0504540f190dc9c96732969"
+    },
+    {
+      "bytes": 3371,
+      "git_blob_sha": "615fab774fdae8bd0b8f3cbbe72260f4ef4df2e8",
+      "path": "crates/relink-audio/src/native_timing.rs",
+      "sha256": "f482abf64838e4ec5af167be4437bb5b7f3e8a0eaf34b234cbe178c9e279ac46"
+    },
+    {
+      "bytes": 8728,
+      "git_blob_sha": "70c65f5fbadc0a8ef3a179056bf88f4e12deb899",
+      "path": "crates/relink-audio/src/output.rs",
+      "sha256": "7df5009fa510ebd5022a144b97cd2b422b29e6817182809f126e8acf34016816"
+    },
+    {
+      "bytes": 13084,
+      "git_blob_sha": "bba10cd6c57adb6517c9f216d7e00db4a532b6e5",
+      "path": "crates/relink-audio/src/output_plan.rs",
+      "sha256": "563388fbbd21a461f8ba140006e7e2216ef5ae34baabd0932a1ac603bef078bf"
+    },
+    {
+      "bytes": 10143,
+      "git_blob_sha": "0669c536f6735da70f633439239eb20abbdfcc67",
+      "path": "crates/relink-audio/src/output_progress.rs",
+      "sha256": "771931aca98372c4058052c328c04a80d129abd4162e228a7e5d859513bf7e5f"
+    },
+    {
+      "bytes": 13342,
+      "git_blob_sha": "8ebfd252f13fd466ee09981becf77eba20ac8a9b",
+      "path": "crates/relink-audio/src/output_render.rs",
+      "sha256": "4a5f0ab891c55ddb1abd176abde68f085a7ee42b18b7bcc0bdf510663f6ffaf2"
+    },
+    {
+      "bytes": 2526,
+      "git_blob_sha": "59b32004d04a1fd879e340497358c4865d3b9531",
+      "path": "crates/relink-audio/src/output_sink.rs",
+      "sha256": "da0a1dbd0112dcf647b48446b11bf22aff309a2ee02beb72610e65e0b32ab7a1"
+    },
+    {
+      "bytes": 5832,
+      "git_blob_sha": "365119721438fb113e18ef9f205a376ced21cf07",
+      "path": "crates/relink-audio/src/output_sink_tests.rs",
+      "sha256": "a4b014161f84579e3bd7f0de444edb734ec0cc4e567d431b7a216e92356935cc"
+    },
+    {
+      "bytes": 3743,
+      "git_blob_sha": "0c672ae4f8df52e7695b7e1b98b5781160492da1",
+      "path": "crates/relink-audio/src/output_startup.rs",
+      "sha256": "72c5fe978ed8eae4e6862efe24d8531607e7e212fcf201d7fa9ad0a73600f9b0"
+    },
+    {
+      "bytes": 10851,
+      "git_blob_sha": "735bde14c3acf9de237e8159e791fdd0fcd89dc5",
+      "path": "crates/relink-audio/src/output_startup_tests.rs",
+      "sha256": "2a8f5a44223d78e691416c7399f3bbc270d3922e4890050d821bcd46da8d343a"
+    },
+    {
+      "bytes": 23893,
+      "git_blob_sha": "d241531ec6556a778e1a5e0f0d529275c35b9f3c",
+      "path": "crates/relink-audio/src/tests.rs",
+      "sha256": "ce32af587ed3f8fcbe1ddb767ba46257684e47fcbf2159048f4deaa705aa5a14"
+    },
+    {
+      "bytes": 19533,
+      "git_blob_sha": "d40d2fdf702a52ee43da7500c2c75b174c981f1d",
+      "path": "crates/relink-audio/src/wasapi_application.rs",
+      "sha256": "c2a9a866eb1c55c56c4c6cbe5d91d9b619a9671bad9bec80ea36c24a907690d4"
+    },
+    {
+      "bytes": 23611,
+      "git_blob_sha": "98e7c053f4b8b355e16c5fda4a24ef687a3d4839",
+      "path": "crates/relink-audio/src/wasapi_capture.rs",
+      "sha256": "8de45fd67ee06c8cc92a35efb95b62e55d66a9d9f68eee8f67edeb9bfec9b9ea"
+    },
+    {
+      "bytes": 33517,
+      "git_blob_sha": "0f513e793b97e8451a2ab3c9b808c4e656035482",
+      "path": "crates/relink-audio/src/wasapi_output.rs",
+      "sha256": "fa91a5a6c06566fb2c145efc7cad8f0bed412f1b61682e91dee4aafa8b3787a3"
+    },
+    {
+      "bytes": 15018,
+      "git_blob_sha": "c08080827b97d79e353d3fb4d759796876bf2473",
+      "path": "crates/relink-audio/src/wasapi_output_state.rs",
+      "sha256": "3790a9f6f80bbf5932336fdba28150e0fbddcffd0a03aabd3dbf99fd4b0d1a4a"
+    },
+    {
+      "bytes": 11461,
+      "git_blob_sha": "17501e37cd9f46260bbfb785c68e8f5021017a93",
+      "path": "crates/relink-audio/src/wasapi_output_state_tests.rs",
+      "sha256": "6abdc23545356c657cf34f16405807f41e60377457e440cec2709809a9e1be51"
+    },
+    {
+      "bytes": 13942,
+      "git_blob_sha": "bfe5153cd712b4155e805b3aed67614431e57bd6",
+      "path": "crates/relink-audio/src/wasapi_packet.rs",
+      "sha256": "03fec9526ecd17ca87b78b7ee1405ed23dbe87a99375789163f20b7c4294cb1a"
+    },
+    {
+      "bytes": 8919,
+      "git_blob_sha": "5895ceef34b37f456a16a6b95b9a838cabafb286",
+      "path": "crates/relink-audio/src/wasapi_render_packet.rs",
+      "sha256": "fad18cf767ac74660fcd23c383d447a667726acd3c86845de26695c66f21174f"
+    },
+    {
+      "bytes": 17487,
+      "git_blob_sha": "7b2e419e880c80f1057ff0e1f9e6430013019753",
+      "path": "crates/relink-audio/src/wasapi_render_packet_tests.rs",
+      "sha256": "b9095a42bcaf5076a1495c70ca04313c23a704020fa0221f7c739fa2aa7f9c06"
+    },
+    {
+      "bytes": 3523,
+      "git_blob_sha": "7597dc49d565dcfdfaa963bb063601f8a15655fa",
+      "path": "crates/relink-core/BUS-ACCESS.md",
+      "sha256": "7091b1b3203c1eebfd162d501dbabd1a55184b692e1d4174baf61fa3402fe9d5"
+    },
+    {
+      "bytes": 338,
+      "git_blob_sha": "c88ea0fa8fea50977ee42da9b95382eb89bf72dc",
+      "path": "crates/relink-core/Cargo.toml",
+      "sha256": "a34099952c59014c3c577621f57e24f20e80f776fe3d16f5192fc1ab90d7f97f"
+    },
+    {
+      "bytes": 3129,
+      "git_blob_sha": "ba2313687b86ce136722a2ba05a397c97c7f1e90",
+      "path": "crates/relink-core/SMOOTHING.md",
+      "sha256": "20e2f940ba07ea9dba751cedca0365f858895393645c46222d36401030aa8e92"
+    },
+    {
+      "bytes": 10386,
+      "git_blob_sha": "79beaf3418d0e74170ae054e26a58486accdc10e",
+      "path": "crates/relink-core/src/application.rs",
+      "sha256": "0eb2c0f7664b09a417bdc6562d352ee2754fac922f2aacb6758e4c84511a6f84"
+    },
+    {
+      "bytes": 4312,
+      "git_blob_sha": "1100d548944f1e4b96d32d9b2a733dbc8df4a2f7",
+      "path": "crates/relink-core/src/controls.rs",
+      "sha256": "43912fcb608db2c624cfd93113ee2d06da495b41a3e34877eceb3eaf8ad28d7b"
+    },
+    {
+      "bytes": 5717,
+      "git_blob_sha": "b207aaa803cf682fba370e80400c80004f5fe667",
+      "path": "crates/relink-core/src/dsp.rs",
+      "sha256": "bb1bb833c58cbbdc942d474db5e31501cb570d4690eff8e37979f094c1a6d87b"
+    },
+    {
+      "bytes": 1320,
+      "git_blob_sha": "67068292528d789f8dbf6c5fbc3b0320e3517f03",
+      "path": "crates/relink-core/src/lib.rs",
+      "sha256": "15b4cad28c0dc0ec1b5743e9d8d59e8ac28484525b77dfc4f8490ac684f8e1f4"
+    },
+    {
+      "bytes": 24397,
+      "git_blob_sha": "f7cb097e9c9485943fe66319a02ef3238a877198",
+      "path": "crates/relink-core/src/mixer.rs",
+      "sha256": "614fab9f68d6dc9e03326629233417e7ad115c5d8b63b703c27205436c44915c"
+    },
+    {
+      "bytes": 17794,
+      "git_blob_sha": "3bedd6b4b64dc08327b988a4e723919d28567a5c",
+      "path": "crates/relink-core/src/session.rs",
+      "sha256": "fb62dcdb68992b3915bc5078fef28a697bb25a66af4c72f09b92866b2347e158"
+    },
+    {
+      "bytes": 2091,
+      "git_blob_sha": "0683e34458f0891e45607027b12e7b01ff47fe18",
+      "path": "crates/relink-core/src/smoothing.rs",
+      "sha256": "2789936bfd454b47efcff13eab42ad7b3d3d24efba0afc3c067ec46dc04353e7"
+    },
+    {
+      "bytes": 12883,
+      "git_blob_sha": "83f8a46420b32ecfeee5327b684a797dac92ad1b",
+      "path": "crates/relink-core/tests/bus_views.rs",
+      "sha256": "081775e512e6d4fee43bd9bd4500060b26f417b7b2d1763c10329b0458aaaabe"
+    },
+    {
+      "bytes": 5335,
+      "git_blob_sha": "6b39d6fec5a14ff69fb33616cbc6dc6e60f3284e",
+      "path": "crates/relink-core/tests/controls.rs",
+      "sha256": "a643caf83ef933d464213efb60215f860791390f27e22e2ff2755109ac32c95b"
+    },
+    {
+      "bytes": 20508,
+      "git_blob_sha": "c8f871f05edebba4f9d2f8064125453c8bfbc395",
+      "path": "crates/relink-core/tests/engine.rs",
+      "sha256": "743d9887c8e79c03c5face343f5ebd978b72e9d1c3556fca2a1e564ea7458e44"
+    },
+    {
+      "bytes": 15834,
+      "git_blob_sha": "64465618ad277c1ee5bc89974f5a91859a67157a",
+      "path": "crates/relink-core/tests/smoothing.rs",
+      "sha256": "75b8bd68eed2d2afb2c5e71a79b0da4b46c0b81c5e2a58d2bbc8f3b8fe336872"
+    },
+    {
+      "bytes": 259,
+      "git_blob_sha": "e4a0189a15155a3d75896fa4aa33fe6586f4f1d2",
+      "path": "crates/relink-hal/Cargo.toml",
+      "sha256": "73e4cd5c195465c2103753fa6a4498c1f4b984b744f8b0751ba51437808f3f72"
+    },
+    {
+      "bytes": 7372,
+      "git_blob_sha": "c3f1f3ad98550aecea8e0afd3dcef32bc2b656c3",
+      "path": "crates/relink-hal/src/abi.rs",
+      "sha256": "b075c915e8c0ef933c092a98ae52a329cc04a0fa506aaff136d942d19bf2e43b"
+    },
+    {
+      "bytes": 5678,
+      "git_blob_sha": "ccb2be2a02e3624caba82df637c811593d6b5097",
+      "path": "crates/relink-hal/src/device.rs",
+      "sha256": "f6b2148e0139c9bbe33d9865e4a97aebb53bf9485d1e9b2360172b91522f8d38"
+    },
+    {
+      "bytes": 10786,
+      "git_blob_sha": "5970ad8f153766f8a6dd661126cecf68c92821c9",
+      "path": "crates/relink-hal/src/lib.rs",
+      "sha256": "b8e803dcff5ca36142934fb818129414d4a52824f1d004d3358008985e31c846"
+    },
+    {
+      "bytes": 12588,
+      "git_blob_sha": "e6b031b76341a684ad183bb6b690dee33b95eedf",
+      "path": "crates/relink-hal/src/properties.rs",
+      "sha256": "59cc314e5bed24896108b3e606ae5e6c55e9260fd1545d2fdeecc57c19340ab0"
+    },
+    {
+      "bytes": 3729,
+      "git_blob_sha": "7a7d80bf93a521cd1261e8cf2a8fdc3f64c5c5e2",
+      "path": "crates/relink-hal/src/ring.rs",
+      "sha256": "f2c439320118db8c2b3a6884b1c63e6af312341340b338310b8aef8fbaad14b6"
+    },
+    {
+      "bytes": 16011,
+      "git_blob_sha": "99daba1932238ecafd2dbbd70574d9377967738f",
+      "path": "crates/relink-hal/src/tests.rs",
+      "sha256": "044611698add49635db2123f6acad951453ad067650c5eeb53663e565f4b658f"
+    },
+    {
+      "bytes": 9,
+      "git_blob_sha": "b83d22266ac8aa2f8df2edef68082c789727841d",
+      "path": "crates/relink-windows-driver/.gitignore",
+      "sha256": "306fd52e74fca6746e12acc750f232de15e71da917756a1270d74c91f5eb7368"
+    },
+    {
+      "bytes": 165,
+      "git_blob_sha": "b8851b90bf3e4ff2ba41c1bcfbbdce03d5d8f953",
+      "path": "crates/relink-windows-driver/Cargo.lock",
+      "sha256": "9cd9eec758de49546aa295fdab02084d78cea43639ab2213a7385902ab6f9f9f"
+    },
+    {
+      "bytes": 373,
+      "git_blob_sha": "2b354815da46213ae3861e895c5284455bdd24ee",
+      "path": "crates/relink-windows-driver/Cargo.toml",
+      "sha256": "aff30fc6df18006f82dba33f5292179368cac72a95d235d0b46246942b261aea"
+    },
+    {
+      "bytes": 1091,
+      "git_blob_sha": "9baf1acdb77a51619fc3d72b344e5995b70d7922",
+      "path": "crates/relink-windows-driver/build.rs",
+      "sha256": "f172e9eed4e80390f82f4a4dd9fc03545486ed4f28c34b00f5c624cb7a45e914"
+    },
+    {
+      "bytes": 27289,
+      "git_blob_sha": "67762f2373bf33f504a81ccfc456dce3b9fd417d",
+      "path": "crates/relink-windows-driver/src/abi.rs",
+      "sha256": "f22a24144a528c7ad2c65b913ac993faf64b96df9317a0250b21911633c37875"
+    },
+    {
+      "bytes": 16925,
+      "git_blob_sha": "d6e93352f4fc980914dbd68f6c18dabac033c5d0",
+      "path": "crates/relink-windows-driver/src/descriptors.rs",
+      "sha256": "6bffcbf4d2bd6dff9330fb30965c644e59daf873d3668f5f8341777f402c4f33"
+    },
+    {
+      "bytes": 36493,
+      "git_blob_sha": "dd3b9ba545e5f803b90008c0e45ed24705d346d2",
+      "path": "crates/relink-windows-driver/src/kernel.rs",
+      "sha256": "e4d9244a12d5521eaf1abfcb12d1661a4c3f93e6522df07421f0a9f55e17586f"
+    },
+    {
+      "bytes": 30128,
+      "git_blob_sha": "3f758e32e2cd6205690e6ce27f6afdfa15a7e1fb",
+      "path": "crates/relink-windows-driver/src/kernel_tests.rs",
+      "sha256": "97063cacd037dc75b07fd7ac7c703397b54beec3bf679ac46211f9cb9f1c7093"
+    },
+    {
+      "bytes": 436,
+      "git_blob_sha": "9e308dbbc217739cf781995bce96366ca749610e",
+      "path": "crates/relink-windows-driver/src/lib.rs",
+      "sha256": "4b3a919474be00232af330a9159fd0b6f3eb988f4a25f9fb9de99ec9259638f7"
+    },
+    {
+      "bytes": 4549,
+      "git_blob_sha": "f4c2ed72c1f08b9640b8244319e07b8b26ef2129",
+      "path": "crates/relink-windows-driver/src/transport.rs",
+      "sha256": "20cb0fd339c95386e14c5f5100a5ce8db20d4407225d01f1ef41ea1995c5e4a0"
+    },
+    {
+      "bytes": 213412,
+      "git_blob_sha": "70f9062d8644936601728fc2a13801c3c7ee9011",
+      "path": "docs/dependencies.json",
+      "sha256": "bac88e4840682dc186502c1f9894d2439aaf362e3acc2987db982c2d0e6d70a9"
+    },
+    {
+      "bytes": 1167,
+      "git_blob_sha": "b1363c493384dd544a6750cf56d5a58d343b3bd8",
+      "path": "packaging/macos/Info.plist",
+      "sha256": "8492ff8656aa9db184fa89fb12cbdd19b5cf53249de97895ad139a48c9c891ec"
+    },
+    {
+      "bytes": 86,
+      "git_blob_sha": "911f2b3a766dde760b910fd74f5f35ad0f4e3e2e",
+      "path": "rust-toolchain.toml",
+      "sha256": "2645003e83d0075da4fc5119dcfc4dfba02df3b9cf3cde702abfa27dc7221ae3"
+    },
+    {
+      "bytes": 6364,
+      "git_blob_sha": "31f7b3985c74be1e44de0465a1e40dbae68b81ba",
+      "path": "scripts/dependency-notices.py",
+      "sha256": "01a1c59b9fb703c313fd9dcbf44cdf255f100a28c1158d27b199a62a34394ebd"
+    }
+  ],
+  "scope": "Maintained Rust crates, workspace/toolchain manifests, selected packaging and notice inputs. Every listed working file matched its exact committed Git blob at collection.",
+  "source_commit": "353399309004a1be5a196ebaa68c08218aff0555",
+  "source_tree": "ad5f11535be216e38b4d80145e47aba3b8ee7463"
+}

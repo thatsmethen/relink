@@ -1,0 +1,17 @@
+{
+  "user_studio_sha256": "94efd0f900d0d205944bbd291fa87a078ea469d7a3c1b462fedc5b123f3a6615",
+  "fixture_sha256": "be80d298afc607574cdff6821e2db8434894d92a13b98ca5333122d5fa8006db",
+  "executable_sha256": "b65780c58911132bc1410953279afc9cd53e7010136b1543657cda9349d3265e",
+  "user_studio_unchanged": true,
+  "saved_application_selector": {
+    "type": "mac_bundle",
+    "bundle_id": "com.google.Chrome",
+    "path": "/Applications/Google Chrome.app"
+  },
+  "sources": 5,
+  "routes": 13,
+  "audio_started": false,
+  "native_capture_verified": false,
+  "reopen_verified": true,
+  "undo_redo_verified": true
+}

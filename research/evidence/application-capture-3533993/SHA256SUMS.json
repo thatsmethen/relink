@@ -1,0 +1,62 @@
+{
+  "README.md": {
+    "bytes": 4125,
+    "sha256": "4d2bdb45266f14acbd2e5f5b25a1178e5af696721d375c694e4eea043812fe05"
+  },
+  "independent-checks.json": {
+    "bytes": 788,
+    "sha256": "ef7fdfc5e10fd10478881170e3e6b29690716a867d9e49bcf60cafebc4817a45"
+  },
+  "logs/committed-macos-build.log": {
+    "bytes": 299,
+    "sha256": "d7a183b23be841e54c24b84fd13922f26ea6f9aa70639f1e943334176ee22d73"
+  },
+  "logs/earlier-notices-failure.log": {
+    "bytes": 202,
+    "sha256": "a3a737705b3e4f3c590baa2039ff9bc46933081a25734935c886ccab24fcab1d"
+  },
+  "logs/notices-regenerated.log": {
+    "bytes": 29,
+    "sha256": "d353c4aabb18b54be59b064edfcecfe64c7573ea1744d46b9d80efed43a5abcc"
+  },
+  "logs/windows-cross-clippy.log": {
+    "bytes": 544,
+    "sha256": "576409e1f1c8b51ca361e78ee6385e51a540e645ca53373f73d15127fc7286e1"
+  },
+  "logs/workspace-clippy.log": {
+    "bytes": 452,
+    "sha256": "9692e5103c85db9b20aefa5f5ccdf462329f1023ee3adca4033d1ee30ee78cd9"
+  },
+  "logs/workspace-tests.log": {
+    "bytes": 29005,
+    "sha256": "9002aab450974fd0d30b8e33ef575ad53b798d12674d69ce21697c9b5b9597d6"
+  },
+  "source-files.json": {
+    "bytes": 25677,
+    "sha256": "caf88dbacfd95a33c3617f02231648ea94e2e6783c837ee5b94cb25796576148"
+  },
+  "ui/committed-build-binding.json": {
+    "bytes": 707,
+    "sha256": "c2089fc3c29c3e0c58a5cc3e8cc9bb4203bc9b22f80c39f30c0e8dffdf8ebb1c"
+  },
+  "ui/committed-reopen-ax.txt": {
+    "bytes": 4412,
+    "sha256": "ce7d597491237a23d47440139e8087beb765a536d647203baf586bf90967e372"
+  },
+  "ui/precommit-after.json": {
+    "bytes": 607,
+    "sha256": "d27fd4c635cd8a8364f3661691b341b79f9fcf3dc4a407f7669de73cfd4ca110"
+  },
+  "ui/precommit-before.json": {
+    "bytes": 274,
+    "sha256": "849c73a897b700109654d250909798f5d75134854bcc2aa7e4246dde345e1b26"
+  },
+  "ui/studio.json": {
+    "bytes": 10049,
+    "sha256": "fc3dd9acfb698a237869dbdab22a34fa451be674d26f132506af6bbecf4d354f"
+  },
+  "validation.json": {
+    "bytes": 4429,
+    "sha256": "e1ddf5bd685092e18822ca7d5dbf729f3086cee6079749b18035b1f17f9cb430"
+  }
+}

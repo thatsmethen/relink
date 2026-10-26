@@ -1,0 +1,348 @@
+{
+  "schema": 1,
+  "kind": "independent anonymous publication verification; not original acquisition data",
+  "verification_started_at_utc": "2026-10-26T03:11:33.471662+00:00",
+  "verified_at_utc": "2026-10-26T03:11:56.491485+00:00",
+  "release": {
+    "id": 423818287,
+    "html_url": "https://github.com/thatsmethen/relink/releases/tag/evidence-rename-single-40257398426",
+    "tag_name": "evidence-rename-single-40257398426",
+    "name": "Evidence 40257398426 \u2014 HAL PASS / single-output runtime FAIL",
+    "prerelease": true,
+    "draft": false,
+    "published_at": "2026-10-26T03:11:32Z"
+  },
+  "tag": {
+    "type": "commit",
+    "revision": "69f49da28a9bae16dec9d4bc29bd0d639fb73a08",
+    "tagger_metadata": "none: lightweight tag"
+  },
+  "source_tree": "e761d228a3f0998b9addc97c11a4fd3774b90545",
+  "anonymous_public_requests": {
+    "authorization_header": false,
+    "cookie_header": false,
+    "gh_credentials_read": false
+  },
+  "source_author_and_committer_are_anonymous_contributor_identity": true,
+  "assets": [
+    {
+      "name": "collection-evidence-40257398426.zip",
+      "asset_id": 676830729,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-rename-single-40257398426/collection-evidence-40257398426.zip",
+      "bytes": 423210,
+      "sha256": "0aa6224accf60131fe23fc6ce5cc170c81a7445ec7b70c9105c75a4872efb65c",
+      "github_release_digest_matches": true
+    },
+    {
+      "name": "original-hal.zip",
+      "asset_id": 676829219,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-rename-single-40257398426/original-hal.zip",
+      "bytes": 10531756,
+      "sha256": "e54d2e4f6a14694678e0a3ef96fa76dca47cff04dcddd9ace3d71c282ede53d7",
+      "github_release_digest_matches": true
+    },
+    {
+      "name": "original-runtime.zip",
+      "asset_id": 676828777,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-rename-single-40257398426/original-runtime.zip",
+      "bytes": 2825375,
+      "sha256": "d5475b81a01ada75f2391c2b404a1fbd739706f41ee3a129cf79d519a57f370b",
+      "github_release_digest_matches": true
+    },
+    {
+      "name": "original-workflow-logs.zip",
+      "asset_id": 676828711,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-rename-single-40257398426/original-workflow-logs.zip",
+      "bytes": 37048,
+      "sha256": "7f9f4f142d8a462d18263cb84a679d752ec304afe44b045f09d29afbd3a010c7",
+      "github_release_digest_matches": true
+    },
+    {
+      "name": "publication-assets.json",
+      "asset_id": 676830832,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-rename-single-40257398426/publication-assets.json",
+      "bytes": 2733,
+      "sha256": "d6988e66acb3a0b719e2a79aed8e57690096c65407a4f4256856cd441ac2eab9",
+      "github_release_digest_matches": true
+    },
+    {
+      "name": "verify-release.py",
+      "asset_id": 676830869,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-rename-single-40257398426/verify-release.py",
+      "bytes": 6107,
+      "sha256": "4ed4af77c23257b15dcde255c18f99d4c2ad4eb4e18e3616bfc3044cfbc73e64",
+      "github_release_digest_matches": true
+    }
+  ],
+  "raw_public_api_response_hashes": {
+    "public-release-api.json": {
+      "bytes": 13872,
+      "sha256": "ff38e5eb12347428d232bb74b73f3ffb3b53957e5bf104f698ba805b4040e3f2"
+    },
+    "public-tag-api.json": {
+      "bytes": 433,
+      "sha256": "38a973da646aa779100492034a258185773969a70be7813885cab8787ec2dee9"
+    },
+    "public-source-commit-api.json": {
+      "bytes": 1172,
+      "sha256": "7857bf7081fd306f77c258091d6072e7e95e01f5165a16c2cbcf6906a5438dec"
+    }
+  },
+  "release_notes_match_local_bytes": true,
+  "frozen_checksum_manifests_unchanged": true,
+  "offline_custody_and_failure_verification": {
+    "schema": 1,
+    "all_release_payload_hashes_verified": true,
+    "complete_original_archive_hashes_verified": true,
+    "archives": [
+      {
+        "name": "original-workflow-logs.zip",
+        "bytes": 37048,
+        "sha256": "7f9f4f142d8a462d18263cb84a679d752ec304afe44b045f09d29afbd3a010c7"
+      },
+      {
+        "name": "original-runtime.zip",
+        "bytes": 2825375,
+        "sha256": "d5475b81a01ada75f2391c2b404a1fbd739706f41ee3a129cf79d519a57f370b"
+      },
+      {
+        "name": "original-hal.zip",
+        "bytes": 10531756,
+        "sha256": "e54d2e4f6a14694678e0a3ef96fa76dca47cff04dcddd9ace3d71c282ede53d7"
+      },
+      {
+        "name": "collection-evidence-40257398426.zip",
+        "bytes": 423210,
+        "sha256": "0aa6224accf60131fe23fc6ce5cc170c81a7445ec7b70c9105c75a4872efb65c"
+      }
+    ],
+    "source_revision": "69f49da28a9bae16dec9d4bc29bd0d639fb73a08",
+    "source_tree": "e761d228a3f0998b9addc97c11a4fd3774b90545",
+    "frozen_compact_files_verified": 127,
+    "frozen_compact_manifest_files_verified": 125,
+    "original_metadata_files_verified": 13,
+    "unchanged_bundled_verifier": {
+      "original_archives_verified": 3,
+      "original_manifest_files_verified": 121,
+      "original_analysis_reports_recomputed": 13,
+      "original_observer_error_reproduced_exactly": true,
+      "complete_runtime_pcm_protocol_analysis_available": false,
+      "outcomes": {
+        "overall": "FAIL",
+        "hal": "PASS",
+        "runtime": "FAIL"
+      },
+      "git_network_or_audio_operations": false
+    },
+    "original_verifier_modified": false,
+    "original_outcomes_changed": false,
+    "git_network_or_audio_operations": false
+  },
+  "original_first_fault": {
+    "captures": [
+      {
+        "captured_frames": 346624,
+        "input_id": "coreaudio:au.textual.ravelink.cable.1",
+        "native_timing": {
+          "callback_completion_contended": false,
+          "first_fault": null,
+          "last_completed_callback": {
+            "after_pcm_host_time": 8116928685,
+            "completion_host_time": 8116928690,
+            "entry_host_time": 8116912587,
+            "os_now_flags": 7,
+            "os_now_host_time": 8116910902,
+            "os_now_sample_time": 414753.0,
+            "os_now_sample_time_bits": 4690869014748987392,
+            "outcome": {
+              "kind": "published"
+            },
+            "packet_index": 677
+          },
+          "last_packet": {
+            "epoch": 1,
+            "flags": 7,
+            "frames": 512,
+            "host_time": 8116438533,
+            "observed_host_time": 8116912587,
+            "packet_index": 677,
+            "queue_frame": 346112,
+            "rate_scalar": 1.0,
+            "rate_scalar_bits": 4607182418800017408,
+            "sample_time": 413808.0,
+            "sample_time_bits": 4690852779772608512
+          },
+          "last_packet_contended": false,
+          "lifecycle": [
+            {
+              "callbacks_in_flight": 0,
+              "host_time": 7938824289,
+              "phase": "CreateRequested",
+              "status": null
+            },
+            {
+              "callbacks_in_flight": 0,
+              "host_time": 7938911640,
+              "phase": "CreateReturned",
+              "status": 0
+            },
+            {
+              "callbacks_in_flight": 0,
+              "host_time": 7943200765,
+              "phase": "StartRequested",
+              "status": null
+            },
+            {
+              "callbacks_in_flight": 0,
+              "host_time": 7943470869,
+              "phase": "StartReturned",
+              "status": 0
+            }
+          ],
+          "packets_seen": 677
+        }
+      }
+    ],
+    "error": null,
+    "fault": 5,
+    "first_fault": {
+      "direction": "Input",
+      "endpoint_id": "coreaudio:au.textual.ravelink.cable.1",
+      "endpoint_index": 0,
+      "fault": 5,
+      "metadata": {
+        "epoch": 1,
+        "native_object": 92,
+        "observed_mach_host_time": 8116969359,
+        "packet_index": null,
+        "property": {
+          "element": 0,
+          "scope": 1735159650,
+          "selector": 1870030194
+        },
+        "status": null
+      },
+      "metadata_pending": false,
+      "origin": "NativeInputOverload"
+    },
+    "native_output_shutdown_observed": false,
+    "native_output_shutdown_proven": false,
+    "native_shutdown_observed": null,
+    "observation": "running",
+    "observed_host_time": 8117756550,
+    "output_timing": {
+      "backend": "coreaudio",
+      "callbacks_seen": 696,
+      "completion_contended": false,
+      "first_fault": null,
+      "first_fault_pending": false,
+      "last_completion": {
+        "after_render_host_time": 8117715590,
+        "completion_host_time": 8117715591,
+        "outcome": {
+          "kind": "cancelled"
+        },
+        "packet": {
+          "callback_index": 696,
+          "entry_host_time": 8117715526,
+          "epoch": 1,
+          "frames": 512,
+          "now": {
+            "flags": 7,
+            "host_time": 8117714626,
+            "rate_scalar": 1.0,
+            "rate_scalar_bits": 4607182418800017408,
+            "sample_time": 416360.0,
+            "sample_time_bits": 4690896622798766080
+          },
+          "presentation": {
+            "flags": 7,
+            "host_time": 8117966533,
+            "rate_scalar": 1.0,
+            "rate_scalar_bits": 4607182418800017408,
+            "sample_time": 416864.0,
+            "sample_time_bits": 4690905281452834816
+          }
+        }
+      },
+      "last_packet": {
+        "callback_index": 692,
+        "entry_host_time": 8116748753,
+        "epoch": 1,
+        "frames": 512,
+        "now": {
+          "flags": 7,
+          "host_time": 8116747338,
+          "rate_scalar": 1.0,
+          "rate_scalar_bits": 4607182418800017408,
+          "sample_time": 414426.0,
+          "sample_time_bits": 4690863396931764224
+        },
+        "presentation": {
+          "flags": 7,
+          "host_time": 8116942533,
+          "rate_scalar": 1.0,
+          "rate_scalar_bits": 4607182418800017408,
+          "sample_time": 414816.0,
+          "sample_time_bits": 4690870097080745984
+        }
+      },
+      "last_packet_contended": false,
+      "lifecycle": [
+        {
+          "callbacks_in_flight": 0,
+          "host_time": 7938993680,
+          "phase": "ReservationAcquired",
+          "status": null
+        },
+        {
+          "callbacks_in_flight": 0,
+          "host_time": 7939005926,
+          "phase": "CreateRequested",
+          "status": null
+        },
+        {
+          "callbacks_in_flight": 0,
+          "host_time": 7939119643,
+          "phase": "CreateReturned",
+          "status": 0
+        },
+        {
+          "callbacks_in_flight": 0,
+          "host_time": 7939166349,
+          "phase": "Ready",
+          "status": null
+        },
+        {
+          "callbacks_in_flight": 0,
+          "host_time": 7939186812,
+          "phase": "StartRequested",
+          "status": null
+        },
+        {
+          "callbacks_in_flight": 0,
+          "host_time": 7939841559,
+          "phase": "StartReturned",
+          "status": 0
+        }
+      ],
+      "progress_count": 692
+    },
+    "running": false,
+    "schema": 1
+  },
+  "outcomes": {
+    "overall": "FAIL",
+    "hal": "PASS",
+    "runtime": "FAIL"
+  },
+  "scope": "Original single-output protocol aborted after latched NativeInputOverload/Xrun; incomplete protocol. Native cleanup succeeded but does not clear FAIL. Cause unknown. No simultaneous-output, process-capture, Windows or production-reliability qualification.",
+  "accepted_assets_replaced": false,
+  "acquisition_rerun": false,
+  "criteria_or_frozen_record_modified": false,
+  "remaining_issues": [
+    "Original single-output runtime observation failed; the complete control/Stop protocol is unavailable.",
+    "Nearby overload observations and recorder discontinuity do not identify a root cause.",
+    "This evidence does not qualify simultaneous outputs, application capture, Windows audio, physical playback or production reliability."
+  ]
+}

@@ -1,0 +1,235 @@
+{
+  "schema": 1,
+  "kind": "later publication metadata and anonymous byte verification; not original collection metadata",
+  "verification_started_at_utc": "2026-10-26T03:16:56.692729+00:00",
+  "verified_at_utc": "2026-10-26T03:17:29.485433+00:00",
+  "anonymous_requests": {
+    "authorization_header": false,
+    "cookie_header": false,
+    "gh_credentials_read": false
+  },
+  "release": {
+    "id": 423817146,
+    "html_url": "https://github.com/thatsmethen/relink/releases/tag/evidence-multioutput-native-40257448775",
+    "tag_name": "evidence-multioutput-native-40257448775",
+    "name": "Evidence: native two-output virtual-tone PASS (40257448775)",
+    "draft": false,
+    "prerelease": true,
+    "published_at": "2026-10-26T03:16:56Z"
+  },
+  "tag": {
+    "type": "commit",
+    "revision": "69f49da28a9bae16dec9d4bc29bd0d639fb73a08",
+    "tagger_metadata": "none: lightweight tag"
+  },
+  "source_tree": "e761d228a3f0998b9addc97c11a4fd3774b90545",
+  "source_author_and_committer_are_anonymous_contributors": true,
+  "assets": [
+    {
+      "name": "collection-evidence-40257448775.zip",
+      "asset_id": 676859080,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-multioutput-native-40257448775/collection-evidence-40257448775.zip",
+      "bytes": 322418,
+      "sha256": "2642427a0207c7b2960f70ff8f4091ccd13fd4d35f3b48bce3a310fd407f0adc",
+      "github_digest_matches": true
+    },
+    {
+      "name": "original-multioutput.zip.part000",
+      "asset_id": 676847864,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-multioutput-native-40257448775/original-multioutput.zip.part000",
+      "bytes": 524288,
+      "sha256": "dfaefbc8aeab603ef54faa672f4c8135d497a1c765fb9dbf45a7679d92c2af96",
+      "github_digest_matches": true
+    },
+    {
+      "name": "original-multioutput.zip.part001",
+      "asset_id": 676848689,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-multioutput-native-40257448775/original-multioutput.zip.part001",
+      "bytes": 524288,
+      "sha256": "0ae6c5fd7db6d5e11e7cb580eea3061461043473ad7f4c7d93bcb872c75c4ac0",
+      "github_digest_matches": true
+    },
+    {
+      "name": "original-multioutput.zip.part002",
+      "asset_id": 676849291,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-multioutput-native-40257448775/original-multioutput.zip.part002",
+      "bytes": 524288,
+      "sha256": "1a20a7dcb55d61f5958b9403f7e5527e75b1d3f3d36d6b950823c77fc7d67040",
+      "github_digest_matches": true
+    },
+    {
+      "name": "original-multioutput.zip.part003",
+      "asset_id": 676849555,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-multioutput-native-40257448775/original-multioutput.zip.part003",
+      "bytes": 524288,
+      "sha256": "4747315d624e2af9e485c63add63c4b3e08f35d75b7bb60f9ab363d333054115",
+      "github_digest_matches": true
+    },
+    {
+      "name": "original-multioutput.zip.part004",
+      "asset_id": 676849847,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-multioutput-native-40257448775/original-multioutput.zip.part004",
+      "bytes": 524288,
+      "sha256": "e76d2b59926594f3e6754e5627fcc9f1c1cdab3f7df2b16130ea5ea782d1c32e",
+      "github_digest_matches": true
+    },
+    {
+      "name": "original-multioutput.zip.part005",
+      "asset_id": 676850429,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-multioutput-native-40257448775/original-multioutput.zip.part005",
+      "bytes": 524288,
+      "sha256": "92aef4205a8950f98a50c3991540dff02b7b3e1f5afc40cd841b061877722731",
+      "github_digest_matches": true
+    },
+    {
+      "name": "original-multioutput.zip.part006",
+      "asset_id": 676851163,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-multioutput-native-40257448775/original-multioutput.zip.part006",
+      "bytes": 524288,
+      "sha256": "a13cdf9261a7abb417dfe93b6827c0d5776ecd55c2f819d3ea717f4af7538806",
+      "github_digest_matches": true
+    },
+    {
+      "name": "original-multioutput.zip.part007",
+      "asset_id": 676851698,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-multioutput-native-40257448775/original-multioutput.zip.part007",
+      "bytes": 524288,
+      "sha256": "dec4283f7be6291a28d4d536e23da581d30306294bd965345606759924312938",
+      "github_digest_matches": true
+    },
+    {
+      "name": "original-multioutput.zip.part008",
+      "asset_id": 676852655,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-multioutput-native-40257448775/original-multioutput.zip.part008",
+      "bytes": 524288,
+      "sha256": "533f03df435411c29e14b619c1df4548ffd5904cbbb19affcdac6820c2f50f3f",
+      "github_digest_matches": true
+    },
+    {
+      "name": "original-multioutput.zip.part009",
+      "asset_id": 676853215,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-multioutput-native-40257448775/original-multioutput.zip.part009",
+      "bytes": 524288,
+      "sha256": "b4c4983d3dd369030d14bc86c0b65ac345b51391d49b17ec3f7a4d0c76aca181",
+      "github_digest_matches": true
+    },
+    {
+      "name": "original-multioutput.zip.part010",
+      "asset_id": 676853825,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-multioutput-native-40257448775/original-multioutput.zip.part010",
+      "bytes": 524288,
+      "sha256": "7b5d61d3d0fdd93b83a7b89d3926bbe968de3c791cb3b0c82f3df6382b255325",
+      "github_digest_matches": true
+    },
+    {
+      "name": "original-multioutput.zip.part011",
+      "asset_id": 676856032,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-multioutput-native-40257448775/original-multioutput.zip.part011",
+      "bytes": 524288,
+      "sha256": "2bf9645da09edb0c8251d02693bf610ba3abcfa586665a69aa7e6b5793f618f0",
+      "github_digest_matches": true
+    },
+    {
+      "name": "original-multioutput.zip.part012",
+      "asset_id": 676857471,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-multioutput-native-40257448775/original-multioutput.zip.part012",
+      "bytes": 524288,
+      "sha256": "93f324cb68ea7c20b5650bdc5c29669366ff4ca1b1cd615bee94c74db7a11c32",
+      "github_digest_matches": true
+    },
+    {
+      "name": "original-multioutput.zip.part013",
+      "asset_id": 676858806,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-multioutput-native-40257448775/original-multioutput.zip.part013",
+      "bytes": 3912,
+      "sha256": "725f73ed62978b1701b0afffe0734bf6f66e765da855018837ec708a9106950a",
+      "github_digest_matches": true
+    },
+    {
+      "name": "original-workflow-logs.zip",
+      "asset_id": 676858915,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-multioutput-native-40257448775/original-workflow-logs.zip",
+      "bytes": 21633,
+      "sha256": "0c2c733a2561c7eff8cb7e21980d820464536908f4405a87c8021a0440071787",
+      "github_digest_matches": true
+    },
+    {
+      "name": "publication-assets.json",
+      "asset_id": 676860160,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-multioutput-native-40257448775/publication-assets.json",
+      "bytes": 7021,
+      "sha256": "d2f6814e28927754ab157acacf47431ef09ca9cfeb268c9400d67de323f5dbf2",
+      "github_digest_matches": true
+    },
+    {
+      "name": "release-notes.md",
+      "asset_id": 676860053,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-multioutput-native-40257448775/release-notes.md",
+      "bytes": 2747,
+      "sha256": "0a08a7af752dd1b1e0709f100c3b10a11adc78ada1ed7d4ab8c772057d65f198",
+      "github_digest_matches": true
+    },
+    {
+      "name": "verify-release.py",
+      "asset_id": 676859960,
+      "url": "https://github.com/thatsmethen/relink/releases/download/evidence-multioutput-native-40257448775/verify-release.py",
+      "bytes": 6932,
+      "sha256": "5a665a7c7b163e6bf207ea22619d039e9b8651f0d429b690132937d149b88eb3",
+      "github_digest_matches": true
+    }
+  ],
+  "raw_public_api_responses_preserved_locally": {
+    "public-release-api.json": {
+      "bytes": 34319,
+      "sha256": "f472db9fc65e8a581f4645b7bc3fd155d7214ca5aa6ebae110f29d7187f2a192"
+    },
+    "public-tag-api.json": {
+      "bytes": 450,
+      "sha256": "bfc7bc62b197fec824950f165b67c887c2861c2c74c1e448844d75eed5aeca81"
+    },
+    "public-source-commit-api.json": {
+      "bytes": 1172,
+      "sha256": "7857bf7081fd306f77c258091d6072e7e95e01f5165a16c2cbcf6906a5438dec"
+    }
+  },
+  "offline_verification_of_anonymously_downloaded_assets": {
+    "audio_rerun_or_changed_criteria": false,
+    "frozen_evidence_files_verified": 72,
+    "full_original_analysis_and_two_diagnostics_recomputed_exactly": true,
+    "full_original_derived_report_matches": true,
+    "original_api_files_verified": 18,
+    "original_archives": [
+      {
+        "bytes": 6819656,
+        "name": "original-multioutput.zip",
+        "sha256": "003487396b907bb9b03d00f83d717b46e46ade750f87a5ff896526fdfda2d85b"
+      },
+      {
+        "bytes": 21633,
+        "name": "original-workflow-logs.zip",
+        "sha256": "0c2c733a2561c7eff8cb7e21980d820464536908f4405a87c8021a0440071787"
+      },
+      {
+        "bytes": 322418,
+        "name": "collection-evidence-40257448775.zip",
+        "sha256": "2642427a0207c7b2960f70ff8f4091ccd13fd4d35f3b48bce3a310fd407f0adc"
+      }
+    ],
+    "original_artifact_exact_archive_members": 57,
+    "original_manifest_files_verified": 56,
+    "original_overall_result": "PASS",
+    "run_id": 40257448775,
+    "schema": 1,
+    "scope": "One 18-second fixed five-phase internal-tone protocol on two original virtual outputs, two independent 32-second recordings on one macOS CI host. No audio capture, physical playback, acoustic synchronization, long-duration/load/restart stability, arbitrary route counts, or installed Windows qualification.",
+    "snapshot_files_verified": 90,
+    "source_revision": "69f49da28a9bae16dec9d4bc29bd0d639fb73a08",
+    "source_tree": "e761d228a3f0998b9addc97c11a4fd3774b90545",
+    "tag": "evidence-multioutput-native-40257448775",
+    "temporary_files_removed_on_return": true,
+    "transport_assets_verified": 18,
+    "uncertainty": "Polled native records establish software submissions, not physical playback. Wrong-bus projection is the fixed finite-window diagnostic, not a guaranteed physical crosstalk bound. A passing new protocol does not replace or repair older failed observations."
+  },
+  "release_notes_match_local_utf8": true,
+  "original_collection_mutated": false,
+  "audio_rerun_or_changed_criteria": false
+}

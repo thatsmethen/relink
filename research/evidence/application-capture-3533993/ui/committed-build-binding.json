@@ -1,0 +1,19 @@
+{
+  "source_commit": "353399309004a1be5a196ebaa68c08218aff0555",
+  "source_tree": "ad5f11535be216e38b4d80145e47aba3b8ee7463",
+  "test_bundle_identifier": "au.textual.relink.capture-preview",
+  "studio_isolation": "Info.plist LSEnvironment RELINK_STUDIO_PATH points to build-only fixture",
+  "audio_started": false,
+  "packaged_executable": {
+    "bytes": 39946656,
+    "sha256": "a4df8ac10312a4b5eac82d87a55a04c632f1720024dae4423d7b88643b617596"
+  },
+  "test_executable": {
+    "bytes": 39946656,
+    "sha256": "7bac331de9b2cd1b18c09c26f0a0d4362cd983f744c81bcc4682a9d394d39819"
+  },
+  "test_plist": {
+    "bytes": 1396,
+    "sha256": "cc65b034ea7730993f59cce379b410dc19a9e7b886d4b6a3e391f314a90492c1"
+  }
+}

@@ -1,0 +1,28 @@
+[
+  {
+    "argv": [
+      "python3",
+      "-B",
+      "scripts/dependency-notices.py",
+      "--check"
+    ],
+    "check": "notices",
+    "exit_code": 0,
+    "stderr": "",
+    "stdout": "Dependency notices verified\n"
+  },
+  {
+    "argv": [
+      "codesign",
+      "--verify",
+      "--deep",
+      "--strict",
+      "--verbose=2",
+      "/Users/textual/projects/notify/relink/build/application-capture-ui/ReLink-Capture-Preview.app"
+    ],
+    "check": "isolated_bundle_signature",
+    "exit_code": 0,
+    "stderr": "/Users/textual/projects/notify/relink/build/application-capture-ui/ReLink-Capture-Preview.app: valid on disk\n/Users/textual/projects/notify/relink/build/application-capture-ui/ReLink-Capture-Preview.app: satisfies its Designated Requirement\n",
+    "stdout": ""
+  }
+]
