@@ -101,7 +101,7 @@ def main() -> int:
     parser.add_argument("mode", choices=["run", "cleanup", "manifest"])
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--probe", type=Path, default=DEFAULT_OUTPUT / "system-probe")
-    parser.add_argument("--bundle", type=Path, default=system.REPOSITORY / "dist/macos/RaveLink.driver")
+    parser.add_argument("--bundle", type=Path, default=system.REPOSITORY / "dist/macos/ReLink.driver")
     parser.add_argument("--runtime", type=Path, default=DEFAULT_RUNTIME)
     args = parser.parse_args()
     try:

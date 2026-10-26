@@ -3,12 +3,12 @@ on:
   push:
     branches: [main]
     paths:
-      - 'crates/ravelink-windows-driver/**'
+      - 'crates/relink-windows-driver/**'
       - 'drivers/windows/**'
       - '.github/workflows/rust-windows-driver.yml'
   pull_request:
     paths:
-      - 'crates/ravelink-windows-driver/**'
+      - 'crates/relink-windows-driver/**'
       - 'drivers/windows/**'
       - '.github/workflows/rust-windows-driver.yml'
   workflow_dispatch:
@@ -30,9 +30,9 @@ jobs:
       - name: Format and static checks
         shell: pwsh
         run: |
-          cargo +1.91.1 fmt --manifest-path crates/ravelink-windows-driver/Cargo.toml -- --check
+          cargo +1.91.1 fmt --manifest-path crates/relink-windows-driver/Cargo.toml -- --check
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          cargo +1.91.1 clippy --locked --manifest-path crates/ravelink-windows-driver/Cargo.toml --all-targets -- -D warnings
+          cargo +1.91.1 clippy --locked --manifest-path crates/relink-windows-driver/Cargo.toml --all-targets -- -D warnings
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Build unsigned driver, verify SDK ABI and INF, create unsigned catalog
         shell: pwsh
@@ -40,6 +40,6 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: RaveLink-Windows-driver-unsigned
+          name: ReLink-Windows-driver-unsigned
           path: dist/windows-driver/
           if-no-files-found: warn

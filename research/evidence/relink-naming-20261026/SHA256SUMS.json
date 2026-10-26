@@ -1,0 +1,66 @@
+{
+  "README.md": {
+    "bytes": 1154,
+    "sha256": "719ef0fabae97803b6d1d81b53d45feb879e014e9d03adf3a36b0b29fba43867"
+  },
+  "app-package.log": {
+    "bytes": 305,
+    "sha256": "79641ecfb8cadd9812020cdd8cc54ce8f3c480272078dc92eb4ffd028798b9ed"
+  },
+  "dependency-audit-controls.log": {
+    "bytes": 1938,
+    "sha256": "9e50bbbf3ba0e9e26454872acdfe86f4f5140ae446ed789f30b65273cf4f18eb"
+  },
+  "dependency-notices.log": {
+    "bytes": 28,
+    "sha256": "672d92c1b22c6c34710be99a608a4d3535b82a4bb274034575b2a4b163231a0c"
+  },
+  "hal-native-host.log": {
+    "bytes": 295,
+    "sha256": "38d3f84ab7e5079bbfddf9efc22325dd2c3bd8699768e263d293371b2a496e8a"
+  },
+  "hal-package.log": {
+    "bytes": 477,
+    "sha256": "00433639f0939a1640b01f04b88c08c6dac127c1c27b71a0e064d00ac4ce02d7"
+  },
+  "independent-review.json": {
+    "bytes": 4436,
+    "sha256": "843d2379281680f0ad45d62f03a79929fe57547250d3a666330bff05278a6711"
+  },
+  "independent-review.md": {
+    "bytes": 1583,
+    "sha256": "90f3d159d1b92cd92434abb6f805e9457e24dfa8ad0660d23bd834351cf57ac9"
+  },
+  "legacy-tests.log": {
+    "bytes": 34209,
+    "sha256": "64382cf203a6bf9a816f6f8e6157e153e87b89c310cfddd41230a4692aa1f650"
+  },
+  "observer-tests.log": {
+    "bytes": 157,
+    "sha256": "a7d43a8bc6c69f6776fe2315e06b6561db5bb6e3deecb4868feb3c998ca864fa"
+  },
+  "verification.json": {
+    "bytes": 35914,
+    "sha256": "b351987249f0793aedfa56cee6e76773b2436aebd70bf4856adc1c10c53e0687"
+  },
+  "windows-cross-clippy.log": {
+    "bytes": 5234,
+    "sha256": "2bdbf731cc228e27533de11b296c51c2542eca0280d33d24aed90a30e9e73bcf"
+  },
+  "windows-driver-clippy.log": {
+    "bytes": 185,
+    "sha256": "14fefaeb0749ea087b06562403f67de3d0377acce37ec556a4dd93df4727ffd9"
+  },
+  "windows-driver-tests.log": {
+    "bytes": 1297,
+    "sha256": "06a1ee59a20f98e192d5719a22340e14b1936ded53b282adde8a05cb3b0c9da6"
+  },
+  "workspace-clippy.log": {
+    "bytes": 430,
+    "sha256": "c0455cfa1ed89081fb2bd87860e63eac0897b5cc678d117494d3ab4888c6da04"
+  },
+  "workspace-tests.log": {
+    "bytes": 27247,
+    "sha256": "f356657327e331655939dffb2414c2a3d456bc8f2b685765c5bddc40eb543701"
+  }
+}

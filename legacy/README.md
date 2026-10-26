@@ -1,4 +1,6 @@
-# RaveLink
+# ReLink archived Swift prototype
+
+The source and test folders use the ReLink name. The archived Swift module names, protocol identifiers and historical records retain their original names for compatibility. The supported Rust workspace is at the repository root.
 
 A native macOS audio router and mixer, developed using Elgato's documentation and [morluto/rea](https://github.com/morluto/rea) inspection of pinned Wave Link artifacts. Independently implemented; no Elgato code or branding is distributed.
 

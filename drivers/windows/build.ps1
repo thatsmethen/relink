@@ -1,7 +1,7 @@
 # Build/validate an unsigned package only. Does not install, sign, or change policy.
 [CmdletBinding()]
 param(
-    [string]$CacheDirectory = (Join-Path $env:TEMP 'ravelink-wdk-10.0.26100.6584'),
+    [string]$CacheDirectory = (Join-Path $env:TEMP 'relink-wdk-10.0.26100.6584'),
     [string]$OutputDirectory,
     [switch]$SkipCatalog
 )
@@ -9,12 +9,14 @@ $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version Latest
 $Repo = (Resolve-Path (Join-Path $PSScriptRoot '../..')).Path
 $Pin = Get-Content (Join-Path $PSScriptRoot 'toolchain.json') -Raw | ConvertFrom-Json
+if (!$OutputDirectory) { $OutputDirectory = $env:RELINK_OUTPUT }
+if (!$OutputDirectory) { $OutputDirectory = $env:RAVELINK_OUTPUT }
 if (!$OutputDirectory) { $OutputDirectory = Join-Path $Repo 'dist/windows-driver' }
 $OutputDirectory = [IO.Path]::GetFullPath($OutputDirectory)
 New-Item -ItemType Directory -Force $CacheDirectory, $OutputDirectory | Out-Null
 # Remove only generated package files; never let a failed rerun expose an old
 # catalog or success report alongside a newly built binary.
-foreach ($generated in @('RaveLink.sys', 'RaveLink.inf', 'RaveLink.cat', 'ravelink_windows_driver.pdb', 'pe-evidence.json', 'build-evidence.json', 'DRIVER-RUNTIME-NOTICES.txt', 'runtime-notices')) {
+foreach ($generated in @('RaveLink.sys', 'RaveLink.inf', 'RaveLink.cat', 'ravelink_windows_driver.pdb', 'ReLink.sys', 'ReLink.inf', 'ReLink.cat', 'relink_windows_driver.pdb', 'pe-evidence.json', 'build-evidence.json', 'DRIVER-RUNTIME-NOTICES.txt', 'runtime-notices')) {
     $path = Join-Path $OutputDirectory $generated
     if (Test-Path $path) { Remove-Item -Recurse -Force $path }
 }
@@ -46,7 +48,7 @@ function Get-PinnedPackage($Package) {
 $Wdk = Get-PinnedPackage $Pin.packages[0]
 $Sdk = Get-PinnedPackage $Pin.packages[1]
 $Version = $Pin.sdk_header_version
-$Manifest = Join-Path $Repo 'crates/ravelink-windows-driver/Cargo.toml'
+$Manifest = Join-Path $Repo 'crates/relink-windows-driver/Cargo.toml'
 $BuildDirectory = Join-Path $Repo 'target/windows-driver'
 $oldWdk = $env:RAVELINK_WDK_LIB
 $oldTarget = $env:CARGO_TARGET_DIR
@@ -70,7 +72,7 @@ try {
     Invoke-Checked cargo @("+$($Pin.rust)", 'test', '--locked', '--manifest-path', $Manifest)
 
     # SDK ABI declarations are independently checked with the v143 14.44 compiler.
-    # This object is compile-only and is never linked into RaveLink.sys.
+    # This object is compile-only and is never linked into ReLink.sys.
     $vswhere = Join-Path ${env:ProgramFiles(x86)} 'Microsoft Visual Studio/Installer/vswhere.exe'
     $vs = (& $vswhere -latest -products '*' -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath).Trim()
     if (!$vs) { throw 'Visual Studio C++ tools are required for SDK ABI validation.' }
@@ -83,18 +85,18 @@ try {
     $arguments += @("/Fo$(Join-Path $BuildDirectory 'abi-check.obj')", (Join-Path $PSScriptRoot 'tests/abi-check.cpp'))
     Invoke-Checked $cl $arguments
 
-    $binary = Join-Path $BuildDirectory "$($Pin.target)/release/ravelink_windows_driver.dll"
-    $driver = Join-Path $OutputDirectory 'RaveLink.sys'
+    $binary = Join-Path $BuildDirectory "$($Pin.target)/release/relink_windows_driver.dll"
+    $driver = Join-Path $OutputDirectory 'ReLink.sys'
     Copy-Item $binary $driver -Force
-    Copy-Item (Join-Path $PSScriptRoot 'RaveLink.inf') $OutputDirectory -Force
+    Copy-Item (Join-Path $PSScriptRoot 'ReLink.inf') $OutputDirectory -Force
     Copy-Item (Join-Path $Repo 'LICENSE') $OutputDirectory -Force
     Copy-Item (Join-Path $PSScriptRoot 'PROVENANCE.md') $OutputDirectory -Force
     Copy-Item (Join-Path $PSScriptRoot 'toolchain.json') $OutputDirectory -Force
     Invoke-Checked python @((Join-Path $PSScriptRoot 'runtime-notices.py'), '--sysroot', $sysroot, '--output', $OutputDirectory)
-    Copy-Item (Join-Path $BuildDirectory "$($Pin.target)/release/ravelink_windows_driver.pdb") $OutputDirectory -Force
+    Copy-Item (Join-Path $BuildDirectory "$($Pin.target)/release/relink_windows_driver.pdb") $OutputDirectory -Force
     Invoke-Checked python @((Join-Path $PSScriptRoot 'tests/check-pe.py'), $driver, '--output', (Join-Path $OutputDirectory 'pe-evidence.json'))
     $infverif = Join-Path $Wdk "c/tools/$Version/x64/infverif.exe"
-    Invoke-Checked $infverif @('/w', (Join-Path $OutputDirectory 'RaveLink.inf'))
+    Invoke-Checked $infverif @('/w', (Join-Path $OutputDirectory 'ReLink.inf'))
     if (!$SkipCatalog) {
         $inf2cat = Join-Path $Wdk "c/bin/$Version/x86/Inf2Cat.exe"
         Invoke-Checked $inf2cat @("/driver:$OutputDirectory", '/os:10_VB_X64', '/uselocaltime')

@@ -189,8 +189,8 @@ def native_resources(executable):
 def self_test():
     class Controls(unittest.TestCase):
         def setUp(self):
-            self.ico = read_bounded(ROOT / "packaging/branding/ravelink.ico")
-            self.res = read_bounded(ROOT / "packaging/branding/ravelink.res")
+            self.ico = read_bounded(ROOT / "packaging/branding/relink.ico")
+            self.res = read_bounded(ROOT / "packaging/branding/relink.res")
             self.expected = expected_resources(self.ico)
 
         def test_checked_in_sources_match(self):
@@ -229,8 +229,8 @@ def self_test():
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("executable", type=Path, nargs="?")
-    parser.add_argument("--icon", type=Path, default=ROOT / "packaging/branding/ravelink.ico")
-    parser.add_argument("--resource", type=Path, default=ROOT / "packaging/branding/ravelink.res")
+    parser.add_argument("--icon", type=Path, default=ROOT / "packaging/branding/relink.ico")
+    parser.add_argument("--resource", type=Path, default=ROOT / "packaging/branding/relink.res")
     parser.add_argument("--output", type=Path)
     parser.add_argument("--self-test", action="store_true")
     args = parser.parse_args()

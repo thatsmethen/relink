@@ -25,7 +25,7 @@ from analyze_diagnostics import summarize as summarize_diagnostics
 UID = "au.textual.ravelink.cable.1"
 UIDS = (UID, "au.textual.ravelink.cable.2")
 BUNDLE_ID = "au.textual.ravelink.hal"
-DESTINATION = Path("/Library/Audio/Plug-Ins/HAL/RustRaveLink.driver")
+DESTINATION = Path("/Library/Audio/Plug-Ins/HAL/RustReLink.driver")
 REPOSITORY = Path(__file__).resolve().parents[3]
 DEFAULT_OUTPUT = REPOSITORY / "build/rust-hal-system"
 OBSERVATION_ERRORS = (OSError, ValueError, KeyError, ZeroDivisionError, struct.error)
@@ -359,7 +359,7 @@ def run(output: Path, probe: Path, bundle: Path, observation=None) -> bool:
         raise RuntimeError("unexpected source bundle identity")
     ownership = {"destination": str(DESTINATION), "run_id": os.environ["GITHUB_RUN_ID"],
                  "source_revision": os.environ.get("GITHUB_SHA"), "bundle_id": BUNDLE_ID,
-                 "source_binary_sha256": sha(bundle / "Contents/MacOS/RaveLinkHAL"),
+                 "source_binary_sha256": sha(bundle / "Contents/MacOS/ReLinkHAL"),
                  "observer_sha256": sha(probe), "uids_absent_before": list(UIDS),
                  "initial_observation": before}
     save(output / "installation-owner.json", ownership)
@@ -370,7 +370,7 @@ def run(output: Path, probe: Path, bundle: Path, observation=None) -> bool:
                                (["sudo", "/bin/chmod", "-R", "go-w", str(DESTINATION)], "permissions")]:
             if bounded(command, output / f"{label}.log").returncode:
                 raise RuntimeError(f"{label} failed")
-        if sha(DESTINATION / "Contents/MacOS/RaveLinkHAL") != ownership["source_binary_sha256"]:
+        if sha(DESTINATION / "Contents/MacOS/ReLinkHAL") != ownership["source_binary_sha256"]:
             raise RuntimeError("installed binary differs from the built artifact")
         restart_service(output, "install")
         installed = {uid: wait_presence(probe, output, f"installed-cable-{index + 1}", 1, uid) for index, uid in enumerate(UIDS)}
@@ -402,7 +402,7 @@ def main() -> int:
     parser.add_argument("mode", choices=["run", "cleanup", "manifest"])
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--probe", type=Path, default=DEFAULT_OUTPUT / "system-probe")
-    parser.add_argument("--bundle", type=Path, default=REPOSITORY / "dist/macos/RaveLink.driver")
+    parser.add_argument("--bundle", type=Path, default=REPOSITORY / "dist/macos/ReLink.driver")
     args = parser.parse_args()
     try:
         if args.mode == "manifest":

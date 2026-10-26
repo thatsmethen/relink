@@ -130,9 +130,9 @@ in 11 suites; its log is `hardware-clock-focused-tests-final.txt`.
 Reproduce the final matrix from the repository root:
 
 ```sh
-clang -O2 -std=c11 -I Sources/RaveLinkRealtime/include \
-  scripts/elastic-clock-probe.c Sources/RaveLinkRealtime/Realtime.c \
-  Sources/RaveLinkRealtime/SoundCheck.c Sources/RaveLinkRealtime/Clock.c \
+clang -O2 -std=c11 -I Sources/ReLinkRealtime/include \
+  scripts/elastic-clock-probe.c Sources/ReLinkRealtime/Realtime.c \
+  Sources/ReLinkRealtime/SoundCheck.c Sources/ReLinkRealtime/Clock.c \
   -framework CoreAudio -o /tmp/ravelink-clock-matrix
 /tmp/ravelink-clock-matrix
 ```

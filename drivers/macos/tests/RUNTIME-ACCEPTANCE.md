@@ -21,7 +21,7 @@ The runner-only guard, preflight, owned-bundle install and cleanup reuse
 `run_system.py`. Both UIDs must be absent before installation, present exactly
 once afterward, and absent after removal. Failed discovery is not absence. Each
 job uses its own disposable macOS runner. Nothing is installed on the development
-machine. Only the exact owned `RustRaveLink.driver` bundle is removed.
+machine. Only the exact owned `RustReLink.driver` bundle is removed.
 
 ## Fixed sequence
 

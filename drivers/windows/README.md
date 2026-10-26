@@ -1,6 +1,6 @@
 # Original Rust Windows virtual audio driver
 
-This directory packages the original `ravelink-windows-driver` WDM/PortCls implementation. It builds an unsigned x64 native `.sys` image. It has not yet been loaded into a Windows kernel or qualified as a working Windows audio endpoint. See [VALIDATION.md](VALIDATION.md) for the exact evidence boundary.
+This directory packages the original `relink-windows-driver` WDM/PortCls implementation. It builds an unsigned x64 native `.sys` image. It has not yet been loaded into a Windows kernel or qualified as a working Windows audio endpoint. See [VALIDATION.md](VALIDATION.md) for the exact evidence boundary.
 
 The production driver is Rust (`no_std`, no external crate dependencies). The C++ file under `tests/` contains compile-only assertions against Microsoft's SDK declarations; it is never linked into the driver. No SysVAD, legacy driver, or GPL implementation was consulted or translated. Source custody and SDK hashes are in [PROVENANCE.md](PROVENANCE.md).
 
@@ -30,7 +30,7 @@ rustup toolchain install nightly-2025-11-10 --profile minimal --component rust-s
 
 The nightly toolchain is required only because `-Zbuild-std=core` rebuilds core with panic-abort. The prebuilt stable Windows core pulls user-mode exception-runtime references into this kernel build. No fake exception handler is supplied. `_fltused` is an inert linker metadata marker; no floating-point arithmetic is used by the transport.
 
-The GitHub workflow `.github/workflows/rust-windows-driver.yml` performs these build checks without installing the driver or changing signing policy. This crate is currently deliberately excluded from the main desktop workspace and has its own minimal lockfile. Use `--manifest-path crates/ravelink-windows-driver/Cargo.toml` for host checks.
+The GitHub workflow `.github/workflows/rust-windows-driver.yml` performs these build checks without installing the driver or changing signing policy. This crate is currently deliberately excluded from the main desktop workspace and has its own minimal lockfile. Use `--manifest-path crates/relink-windows-driver/Cargo.toml` for host checks.
 
 ## Cross-build on macOS/Linux
 
@@ -47,3 +47,8 @@ This produces a real native Windows driver PE and runs the host/SDK checks, but 
 ## Runtime qualification still required
 
 Before distribution, use an authorized disposable Windows test machine with an appropriate signing setup to establish endpoint discovery, shared/exclusive WASAPI operation, loopback fidelity, notification/poll compatibility, bounded latency, repeated PnP stop/start/removal, suspend/resume, and multiple adapter isolation. Measure metadata-lock hold time and total position callback time at maximum buffer size, including DISPATCH_LEVEL calls and contention. Copying outside the lock removes the bulk high-IRQL critical section; source bounds still do not establish deadline compliance. Run Driver Verifier, HVCI checks, relevant audio HLK tests, and the required signing/certification process. These are release gates, not claims satisfied by a successful build.
+
+Build outputs use `ReLink.sys`, `ReLink.inf` and `ReLink.cat`. Both builders
+accept `RELINK_OUTPUT` (with `RAVELINK_OUTPUT` as a fallback); an explicit
+PowerShell `-OutputDirectory` takes precedence. The installed `RaveLinkAudio`
+service and `Root\RaveLinkAudio` hardware identity remain stable.

@@ -1,0 +1,873 @@
+{
+  "schema": 1,
+  "verified_at_utc": "2026-10-26T02:05:35.694196+00:00",
+  "baseline_commit": "6426049994cda4ef9ffce8c02339552ce6218f5d",
+  "kind": "Source-folder/package rename and local build checks; not installed runtime qualification",
+  "source_files": {
+    ".github/workflows/rust-hal.yml": {
+      "bytes": 5293,
+      "sha256": "47b932461cb6dd02e6a55780ceb9372c36308153edc9578951c6ea8be2ed576e"
+    },
+    ".github/workflows/rust-multioutput.yml": {
+      "bytes": 3321,
+      "sha256": "09dc36427cd1f6ff0d33dc89bac9d699f8a63638d7c944038880f24fd6fbbc42"
+    },
+    ".github/workflows/rust-windows-driver.yml": {
+      "bytes": 1677,
+      "sha256": "e06cdad20a6b21dbe945e333c9dd304735c1507c821bed8b041c75f88c786202"
+    },
+    ".github/workflows/rust.yml": {
+      "bytes": 2623,
+      "sha256": "eac71a3503357fcb86739367a764f6c4c0f6f61bbc006a114dd876834de47beb"
+    },
+    "Cargo.lock": {
+      "bytes": 101715,
+      "sha256": "cd2c91dbc8cd25a0e10a2ee096be68e68bb06c0eb606bfcb8343c9c5f13fc6a4"
+    },
+    "Cargo.toml": {
+      "bytes": 615,
+      "sha256": "114ada6cd770ece5f1600b0bea2cb3810d275cea5a3458d7389cb8a034049718"
+    },
+    "README.md": {
+      "bytes": 9806,
+      "sha256": "85db403bf5fe703b14d0912b552db39cac60ce714ada5d8dccecddab439cc09c"
+    },
+    "crates/relink-app/Cargo.toml": {
+      "bytes": 739,
+      "sha256": "1c20847f3ea26330c17e0db8d5d7f860d02498e4e8d765b03885480bfe91e1e5"
+    },
+    "crates/relink-app/build.rs": {
+      "bytes": 614,
+      "sha256": "64c71a5f4b92e5e90a65b9d06507880bdaeaf8fc87bc5dc51718460ef0486d11"
+    },
+    "crates/relink-app/src/audio_ui.rs": {
+      "bytes": 18539,
+      "sha256": "183355f3a3de7b8834995580a1f50fb1125bc7da3efe3956fc8be461e4be647a"
+    },
+    "crates/relink-app/src/effects.rs": {
+      "bytes": 5600,
+      "sha256": "5195cd51cf02f30ce530b9133ecfc3140b38d792dc6c62eec7807f660688f799"
+    },
+    "crates/relink-app/src/main.rs": {
+      "bytes": 55262,
+      "sha256": "75d0df56ec9782a7e984d18983992fcf7481b096b126546c875c01ed40f220e8"
+    },
+    "crates/relink-app/src/routing.rs": {
+      "bytes": 5993,
+      "sha256": "d7781a5b1251a77ba58796cf3f1d8d9a3c2337bd48c8f6978994e407aabcd83c"
+    },
+    "crates/relink-app/src/store.rs": {
+      "bytes": 12409,
+      "sha256": "c938e034bbd33a20f355a9faf0bbc74c429da653e76e03628dde8692a9a3c4bc"
+    },
+    "crates/relink-audio/CAPTURE-OWNER-LIFECYCLE.md": {
+      "bytes": 5436,
+      "sha256": "401fd346b8e2ce46855f49f60c956e19ce69f2cd0fc47b0eaac84003cb06396e"
+    },
+    "crates/relink-audio/CAPTURE.md": {
+      "bytes": 14028,
+      "sha256": "a16c53fdd353ee53bc63aaf7fb09b53f5789d52c7d45f668a9ef8bc9bb7f20e1"
+    },
+    "crates/relink-audio/Cargo.toml": {
+      "bytes": 1104,
+      "sha256": "f03b47e549cb18872e2d19532260e2110807c4bb1e69c036aeb150287b533b45"
+    },
+    "crates/relink-audio/FANOUT-TRANSPORT.md": {
+      "bytes": 8262,
+      "sha256": "a942149cfbf7ba97f3967d6c377018e34495e4ce38880d8d1fe21e0ef45193e2"
+    },
+    "crates/relink-audio/FAULT-ATTRIBUTION.md": {
+      "bytes": 5993,
+      "sha256": "ae09f8abffe8537abdb62317972a39d66fe23bc240b71a2a8d52716999ebf281"
+    },
+    "crates/relink-audio/MULTI-OUTPUT-ACCEPTANCE.md": {
+      "bytes": 12776,
+      "sha256": "51907d3fbd032ed5439b09d6dbc8cd16da18a59f15b1d8c8f261da5ef2b75702"
+    },
+    "crates/relink-audio/MULTI-OUTPUT-DESIGN.md": {
+      "bytes": 11309,
+      "sha256": "c561de0c8c2e99e5899717e3658fc654dcb3fe6ca1c68989b82612f40246c549"
+    },
+    "crates/relink-audio/MULTI-OUTPUT-RUNTIME.md": {
+      "bytes": 9357,
+      "sha256": "a840841f8c59c5b99f00deefc94667a496c241dff43cde180181d07b71bc6608"
+    },
+    "crates/relink-audio/NATIVE-CAPTURE-VALIDATION.md": {
+      "bytes": 4639,
+      "sha256": "b9ae8bda511e00cee0a113d769fc54c59ddba7e658e6b362f880b2c514d0d42c"
+    },
+    "crates/relink-audio/NATIVE-OUTPUT-PCM.md": {
+      "bytes": 4827,
+      "sha256": "1efa2d83b83b49fd6f406968a01e19e87237564508042a807ee93141feab0adf"
+    },
+    "crates/relink-audio/NATIVE-OUTPUT-VALIDATION.md": {
+      "bytes": 7833,
+      "sha256": "eeea309da4a6070c4cecf5735d2a8b5bbf9504d2bd5e4edc65021be7b826c43a"
+    },
+    "crates/relink-audio/NATIVE-OUTPUT.md": {
+      "bytes": 8108,
+      "sha256": "381f2103ce503c9e5ccc0b56ae42b15163266abe1ee81b7b76b8509b39d9d797"
+    },
+    "crates/relink-audio/OUTPUT-OWNERSHIP-DESIGN.md": {
+      "bytes": 12499,
+      "sha256": "cae3f94ba3a77b8abac3f07550ed2ecf9aa6f72850c132a8324aaea3a4dfa98a"
+    },
+    "crates/relink-audio/OUTPUT-SINK.md": {
+      "bytes": 2926,
+      "sha256": "7759f66b49932806d4bf9e9d751204b762cc2efe2d27e8e6dc80c00d1e7d209e"
+    },
+    "crates/relink-audio/WASAPI-OUTPUT-OWNER.md": {
+      "bytes": 6059,
+      "sha256": "a5700267580be14cffa746b6148c2a817606566b1dd68a5f7c6d67b5a594dfb6"
+    },
+    "crates/relink-audio/WASAPI-RENDER-PACKET.md": {
+      "bytes": 5867,
+      "sha256": "56161bd04a2fb19baff176e09004822872ba04264c50afeb618864a5a1b8842c"
+    },
+    "crates/relink-audio/examples/runtime-capture-probe.rs": {
+      "bytes": 58029,
+      "sha256": "7c4edc79d8cf423e374020e4f9bd37f496800d0c84011c78ab85ccda91d9f39d"
+    },
+    "crates/relink-audio/examples/runtime-multioutput-probe.rs": {
+      "bytes": 40000,
+      "sha256": "a5b0e51d45cf0828239efc3cba2cec7c1a31456b67a28046f7aef081b813671c"
+    },
+    "crates/relink-audio/src/capture.rs": {
+      "bytes": 15477,
+      "sha256": "bdc4d49d2cdfd47a750942d11cc1f3cf3cef783ff673cae48bc5ac575a69c82b"
+    },
+    "crates/relink-audio/src/capture_tests.rs": {
+      "bytes": 14671,
+      "sha256": "6c9b022d7440a66b400f9df7e7909995b3d83fd7892eda66357f5d3d2b785936"
+    },
+    "crates/relink-audio/src/capture_transport.rs": {
+      "bytes": 12442,
+      "sha256": "4b433f61eeb1fee24bd99d68b365fdf9571140ee91d233305773e87aa58ee09d"
+    },
+    "crates/relink-audio/src/control_bank.rs": {
+      "bytes": 5107,
+      "sha256": "ee2ed0cd46bdd64fde9c501289020e5307dd1b3606220e86c0ce18f8346d64d9"
+    },
+    "crates/relink-audio/src/epoch_gate.rs": {
+      "bytes": 2052,
+      "sha256": "d5910fe13f486f00c63705564b75cafab0c886361f82bd671e937cd841cbe511"
+    },
+    "crates/relink-audio/src/fanout.rs": {
+      "bytes": 16950,
+      "sha256": "42c449ac97b7891112e73da4d6f2feb483f6c1512f951091ebccfd6229a85375"
+    },
+    "crates/relink-audio/src/fanout_tests.rs": {
+      "bytes": 21875,
+      "sha256": "fa76fb0dad89e5529c588751ed9b1ac2544dafe61bf86a84001ab67e3fad75ca"
+    },
+    "crates/relink-audio/src/fault.rs": {
+      "bytes": 9666,
+      "sha256": "bcd8cb4e5b7989bb2c8e6f62d337880fd6e73497579c8de6c74952756629509e"
+    },
+    "crates/relink-audio/src/fault_tests.rs": {
+      "bytes": 5081,
+      "sha256": "194eeb905f057cf5eda291914a129eba70d160488307d106800c2e430be7e31f"
+    },
+    "crates/relink-audio/src/lib.rs": {
+      "bytes": 63762,
+      "sha256": "2c8331c051a15112a23ca9cf2178bfb14618fac54fead7743ef02bab6310469f"
+    },
+    "crates/relink-audio/src/multioutput_tests.rs": {
+      "bytes": 23816,
+      "sha256": "9c30d5ecdf0163abcbe40e3e05e0cc5c7ff4bb4190e9c5c8c204c8a4aacc2f09"
+    },
+    "crates/relink-audio/src/native_capture.rs": {
+      "bytes": 45051,
+      "sha256": "5345f722034067f3b33cf2ea0b2927039cb1f75079cc25bc60eb51cc655783b8"
+    },
+    "crates/relink-audio/src/native_capture_tests.rs": {
+      "bytes": 26627,
+      "sha256": "cf27566d3dfe05317b96c0474876b033e144f80871296b4955739a7b4758cd34"
+    },
+    "crates/relink-audio/src/native_output.rs": {
+      "bytes": 50334,
+      "sha256": "4b8ad8e2adfa07312c388bc7f40dc1493e1a279667de616beb82cf88c42e1147"
+    },
+    "crates/relink-audio/src/native_output_packet.rs": {
+      "bytes": 9373,
+      "sha256": "011806ff694a6eb235d1340a26ef6ab46e100bd0f086fc2f3c37c7a9f8779419"
+    },
+    "crates/relink-audio/src/native_output_packet_tests.rs": {
+      "bytes": 18602,
+      "sha256": "97ae0f1c616791494c3116b78ffb3f2245d528af375bc13a5207d83250159269"
+    },
+    "crates/relink-audio/src/native_output_tests.rs": {
+      "bytes": 21685,
+      "sha256": "67cd7fef86db7232b0aa38fc8e14e2a96d435f56ca811b6dae0138b9f6957c8d"
+    },
+    "crates/relink-audio/src/native_output_timing.rs": {
+      "bytes": 16423,
+      "sha256": "3a01806b4d6cc361605449c26c2a31da3942c65a5d613a217b665b5cdf0bf4b1"
+    },
+    "crates/relink-audio/src/native_output_timing_tests.rs": {
+      "bytes": 7775,
+      "sha256": "74cfebdf8220b65b0d8163b43bdec42a31986bef07fd1f94b83bdb77e3735abf"
+    },
+    "crates/relink-audio/src/native_packet.rs": {
+      "bytes": 20098,
+      "sha256": "21e1d258ced03267c91772c93f10726b212454950d1cdf87b551e539e3c0d5a4"
+    },
+    "crates/relink-audio/src/native_packet_tests.rs": {
+      "bytes": 12474,
+      "sha256": "025709ace31e8a6bf74ee978588f08c31acfbeaab0504540f190dc9c96732969"
+    },
+    "crates/relink-audio/src/native_timing.rs": {
+      "bytes": 3371,
+      "sha256": "f482abf64838e4ec5af167be4437bb5b7f3e8a0eaf34b234cbe178c9e279ac46"
+    },
+    "crates/relink-audio/src/output.rs": {
+      "bytes": 8728,
+      "sha256": "7df5009fa510ebd5022a144b97cd2b422b29e6817182809f126e8acf34016816"
+    },
+    "crates/relink-audio/src/output_plan.rs": {
+      "bytes": 13084,
+      "sha256": "563388fbbd21a461f8ba140006e7e2216ef5ae34baabd0932a1ac603bef078bf"
+    },
+    "crates/relink-audio/src/output_progress.rs": {
+      "bytes": 10143,
+      "sha256": "771931aca98372c4058052c328c04a80d129abd4162e228a7e5d859513bf7e5f"
+    },
+    "crates/relink-audio/src/output_render.rs": {
+      "bytes": 13342,
+      "sha256": "4a5f0ab891c55ddb1abd176abde68f085a7ee42b18b7bcc0bdf510663f6ffaf2"
+    },
+    "crates/relink-audio/src/output_sink.rs": {
+      "bytes": 2526,
+      "sha256": "da0a1dbd0112dcf647b48446b11bf22aff309a2ee02beb72610e65e0b32ab7a1"
+    },
+    "crates/relink-audio/src/output_sink_tests.rs": {
+      "bytes": 5832,
+      "sha256": "a4b014161f84579e3bd7f0de444edb734ec0cc4e567d431b7a216e92356935cc"
+    },
+    "crates/relink-audio/src/output_startup.rs": {
+      "bytes": 3743,
+      "sha256": "72c5fe978ed8eae4e6862efe24d8531607e7e212fcf201d7fa9ad0a73600f9b0"
+    },
+    "crates/relink-audio/src/output_startup_tests.rs": {
+      "bytes": 10851,
+      "sha256": "2a8f5a44223d78e691416c7399f3bbc270d3922e4890050d821bcd46da8d343a"
+    },
+    "crates/relink-audio/src/tests.rs": {
+      "bytes": 23390,
+      "sha256": "0222278b446d523cf79f6d2b609897df2913485d85adf19eeef47c55d71ade3b"
+    },
+    "crates/relink-audio/src/wasapi_capture.rs": {
+      "bytes": 20967,
+      "sha256": "b43f6caa1ade604e7c11ad4aebc9f14ca297cf9da17a56b163758bac8e99c0b1"
+    },
+    "crates/relink-audio/src/wasapi_output.rs": {
+      "bytes": 33517,
+      "sha256": "fa91a5a6c06566fb2c145efc7cad8f0bed412f1b61682e91dee4aafa8b3787a3"
+    },
+    "crates/relink-audio/src/wasapi_output_state.rs": {
+      "bytes": 15018,
+      "sha256": "3790a9f6f80bbf5932336fdba28150e0fbddcffd0a03aabd3dbf99fd4b0d1a4a"
+    },
+    "crates/relink-audio/src/wasapi_output_state_tests.rs": {
+      "bytes": 11461,
+      "sha256": "6abdc23545356c657cf34f16405807f41e60377457e440cec2709809a9e1be51"
+    },
+    "crates/relink-audio/src/wasapi_packet.rs": {
+      "bytes": 13942,
+      "sha256": "03fec9526ecd17ca87b78b7ee1405ed23dbe87a99375789163f20b7c4294cb1a"
+    },
+    "crates/relink-audio/src/wasapi_render_packet.rs": {
+      "bytes": 8919,
+      "sha256": "fad18cf767ac74660fcd23c383d447a667726acd3c86845de26695c66f21174f"
+    },
+    "crates/relink-audio/src/wasapi_render_packet_tests.rs": {
+      "bytes": 17487,
+      "sha256": "b9095a42bcaf5076a1495c70ca04313c23a704020fa0221f7c739fa2aa7f9c06"
+    },
+    "crates/relink-core/BUS-ACCESS.md": {
+      "bytes": 3523,
+      "sha256": "7091b1b3203c1eebfd162d501dbabd1a55184b692e1d4174baf61fa3402fe9d5"
+    },
+    "crates/relink-core/Cargo.toml": {
+      "bytes": 338,
+      "sha256": "a34099952c59014c3c577621f57e24f20e80f776fe3d16f5192fc1ab90d7f97f"
+    },
+    "crates/relink-core/SMOOTHING.md": {
+      "bytes": 3129,
+      "sha256": "20e2f940ba07ea9dba751cedca0365f858895393645c46222d36401030aa8e92"
+    },
+    "crates/relink-core/src/controls.rs": {
+      "bytes": 4312,
+      "sha256": "43912fcb608db2c624cfd93113ee2d06da495b41a3e34877eceb3eaf8ad28d7b"
+    },
+    "crates/relink-core/src/dsp.rs": {
+      "bytes": 5717,
+      "sha256": "bb1bb833c58cbbdc942d474db5e31501cb570d4690eff8e37979f094c1a6d87b"
+    },
+    "crates/relink-core/src/lib.rs": {
+      "bytes": 1233,
+      "sha256": "cdbed287b40df0a5cb1524b407969da445ffcb706c77af4f433ce4847a1cf7ef"
+    },
+    "crates/relink-core/src/mixer.rs": {
+      "bytes": 24397,
+      "sha256": "614fab9f68d6dc9e03326629233417e7ad115c5d8b63b703c27205436c44915c"
+    },
+    "crates/relink-core/src/session.rs": {
+      "bytes": 17794,
+      "sha256": "fb62dcdb68992b3915bc5078fef28a697bb25a66af4c72f09b92866b2347e158"
+    },
+    "crates/relink-core/src/smoothing.rs": {
+      "bytes": 2091,
+      "sha256": "2789936bfd454b47efcff13eab42ad7b3d3d24efba0afc3c067ec46dc04353e7"
+    },
+    "crates/relink-core/tests/bus_views.rs": {
+      "bytes": 12883,
+      "sha256": "081775e512e6d4fee43bd9bd4500060b26f417b7b2d1763c10329b0458aaaabe"
+    },
+    "crates/relink-core/tests/controls.rs": {
+      "bytes": 5335,
+      "sha256": "a643caf83ef933d464213efb60215f860791390f27e22e2ff2755109ac32c95b"
+    },
+    "crates/relink-core/tests/engine.rs": {
+      "bytes": 20508,
+      "sha256": "743d9887c8e79c03c5face343f5ebd978b72e9d1c3556fca2a1e564ea7458e44"
+    },
+    "crates/relink-core/tests/smoothing.rs": {
+      "bytes": 15834,
+      "sha256": "75b8bd68eed2d2afb2c5e71a79b0da4b46c0b81c5e2a58d2bbc8f3b8fe336872"
+    },
+    "crates/relink-hal/Cargo.toml": {
+      "bytes": 259,
+      "sha256": "73e4cd5c195465c2103753fa6a4498c1f4b984b744f8b0751ba51437808f3f72"
+    },
+    "crates/relink-hal/src/abi.rs": {
+      "bytes": 7372,
+      "sha256": "b075c915e8c0ef933c092a98ae52a329cc04a0fa506aaff136d942d19bf2e43b"
+    },
+    "crates/relink-hal/src/device.rs": {
+      "bytes": 5678,
+      "sha256": "f6b2148e0139c9bbe33d9865e4a97aebb53bf9485d1e9b2360172b91522f8d38"
+    },
+    "crates/relink-hal/src/lib.rs": {
+      "bytes": 10786,
+      "sha256": "b8e803dcff5ca36142934fb818129414d4a52824f1d004d3358008985e31c846"
+    },
+    "crates/relink-hal/src/properties.rs": {
+      "bytes": 12588,
+      "sha256": "59cc314e5bed24896108b3e606ae5e6c55e9260fd1545d2fdeecc57c19340ab0"
+    },
+    "crates/relink-hal/src/ring.rs": {
+      "bytes": 3729,
+      "sha256": "f2c439320118db8c2b3a6884b1c63e6af312341340b338310b8aef8fbaad14b6"
+    },
+    "crates/relink-hal/src/tests.rs": {
+      "bytes": 16011,
+      "sha256": "044611698add49635db2123f6acad951453ad067650c5eeb53663e565f4b658f"
+    },
+    "crates/relink-windows-driver/.gitignore": {
+      "bytes": 9,
+      "sha256": "306fd52e74fca6746e12acc750f232de15e71da917756a1270d74c91f5eb7368"
+    },
+    "crates/relink-windows-driver/Cargo.lock": {
+      "bytes": 165,
+      "sha256": "9cd9eec758de49546aa295fdab02084d78cea43639ab2213a7385902ab6f9f9f"
+    },
+    "crates/relink-windows-driver/Cargo.toml": {
+      "bytes": 373,
+      "sha256": "aff30fc6df18006f82dba33f5292179368cac72a95d235d0b46246942b261aea"
+    },
+    "crates/relink-windows-driver/build.rs": {
+      "bytes": 1091,
+      "sha256": "f172e9eed4e80390f82f4a4dd9fc03545486ed4f28c34b00f5c624cb7a45e914"
+    },
+    "crates/relink-windows-driver/src/abi.rs": {
+      "bytes": 27289,
+      "sha256": "f22a24144a528c7ad2c65b913ac993faf64b96df9317a0250b21911633c37875"
+    },
+    "crates/relink-windows-driver/src/descriptors.rs": {
+      "bytes": 16925,
+      "sha256": "6bffcbf4d2bd6dff9330fb30965c644e59daf873d3668f5f8341777f402c4f33"
+    },
+    "crates/relink-windows-driver/src/kernel.rs": {
+      "bytes": 36493,
+      "sha256": "e4d9244a12d5521eaf1abfcb12d1661a4c3f93e6522df07421f0a9f55e17586f"
+    },
+    "crates/relink-windows-driver/src/kernel_tests.rs": {
+      "bytes": 30128,
+      "sha256": "97063cacd037dc75b07fd7ac7c703397b54beec3bf679ac46211f9cb9f1c7093"
+    },
+    "crates/relink-windows-driver/src/lib.rs": {
+      "bytes": 436,
+      "sha256": "4b3a919474be00232af330a9159fd0b6f3eb988f4a25f9fb9de99ec9259638f7"
+    },
+    "crates/relink-windows-driver/src/transport.rs": {
+      "bytes": 4549,
+      "sha256": "20cb0fd339c95386e14c5f5100a5ce8db20d4407225d01f1ef41ea1995c5e4a0"
+    },
+    "docs/naming.md": {
+      "bytes": 1470,
+      "sha256": "ac7ec8984fd443af5d4079b029181874ac5cb338f598d97ff1f5319b4167307b"
+    },
+    "drivers/macos/Info.plist": {
+      "bytes": 1140,
+      "sha256": "80c7d9a262d07b13ff36636fcdab76e5cd92c44bc3df6e6756eaf267ba107e97"
+    },
+    "drivers/macos/README.md": {
+      "bytes": 4934,
+      "sha256": "d4a440862606a1c7c1e64f824593cfe7eec0a2a11c3a4b8d7392a85402601085"
+    },
+    "drivers/macos/build-bundle.sh": {
+      "bytes": 1657,
+      "sha256": "d3a9dc20fb7ece19f2ee58af6a55839d0adac2997ce36236649ebc9e30c91459"
+    },
+    "drivers/macos/tests/RUNTIME-ACCEPTANCE.md": {
+      "bytes": 7328,
+      "sha256": "d64bee1c7f6084de2134503c72b531a2e6289ea609db8fb5128ca34940a9bae2"
+    },
+    "drivers/macos/tests/SYSTEM-ACCEPTANCE.md": {
+      "bytes": 9031,
+      "sha256": "1389a00710dafacdb0c8c1250e594cb6c41c044ec5f536a22aabb01a45a18f83"
+    },
+    "drivers/macos/tests/native-host.c": {
+      "bytes": 12420,
+      "sha256": "4fd6e17a497cb0af385a632fc8d8e0367c8a8fd89386c2ef8027375bf9a3e3e6"
+    },
+    "drivers/macos/tests/run-native-host.sh": {
+      "bytes": 541,
+      "sha256": "13acd00a0f54a2592c7eb471393a213dc77d27fe087db173bb92491831313121"
+    },
+    "drivers/macos/tests/run_multioutput.py": {
+      "bytes": 7184,
+      "sha256": "8c67d93f57ac363929b527961e0e210b9ab5fe5168850feae1f156724536f35a"
+    },
+    "drivers/macos/tests/run_runtime.py": {
+      "bytes": 5860,
+      "sha256": "b71f769defc61beffc5c9875181d1b57c10858b1f357266eec388237afe18c06"
+    },
+    "drivers/macos/tests/run_system.py": {
+      "bytes": 21702,
+      "sha256": "a2267be06fb6082baa7b8ea2e4a2dab075fa252c8277495193aad86f20c4fea4"
+    },
+    "drivers/macos/tests/test_system.py": {
+      "bytes": 12355,
+      "sha256": "2792e91a1adc518f41334322494de9b25d5aa77cc4e4d1f664cef2acaa0aa278"
+    },
+    "drivers/windows/README.md": {
+      "bytes": 6604,
+      "sha256": "e3a8fb8f990318e3442ce075bed5a9d3735c6a826548f93518c53d4d6a9070d1"
+    },
+    "drivers/windows/ReLink.inf": {
+      "bytes": 1901,
+      "sha256": "0e44e79d521464809c43e6b1149c59a7096285080f183219d3400395f2bd33ab"
+    },
+    "drivers/windows/build.ps1": {
+      "bytes": 7578,
+      "sha256": "b01cf478a9d09752ca242dda7ba3c0fbc9b0627a6f9a7be76a0444c0a8cf9a91"
+    },
+    "drivers/windows/cross-build.sh": {
+      "bytes": 2517,
+      "sha256": "bab9c7e3974d499ccda6e17b18b62f890e66606de70c7ae912b80a4fb4df2656"
+    },
+    "drivers/windows/runtime-notices.py": {
+      "bytes": 2753,
+      "sha256": "17478882d7b4a8d23ccc9ef1d4711c5ebf8f559c631c464c60d9e342cb943864"
+    },
+    "legacy/Package.swift": {
+      "bytes": 1878,
+      "sha256": "83a5d877c46f7b9589e490c09535002714cf31dd49e34ba5e42a383a572d0710"
+    },
+    "legacy/README.md": {
+      "bytes": 3648,
+      "sha256": "924c2ea5cff5bd7934f1074661a066ba131885723e828bba54203a9810f2d5b7"
+    },
+    "legacy/Sources/ReLinkApp/AudioUnitRackView.swift": {
+      "bytes": 11444,
+      "sha256": "cd89cb81472105f7f0fdef53f5827bec4e8cf7f18115a501a93b357d71f501f5"
+    },
+    "legacy/Sources/ReLinkApp/EngineDiagnosticsView.swift": {
+      "bytes": 2649,
+      "sha256": "8a6459a852e90298d7917bcc651dff23c46b8317efe66661345f67b99b762fb1"
+    },
+    "legacy/Sources/ReLinkApp/RaveLinkApp.swift": {
+      "bytes": 1654,
+      "sha256": "2fd08fd31e1bf18d95571d260811f1c58c245569b2e2abcd44c6c2a5c917286d"
+    },
+    "legacy/Sources/ReLinkApp/SoundCheckView.swift": {
+      "bytes": 8416,
+      "sha256": "e76d14e4f5e716c692438c63d47e74b12bd514f3601349829f6ee2f8ea72ede2"
+    },
+    "legacy/Sources/ReLinkApp/SourceSheets.swift": {
+      "bytes": 10770,
+      "sha256": "c0fc927414788648af7496efd9e4db1212b5711e02bba909cae0c90b5a1ab9a8"
+    },
+    "legacy/Sources/ReLinkApp/StudioIndex.swift": {
+      "bytes": 1391,
+      "sha256": "09058da52cd8723bd7abb55b2bd91cc9547d672ab81f0e89551b8484b6a9a09a"
+    },
+    "legacy/Sources/ReLinkApp/StudioModel.swift": {
+      "bytes": 13746,
+      "sha256": "c119a9edd7c2ee4f74b4312e7754f33f2f5b0810e91f8c157635275b450b2e49"
+    },
+    "legacy/Sources/ReLinkApp/StudioView.swift": {
+      "bytes": 24398,
+      "sha256": "4398fe60af92c6119e531821171c5378ee7ef981c02fcd11b74dea41995f8564"
+    },
+    "legacy/Sources/ReLinkAudio/ApplicationIdentity.swift": {
+      "bytes": 3267,
+      "sha256": "a923ec21852b18fcba52a3309b1a91bb344f879662e40ba54c730ea3c13d528f"
+    },
+    "legacy/Sources/ReLinkAudio/ApplicationMembership.swift": {
+      "bytes": 2170,
+      "sha256": "a249f86ff80e1564175120bbe339272b80eee26490cfe2bba253a561834bc485"
+    },
+    "legacy/Sources/ReLinkAudio/AudioAllocationBudget.swift": {
+      "bytes": 2786,
+      "sha256": "02d1798550351534dc05f1926f4cda23c681e5d75c07238821330182052357a2"
+    },
+    "legacy/Sources/ReLinkAudio/AudioCoordinator.swift": {
+      "bytes": 61619,
+      "sha256": "ab166371ac4baa18c2763e26f07e180ada5c196de258569b27d7a3a9b67c897f"
+    },
+    "legacy/Sources/ReLinkAudio/AudioPowerObserver.swift": {
+      "bytes": 763,
+      "sha256": "d614ffd9e6871320f2272cc9a684ee9f857172a61f741469daafd6f13bcf362c"
+    },
+    "legacy/Sources/ReLinkAudio/AudioStreamValidation.swift": {
+      "bytes": 1180,
+      "sha256": "16bf4186dc8c75a4c04d952a67051b67faa0ce5729f0413ad5e76817c10b52e7"
+    },
+    "legacy/Sources/ReLinkAudio/CaptureSourcePlan.swift": {
+      "bytes": 965,
+      "sha256": "59b3b6d1f99d4e696fc074d2ec311e74e2a6ca9a7a2f0fe447bf9437ba5eeac9"
+    },
+    "legacy/Sources/ReLinkAudio/DeviceCaptureProgressMonitor.swift": {
+      "bytes": 901,
+      "sha256": "34e01f6afd9839991e062c535b6c2afea4a1952ea775003ed500f6dc68bbf64d"
+    },
+    "legacy/Sources/ReLinkAudio/EngineClient.swift": {
+      "bytes": 24137,
+      "sha256": "dd526bdfcf606812e64ad508176b6af5d6f45cdf1c7e0adceab05fce7138d206"
+    },
+    "legacy/Sources/ReLinkAudio/EngineProtocol.swift": {
+      "bytes": 8207,
+      "sha256": "02d784ee384dc58f21ff4d19c05126d6f2d2e739d4c6fd2880fa999e8dabd8f3"
+    },
+    "legacy/Sources/ReLinkAudio/FeedbackValidation.swift": {
+      "bytes": 1858,
+      "sha256": "30aa5c52b8d3755c17426a41f01a19639130f562c6f03b4a1333817ff4cc7cfa"
+    },
+    "legacy/Sources/ReLinkAudio/HardwareEventMonitor.swift": {
+      "bytes": 1562,
+      "sha256": "a0e5dac404f531fcddb3d9f6b416ef20fc527e9dfff7aba3132366869b9bcac3"
+    },
+    "legacy/Sources/ReLinkAudio/HelperResolution.swift": {
+      "bytes": 4519,
+      "sha256": "3632cc8c63de9643e50a8fc77a2284e204e36d6932ebc75b15c518446cddc68f"
+    },
+    "legacy/Sources/ReLinkAudio/LiveAudioUnitGraph.swift": {
+      "bytes": 16915,
+      "sha256": "b49ab469b984bbfff6b7fa02f828c924a106250fd3820d810ea0a3a6546e72bc"
+    },
+    "legacy/Sources/ReLinkAudio/NativeTapRestoration.swift": {
+      "bytes": 826,
+      "sha256": "94d642d6400d39d139b0871b46d6d00628cf1153a03abeb248803625cd14a34c"
+    },
+    "legacy/Sources/ReLinkAudio/PluginCatalog.swift": {
+      "bytes": 17816,
+      "sha256": "00f8b58bee7fb8a726d3265535e0bb571aea054a09ffa86d8e2e8a72d37c37db"
+    },
+    "legacy/Sources/ReLinkAudio/PluginRender.swift": {
+      "bytes": 753,
+      "sha256": "d7096f36bd9215d7d93b91f678f4259b7c4c88b5e17c5de748d9c698d17c1095"
+    },
+    "legacy/Sources/ReLinkAudio/RealtimeDeviceLimits.swift": {
+      "bytes": 934,
+      "sha256": "463f7694ad87dc9a6cdcee3ad93da81a5f13aaba08812f8640c242dc08fcd54f"
+    },
+    "legacy/Sources/ReLinkAudio/RenderProgressMonitor.swift": {
+      "bytes": 1076,
+      "sha256": "ad4781e1139ea9f4174a4ed551521f2b869c77db026899ac44797d6d8752d854"
+    },
+    "legacy/Sources/ReLinkAudio/SoundCheckSupport.swift": {
+      "bytes": 1367,
+      "sha256": "0486eabb1420a3285ba9fd994646aad375040149838ae60f4b9fbc82f6f43283"
+    },
+    "legacy/Sources/ReLinkAudio/TapRetargetTransaction.swift": {
+      "bytes": 724,
+      "sha256": "bac1116ce6c2d5a829ef83258d92cad97df9ad0a779f27be36a15655b42a8c0f"
+    },
+    "legacy/Sources/ReLinkAudioUnitBridge/AudioUnitBridge.m": {
+      "bytes": 13027,
+      "sha256": "0b14c447a44b2275d941bb6958de3490165f9cc87f2883914c740ee141233b8e"
+    },
+    "legacy/Sources/ReLinkAudioUnitBridge/include/RaveLinkAudioUnitBridge.h": {
+      "bytes": 1867,
+      "sha256": "fda80c4658dc98d344acbd1bd95d3dace0339492dddcda37a55659e057f35225"
+    },
+    "legacy/Sources/ReLinkCore/AudioUnitEffects.swift": {
+      "bytes": 2640,
+      "sha256": "0a294bfe0dc8927158b5e703679453616ef7d0d386aa7b37d876bb40a58daae7"
+    },
+    "legacy/Sources/ReLinkCore/ExpandedRouting.swift": {
+      "bytes": 10371,
+      "sha256": "9bfa16a2a588a8d76b3da2411d6469ccb4cf0c11f39750ed653ac57f4bf14b9e"
+    },
+    "legacy/Sources/ReLinkCore/Session.swift": {
+      "bytes": 7551,
+      "sha256": "77f8007ccddb713481d67412b184f82d4dd345b0a313e880b76f598fe6729654"
+    },
+    "legacy/Sources/ReLinkCore/SessionStore.swift": {
+      "bytes": 7007,
+      "sha256": "52f11cd34e8b03978877e9a0f01db2d817031f8b3329098ee3727cd8caac1938"
+    },
+    "legacy/Sources/ReLinkCore/SoundCheck.swift": {
+      "bytes": 1732,
+      "sha256": "ccfcbc3fe863d0db260e76f03abf4453290c4a1ff2a376683511447940178b0b"
+    },
+    "legacy/Sources/ReLinkEngine/EngineMain.swift": {
+      "bytes": 6257,
+      "sha256": "cf729b78d04a3873b8cc8d04f686160823464a3a9dd77c9dc1181c01c0415969"
+    },
+    "legacy/Sources/ReLinkPluginHost/Render.swift": {
+      "bytes": 10601,
+      "sha256": "f9a1de447e9c78ecc656b1dbee758bb9f58cd46fc35c3aa467c3d2068a277dce"
+    },
+    "legacy/Sources/ReLinkPluginHost/main.swift": {
+      "bytes": 11744,
+      "sha256": "73fee38d90a639560fab1c104fe99680ea35c511b84b337bdd063bdae537347b"
+    },
+    "legacy/Sources/ReLinkRealtime/Clock.c": {
+      "bytes": 3666,
+      "sha256": "d16e0d663d7524aca43c79bc3d5fc4f06b2032bbd53a5073c2c7f1a9f8a73f0e"
+    },
+    "legacy/Sources/ReLinkRealtime/Realtime.c": {
+      "bytes": 34960,
+      "sha256": "cc6eedefcb1a82422eeb1a342e5257b920ca88c97f0171dec11a96c70fb2f155"
+    },
+    "legacy/Sources/ReLinkRealtime/SoundCheck.c": {
+      "bytes": 5552,
+      "sha256": "6118a152c99901b2efe2742419454f5946ac661f4b78becd5afe696ed8f28a38"
+    },
+    "legacy/Sources/ReLinkRealtime/include/Clock.h": {
+      "bytes": 947,
+      "sha256": "25d2f4358dc026914eaf5a988eb02e0cb26322e32353cf67d506fa896a3daf39"
+    },
+    "legacy/Sources/ReLinkRealtime/include/RaveLinkRealtime.h": {
+      "bytes": 6905,
+      "sha256": "125591694651bf2c7336265cc8beba8e0a67ae28d71a7e3884d5ff63982e0bad"
+    },
+    "legacy/Sources/ReLinkRealtime/include/SoundCheck.h": {
+      "bytes": 1471,
+      "sha256": "09fb9b99cc1100c322189a5b377cf37125b733021927079e573fce788defdd64"
+    },
+    "legacy/Tests/ReLinkAppTests/SoundCheckIsolationTests.swift": {
+      "bytes": 2177,
+      "sha256": "d035754224dd6ca87a4d052afc0d18caa4700d01c6e253a4bce7c5ad988d1ac8"
+    },
+    "legacy/Tests/ReLinkAppTests/StudioIndexTests.swift": {
+      "bytes": 2422,
+      "sha256": "1fa37f5badc87e9a754a19a2d9a078c1156914894fe758f7046fcded4e1064da"
+    },
+    "legacy/Tests/ReLinkAudioTests/ApplicationMembershipTests.swift": {
+      "bytes": 6448,
+      "sha256": "1750ace84b25c09ef96bafcfaa4f6ec9abf65070eaeb6ae0924b7276dcd8fa9e"
+    },
+    "legacy/Tests/ReLinkAudioTests/AudioAllocationTests.swift": {
+      "bytes": 1308,
+      "sha256": "f7d6519e15b4629e25f02bb27379e469bf75527702d2736cfd0734221c3e74ec"
+    },
+    "legacy/Tests/ReLinkAudioTests/AudioLifecycleTests.swift": {
+      "bytes": 6191,
+      "sha256": "656936c31bafe628ea0bbe42ec48addfd99691579a97bf95ebb1b360a793725a"
+    },
+    "legacy/Tests/ReLinkAudioTests/DSPRecoveryTests.swift": {
+      "bytes": 1983,
+      "sha256": "920713c6297bcaefd07a253d6361dbfec1b16d9507996f92fd9b9922a9f204c0"
+    },
+    "legacy/Tests/ReLinkAudioTests/DeviceCaptureProgressMonitorTests.swift": {
+      "bytes": 2550,
+      "sha256": "133e1f99cca178794675373c3212cda8c0f75939ca256ccbf7e4210ee5b30de9"
+    },
+    "legacy/Tests/ReLinkAudioTests/ElasticClockTests.swift": {
+      "bytes": 3162,
+      "sha256": "b1d0bd0a98aaeb4ab5a62e7214f4da3291b31297ccbc38ce35ea3d8dfe33ea02"
+    },
+    "legacy/Tests/ReLinkAudioTests/EngineClientTests.swift": {
+      "bytes": 27332,
+      "sha256": "0eaa29ed5e5ea782b2e10f4ecebb70144430bab67ecd122586467b6f2543ac5c"
+    },
+    "legacy/Tests/ReLinkAudioTests/EnginePublicationTests.swift": {
+      "bytes": 4784,
+      "sha256": "d4d7fba7b1094354c099fac1c1388426d1e7bd0389132d725a4e59f84e33abe1"
+    },
+    "legacy/Tests/ReLinkAudioTests/FeedbackValidationTests.swift": {
+      "bytes": 1620,
+      "sha256": "65043200d0e5ae9586967ba540b4511cc863e0e24469ada2c882ced42ba2bf27"
+    },
+    "legacy/Tests/ReLinkAudioTests/GroupedRealtimeTests.swift": {
+      "bytes": 6890,
+      "sha256": "3df3c58264ef78039e161f2c497fe2e137fe074b9e65e9496887ddb1eaad490a"
+    },
+    "legacy/Tests/ReLinkAudioTests/HardwareClockTests.swift": {
+      "bytes": 10478,
+      "sha256": "e4276f4d005341acec282a24e89da8a10af8ee73caefced6c90b1490256520d6"
+    },
+    "legacy/Tests/ReLinkAudioTests/HelperResolutionTests.swift": {
+      "bytes": 7380,
+      "sha256": "0ae76fd5969191c881c0f2a8f326bb4010323d49fad996f2521c40c6ec71419e"
+    },
+    "legacy/Tests/ReLinkAudioTests/InstalledAudioUnitAcceptanceTests.swift": {
+      "bytes": 5005,
+      "sha256": "b07661c4977a2d8233756fdaa7e5aa0752def811431d0104bebbd5789fe57d27"
+    },
+    "legacy/Tests/ReLinkAudioTests/InstalledDeviceSoakTests.swift": {
+      "bytes": 7009,
+      "sha256": "7ea67b07b52e2fcc3a3a64552dee989fa265f3d0bf798db5dca4fd67d2628ba7"
+    },
+    "legacy/Tests/ReLinkAudioTests/InstalledMatrixTests.swift": {
+      "bytes": 4664,
+      "sha256": "5c857f6b179381b87024b4b179e0818c7bd45225c80d35c6216efed5ce763989"
+    },
+    "legacy/Tests/ReLinkAudioTests/InstalledSoundCheckTests.swift": {
+      "bytes": 5166,
+      "sha256": "a7a33a4e6bda536e9f6534c3851ded797e596db8375f504e87aca117562903d7"
+    },
+    "legacy/Tests/ReLinkAudioTests/LiveAudioUnitTests.swift": {
+      "bytes": 15770,
+      "sha256": "eca7d53a127fb2e72420664e22faedeaae16a4b06a8bdf7a5cf5052e4da24a7a"
+    },
+    "legacy/Tests/ReLinkAudioTests/PluginCatalogTests.swift": {
+      "bytes": 6723,
+      "sha256": "2b8f910ae723e6eed458e9651a5e101bb4063ad883e6fd4fef0bab92b554fbde"
+    },
+    "legacy/Tests/ReLinkAudioTests/PluginRenderTests.swift": {
+      "bytes": 6249,
+      "sha256": "35ae6b2aa7eff263c3c65cdefe365804965b773fc8f375b8a06e30938130547c"
+    },
+    "legacy/Tests/ReLinkAudioTests/RealtimeTests.swift": {
+      "bytes": 17859,
+      "sha256": "b6c26aa675c1911ff0fc9d5266bb82e6ba589961117f7722211fdce37ef267a1"
+    },
+    "legacy/Tests/ReLinkAudioTests/RenderProgressMonitorTests.swift": {
+      "bytes": 1381,
+      "sha256": "9070d9f07796d82d9fc457d423d8b818106dde54f95ec88c37a7c7b921460c1e"
+    },
+    "legacy/Tests/ReLinkAudioTests/SoundCheckBufferTests.swift": {
+      "bytes": 5687,
+      "sha256": "eadd206bd84cb5ac1eff59edeb26bd52a9ef1af43618a7dd54de9d0dbf783460"
+    },
+    "legacy/Tests/ReLinkAudioTests/SoundCheckRoutingTests.swift": {
+      "bytes": 5216,
+      "sha256": "4c3376be13f3b1a7335471d697e6d9fbe1065693124a9494a86d60e84b37d32c"
+    },
+    "legacy/Tests/ReLinkAudioTests/SourceAliasTests.swift": {
+      "bytes": 8383,
+      "sha256": "7cf579440d1205981e30bc334da5a68dce798308ddf14fe791ba4e731bc4ce83"
+    },
+    "legacy/Tests/ReLinkAudioTests/ThirdPartyAudioUnitTests.swift": {
+      "bytes": 4576,
+      "sha256": "ea6ad9adb16c98421a3f52b0c7b3c0ae856b328f563b492e638152661e4d17dd"
+    },
+    "legacy/Tests/ReLinkCoreTests/AudioUnitSessionTests.swift": {
+      "bytes": 2935,
+      "sha256": "c9ef65dc941806f4cf8930fb77fc498e37df9fd93330e6fcde99ee0f6bdf1722"
+    },
+    "legacy/Tests/ReLinkCoreTests/ExpandedRoutingTests.swift": {
+      "bytes": 9902,
+      "sha256": "ad99992fbcc1cca3da8d2a3c80af39acd7de339ddb0150b673754b854e42f895"
+    },
+    "legacy/Tests/ReLinkCoreTests/ReviewTests.swift": {
+      "bytes": 5903,
+      "sha256": "ecebfa13205122b4df17164b6bba81a46d3c415ebf531486dd0c7eedc18546d6"
+    },
+    "legacy/Tests/ReLinkCoreTests/SessionTests.swift": {
+      "bytes": 2714,
+      "sha256": "0db6935b76e8f41e5e20499d5dd53c0bbdbe06eeb802271d3f511180f52820a1"
+    },
+    "legacy/Tests/ReLinkCoreTests/SoundCheckSessionTests.swift": {
+      "bytes": 1652,
+      "sha256": "6129a2f8f2ad336ba4779ae220885c5ff58a0644183dd5b6104895042fc52f23"
+    },
+    "legacy/Tests/ReLinkCoreTests/SourceIdentityAndOrderTests.swift": {
+      "bytes": 3581,
+      "sha256": "f8766c508fd96a594daae47178943cf6616de9f0e639311422ed0053ad83bfa2"
+    },
+    "legacy/docs/elastic-clock-controller.md": {
+      "bytes": 10563,
+      "sha256": "999359ac7f2815ffd23b5b206d9d441d6f4fade7e32279b27afee79a6b8fe235"
+    },
+    "packaging/branding/README.md": {
+      "bytes": 1014,
+      "sha256": "3e8f563bfd8337147a04de90bdf7be43d6a2b40e5d29aee840a043442395df69"
+    },
+    "packaging/branding/relink-256.png": {
+      "bytes": 7875,
+      "sha256": "2684071ed1c315fb16bc63a771331ff16fcdfd0d33c75d53003c73df6caf4198"
+    },
+    "packaging/branding/relink.icns": {
+      "bytes": 79329,
+      "sha256": "8139a60320ac879f2dd36dfccce5672d86000740ee3ddba9b31ca2c3f0389ec9"
+    },
+    "packaging/branding/relink.ico": {
+      "bytes": 19448,
+      "sha256": "73acb7848b948fd5f9a36ef4f7f0193e7742334058e666a334f5fcfa4595f122"
+    },
+    "packaging/branding/relink.png": {
+      "bytes": 34168,
+      "sha256": "1765e282640affab5d2e3e6173c41078bb3730efb8031341e65df81d5a0632df"
+    },
+    "packaging/branding/relink.res": {
+      "bytes": 19736,
+      "sha256": "4a173b83966f63007f976a6e1f1cecba604ec3541fb7da5548b83ac4ff4fd9c1"
+    },
+    "packaging/branding/relink.svg": {
+      "bytes": 602,
+      "sha256": "864c5728a8734a1a83d2ab81d8e1d68903a27b45dd165522b0fc2d491b7eb164"
+    },
+    "packaging/macos/Info.plist": {
+      "bytes": 1026,
+      "sha256": "fd61bde53ad6f3d00fef0c771ce0d004403392f55a60a9d4d7b09888a88b8968"
+    },
+    "scripts/audit-dependencies-yanks.py": {
+      "bytes": 21295,
+      "sha256": "60cea9f5d024852d4089675cfcdf6986b3aefb2dea10af0b5304b769fc7f4b5f"
+    },
+    "scripts/audit-dependencies.py": {
+      "bytes": 11441,
+      "sha256": "c3e45bc4880693347319ea54201a3142da6f5bb81d4bf4e3615ae1706d220489"
+    },
+    "scripts/build-icons.py": {
+      "bytes": 3314,
+      "sha256": "c36d3be7125c3b89b0e80813f4992f9b2d7244c46616e81545640e456667fb60"
+    },
+    "scripts/build-macos-app.sh": {
+      "bytes": 1340,
+      "sha256": "4e51b86bd57fc8abb950412e626323a321619b434f5d5b3fb5fae6e5a7b8ef51"
+    },
+    "scripts/verify-windows-icon.py": {
+      "bytes": 13007,
+      "sha256": "106d599c30c309c3a88ddaac4e8b39bc50cd963195256889b1e6e4cea24275d5"
+    }
+  },
+  "results": {
+    "workspace_tests": 261,
+    "standalone_windows_driver_tests": 9,
+    "python_observer_tests": 57,
+    "dependency_audit_controls": 13,
+    "icon_controls": 4,
+    "legacy_suite": "PASS; 156 tests reported, hardware cases skipped",
+    "strict_clippy": "PASS workspace, standalone driver, Windows audio/app cross-target",
+    "dependency_notices": "PASS, unchanged dependency graph apart from first-party package names",
+    "app": "debug build and strict ad-hoc signature PASS; only relink-app executable",
+    "hal": "synthetic Apple SDK native host PASS; fresh local package signature PASS; old payload cleanup control PASS",
+    "source_custody": "Both probes differ only by crate imports; four analyzers/native observer unchanged; all six original icon assets byte-identical; 78 archived source/test files byte-identical",
+    "no_old_source_directories": true,
+    "historical_evidence_modified": false
+  },
+  "installed_audio_executed": false,
+  "limitations": [
+    "No Windows native package build in this local check; CI follows the source push.",
+    "No installed upgrade, permission, driver loading, or multi-output audio qualification inferred.",
+    "Existing data path, bundle/device IDs, factory ABI and Windows hardware/service IDs retained."
+  ]
+}

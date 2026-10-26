@@ -1,0 +1,5 @@
+    Checking relink-core v0.1.0 (/Users/textual/projects/notify/ravelink/crates/relink-core)
+   Compiling relink-app v0.1.0 (/Users/textual/projects/notify/ravelink/crates/relink-app)
+    Checking relink-hal v0.1.0 (/Users/textual/projects/notify/ravelink/crates/relink-hal)
+    Checking relink-audio v0.1.0 (/Users/textual/projects/notify/ravelink/crates/relink-audio)
+    Finished `dev` profile [unoptimized] target(s) in 1.67s

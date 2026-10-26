@@ -62,7 +62,7 @@ def acquire_tool(pins, cache):
     asset = pins["assets"][target]
     archive = cache / asset["filename"]
     if not archive.exists():
-        request = urllib.request.Request(asset["url"], headers={"User-Agent": "RaveLink-dependency-audit"})
+        request = urllib.request.Request(asset["url"], headers={"User-Agent": "ReLink-dependency-audit"})
         with urllib.request.urlopen(request, timeout=60) as response:
             data = response.read(32 * 1024 * 1024 + 1)
         if len(data) > 32 * 1024 * 1024:
@@ -123,7 +123,7 @@ def audit(args):
     write_json(out / "input.json", input_record)
     executable, tool = acquire_tool(pins, cache)
     write_json(out / "tool.json", tool)
-    with tempfile.TemporaryDirectory(prefix="ravelink-dependency-audit-") as temporary:
+    with tempfile.TemporaryDirectory(prefix="relink-dependency-audit-") as temporary:
         work = Path(temporary)
         database = work / "advisory-db"
         run(["git", "init", "-q", str(database)], work)
@@ -163,9 +163,9 @@ def audit(args):
         records = []
         graphs = {}
         for target in TARGETS:
-            for label, edges, package in (("app-all", "normal,build", "ravelink-app"),
-                                          ("app-runtime", "normal,no-proc-macro", "ravelink-app"),
-                                          ("hal-all", "normal,build", "ravelink-hal")):
+            for label, edges, package in (("app-all", "normal,build", "relink-app"),
+                                          ("app-runtime", "normal,no-proc-macro", "relink-app"),
+                                          ("hal-all", "normal,build", "relink-hal")):
                 cmd = ["cargo", "tree", "--locked", "-p", package, "--target", target,
                        "--edges", edges, "--prefix", "none", "--format", "{p}"]
                 graph = run(cmd, ROOT)
@@ -200,7 +200,7 @@ def audit(args):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, required=True, help="new evidence directory (refuses overwrite)")
-    parser.add_argument("--cache", type=Path, default=Path(tempfile.gettempdir()) / "ravelink-audit-tools", help="verified download cache; does not install tools")
+    parser.add_argument("--cache", type=Path, default=Path(tempfile.gettempdir()) / "relink-audit-tools", help="verified download cache; does not install tools")
     parser.add_argument("--database-revision", help="explicit full RustSec commit; default is the reviewed pin, not the latest DB")
     args = parser.parse_args()
     try:

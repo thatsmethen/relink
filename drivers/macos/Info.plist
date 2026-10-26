@@ -3,10 +3,10 @@
 <plist version="1.0">
 <dict>
     <key>CFBundleDevelopmentRegion</key><string>en</string>
-    <key>CFBundleExecutable</key><string>RaveLinkHAL</string>
+    <key>CFBundleExecutable</key><string>ReLinkHAL</string>
     <key>CFBundleIdentifier</key><string>au.textual.ravelink.hal</string>
     <key>CFBundleInfoDictionaryVersion</key><string>6.0</string>
-    <key>CFBundleName</key><string>RaveLink</string>
+    <key>CFBundleName</key><string>ReLink</string>
     <key>CFBundlePackageType</key><string>BNDL</string>
     <key>CFBundleShortVersionString</key><string>0.1.0</string>
     <key>CFBundleVersion</key><string>1</string>

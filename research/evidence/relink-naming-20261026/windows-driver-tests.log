@@ -1,0 +1,23 @@
+   Compiling relink-windows-driver v0.1.0 (/Users/textual/projects/notify/ravelink/crates/relink-windows-driver)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.95s
+     Running unittests src/lib.rs (crates/relink-windows-driver/target/debug/deps/relink_windows_driver-e2efae80bfede829)
+
+running 9 tests
+test transport::tests::clock_does_not_accumulate_rounding_and_pauses_resume ... ok
+test abi::tests::sixty_four_bit_header_layout_contract ... ok
+test descriptors::tests::range_constraints_and_bridge_negotiation_are_respected ... ok
+test descriptors::tests::descriptor_graphs_only_instantiate_the_two_streaming_pins ... ok
+test transport::tests::cursor_is_frame_aligned_and_wraps ... ok
+test descriptors::tests::fixed_format_negotiation_is_bounded_and_rejects_malformed_formats ... ok
+test transport::tests::integer_clock_conversion_matches_wide_reference ... ok
+test kernel::tests::mocked_portcls_vtables_transfer_audio_and_release_every_owned_resource ... ok
+test transport::tests::buffer_rounding_never_under_allocates ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests relink_windows_driver
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

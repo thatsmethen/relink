@@ -1,0 +1,76 @@
+{
+  "reviewed_at_utc": "2026-10-26T02:03:56.731385+00:00",
+  "result": "NO_REMAINING_BLOCKERS",
+  "kind": "Independent read-only naming/path/compatibility review; not installed runtime acceptance",
+  "checks": {
+    "macos_bundle_factory_and_device_ids": "PASS",
+    "macos_microphone_purpose_string": "PASS",
+    "session_path_retention": "PASS",
+    "windows_hardware_service_and_interface_section_references": "PASS",
+    "package_dependency_paths_and_locks": "PASS",
+    "swift_explicit_folder_paths": "PASS",
+    "old_visible_source_folders": [],
+    "branding_and_binary_path_references": "PASS",
+    "shell_syntax": "PASS",
+    "old_and_new_owned_windows_output_cleanup": "PASS"
+  },
+  "resolved_findings": [
+    "Windows reused output now removes old generated SYS/INF/CAT/PDB as well as new names; macOS reused bundles remove previous payload names.",
+    "README no longer incorrectly claims crate/executable names were retained."
+  ],
+  "retained_old_named_files": [
+    "legacy/Sources/ReLinkAudioUnitBridge/include/RaveLinkAudioUnitBridge.h",
+    "legacy/Sources/ReLinkApp/RaveLinkApp.swift",
+    "legacy/Sources/ReLinkRealtime/include/RaveLinkRealtime.h",
+    "legacy/Drivers/patches/RaveLinkDiagnostics.h"
+  ],
+  "packages": [
+    "relink-core",
+    "relink-audio",
+    "relink-app",
+    "relink-hal",
+    "relink-windows-driver"
+  ],
+  "legacy_paths": [
+    "Sources/ReLinkCore",
+    "Sources/ReLinkPluginHost",
+    "Sources/ReLinkEngine",
+    "Sources/ReLinkRealtime",
+    "Sources/ReLinkAudioUnitBridge",
+    "Sources/ReLinkAudio",
+    "Sources/ReLinkApp",
+    "Tests/ReLinkCoreTests",
+    "Tests/ReLinkAppTests",
+    "Tests/ReLinkAudioTests"
+  ],
+  "limits": [
+    "No Git, network, compilation, app launch, device or native/audio interaction performed by reviewer.",
+    "No installed upgrade, TCC permission reuse, Windows installation or production qualification inferred.",
+    "Historical evidence/checkpoint commands, stable protocol/guard/storage/ABI identifiers and legacy module/header names intentionally retained."
+  ],
+  "reviewed_file_sha256": {
+    "Cargo.toml": "114ada6cd770ece5f1600b0bea2cb3810d275cea5a3458d7389cb8a034049718",
+    "Cargo.lock": "cd2c91dbc8cd25a0e10a2ee096be68e68bb06c0eb606bfcb8343c9c5f13fc6a4",
+    "legacy/Package.swift": "83a5d877c46f7b9589e490c09535002714cf31dd49e34ba5e42a383a572d0710",
+    "README.md": "85db403bf5fe703b14d0912b552db39cac60ce714ada5d8dccecddab439cc09c",
+    "docs/naming.md": "ac7ec8984fd443af5d4079b029181874ac5cb338f598d97ff1f5319b4167307b",
+    "packaging/macos/Info.plist": "fd61bde53ad6f3d00fef0c771ce0d004403392f55a60a9d4d7b09888a88b8968",
+    "drivers/macos/Info.plist": "80c7d9a262d07b13ff36636fcdab76e5cd92c44bc3df6e6756eaf267ba107e97",
+    "drivers/windows/ReLink.inf": "0e44e79d521464809c43e6b1149c59a7096285080f183219d3400395f2bd33ab",
+    "scripts/build-macos-app.sh": "4e51b86bd57fc8abb950412e626323a321619b434f5d5b3fb5fae6e5a7b8ef51",
+    "drivers/macos/build-bundle.sh": "d3a9dc20fb7ece19f2ee58af6a55839d0adac2997ce36236649ebc9e30c91459",
+    "drivers/windows/build.ps1": "b01cf478a9d09752ca242dda7ba3c0fbc9b0627a6f9a7be76a0444c0a8cf9a91",
+    "drivers/windows/cross-build.sh": "bab9c7e3974d499ccda6e17b18b62f890e66606de70c7ae912b80a4fb4df2656",
+    "crates/relink-app/build.rs": "64c71a5f4b92e5e90a65b9d06507880bdaeaf8fc87bc5dc51718460ef0486d11",
+    "crates/relink-app/src/store.rs": "c938e034bbd33a20f355a9faf0bbc74c429da653e76e03628dde8692a9a3c4bc",
+    "crates/relink-hal/src/device.rs": "f6b2148e0139c9bbe33d9865e4a97aebb53bf9485d1e9b2360172b91522f8d38",
+    "crates/relink-hal/src/properties.rs": "59cc314e5bed24896108b3e606ae5e6c55e9260fd1545d2fdeecc57c19340ab0",
+    "crates/relink-hal/src/lib.rs": "b8e803dcff5ca36142934fb818129414d4a52824f1d004d3358008985e31c846",
+    "drivers/macos/tests/run_system.py": "a2267be06fb6082baa7b8ea2e4a2dab075fa252c8277495193aad86f20c4fea4",
+    "drivers/macos/tests/run-native-host.sh": "13acd00a0f54a2592c7eb471393a213dc77d27fe087db173bb92491831313121",
+    ".github/workflows/rust.yml": "eac71a3503357fcb86739367a764f6c4c0f6f61bbc006a114dd876834de47beb",
+    ".github/workflows/rust-hal.yml": "47b932461cb6dd02e6a55780ceb9372c36308153edc9578951c6ea8be2ed576e",
+    ".github/workflows/rust-windows-driver.yml": "e06cdad20a6b21dbe945e333c9dd304735c1507c821bed8b041c75f88c786202",
+    ".github/workflows/rust-multioutput.yml": "09dc36427cd1f6ff0d33dc89bac9d699f8a63638d7c944038880f24fd6fbbc42"
+  }
+}

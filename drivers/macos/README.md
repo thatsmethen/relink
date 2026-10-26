@@ -1,8 +1,8 @@
-# RaveLink macOS HAL
+# ReLink macOS HAL
 
-The independently authored Rust AudioServerPlugIn is in `crates/ravelink-hal`.
-It publishes two independently buffered stereo virtual cables named **RaveLink**
-and **RaveLink 2**. Playback written to each output stream can be captured from
+The independently authored Rust AudioServerPlugIn is in `crates/relink-hal`.
+It publishes two independently buffered stereo virtual cables named **ReLink**
+and **ReLink 2**. Playback written to each output stream can be captured from
 that cable's input stream. Both use 48,000 Hz, packed interleaved Float32, two
 channels. Their device UIDs are `au.textual.ravelink.cable.1` and
 `au.textual.ravelink.cable.2`; the bundle ID is `au.textual.ravelink.hal`.
@@ -26,16 +26,16 @@ remain unqualified. See `tests/SYSTEM-ACCEPTANCE.md`,
 From the repository root on macOS:
 
 ```sh
-cargo test -p ravelink-hal
+cargo test -p relink-hal
 sh drivers/macos/tests/run-native-host.sh
 sh drivers/macos/build-bundle.sh
 ```
 
-The bundle script produces `dist/macos/RaveLink.driver` for the current machine's
-architecture. Set `RAVELINK_HAL_TARGET` to `aarch64-apple-darwin` or
+The bundle script produces `dist/macos/ReLink.driver` for the current machine's
+architecture. Set `RELINK_HAL_TARGET` to `aarch64-apple-darwin` or
 `x86_64-apple-darwin` after installing that Rust target to build another
-architecture. `RAVELINK_HAL_OUTPUT` chooses the bundle location. The default
-signature is local ad-hoc signing; `RAVELINK_SIGN_IDENTITY` selects an authorized
+architecture. `RELINK_HAL_OUTPUT` chooses the bundle location. The default
+signature is local ad-hoc signing; `RELINK_SIGN_IDENTITY` selects an authorized
 release signing identity. These commands do not install anything or restart
 audio services. A universal bundle and Developer ID/notarized release installer
 are separate release work.
@@ -77,3 +77,8 @@ restart clearing. Neither test is a system HAL installation test, CFPlugIn
 discovery test or real-host latency measurement.
 
 See `PROVENANCE.md` for source origins.
+
+The previous `RAVELINK_HAL_TARGET`, `RAVELINK_HAL_OUTPUT` and
+`RAVELINK_SIGN_IDENTITY` environment variables remain accepted as fallbacks.
+Installed bundle and device identifiers and the `RaveLinkHALFactory` entry point
+remain stable so existing saved routes continue to identify these devices.

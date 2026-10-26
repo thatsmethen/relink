@@ -147,7 +147,7 @@ class EnvironmentControls(unittest.TestCase):
                 guard_environment()
 
     def test_cleanup_target_is_exact_owned_bundle(self):
-        self.assertEqual(str(DESTINATION), "/Library/Audio/Plug-Ins/HAL/RustRaveLink.driver")
+        self.assertEqual(str(DESTINATION), "/Library/Audio/Plug-Ins/HAL/RustReLink.driver")
         self.assertTrue((REPOSITORY / "Cargo.toml").exists())
 
     def test_existing_record_is_never_overwritten(self):

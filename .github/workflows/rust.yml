@@ -35,10 +35,10 @@ jobs:
       - name: Build Windows application
         if: runner.os == 'Windows'
         run: |
-          cargo build --locked -p ravelink-app --release
+          cargo build --locked -p relink-app --release
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           New-Item -ItemType Directory -Force dist/windows
-          Copy-Item target/release/ravelink-app.exe dist/windows/ReLink.exe
+          Copy-Item target/release/relink-app.exe dist/windows/ReLink.exe
           Copy-Item LICENSE,THIRD-PARTY-NOTICES.txt dist/windows/
           Copy-Item -Recurse docs/third-party-licenses/rust-1.91.1 dist/windows/Rust-runtime-notices
       - name: Verify embedded Windows icon resources

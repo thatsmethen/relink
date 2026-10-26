@@ -4,9 +4,9 @@ on:
   push:
     branches: [main]
     paths:
-      - 'crates/ravelink-hal/**'
-      - 'crates/ravelink-audio/**'
-      - 'crates/ravelink-core/**'
+      - 'crates/relink-hal/**'
+      - 'crates/relink-audio/**'
+      - 'crates/relink-core/**'
       - 'drivers/macos/**'
       - '.github/workflows/rust-hal.yml'
       - 'Cargo.lock'
@@ -31,7 +31,7 @@ jobs:
           mkdir -p build/rust-hal-system
           sh drivers/macos/build-bundle.sh > build/rust-hal-system/build-driver.log 2>&1
           xcrun clang -std=c11 -O2 -Wall -Wextra -Werror drivers/macos/tests/system-probe.c -framework CoreAudio -framework CoreFoundation -o build/rust-hal-system/system-probe
-          shasum -a 256 drivers/macos/tests/system-probe.c drivers/macos/tests/probe-diagnostics.h drivers/macos/tests/analyze_diagnostics.py drivers/macos/tests/OBSERVER-DIAGNOSTICS.md drivers/macos/tests/run_system.py build/rust-hal-system/system-probe dist/macos/RaveLink.driver/Contents/MacOS/RaveLinkHAL > build/rust-hal-system/build-sha256.txt
+          shasum -a 256 drivers/macos/tests/system-probe.c drivers/macos/tests/probe-diagnostics.h drivers/macos/tests/analyze_diagnostics.py drivers/macos/tests/OBSERVER-DIAGNOSTICS.md drivers/macos/tests/run_system.py build/rust-hal-system/system-probe dist/macos/ReLink.driver/Contents/MacOS/ReLinkHAL > build/rust-hal-system/build-sha256.txt
           sw_vers > build/rust-hal-system/environment.txt
           uname -a >> build/rust-hal-system/environment.txt
           xcrun --show-sdk-version >> build/rust-hal-system/environment.txt
@@ -67,9 +67,9 @@ jobs:
         run: |
           mkdir -p build/rust-runtime-system
           sh drivers/macos/build-bundle.sh > build/rust-runtime-system/build-driver.log 2>&1
-          cargo build -p ravelink-audio --release --example runtime-capture-probe --locked > build/rust-runtime-system/build-runtime.log 2>&1
+          cargo build -p relink-audio --release --example runtime-capture-probe --locked > build/rust-runtime-system/build-runtime.log 2>&1
           xcrun clang -std=c11 -O2 -Wall -Wextra -Werror drivers/macos/tests/system-probe.c -framework CoreAudio -framework CoreFoundation -o build/rust-runtime-system/system-probe
-          shasum -a 256 crates/ravelink-audio/examples/runtime-capture-probe.rs target/release/examples/runtime-capture-probe drivers/macos/tests/system-probe.c drivers/macos/tests/probe-diagnostics.h drivers/macos/tests/analyze_diagnostics.py drivers/macos/tests/OBSERVER-DIAGNOSTICS.md drivers/macos/tests/run_system.py drivers/macos/tests/run_runtime.py build/rust-runtime-system/system-probe dist/macos/RaveLink.driver/Contents/MacOS/RaveLinkHAL drivers/macos/tests/analyze_runtime.py drivers/macos/tests/RUNTIME-ACCEPTANCE.md > build/rust-runtime-system/build-sha256.txt
+          shasum -a 256 crates/relink-audio/examples/runtime-capture-probe.rs target/release/examples/runtime-capture-probe drivers/macos/tests/system-probe.c drivers/macos/tests/probe-diagnostics.h drivers/macos/tests/analyze_diagnostics.py drivers/macos/tests/OBSERVER-DIAGNOSTICS.md drivers/macos/tests/run_system.py drivers/macos/tests/run_runtime.py build/rust-runtime-system/system-probe dist/macos/ReLink.driver/Contents/MacOS/ReLinkHAL drivers/macos/tests/analyze_runtime.py drivers/macos/tests/RUNTIME-ACCEPTANCE.md > build/rust-runtime-system/build-sha256.txt
           sw_vers > build/rust-runtime-system/environment.txt
           uname -a >> build/rust-runtime-system/environment.txt
           xcrun --show-sdk-version >> build/rust-runtime-system/environment.txt

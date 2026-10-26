@@ -1,0 +1,3 @@
+   Compiling relink-hal v0.1.0 (/Users/textual/projects/notify/ravelink/crates/relink-hal)
+    Finished `dev` profile [unoptimized] target(s) in 0.22s
+PASS: Apple SDK ABI, factory, COM, two-cable enumeration, independent clients/rings/restarts, timestamps, and stereo loopback (local host only)

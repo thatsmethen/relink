@@ -33,7 +33,7 @@ MAX_SECONDS = 600
 REQUEST_INTERVAL = 1.05
 SOCKET_TIMEOUT = 20
 HEADERS = {
-    "User-Agent": "RaveLinkDependencyAudit/1.0",
+    "User-Agent": "ReLinkDependencyAudit/1.0",
     "Accept": "text/plain, application/json",
     "Accept-Encoding": "identity",
     "Cache-Control": "no-cache, max-age=0",

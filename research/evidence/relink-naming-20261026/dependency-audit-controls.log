@@ -1,0 +1,18 @@
+test_byte_and_deadline_budgets_fail_closed (__main__.AuditTests.test_byte_and_deadline_budgets_fail_closed) ... ok
+test_composite_follow_up_preserves_findings_and_refuses_old_observations (__main__.AuditTests.test_composite_follow_up_preserves_findings_and_refuses_old_observations) ... ok
+test_corrupt_cached_tool_never_executes (__main__.AuditTests.test_corrupt_cached_tool_never_executes) ... ok
+test_graph_scope_requires_matching_custody_hashes (__main__.AuditTests.test_graph_scope_requires_matching_custody_hashes) ... ok
+test_http_bytes_and_headers_are_retained_without_conditionals (__main__.AuditTests.test_http_bytes_and_headers_are_retained_without_conditionals) ... ok
+test_incomplete_outranks_findings_and_advisory_warnings_are_preserved (__main__.AuditTests.test_incomplete_outranks_findings_and_advisory_warnings_are_preserved) ... ok
+test_missing_duplicate_malformed_or_future_rows_never_pass (__main__.AuditTests.test_missing_duplicate_malformed_or_future_rows_never_pass) ... ok
+test_non_200_truncated_encoded_and_broken_http_are_unavailable (__main__.AuditTests.test_non_200_truncated_encoded_and_broken_http_are_unavailable) ... ok
+test_normal_yanked_and_checksum_mismatch_remain_distinct (__main__.AuditTests.test_normal_yanked_and_checksum_mismatch_remain_distinct) ... ok
+test_one_index_response_checks_each_locked_version (__main__.AuditTests.test_one_index_response_checks_each_locked_version) ... ok
+test_rate_limit_stops_later_requests_and_records_retry_after (__main__.AuditTests.test_rate_limit_stops_later_requests_and_records_retry_after) ... ok
+test_sparse_path_contract_and_path_rejection (__main__.AuditTests.test_sparse_path_contract_and_path_rejection) ... ok
+test_utf8_decoding_and_invalid_byte_failure_are_explicit (__main__.AuditTests.test_utf8_decoding_and_invalid_byte_failure_are_explicit) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.038s
+
+OK

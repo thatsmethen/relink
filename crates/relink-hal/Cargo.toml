@@ -1,0 +1,13 @@
+[package]
+name = "relink-hal"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.85"
+publish = false
+license-file = "../../LICENSE"
+description = "Independently authored ReLink macOS AudioServerPlugIn"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]

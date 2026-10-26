@@ -1,0 +1,21 @@
+[package]
+name = "relink-app"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license-file.workspace = true
+publish.workspace = true
+
+[dependencies]
+eframe = { version = "=0.33.3", default-features = false, features = ["accesskit", "default_fonts", "wgpu"] }
+relink-core = { path = "../relink-core" }
+relink-audio = { path = "../relink-audio" }
+serde.workspace = true
+serde_json.workspace = true
+uuid.workspace = true
+
+[target.'cfg(target_os = "macos")'.dependencies]
+wgpu = { version = "=27.0.1", default-features = false, features = ["metal", "std", "wgsl"] }
+
+[target.'cfg(target_os = "windows")'.dependencies]
+wgpu = { version = "=27.0.1", default-features = false, features = ["dx12", "std", "wgsl"] }

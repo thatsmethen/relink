@@ -29,7 +29,7 @@ for name, relative in files.items():
     shutil.copyfile(original, output / name)
     manifest[name] = {'source': relative, 'sha256': hashlib.sha256(original.read_bytes()).hexdigest()}
 (output / 'manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
-(args.output / 'DRIVER-RUNTIME-NOTICES.txt').write_text('''RaveLink Windows driver runtime notices
+(args.output / 'DRIVER-RUNTIME-NOTICES.txt').write_text('''ReLink Windows driver runtime notices
 
 The driver is proprietary original Rust code. Its binary also includes compiled
 portions of Rust core and compiler_builtins from nightly-2025-11-10, rustc

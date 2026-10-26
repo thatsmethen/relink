@@ -1,0 +1,4 @@
+   Compiling relink-app v0.1.0 (/Users/textual/projects/notify/ravelink/crates/relink-app)
+    Finished `dev` profile [unoptimized] target(s) in 1.24s
+/Users/textual/projects/notify/ravelink/dist/macos/ReLink.app: replacing existing signature
+/Users/textual/projects/notify/ravelink/dist/macos/ReLink.app

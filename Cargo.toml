@@ -1,6 +1,6 @@
 [workspace]
-members = ["crates/ravelink-core", "crates/ravelink-audio", "crates/ravelink-app", "crates/ravelink-hal"]
-exclude = ["crates/ravelink-windows-driver"]
+members = ["crates/relink-core", "crates/relink-audio", "crates/relink-app", "crates/relink-hal"]
+exclude = ["crates/relink-windows-driver"]
 resolver = "2"
 
 [workspace.package]

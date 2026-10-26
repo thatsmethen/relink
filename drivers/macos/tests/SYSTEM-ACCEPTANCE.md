@@ -37,8 +37,8 @@ registered cable UIDs are absent before installation. A query failure is never
 treated as absence. The second cable was added after the initial observation;
 this protocol's waveform and two-reader checks remain on Cable 1.
 
-Only `/Library/Audio/Plug-Ins/HAL/RustRaveLink.driver` is installed and removed.
-The source bundle is `dist/macos/RaveLink.driver`, with bundle identifier
+Only `/Library/Audio/Plug-Ins/HAL/RustReLink.driver` is installed and removed.
+The source bundle is `dist/macos/ReLink.driver`, with bundle identifier
 `au.textual.ravelink.hal` and device UIDs `au.textual.ravelink.cable.1` and
 `au.textual.ravelink.cable.2`. An ownership
 record is saved before copying. Cleanup checks the run, path and bundle identity;
@@ -112,7 +112,7 @@ Local non-audio checks:
 python3 -m unittest discover -s drivers/macos/tests -p 'test_system.py' -v
 xcrun clang -std=c11 -O2 -Wall -Wextra -Werror \
   drivers/macos/tests/system-probe.c -framework CoreAudio \
-  -framework CoreFoundation -o /tmp/ravelink-system-probe
+  -framework CoreFoundation -o /tmp/relink-system-probe
 ```
 
 The probe CLI is `discover|play|record --uid UID --report JSON`. Audio modes

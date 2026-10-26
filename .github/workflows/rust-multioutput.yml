@@ -20,9 +20,9 @@ jobs:
         run: |
           mkdir -p build/rust-multioutput-system
           sh drivers/macos/build-bundle.sh > build/rust-multioutput-system/build-driver.log 2>&1
-          cargo build -p ravelink-audio --release --example runtime-multioutput-probe --locked > build/rust-multioutput-system/build-runtime.log 2>&1
+          cargo build -p relink-audio --release --example runtime-multioutput-probe --locked > build/rust-multioutput-system/build-runtime.log 2>&1
           xcrun clang -std=c11 -O2 -Wall -Wextra -Werror drivers/macos/tests/system-probe.c -framework CoreAudio -framework CoreFoundation -o build/rust-multioutput-system/system-probe
-          shasum -a 256 crates/ravelink-audio/examples/runtime-multioutput-probe.rs target/release/examples/runtime-multioutput-probe drivers/macos/tests/system-probe.c drivers/macos/tests/probe-diagnostics.h drivers/macos/tests/analyze_diagnostics.py drivers/macos/tests/OBSERVER-DIAGNOSTICS.md drivers/macos/tests/run_system.py drivers/macos/tests/run_multioutput.py drivers/macos/tests/analyze_system.py drivers/macos/tests/analyze_runtime.py drivers/macos/tests/analyze_multioutput.py drivers/macos/tests/test_multioutput.py crates/ravelink-audio/MULTI-OUTPUT-ACCEPTANCE.md .github/workflows/rust-multioutput.yml build/rust-multioutput-system/system-probe dist/macos/RaveLink.driver/Contents/MacOS/RaveLinkHAL > build/rust-multioutput-system/build-sha256.txt
+          shasum -a 256 crates/relink-audio/examples/runtime-multioutput-probe.rs target/release/examples/runtime-multioutput-probe drivers/macos/tests/system-probe.c drivers/macos/tests/probe-diagnostics.h drivers/macos/tests/analyze_diagnostics.py drivers/macos/tests/OBSERVER-DIAGNOSTICS.md drivers/macos/tests/run_system.py drivers/macos/tests/run_multioutput.py drivers/macos/tests/analyze_system.py drivers/macos/tests/analyze_runtime.py drivers/macos/tests/analyze_multioutput.py drivers/macos/tests/test_multioutput.py crates/relink-audio/MULTI-OUTPUT-ACCEPTANCE.md .github/workflows/rust-multioutput.yml build/rust-multioutput-system/system-probe dist/macos/ReLink.driver/Contents/MacOS/ReLinkHAL > build/rust-multioutput-system/build-sha256.txt
           sw_vers > build/rust-multioutput-system/environment.txt
           uname -a >> build/rust-multioutput-system/environment.txt
           xcrun --show-sdk-version >> build/rust-multioutput-system/environment.txt
@@ -30,7 +30,7 @@ jobs:
       - name: Fixed independent analyzer and observer controls without audio
         run: python3 -m unittest discover -s drivers/macos/tests -p 'test_*.py' -v 2>&1 | tee build/rust-multioutput-system/observer-controls.txt
       - name: Fixed runtime protocol controls without audio
-        run: cargo test -p ravelink-audio --example runtime-multioutput-probe --locked 2>&1 | tee build/rust-multioutput-system/runtime-controls.txt
+        run: cargo test -p relink-audio --example runtime-multioutput-probe --locked 2>&1 | tee build/rust-multioutput-system/runtime-controls.txt
       - name: One installed observation of distinct native output buses, route controls and Stop
         run: python3 drivers/macos/tests/run_multioutput.py run
       - name: Ensure owned driver cleanup and both device UIDs absent

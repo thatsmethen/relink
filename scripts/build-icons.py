@@ -39,10 +39,10 @@ svg = ['<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">',
 for x, y in RAILS:
     svg += [f'<rect x="{x-24}" y="240" width="48" height="544" rx="24" fill="{MINT}"/>',
             f'<rect x="{x-80}" y="{y-44}" width="160" height="88" rx="24" fill="{LIGHT}"/>']
-(OUT / 'ravelink.svg').write_text('\n'.join(svg + ['</svg>', '']), encoding='utf-8')
-render(1024).save(OUT / 'ravelink.png')
-render(256).save(OUT / 'ravelink-256.png')
-render(1024).save(OUT / 'ravelink.icns')
+(OUT / 'relink.svg').write_text('\n'.join(svg + ['</svg>', '']), encoding='utf-8')
+render(1024).save(OUT / 'relink.png')
+render(256).save(OUT / 'relink-256.png')
+render(1024).save(OUT / 'relink.icns')
 
 # PNG icon entries are supported by Windows Vista and later. Each level is
 # independently rendered so small icons retain clean anti-aliased geometry.
@@ -57,7 +57,7 @@ for size, data in images:
     entries.append(struct.pack('<BBBBHHII', size % 256, size % 256, 0, 0, 1, 32, len(data), offset))
     payload.append(data)
     offset += len(data)
-(OUT / 'ravelink.ico').write_bytes(header + b''.join(entries + payload))
+(OUT / 'relink.ico').write_bytes(header + b''.join(entries + payload))
 
 
 def resource(kind, name, data, flags=0x1030):
@@ -73,5 +73,5 @@ for index, (size, data) in enumerate(images, 1):
     records.append(resource(3, index, data))  # RT_ICON
     group.append(struct.pack('<BBBBHHIH', size % 256, size % 256, 0, 0, 1, 32, len(data), index))
 records.append(resource(14, 1, b''.join(group)))  # RT_GROUP_ICON
-(OUT / 'ravelink.res').write_bytes(b''.join(records))
+(OUT / 'relink.res').write_bytes(b''.join(records))
 print('Rendered original ReLink mark, macOS icon and Windows resources.')

@@ -3,8 +3,8 @@
 <plist version="1.0"><dict>
 <key>CFBundleDevelopmentRegion</key><string>en</string>
 <key>CFBundleDisplayName</key><string>ReLink</string>
-<key>CFBundleIconFile</key><string>RaveLink.icns</string>
-<key>CFBundleExecutable</key><string>ravelink-app</string>
+<key>CFBundleIconFile</key><string>ReLink.icns</string>
+<key>CFBundleExecutable</key><string>relink-app</string>
 <key>CFBundleIdentifier</key><string>au.textual.ravelink.rust</string>
 <key>CFBundleInfoDictionaryVersion</key><string>6.0</string>
 <key>CFBundleName</key><string>ReLink</string>

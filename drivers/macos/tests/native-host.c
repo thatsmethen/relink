@@ -32,7 +32,7 @@ static OSStatus delete_storage(AudioServerPlugInHostRef host, CFStringRef key) {
 static OSStatus request_change(AudioServerPlugInHostRef host, AudioObjectID device, UInt64 action, void *info) { (void)host; (void)device; (void)action; (void)info; return kAudioHardwareUnsupportedOperationError; }
 
 int main(int argc, char **argv) {
-    if (argc != 2) { fprintf(stderr, "usage: native-host /absolute/path/to/RaveLinkHAL\n"); return 2; }
+    if (argc != 2) { fprintf(stderr, "usage: native-host /absolute/path/to/ReLinkHAL\n"); return 2; }
     void *library = dlopen(argv[1], RTLD_NOW | RTLD_LOCAL);
     if (!library) { fprintf(stderr, "%s\n", dlerror()); return 1; }
     void *(*factory)(CFAllocatorRef, CFUUIDRef) = dlsym(library, "RaveLinkHALFactory");
@@ -55,7 +55,7 @@ int main(int argc, char **argv) {
     assert((*driver)->GetPropertyData(driver, kAudioObjectPlugInObject, 0, &address, 0, NULL, sizeof devices, &size, devices) == 0 && devices[0] == 100 && devices[1] == 200);
     const AudioObjectID device = devices[0], second = devices[1];
     const CFStringRef expected_uids[] = { CFSTR("au.textual.ravelink.cable.1"), CFSTR("au.textual.ravelink.cable.2") };
-    const CFStringRef expected_names[] = { CFSTR("RaveLink"), CFSTR("RaveLink 2") };
+    const CFStringRef expected_names[] = { CFSTR("ReLink"), CFSTR("ReLink 2") };
     for (unsigned index = 0; index < 2; index++) {
         address.mSelector = kAudioDevicePropertyDeviceUID;
         CFStringRef uid = NULL;
