@@ -16,6 +16,7 @@ const PHASES: usize = 1024;
 pub(crate) const MAX_CORRECTION: f64 = 0.002; // +/- 2,000 ppm; nominal rates must match.
 
 pub(crate) struct Ring {
+    pub(crate) owner_completion: Arc<super::capture_owner::CaptureCompletion>,
     #[cfg(any(target_os = "windows", test))]
     pub(crate) event_close: Arc<super::wasapi_event::CloseRecord>,
     frames: Box<[AtomicU64]>,
@@ -31,6 +32,7 @@ pub(crate) struct Ring {
 impl Ring {
     pub(crate) fn new() -> Arc<Self> {
         Arc::new(Self {
+            owner_completion: Arc::new(super::capture_owner::CaptureCompletion::default()),
             #[cfg(any(target_os = "windows", test))]
             event_close: Arc::new(super::wasapi_event::CloseRecord::default()),
             frames: (0..CAPACITY).map(|_| AtomicU64::new(0)).collect(),
@@ -45,7 +47,9 @@ impl Ring {
         })
     }
     pub(crate) fn bytes() -> usize {
-        let base = CAPACITY * std::mem::size_of::<AtomicU64>() + std::mem::size_of::<Self>();
+        let base = CAPACITY * std::mem::size_of::<AtomicU64>()
+            + std::mem::size_of::<Self>()
+            + super::capture_owner::CaptureCompletion::bytes();
         #[cfg(any(target_os = "windows", test))]
         {
             base + super::wasapi_event::CloseRecord::bytes()

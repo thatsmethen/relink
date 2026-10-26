@@ -60,6 +60,7 @@ pub(crate) fn owner_bytes(configuration: &RunningInput) -> Result<usize, AudioEr
         Some(size_of::<Reservation>()),
         Some(size_of::<Reserved>()),
         Some(Record::bytes()),
+        Some(super::capture_owner::CaptureCompletion::bytes()),
         Some(CloseRecord::bytes()),
         Some(size_of::<CaptureState>()),
         Some(size_of::<Tracker>()),
@@ -85,6 +86,10 @@ impl WasapiCapture {
         config: &cpal::SupportedStreamConfig,
         state: CaptureState,
     ) -> Result<Self, AudioError> {
+        let completion = state.owner_completion();
+        let participant = completion
+            .begin()
+            .map_err(|e| backend("capture completion ticket", None, e))?;
         let parsed: cpal::DeviceId = configuration
             .device
             .id
@@ -111,31 +116,38 @@ impl WasapiCapture {
         };
         let native_id = parsed.id().to_owned();
         let record = Arc::new(Record::new(state.event_close()));
-        let reservation =
-            Reservation::acquire(&native_id, owner_bytes(configuration)?, record.clone())?;
+        let reservation = Reservation::acquire(
+            &native_id,
+            owner_bytes(configuration)?,
+            record.clone(),
+            completion,
+        )?;
         let name = configuration.device.name.clone();
         let sample_rate = config.sample_rate();
         let (ready_tx, ready_rx) = mpsc::sync_channel(1);
         let (commands, receiver) = mpsc::sync_channel(1);
         let keep_running = Arc::new(AtomicBool::new(true));
         let active = keep_running.clone();
-        thread::Builder::new()
-            .name("relink-wasapi-capture".into())
-            .stack_size(super::capture::OWNER_STACK_BYTES)
-            .spawn(move || {
-                owner_loop(
-                    native_id,
-                    name,
-                    sample_rate,
-                    layout,
-                    state,
-                    active,
-                    receiver,
-                    ready_tx,
-                    reservation,
-                    record,
-                );
-            })
+        participant
+            .spawn(
+                thread::Builder::new()
+                    .name("relink-wasapi-capture".into())
+                    .stack_size(super::capture::OWNER_STACK_BYTES),
+                move || {
+                    owner_loop(
+                        native_id,
+                        name,
+                        sample_rate,
+                        layout,
+                        state,
+                        active,
+                        receiver,
+                        ready_tx,
+                        reservation,
+                        record,
+                    );
+                },
+            )
             .map_err(|e| backend("WASAPI capture thread creation", None, e))?;
         let stream = Self {
             commands,
@@ -179,9 +191,15 @@ type StartReply = mpsc::SyncSender<Result<(), AudioError>>;
 static HARDWARE_REGISTRY: Mutex<Registry> = Mutex::new(Registry::new());
 struct Reservation {
     index: usize,
+    completion: Arc<super::capture_owner::CaptureCompletion>,
 }
 impl Reservation {
-    fn acquire(id: &str, bytes: usize, record: Arc<Record>) -> Result<Self, AudioError> {
+    fn acquire(
+        id: &str,
+        bytes: usize,
+        record: Arc<Record>,
+        completion: Arc<super::capture_owner::CaptureCompletion>,
+    ) -> Result<Self, AudioError> {
         let index = HARDWARE_REGISTRY
             .lock()
             .map_err(|_| {
@@ -192,14 +210,17 @@ impl Reservation {
                 )
             })?
             .acquire(id, bytes, record)?;
-        Ok(Self { index })
+        Ok(Self { index, completion })
     }
 }
 impl Drop for Reservation {
     fn drop(&mut self) {
         if let Ok(mut registry) = HARDWARE_REGISTRY.lock() {
-            registry.release(self.index);
+            if registry.release(self.index) {
+                return;
+            }
         }
+        self.completion.retain();
     }
 }
 struct Owner {

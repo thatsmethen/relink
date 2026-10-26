@@ -16,6 +16,8 @@ mod application_macos;
 mod application_windows;
 mod capture;
 mod capture_groups;
+mod capture_owner;
+pub use capture_owner::CaptureOwnerStatus;
 mod capture_transport;
 mod control_bank;
 mod epoch_gate;
@@ -39,6 +41,13 @@ mod output_plan;
 mod output_progress;
 mod output_startup;
 pub use output_plan::{OutputPlan, OutputPlanError, OutputRoute};
+mod sound_check_plan;
+pub use sound_check_plan::SoundCheckSelection;
+mod sound_check_audition;
+pub use sound_check_audition::{
+    SoundCheckAudition, SoundCheckAuditionControl, SoundCheckAuditionError,
+    SoundCheckAuditionPrepareError, SoundCheckAuditionProgress,
+};
 #[allow(dead_code)]
 mod fanout;
 mod fault;
@@ -143,6 +152,8 @@ pub struct RunningInput {
 #[derive(Clone, Debug, PartialEq)]
 pub struct CaptureSnapshot {
     pub device: InputId,
+    /// Native owner and dependent worker completion, independent of a Stop ACK.
+    pub owner_status: CaptureOwnerStatus,
     pub captured_frames: u64,
     pub buffered_frames: u64,
     pub clock_correction_ppm: f64,
@@ -726,6 +737,7 @@ impl AudioRuntime {
                     .iter()
                     .map(|(id, ring)| CaptureSnapshot {
                         device: id.clone(),
+                        owner_status: ring.owner_completion.snapshot(),
                         captured_frames: ring.captured.load(Ordering::Relaxed),
                         buffered_frames: ring.buffered.load(Ordering::Relaxed),
                         clock_correction_ppm: f64::from_bits(

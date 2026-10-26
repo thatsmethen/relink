@@ -179,7 +179,7 @@ impl Registry {
         self.bytes = bytes;
         Ok(index)
     }
-    pub(crate) fn release(&mut self, index: usize) {
+    pub(crate) fn release(&mut self, index: usize) -> bool {
         // A missing native return, failed Stop, or failed event close cannot
         // reopen admission, including after the stream handle has been dropped.
         if self.slots[index]
@@ -187,7 +187,9 @@ impl Registry {
             .is_some_and(|held| held.record.releasable())
         {
             self.bytes -= self.slots[index].take().unwrap().bytes;
+            return true;
         }
+        false
     }
 }
 

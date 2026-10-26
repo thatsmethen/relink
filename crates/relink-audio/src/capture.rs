@@ -403,6 +403,9 @@ impl CaptureState {
     pub(crate) fn authorized(&self) -> bool {
         self.permit.authorized()
     }
+    pub(crate) fn owner_completion(&self) -> Arc<super::capture_owner::CaptureCompletion> {
+        self.producer.ring.owner_completion.clone()
+    }
     #[cfg(target_os = "windows")]
     pub(crate) fn event_close(&self) -> Arc<super::wasapi_event::CloseRecord> {
         self.producer.ring.event_close.clone()

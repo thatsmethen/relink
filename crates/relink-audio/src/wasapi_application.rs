@@ -57,6 +57,7 @@ pub(crate) fn fixed_owner_bytes() -> usize {
         + size_of::<Owner>()
         // Also charge diagnostics to retained owners after the graph is gone.
         + CloseRecord::bytes()
+        + super::capture_owner::CaptureCompletion::bytes()
         + size_of::<AUDIOCLIENT_ACTIVATION_PARAMS>()
         + size_of::<PROPVARIANT>()
         + size_of::<AtomicBool>()
@@ -71,27 +72,43 @@ impl ApplicationCapture {
         if !state.authorized() {
             return Err(AudioError::Cancelled);
         }
+        let completion = state.owner_completion();
+        let participant = completion
+            .begin()
+            .map_err(|e| backend("application completion ticket", None, e))?;
         let close = state.event_close();
-        let reservation = Reservation::acquire(selection, close.clone())?;
+        let reservation = Reservation::acquire(selection, close.clone(), completion.clone())?;
         let selection = selection.clone();
         let owner_close = close.clone();
         let (ready, received) = mpsc::sync_channel(1);
         let (commands, incoming) = mpsc::sync_channel(1);
         let active = Arc::new(AtomicBool::new(true));
         let running = active.clone();
-        thread::Builder::new()
-            .name("relink-application-wasapi".into())
-            .stack_size(OWNER_STACK_BYTES)
-            .spawn(move || {
-                owner_loop(
-                    selection,
-                    reservation,
-                    running,
-                    incoming,
-                    ready,
-                    owner_close,
-                )
-            })
+        participant
+            .spawn(
+                thread::Builder::new()
+                    .name("relink-application-wasapi".into())
+                    .stack_size(OWNER_STACK_BYTES),
+                move || {
+                    owner_loop(
+                        selection,
+                        reservation,
+                        running,
+                        incoming,
+                        ready,
+                        owner_close.clone(),
+                        completion.clone(),
+                    );
+                    // Constructor errors can retain CleanupReservation before an
+                    // Owner exists. All native locals have dropped on this return.
+                    if !matches!(
+                        owner_close.snapshot(),
+                        WasapiEventClose::NotCreated | WasapiEventClose::Succeeded
+                    ) {
+                        completion.retain();
+                    }
+                },
+            )
             .map_err(|e| backend("Windows application owner creation", None, e))?;
         let stream = Self { commands, active };
         if let Err(error) = receive(&received, "Windows process-loopback creation") {
@@ -145,6 +162,7 @@ fn receive(
 #[implement(IActivateAudioInterfaceCompletionHandler)]
 struct Completion {
     complete: Arc<AtomicBool>,
+    _lifetime: super::capture_owner::Participant,
 }
 impl IActivateAudioInterfaceCompletionHandler_Impl for Completion_Impl {
     fn ActivateCompleted(
@@ -166,7 +184,10 @@ struct Activation {
     complete: Arc<AtomicBool>,
 }
 impl Activation {
-    fn begin(pid: u32) -> windows::core::Result<Self> {
+    fn begin(
+        pid: u32,
+        completion: &Arc<super::capture_owner::CaptureCompletion>,
+    ) -> windows::core::Result<Self> {
         let mut parameters = Box::new(AUDIOCLIENT_ACTIVATION_PARAMS {
             ActivationType: AUDIOCLIENT_ACTIVATION_TYPE_PROCESS_LOOPBACK,
             Anonymous: AUDIOCLIENT_ACTIVATION_PARAMS_0 {
@@ -196,6 +217,9 @@ impl Activation {
         let complete = Arc::new(AtomicBool::new(false));
         let handler: IActivateAudioInterfaceCompletionHandler = Completion {
             complete: complete.clone(),
+            _lifetime: completion
+                .participant()
+                .map_err(|_| windows::core::Error::from_hresult(E_FAIL))?,
         }
         .into();
         let operation = unsafe {
@@ -240,6 +264,7 @@ struct Owner {
     close: Arc<CloseRecord>,
     state: Option<CaptureState>,
     active: Arc<AtomicBool>,
+    completion: Arc<super::capture_owner::CaptureCompletion>,
 }
 impl Drop for Owner {
     fn drop(&mut self) {
@@ -254,6 +279,7 @@ impl Drop for Owner {
             // already released COM and is never retried. Both keep the selected
             // process identity and reservation charged until process exit.
             self.cleanup.retain();
+            self.completion.retain();
         }
     }
 }
@@ -264,6 +290,7 @@ fn owner_loop(
     incoming: mpsc::Receiver<Command>,
     ready: Reply,
     close: Arc<CloseRecord>,
+    completion: Arc<super::capture_owner::CaptureCompletion>,
 ) {
     struct Cancel(Arc<AtomicBool>);
     impl Drop for Cancel {
@@ -290,7 +317,7 @@ fn owner_loop(
             return;
         }
     };
-    let activation = match Activation::begin(selection.pid()) {
+    let activation = match Activation::begin(selection.pid(), &completion) {
         Ok(value) => value,
         Err(error) => {
             let _ = ready.send(Err(activation_error(selection.name(), error)));
@@ -344,6 +371,7 @@ fn owner_loop(
         close,
         state: None,
         active: active.clone(),
+        completion: completion.clone(),
     };
     if !active.load(Ordering::Acquire) || ready.send(Ok(())).is_err() {
         return;
@@ -371,10 +399,22 @@ fn owner_loop(
     let monitoring = active.clone();
     let monitor_selection = selection.clone();
     let monitor_reservation = reservation.clone();
-    if let Err(error) = thread::Builder::new()
-        .name("relink-application-membership".into())
-        .stack_size(OWNER_STACK_BYTES)
-        .spawn(move || {
+    let participant = match completion.participant() {
+        Ok(participant) => participant,
+        Err(error) => {
+            let _ = ready.send(Err(backend(
+                "application membership completion ticket",
+                None,
+                error,
+            )));
+            return;
+        }
+    };
+    if let Err(error) = participant.spawn(
+        thread::Builder::new()
+            .name("relink-application-membership".into())
+            .stack_size(OWNER_STACK_BYTES),
+        move || {
             let _reservation = monitor_reservation;
             while monitoring.load(Ordering::Acquire) && permit.authorized() {
                 // All OS discovery, path allocation and topology work is outside the
@@ -395,8 +435,8 @@ fn owner_loop(
                     thread::sleep(POLL);
                 }
             }
-        })
-    {
+        },
+    ) {
         let _ = ready.send(Err(backend(
             "Windows application membership monitor",
             None,
@@ -465,9 +505,14 @@ fn owner_loop(
 static REGISTRY: Mutex<Registry> = Mutex::new(Registry::new());
 struct Reservation {
     key: String,
+    completion: Arc<super::capture_owner::CaptureCompletion>,
 }
 impl Reservation {
-    fn acquire(selection: &Selection, close: Arc<CloseRecord>) -> Result<Arc<Self>, AudioError> {
+    fn acquire(
+        selection: &Selection,
+        close: Arc<CloseRecord>,
+        completion: Arc<super::capture_owner::CaptureCompletion>,
+    ) -> Result<Arc<Self>, AudioError> {
         let key = selection.key();
         REGISTRY
             .lock()
@@ -484,13 +529,15 @@ impl Reservation {
                 selection.owner_bytes()?,
                 close,
             )?;
-        Ok(Arc::new(Self { key }))
+        Ok(Arc::new(Self { key, completion }))
     }
 }
 impl Drop for Reservation {
     fn drop(&mut self) {
         if let Ok(mut registry) = REGISTRY.lock() {
             registry.remove(&self.key);
+        } else {
+            self.completion.retain();
         }
     }
 }
@@ -501,14 +548,21 @@ mod tests {
     #[test]
     fn completion_is_preallocated_atomic_and_never_reads_native_results() {
         let flag = Arc::new(AtomicBool::new(false));
+        let ticket = Arc::new(super::super::capture_owner::CaptureCompletion::default());
+        let owner = ticket.begin().unwrap();
         let handler: IActivateAudioInterfaceCompletionHandler = Completion {
             complete: flag.clone(),
+            _lifetime: ticket.participant().unwrap(),
         }
         .into();
         // A null operation is deliberately sufficient: the callback only signals.
         unsafe {
             handler.ActivateCompleted(None).unwrap();
         }
+        drop(owner);
+        assert_eq!(ticket.snapshot(), crate::CaptureOwnerStatus::Pending);
+        drop(handler);
+        assert_eq!(ticket.snapshot(), crate::CaptureOwnerStatus::Completed);
         assert!(flag.load(Ordering::Acquire));
     }
 }

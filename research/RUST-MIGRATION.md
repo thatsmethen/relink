@@ -132,7 +132,20 @@ generated buffers and headless interface behavior without native audio.
 Native timing, listening quality and sustained load remain unqualified.
 
 The [Sound Check requirements note](../docs/sound-check-research.md) separates
-official documented behavior from proposed ReLink policies. Live effect edits
-are a prerequisite; Sound Check capture, audition and its complete interface
-remain unimplemented in the maintained Rust application. Local recording stays
-excluded from this work.
+official documented behavior from proposed ReLink policies. The maintained Rust
+source now has a bounded memory-only dry-clip engine, private current-effect
+audition processor, and capture-owner completion tickets. Generated-buffer and
+fake-owner controls exercise these components; the [372 final all-target checks
+and exact source inventory](evidence/sound-check-offline-20261026/README.md) retain
+their bounded scope. The exclusive runtime lease,
+native record/playback handoff, final-frame submission gate and complete interface
+remain unimplemented. Local recording stays excluded from this work.
+
+The original [installed run at `23c7ed6`](evidence/rust-hal-runtime-installed-40275243664/README.md)
+passed its HAL job but failed independent recorder continuity in the runtime job:
+588 excess timestamp frames occurred after runtime Stop. All gain/mute PCM
+phases passed; that does not change the failed overall result or identify its
+cause. Original archives, 13 reproduced analyses, bounded diagnostic fallback
+and publicly verified downloads are preserved. Desktop CI passed 311 macOS and
+277 Windows tests at that source. Those protocols did not test live DSP edits or
+Sound Check, and do not qualify the new components above.

@@ -336,6 +336,7 @@ mod native {
                 .map(|capture| {
                     json!({
                         "input_id": capture.device.0, "captured_frames": capture.captured_frames,
+                        "owner_status": format!("{:?}", capture.owner_status),
                         "native_timing": capture.native_timing.map(timing_json),
                     })
                 })
@@ -680,6 +681,7 @@ mod native {
                 clock_correction_ppm: 0.0,
                 native_timing: Some(capture_timing),
                 event_close: None,
+                owner_status: relink_audio::CaptureOwnerStatus::Completed,
             });
             snapshot
         }
@@ -846,6 +848,7 @@ mod native {
                 clock_correction_ppm: 0.0,
                 native_timing: Some(timing()),
                 event_close: None,
+                owner_status: relink_audio::CaptureOwnerStatus::Pending,
             });
             assert!(!native_shutdown_observed(&snapshot));
             let timing = snapshot.captures[0].native_timing.as_mut().unwrap();
@@ -884,6 +887,7 @@ mod native {
                 clock_correction_ppm: 0.0,
                 native_timing: None,
                 event_close: None,
+                owner_status: relink_audio::CaptureOwnerStatus::Pending,
             });
             assert!(!native_shutdown_observed(&snapshot));
         }
@@ -1026,6 +1030,7 @@ mod native {
                 clock_correction_ppm: 0.0,
                 native_timing: Some(timing()),
                 event_close: None,
+                owner_status: relink_audio::CaptureOwnerStatus::Pending,
             });
             assert!(!shutdown_observation_finished(&snapshot, false));
             assert!(shutdown_observation_finished(&snapshot, true));

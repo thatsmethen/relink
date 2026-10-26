@@ -17,6 +17,7 @@ mod dsp;
 mod mixer;
 mod session;
 mod smoothing;
+mod sound_check;
 
 pub use application::{ApplicationSelector, ApplicationSelectorError};
 pub use controls::{ControlError, PreparedControls, ResolvedControl};
@@ -28,5 +29,10 @@ pub use mixer::{
 pub use session::{
     Bus, ChannelControls, CompressorConfig, DspBypass, DspConfig, GateConfig, HighPassConfig,
     Input, InputKind, LimiterConfig, Send, Session, SessionError, SESSION_VERSION,
+};
+pub use sound_check::{
+    SoundCheck, SoundCheckCaptureProgress, SoundCheckClip, SoundCheckClipView, SoundCheckError,
+    SoundCheckPlaybackProgress, SoundCheckSnapshot, SoundCheckState, SoundCheckToken,
+    SOUND_CHECK_MAX_SECONDS,
 };
 pub use uuid::Uuid;

@@ -23,6 +23,7 @@ fn portable_native_constants_match_the_pinned_apple_sdk() {
 
 fn context() -> (Arc<Context>, Arc<Shared>, Arc<Telemetry>) {
     let ring = Ring::new();
+    let completion = ring.owner_completion.begin().unwrap();
     let shared = Arc::new(Shared {
         active_gate: arc_swap::ArcSwapOption::empty(),
         state: Mutex::new(ControlState::default()),
@@ -63,6 +64,7 @@ fn context() -> (Arc<Context>, Arc<Shared>, Arc<Telemetry>) {
             active: Arc::new(AtomicBool::new(true)),
             alive: AtomicBool::new(true),
             accepting: AtomicBool::new(true),
+            _completion: ring.owner_completion.participant().unwrap(),
         }),
         ring,
         in_flight: AtomicUsize::new(0),
@@ -73,6 +75,7 @@ fn context() -> (Arc<Context>, Arc<Shared>, Arc<Telemetry>) {
             packet_index: 0,
             queue_frame: 0,
         }),
+        _completion: completion,
     });
     (context, shared, telemetry)
 }
@@ -301,8 +304,17 @@ fn retained_native_block_survives_owner_drop_and_refuses_late_pcm() {
     assert!(timing.lifecycle[NativeLifecyclePhase::GatesRevoked as usize].is_some());
     assert!(timing.lifecycle[NativeLifecyclePhase::OwnerCompleted as usize].is_some());
     assert!(timing.lifecycle[NativeLifecyclePhase::ContextRetained as usize].is_none());
+    assert_eq!(
+        ring.owner_completion.snapshot(),
+        crate::CaptureOwnerStatus::Pending,
+        "a terminal journal mark is not proof that copied blocks released their context"
+    );
     drop(retained);
     assert!(weak.upgrade().is_none());
+    assert_eq!(
+        ring.owner_completion.snapshot(),
+        crate::CaptureOwnerStatus::Completed
+    );
     assert!(Reservation::acquire(uid).is_ok());
 }
 
@@ -403,24 +415,59 @@ fn fixed_registry_bounds_distinct_pending_and_retained_capture_owners() {
 
 #[test]
 fn duplicate_blocked_create_is_rejected_before_spawning_another_worker() {
+    use crate::capture_owner::{CaptureCompletion, CaptureOwnerStatus};
+    let completion = Arc::new(CaptureCompletion::default());
     let (entered_tx, entered_rx) = mpsc::sync_channel(1);
     let (release_tx, release_rx) = mpsc::sync_channel(1);
-    let thread = spawn_owner("offline-blocked-input", move |_reservation| {
-        entered_tx.send(()).unwrap();
-        release_rx.recv().unwrap(); // models an unreturned native create call
-    })
+    let thread = spawn_owner(
+        "offline-blocked-input",
+        completion.clone(),
+        move |_reservation| {
+            entered_tx.send(()).unwrap();
+            release_rx.recv().unwrap(); // models an unreturned native create call
+        },
+    )
     .unwrap();
     entered_rx.recv_timeout(Duration::from_secs(2)).unwrap();
+    assert_eq!(completion.snapshot(), CaptureOwnerStatus::Pending);
     let ran = Arc::new(AtomicBool::new(false));
     let second_ran = ran.clone();
-    assert!(spawn_owner("offline-blocked-input", move |_| {
-        second_ran.store(true, Ordering::Release);
-    })
-    .is_err());
+    let rejected = Arc::new(CaptureCompletion::default());
+    assert!(
+        spawn_owner("offline-blocked-input", rejected.clone(), move |_| {
+            second_ran.store(true, Ordering::Release);
+        })
+        .is_err()
+    );
     assert!(!ran.load(Ordering::Acquire));
+    assert_eq!(rejected.snapshot(), CaptureOwnerStatus::Completed);
     release_tx.send(()).unwrap();
     thread.join().unwrap();
+    assert_eq!(completion.snapshot(), CaptureOwnerStatus::Completed);
     assert!(Reservation::acquire("offline-blocked-input").is_ok());
+}
+
+#[test]
+fn failed_native_cleanup_keeps_completion_retained_after_worker_exit() {
+    use crate::capture_owner::{CaptureCompletion, CaptureOwnerStatus};
+    let completion = Arc::new(CaptureCompletion::default());
+    spawn_owner(
+        "offline-retained-completion",
+        completion.clone(),
+        |mut reservation| {
+            reservation.release = false; // fake an uncertain native teardown
+        },
+    )
+    .unwrap()
+    .join()
+    .unwrap();
+    assert_eq!(completion.snapshot(), CaptureOwnerStatus::Retained);
+    assert!(Reservation::acquire("offline-retained-completion").is_err());
+    // Only this fake reservation is removed; no native object was constructed.
+    RESERVED
+        .lock()
+        .unwrap()
+        .remove("offline-retained-completion");
 }
 
 #[test]
@@ -577,6 +624,10 @@ fn successful_owner_completion_follows_block_context_listener_and_reservation_re
         .unwrap();
     assert_eq!(completed.callbacks_in_flight, Some(0));
     drop(owner); // Must not rerun native teardown or overwrite terminal evidence.
+    assert_eq!(
+        ring.owner_completion.snapshot(),
+        crate::CaptureOwnerStatus::Completed
+    );
     assert_eq!(
         ring.native_timing.snapshot().unwrap().lifecycle
             [NativeLifecyclePhase::OwnerCompleted as usize],

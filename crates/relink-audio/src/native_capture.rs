@@ -79,6 +79,9 @@ impl Selection {
             Some(size_of::<Context>()),
             Some(size_of::<Gate>()),
             Some(size_of::<NativeCapture>()),
+            // Also reserve the ticket if the ring is released before retained
+            // native reservation metadata. Ring::bytes charges the live copy.
+            Some(super::capture_owner::CaptureCompletion::bytes()),
             Some(size_of::<AtomicBool>() + 3 * size_of::<[usize; 2]>()),
             selection_heap.checked_mul(2),
             planes,
@@ -413,7 +416,7 @@ impl NativeCapture {
         let (commands, receiver) = mpsc::sync_channel(1);
         let active = Arc::new(AtomicBool::new(true));
         let owner_active = active.clone();
-        spawn_owner(key, move |reservation| {
+        spawn_owner(key, state.owner_completion(), move |reservation| {
             owner_loop(
                 prepare,
                 state,
@@ -470,16 +473,24 @@ impl Drop for NativeCapture {
 }
 fn spawn_owner(
     uid: &str,
+    completion: Arc<super::capture_owner::CaptureCompletion>,
     work: impl FnOnce(Reservation) + Send + 'static,
 ) -> Result<thread::JoinHandle<()>, AudioError> {
+    let participant = completion
+        .begin()
+        .map_err(|e| backend("native capture completion ticket", None, e))?;
     // Admission occurs before creating a worker or calling CoreAudio. A blocked
     // create holds one of the same bounded slots as a live or retained owner.
-    let reservation = Reservation::acquire(uid)
+    let mut reservation = Reservation::acquire(uid)
         .map_err(|e| backend("native capture owner reservation", None, e))?;
-    thread::Builder::new()
-        .name("relink-coreaudio-capture".into())
-        .stack_size(super::capture::OWNER_STACK_BYTES)
-        .spawn(move || work(reservation))
+    reservation.completion = Some(completion);
+    participant
+        .spawn(
+            thread::Builder::new()
+                .name("relink-coreaudio-capture".into())
+                .stack_size(super::capture::OWNER_STACK_BYTES),
+            move || work(reservation),
+        )
         .map_err(|e| backend("native capture owner creation", None, e))
 }
 fn owner_loop(
@@ -565,6 +576,7 @@ fn owner_loop(
 struct Reservation {
     uid: String,
     release: bool,
+    completion: Option<Arc<super::capture_owner::CaptureCompletion>>,
 }
 struct Reservations {
     slots: [Option<String>; MAX_RESERVATIONS],
@@ -607,6 +619,7 @@ impl Reservation {
         Ok(Self {
             uid: uid.into(),
             release: true,
+            completion: None,
         })
     }
 }
@@ -615,7 +628,11 @@ impl Drop for Reservation {
         if self.release {
             if let Ok(mut reserved) = RESERVED.lock() {
                 reserved.remove(&self.uid);
+                return;
             }
+        }
+        if let Some(completion) = &self.completion {
+            completion.retain();
         }
     }
 }
@@ -625,6 +642,8 @@ struct Gate {
     active: Arc<AtomicBool>,
     alive: AtomicBool,
     accepting: AtomicBool,
+    // OS-copied listener blocks can outlive our local block reference.
+    _completion: super::capture_owner::Participant,
 }
 impl Gate {
     fn authorized(&self) -> bool {
@@ -647,6 +666,8 @@ struct Context {
     in_flight: AtomicUsize,
     entered: AtomicBool,
     state: UnsafeCell<PacketState>,
+    // Last field: retained block/context ownership cannot report completion.
+    _completion: super::capture_owner::Participant,
 }
 // The IOProc is the sole state writer. A nonspinning re-entry guard prevents
 // overlapping mutable access even if a broken host invokes it concurrently.
@@ -937,11 +958,13 @@ impl Owner {
             selection,
             dependency,
         } = prepared;
+        let completion = state.owner_completion();
         let gate = Arc::new(Gate {
             permit: state.permit(),
             active,
             alive: AtomicBool::new(true),
             accepting: AtomicBool::new(false),
+            _completion: completion.participant().map_err(|e| e.to_string())?,
         });
         let context = Arc::new(Context {
             object: selection.id,
@@ -956,6 +979,7 @@ impl Owner {
                 packet_index: 0,
                 queue_frame: 0,
             }),
+            _completion: completion.participant().map_err(|e| e.to_string())?,
         });
         let callback = capture_block(context.clone());
         let listener_capacity = BASE_LISTENERS + selection.streams.len() * 2;
@@ -1349,6 +1373,7 @@ impl Owner {
             // ownership and exact UID reservation have actually been released.
             self.mark(NativeLifecyclePhase::OwnerCompleted, None);
         } else {
+            self.ring.owner_completion.retain();
             if let Some(reservation) = &mut self.reservation {
                 reservation.release = false;
             }

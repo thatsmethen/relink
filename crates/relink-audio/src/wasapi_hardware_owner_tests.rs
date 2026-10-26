@@ -23,6 +23,50 @@ struct Fixture {
     log: Arc<Mutex<Vec<&'static str>>>,
     attempts: Arc<AtomicUsize>,
 }
+
+#[test]
+fn completion_ticket_follows_native_guard_and_reservation_release() {
+    use crate::capture_owner::{CaptureCompletion, CaptureOwnerStatus};
+    for event_result in [Ok(()), Err(-99)] {
+        let ticket = Arc::new(CaptureCompletion::default());
+        let owner = ticket.begin().unwrap();
+        let retained_ticket = ticket.clone();
+        let f = Fixture::new();
+        let log = f.log.clone();
+        owner
+            .spawn(std::thread::Builder::new(), move || {
+                let mut registry = Registry::new();
+                let slot = registry
+                    .acquire("fake-hardware", 100, f.record.clone())
+                    .unwrap();
+                let mut native = Some(f.native(event_result));
+                let result = release(&mut native, &f.record, |_| Ok(Some(0)));
+                assert_eq!(retained_ticket.snapshot(), CaptureOwnerStatus::Pending);
+                assert_eq!(
+                    *f.log.lock().unwrap(),
+                    ["capture", "client", "event", "realtime", "apartment"]
+                );
+                let released = registry.release(slot);
+                assert_eq!(released, event_result.is_ok());
+                assert_eq!(result.is_ok(), event_result.is_ok());
+                if !released {
+                    retained_ticket.retain();
+                }
+            })
+            .unwrap()
+            .join()
+            .unwrap();
+        assert_eq!(log.lock().unwrap().last(), Some(&"apartment"));
+        assert_eq!(
+            ticket.snapshot(),
+            if event_result.is_ok() {
+                CaptureOwnerStatus::Completed
+            } else {
+                CaptureOwnerStatus::Retained
+            }
+        );
+    }
+}
 impl Fixture {
     fn new() -> Self {
         Self {

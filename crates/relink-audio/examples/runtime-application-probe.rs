@@ -382,6 +382,7 @@ mod native {
                 .map(|capture| {
                     json!({
                         "input_id": capture.device.0, "captured_frames": capture.captured_frames,
+                        "owner_status": format!("{:?}", capture.owner_status),
                         "native_timing": capture.native_timing.map(timing_json),
                     })
                 })
@@ -709,6 +710,7 @@ mod native {
                     clock_correction_ppm: 0.0,
                     native_timing: Some(timing),
                     event_close: None,
+                    owner_status: relink_audio::CaptureOwnerStatus::Completed,
                 }],
                 output_timing: None,
                 input_meters: Vec::new(),
