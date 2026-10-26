@@ -1,0 +1,14 @@
+{
+  "README.md": {
+    "bytes": 961,
+    "sha256": "61e620528e873ef1b08755eed0d46da7411e6de2d67f885d803f29864eb948d3"
+  },
+  "ci-dispatch-snapshot.json": {
+    "bytes": 1764,
+    "sha256": "c7911e1cec9287106ab97aefe96ef1eb45c7568c355b39cb18a1a8d7ba44c230"
+  },
+  "public-verification.json": {
+    "bytes": 13063,
+    "sha256": "3307474eba2c583dbb954af2d3be4b895d9897755dbe9774be4fde1c20f9c85b"
+  }
+}

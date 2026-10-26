@@ -1,0 +1,51 @@
+{
+  "observed_at_utc": "2026-10-26T02:07:44.282721+00:00",
+  "runs": [
+    {
+      "id": 40257398458,
+      "name": "Rust Windows and macOS",
+      "head_sha": "69f49da28a9bae16dec9d4bc29bd0d639fb73a08",
+      "run_attempt": 1,
+      "event": "push",
+      "status": "in_progress",
+      "conclusion": null,
+      "html_url": "https://github.com/thatsmethen/relink/actions/runs/40257398458",
+      "created_at": "2026-10-26T02:05:51Z"
+    },
+    {
+      "id": 40257398430,
+      "name": "Original Rust Windows driver",
+      "head_sha": "69f49da28a9bae16dec9d4bc29bd0d639fb73a08",
+      "run_attempt": 1,
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/thatsmethen/relink/actions/runs/40257398430",
+      "created_at": "2026-10-26T02:05:51Z"
+    },
+    {
+      "id": 40257398426,
+      "name": "Original Rust HAL installed acceptance",
+      "head_sha": "69f49da28a9bae16dec9d4bc29bd0d639fb73a08",
+      "run_attempt": 1,
+      "event": "push",
+      "status": "in_progress",
+      "conclusion": null,
+      "html_url": "https://github.com/thatsmethen/relink/actions/runs/40257398426",
+      "created_at": "2026-10-26T02:05:51Z"
+    },
+    {
+      "id": 40257448775,
+      "name": "Original Rust native multi-output observation",
+      "head_sha": "69f49da28a9bae16dec9d4bc29bd0d639fb73a08",
+      "run_attempt": 1,
+      "event": "workflow_dispatch",
+      "status": "in_progress",
+      "conclusion": null,
+      "html_url": "https://github.com/thatsmethen/relink/actions/runs/40257448775",
+      "created_at": "2026-10-26T02:06:28Z"
+    }
+  ],
+  "manual_multioutput_dispatch_count": 1,
+  "note": "Status snapshot only. Do not treat running jobs as passed or rerun failed observations."
+}
