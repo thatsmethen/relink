@@ -1,0 +1,148 @@
+{
+  "schema": 1,
+  "checked_utc": "2026-10-26T04:55:40.834500+00:00",
+  "installed_bundle": "/Library/Audio/Plug-Ins/HAL/ReLink.driver",
+  "package_sha256": "3d0c22953f79e2264c73290260e813754fdc83cddf52194e67c1cb26eda1bba3",
+  "user_reported_installation_completed": true,
+  "audio_started": false,
+  "services_restarted_by_agent": false,
+  "ui": "User closed Installer after reporting completion; a later accessibility read opened its file dialog, which was closed without another installation.",
+  "payload_files": {
+    "Contents/Info.plist": {
+      "bytes": 1140,
+      "sha256": "80c7d9a262d07b13ff36636fcdab76e5cd92c44bc3df6e6756eaf267ba107e97"
+    },
+    "Contents/MacOS/ReLinkHAL": {
+      "bytes": 908272,
+      "sha256": "804c545dd1ac44a25d8727b2bcd51be15ec646f87680de911bf060d8023335e2"
+    },
+    "Contents/Resources/ReLink-LICENSE.txt": {
+      "bytes": 865,
+      "sha256": "81e89942ae4b17621060badb304d7ffc1db6f8232e284d46cd041d4e3ce7c3ea"
+    },
+    "Contents/Resources/Rust-runtime-notices/COPYRIGHT-library.html": {
+      "bytes": 398128,
+      "sha256": "3aa41caccecaeddad6fcf2f36ce14146ab7baae57064b05b12ecc6b52d5e917f"
+    },
+    "Contents/Resources/Rust-runtime-notices/LICENSE-APACHE.txt": {
+      "bytes": 10280,
+      "sha256": "074e6e32c86a4c0ef8b3ed25b721ca23aca83df277cd88106ef7177c354615ff"
+    },
+    "Contents/Resources/Rust-runtime-notices/LICENSE-MIT.txt": {
+      "bytes": 1078,
+      "sha256": "b85dcd3e453d05982552c52b5fc9e0bdd6d23c6f8e844b984a88af32570b0cc0"
+    },
+    "Contents/Resources/Rust-runtime-notices/sources.json": {
+      "bytes": 1188,
+      "sha256": "82bc318b768c18639a8a317fa72df9933f215678c9378c98ee60676e28a4b374"
+    },
+    "Contents/Resources/test-build-provenance.json": {
+      "bytes": 4348,
+      "sha256": "9ff836b45016848b14f88345d333cafbbef92b9e68ad7027d81f33ab10be69c0"
+    },
+    "Contents/_CodeSignature/CodeResources": {
+      "bytes": 3842,
+      "sha256": "9daa3a04237769283e7492f3bc87fc810c29e69e39700c2ec3dc34fc048942dc"
+    }
+  },
+  "payload_matches_package": true,
+  "codesign": {
+    "command": [
+      "/usr/bin/codesign",
+      "--verify",
+      "--strict",
+      "/Library/Audio/Plug-Ins/HAL/ReLink.driver"
+    ],
+    "exit_code": 0
+  },
+  "receipt": {
+    "command": [
+      "/usr/sbin/pkgutil",
+      "--pkg-info-plist",
+      "au.textual.relink.test-hal"
+    ],
+    "exit_code": 0
+  },
+  "probe_sha256": "aded817c06c03748d93e2d33d0bcfea0cd03fdad876a2da7d6b26b8932decf1f",
+  "cable1": {
+    "command": [
+      "/Users/textual/projects/notify/relink/build/application-capture-fixture-dbab3fd-20261026/system-probe",
+      "discover",
+      "--uid",
+      "au.textual.ravelink.cable.1",
+      "--report",
+      "/Users/textual/projects/notify/relink/build/local-hal-installed-20261026-v4-verification/cable1.json"
+    ],
+    "exit_code": 0,
+    "report": {
+      "schema": 1,
+      "device_running_status": 2003332927,
+      "device_is_running_somewhere": null,
+      "mode": "discover",
+      "uid": "au.textual.ravelink.cable.1",
+      "device_id": 0,
+      "matches": 0,
+      "status": 0,
+      "stop_status": 0,
+      "destroy_status": 0,
+      "fault": 0,
+      "complete": true,
+      "ready": false,
+      "frames": 0,
+      "events": 0,
+      "target_frames": 0,
+      "sample_rate": 48000,
+      "channels": 2,
+      "amplitude": 0.125,
+      "left_amplitude": 0.125,
+      "right_amplitude": 0.125,
+      "left_hz": 440,
+      "right_hz": 997,
+      "started_monotonic_ns": 0,
+      "ended_monotonic_ns": 0,
+      "host_time_numer": 125,
+      "host_time_denom": 3
+    }
+  },
+  "cable2": {
+    "command": [
+      "/Users/textual/projects/notify/relink/build/application-capture-fixture-dbab3fd-20261026/system-probe",
+      "discover",
+      "--uid",
+      "au.textual.ravelink.cable.2",
+      "--report",
+      "/Users/textual/projects/notify/relink/build/local-hal-installed-20261026-v4-verification/cable2.json"
+    ],
+    "exit_code": 0,
+    "report": {
+      "schema": 1,
+      "device_running_status": 2003332927,
+      "device_is_running_somewhere": null,
+      "mode": "discover",
+      "uid": "au.textual.ravelink.cable.2",
+      "device_id": 0,
+      "matches": 0,
+      "status": 0,
+      "stop_status": 0,
+      "destroy_status": 0,
+      "fault": 0,
+      "complete": true,
+      "ready": false,
+      "frames": 0,
+      "events": 0,
+      "target_frames": 0,
+      "sample_rate": 48000,
+      "channels": 2,
+      "amplitude": 0.125,
+      "left_amplitude": 0.125,
+      "right_amplitude": 0.125,
+      "left_hz": 440,
+      "right_hz": 997,
+      "started_monotonic_ns": 0,
+      "ended_monotonic_ns": 0,
+      "host_time_numer": 125,
+      "host_time_denom": 3
+    }
+  },
+  "installed_bytes_verified": true
+}

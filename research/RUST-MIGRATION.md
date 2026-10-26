@@ -102,3 +102,18 @@ bundles. All 92 offline instrument/installer controls passed. The reviewed local
 Rust HAL test package preserves its exact source, final signed binary and payload
 hashes. Preparation launched no audio; the local preflight found neither owned
 cable loaded. This is preparation evidence, not an application-capture result.
+
+The same source passed both desktop CI jobs in
+[40270207990](https://github.com/thatsmethen/relink/actions/runs/40270207990).
+The separate [installed observation 40270207703](evidence/rust-runtime-upload-failure-40270207703/README.md)
+passed its HAL job but failed its hardware-input runtime job. Runtime artifact
+creation also timed out; the available originals establish the failure exit but
+cannot identify its audio cause. The failed observation remains distinct from
+earlier passing observations and the unexecuted application fixture.
+
+The [local Rust test package installation](evidence/local-hal-package-install-20261026/README.md)
+was verified against the reviewed payload, signature and receipt. Its virtual
+devices were not loaded, and no audio-service restart occurred. Local recording
+is outside current authorization: the fixture remains unexecuted and no macOS
+recording permission was granted. Continue source review and offline checks;
+do not run local capture or request recording access.

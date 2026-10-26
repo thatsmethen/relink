@@ -1,0 +1,297 @@
+﻿2026-10-26T04:39:47.6904090Z Current runner version: '2.338.0'
+2026-10-26T04:39:47.6941450Z ##[group]Runner Image Provisioner
+2026-10-26T04:39:47.6942100Z Hosted Compute Agent
+2026-10-26T04:39:47.6942490Z Version: 20260828.587
+2026-10-26T04:39:47.6942910Z Commit: abac92662cab4cc7352de4f9f9d2e2419aad9c29
+2026-10-26T04:39:47.6943540Z Build Date: 2026-08-28T16:44:25Z
+2026-10-26T04:39:47.6943990Z Worker ID: {7053aa23-6235-4f5f-9f56-775a33fa9b79}
+2026-10-26T04:39:47.6944460Z Azure Region: westus
+2026-10-26T04:39:47.6944830Z ##[endgroup]
+2026-10-26T04:39:47.6945820Z ##[group]Operating System
+2026-10-26T04:39:47.6946220Z macOS
+2026-10-26T04:39:47.6946560Z 15.7.9
+2026-10-26T04:39:47.6946900Z 24G830
+2026-10-26T04:39:47.6947250Z ##[endgroup]
+2026-10-26T04:39:47.6947620Z ##[group]Runner Image
+2026-10-26T04:39:47.6948060Z Image: macos-15-arm64
+2026-10-26T04:39:47.6948500Z Version: 20260907.0337.1
+2026-10-26T04:39:47.6949420Z Included Software: https://github.com/actions/runner-images/blob/macos-15-arm64/20260907.0337/images/macos/macos-15-arm64-Readme.md
+2026-10-26T04:39:47.6950510Z Image Release: https://github.com/actions/runner-images/releases/tag/macos-15-arm64%2F20260907.0337
+2026-10-26T04:39:47.6951240Z ##[endgroup]
+2026-10-26T04:39:47.6952020Z ##[group]GITHUB_TOKEN Permissions
+2026-10-26T04:39:47.6953740Z Contents: read
+2026-10-26T04:39:47.6954120Z Metadata: read
+2026-10-26T04:39:47.6954490Z ##[endgroup]
+2026-10-26T04:39:47.6956040Z Secret source: Actions
+2026-10-26T04:39:47.6956620Z Cache mode: write
+2026-10-26T04:39:47.6957110Z Prepare workflow directory
+2026-10-26T04:39:47.7498610Z Prepare all required actions
+2026-10-26T04:39:47.7544770Z Getting action download info
+2026-10-26T04:39:48.2151290Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-10-26T04:39:48.5248740Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-10-26T04:39:48.7548740Z Complete job name: installed-runtime-capture
+2026-10-26T04:39:48.8240190Z ##[group]Run actions/checkout@v4
+2026-10-26T04:39:48.8240790Z with:
+2026-10-26T04:39:48.8242600Z   repository: thatsmethen/relink
+2026-10-26T04:39:48.8245540Z   token: ***
+2026-10-26T04:39:48.8245920Z   ssh-strict: true
+2026-10-26T04:39:48.8246270Z   ssh-user: git
+2026-10-26T04:39:48.8246600Z   persist-credentials: true
+2026-10-26T04:39:48.8246960Z   clean: true
+2026-10-26T04:39:48.8247320Z   sparse-checkout-cone-mode: true
+2026-10-26T04:39:48.8247760Z   fetch-depth: 1
+2026-10-26T04:39:48.8248090Z   fetch-tags: false
+2026-10-26T04:39:48.8248410Z   show-progress: true
+2026-10-26T04:39:48.8248750Z   lfs: false
+2026-10-26T04:39:48.8249070Z   submodules: false
+2026-10-26T04:39:48.8249410Z   set-safe-directory: true
+2026-10-26T04:39:48.8249780Z   allow-unsafe-pr-checkout: false
+2026-10-26T04:39:48.8250430Z env:
+2026-10-26T04:39:48.8250760Z   RAVELINK_OBSERVER_DIAGNOSTICS: 1
+2026-10-26T04:39:48.8251630Z ##[endgroup]
+2026-10-26T04:39:49.3745090Z Syncing repository: thatsmethen/relink
+2026-10-26T04:39:49.3750780Z ##[group]Getting Git version info
+2026-10-26T04:39:49.3751550Z Working directory is '/Users/runner/work/relink/relink'
+2026-10-26T04:39:49.3752490Z [command]/opt/homebrew/bin/git version
+2026-10-26T04:39:49.4638740Z git version 2.55.0
+2026-10-26T04:39:49.4673570Z ##[endgroup]
+2026-10-26T04:39:49.4689230Z Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/2955b1fc-ec75-4185-be96-08fc4c6b8f2b/.gitconfig'
+2026-10-26T04:39:49.4691320Z Temporarily overriding HOME='/Users/runner/work/_temp/2955b1fc-ec75-4185-be96-08fc4c6b8f2b' before making global git config changes
+2026-10-26T04:39:49.4692690Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-26T04:39:49.4699840Z [command]/opt/homebrew/bin/git config --global --add safe.directory /Users/runner/work/relink/relink
+2026-10-26T04:39:49.4910110Z Deleting the contents of '/Users/runner/work/relink/relink'
+2026-10-26T04:39:49.4919650Z ##[group]Initializing the repository
+2026-10-26T04:39:49.4930310Z [command]/opt/homebrew/bin/git init /Users/runner/work/relink/relink
+2026-10-26T04:39:49.5356460Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-26T04:39:49.5357960Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-26T04:39:49.5358910Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-26T04:39:49.5359660Z hint: call:
+2026-10-26T04:39:49.5360040Z hint:
+2026-10-26T04:39:49.5361940Z hint: 	git config --global init.defaultBranch <name>
+2026-10-26T04:39:49.5362510Z hint:
+2026-10-26T04:39:49.5363750Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-26T04:39:49.5365140Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-26T04:39:49.5365850Z hint:
+2026-10-26T04:39:49.5366250Z hint: 	git branch -m <name>
+2026-10-26T04:39:49.5367180Z hint:
+2026-10-26T04:39:49.5367840Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-26T04:39:49.5369400Z Initialized empty Git repository in /Users/runner/work/relink/relink/.git/
+2026-10-26T04:39:49.5423080Z [command]/opt/homebrew/bin/git remote add origin https://github.com/thatsmethen/relink
+2026-10-26T04:39:49.5497770Z ##[endgroup]
+2026-10-26T04:39:49.5500190Z ##[group]Disabling automatic garbage collection
+2026-10-26T04:39:49.5507050Z [command]/opt/homebrew/bin/git config --local gc.auto 0
+2026-10-26T04:39:49.5577780Z ##[endgroup]
+2026-10-26T04:39:49.5580690Z ##[group]Setting up auth
+2026-10-26T04:39:49.5582780Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-26T04:39:49.5739330Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-26T04:39:49.7326550Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-26T04:39:49.7512600Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-26T04:39:49.8765890Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-26T04:39:49.8784100Z [command]/opt/homebrew/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-26T04:39:50.0070680Z [command]/opt/homebrew/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-26T04:39:50.0186520Z ##[endgroup]
+2026-10-26T04:39:50.0190310Z ##[group]Fetching the repository
+2026-10-26T04:39:50.0195100Z [command]/opt/homebrew/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +dbab3fdeefe1c4833f8b56f3fb00cbe49cf3d0e1:refs/remotes/origin/main
+2026-10-26T04:39:51.6507480Z From https://github.com/thatsmethen/relink
+2026-10-26T04:39:51.6509680Z  * [new ref]         dbab3fdeefe1c4833f8b56f3fb00cbe49cf3d0e1 -> origin/main
+2026-10-26T04:39:51.6514890Z ##[endgroup]
+2026-10-26T04:39:51.6516380Z ##[group]Determining the checkout info
+2026-10-26T04:39:51.6517590Z ##[endgroup]
+2026-10-26T04:39:51.6522070Z [command]/opt/homebrew/bin/git sparse-checkout disable
+2026-10-26T04:39:51.6658600Z [command]/opt/homebrew/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-26T04:39:51.6788650Z ##[group]Checking out the ref
+2026-10-26T04:39:51.6796950Z [command]/opt/homebrew/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-10-26T04:39:52.3490600Z Switched to a new branch 'main'
+2026-10-26T04:39:52.3539410Z branch 'main' set up to track 'origin/main'.
+2026-10-26T04:39:52.3731990Z ##[endgroup]
+2026-10-26T04:39:52.3740900Z [command]/opt/homebrew/bin/git log -1 --format=%H
+2026-10-26T04:39:52.3808590Z dbab3fdeefe1c4833f8b56f3fb00cbe49cf3d0e1
+2026-10-26T04:39:52.4193370Z ##[group]Run rustup toolchain install 1.91.1 --profile minimal
+2026-10-26T04:39:52.4195420Z [36;1mrustup toolchain install 1.91.1 --profile minimal[0m
+2026-10-26T04:39:52.4256650Z shell: /bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-26T04:39:52.4257050Z env:
+2026-10-26T04:39:52.4257350Z   RAVELINK_OBSERVER_DIAGNOSTICS: 1
+2026-10-26T04:39:52.4257640Z ##[endgroup]
+2026-10-26T04:39:52.5499630Z info: syncing channel updates for 1.91.1-aarch64-apple-darwin
+2026-10-26T04:39:52.7884460Z info: latest update on 2025-11-10 for version 1.91.1 (ed61e7d7e 2025-11-07)
+2026-10-26T04:39:52.7890790Z info: downloading 3 components
+2026-10-26T04:40:01.6977670Z 
+2026-10-26T04:40:01.8530860Z   1.91.1-aarch64-apple-darwin installed - rustc 1.91.1 (ed61e7d7e 2025-11-07)
+2026-10-26T04:40:01.8541520Z info: self-update is disabled for this build of rustup
+2026-10-26T04:40:01.8542280Z 
+2026-10-26T04:40:01.8560240Z info: any updates to rustup will need to be fetched with your system package manager
+2026-10-26T04:40:01.8912060Z ##[group]Run mkdir -p build/rust-runtime-system
+2026-10-26T04:40:01.8927240Z [36;1mmkdir -p build/rust-runtime-system[0m
+2026-10-26T04:40:01.8927790Z [36;1msh drivers/macos/build-bundle.sh > build/rust-runtime-system/build-driver.log 2>&1[0m
+2026-10-26T04:40:01.8930820Z [36;1mcargo build -p relink-audio --release --example runtime-capture-probe --locked > build/rust-runtime-system/build-runtime.log 2>&1[0m
+2026-10-26T04:40:01.8935040Z [36;1mxcrun clang -std=c11 -O2 -Wall -Wextra -Werror drivers/macos/tests/system-probe.c -framework CoreAudio -framework CoreFoundation -o build/rust-runtime-system/system-probe[0m
+2026-10-26T04:40:01.8940170Z [36;1mshasum -a 256 crates/relink-audio/examples/runtime-capture-probe.rs target/release/examples/runtime-capture-probe drivers/macos/tests/system-probe.c drivers/macos/tests/probe-diagnostics.h drivers/macos/tests/analyze_diagnostics.py drivers/macos/tests/OBSERVER-DIAGNOSTICS.md drivers/macos/tests/run_system.py drivers/macos/tests/run_runtime.py build/rust-runtime-system/system-probe dist/macos/ReLink.driver/Contents/MacOS/ReLinkHAL drivers/macos/tests/analyze_runtime.py drivers/macos/tests/RUNTIME-ACCEPTANCE.md > build/rust-runtime-system/build-sha256.txt[0m
+2026-10-26T04:40:01.8946850Z [36;1msw_vers > build/rust-runtime-system/environment.txt[0m
+2026-10-26T04:40:01.8949090Z [36;1muname -a >> build/rust-runtime-system/environment.txt[0m
+2026-10-26T04:40:01.8950830Z [36;1mxcrun --show-sdk-version >> build/rust-runtime-system/environment.txt[0m
+2026-10-26T04:40:01.8953320Z [36;1mrustc -vV >> build/rust-runtime-system/environment.txt[0m
+2026-10-26T04:40:01.9041120Z shell: /bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-26T04:40:01.9042160Z env:
+2026-10-26T04:40:01.9042810Z   RAVELINK_OBSERVER_DIAGNOSTICS: 1
+2026-10-26T04:40:01.9043620Z ##[endgroup]
+2026-10-26T04:40:49.0309910Z ##[group]Run python3 -m unittest discover -s drivers/macos/tests -p 'test_*.py' -v 2>&1 | tee build/rust-runtime-system/observer-controls.txt
+2026-10-26T04:40:49.0311140Z [36;1mpython3 -m unittest discover -s drivers/macos/tests -p 'test_*.py' -v 2>&1 | tee build/rust-runtime-system/observer-controls.txt[0m
+2026-10-26T04:40:49.0535840Z shell: /bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-26T04:40:49.0536240Z env:
+2026-10-26T04:40:49.0536470Z   RAVELINK_OBSERVER_DIAGNOSTICS: 1
+2026-10-26T04:40:49.0536850Z ##[endgroup]
+2026-10-26T04:40:49.8786180Z test_identity_checks_must_finish_before_reserved_preroll (test_application.ArmingControls.test_identity_checks_must_finish_before_reserved_preroll) ... ok
+2026-10-26T04:40:49.8804660Z test_late_preroll_cannot_publish_go (test_application.ArmingControls.test_late_preroll_cannot_publish_go) ... ok
+2026-10-26T04:40:49.8840640Z test_shared_arm_deadline_allows_ready_observers_and_preroll (test_application.ArmingControls.test_shared_arm_deadline_allows_ready_observers_and_preroll) ... ok
+2026-10-26T04:40:49.8854680Z test_slow_second_spawn_does_not_extend_first_recorder_budget (test_application.ArmingControls.test_slow_second_spawn_does_not_extend_first_recorder_budget) ... ok
+2026-10-26T04:40:50.1688810Z test_actual_parser_and_pure_callback_without_hardware_main (test_application.CGeneratorControls.test_actual_parser_and_pure_callback_without_hardware_main) ... ok
+2026-10-26T04:40:58.6260130Z test_full_application_sequence_with_independent_witness_passes (test_application.FullProtocolControls.test_full_application_sequence_with_independent_witness_passes) ... ok
+2026-10-26T04:40:58.6315870Z test_identity_must_match_prepared_hash_and_before_go_record (test_application.FullProtocolControls.test_identity_must_match_prepared_hash_and_before_go_record) ... ok
+2026-10-26T04:41:00.4765490Z test_late_ack_does_not_extend_request_based_response_deadline (test_application.FullProtocolControls.test_late_ack_does_not_extend_request_based_response_deadline) ... ok
+2026-10-26T04:41:02.0608250Z test_runtime_config_cannot_claim_one_process_or_fake_hardware_selector (test_application.FullProtocolControls.test_runtime_config_cannot_claim_one_process_or_fake_hardware_selector) ... ok
+2026-10-26T04:41:02.1288580Z test_self_consistent_shortened_generators_fail_fixed_length (test_application.FullProtocolControls.test_self_consistent_shortened_generators_fail_fixed_length) ... ok
+2026-10-26T04:41:03.4738990Z test_self_consistent_shortened_output_recording_fails_fixed_length (test_application.FullProtocolControls.test_self_consistent_shortened_output_recording_fails_fixed_length) ... ok
+2026-10-26T04:41:07.1108600Z test_self_consistent_shortened_source_witness_fails_fixed_length (test_application.FullProtocolControls.test_self_consistent_shortened_source_witness_fails_fixed_length) ... ok
+2026-10-26T04:41:07.1122410Z test_busy_or_unknown_cable_never_counts_as_unused (test_application.IdentityControls.test_busy_or_unknown_cable_never_counts_as_unused) ... ok
+2026-10-26T04:41:07.1133160Z test_consent_denied_before_even_filesystem_or_process_access (test_application.IdentityControls.test_consent_denied_before_even_filesystem_or_process_access) ... ok
+2026-10-26T04:41:07.1137840Z test_fixed_recording_covers_declared_schedule_and_source_lifetime (test_application.IdentityControls.test_fixed_recording_covers_declared_schedule_and_source_lifetime) ... ok
+2026-10-26T04:41:07.1155410Z test_pid_abi_offsets_match_static_sdk_controls (test_application.IdentityControls.test_pid_abi_offsets_match_static_sdk_controls) ... ok
+2026-10-26T04:41:07.2131270Z test_prepared_bytes_freshness_and_paths_fail_closed (test_application.IdentityControls.test_prepared_bytes_freshness_and_paths_fail_closed) ... ok
+2026-10-26T04:41:07.2211610Z test_ready_deadline_is_spawn_based_not_wait_order (test_application.IdentityControls.test_ready_deadline_is_spawn_based_not_wait_order) ... ok
+2026-10-26T04:41:07.2230030Z test_runtime_consent_environment_only_set_by_run_child (test_application.IdentityControls.test_runtime_consent_environment_only_set_by_run_child) ... ok
+2026-10-26T04:41:07.2233970Z test_selector_is_real_application_identity_not_hardware (test_application.IdentityControls.test_selector_is_real_application_identity_not_hardware) ... ok
+2026-10-26T04:41:07.2259340Z test_two_instances_same_executable_with_distinct_owned_pids (test_application.IdentityControls.test_two_instances_same_executable_with_distinct_owned_pids) ... ok
+2026-10-26T04:41:07.3851020Z test_independent_lifecycle_proof_rejects_claimed_success_with_missing_or_failed_phase (test_application.LifecycleControls.test_independent_lifecycle_proof_rejects_claimed_success_with_missing_or_failed_phase) ... ok
+2026-10-26T04:41:07.3993070Z test_late_fault_cannot_disappear_in_clean_terminal_snapshot (test_application.LifecycleControls.test_late_fault_cannot_disappear_in_clean_terminal_snapshot) ... ok
+2026-10-26T04:41:07.4068550Z test_terminal_observation_is_not_cleanup_proof (test_application.LifecycleControls.test_terminal_observation_is_not_cleanup_proof) ... ok
+2026-10-26T04:41:08.0243230Z test_capture_rejects_sentinel_leak_and_missing_instance (test_application.SignalControls.test_capture_rejects_sentinel_leak_and_missing_instance) ... ok
+2026-10-26T04:41:09.7670510Z test_witness_requires_all_four_tones_in_every_window (test_application.SignalControls.test_witness_requires_all_four_tones_in_every_window) ... ok
+2026-10-26T04:41:11.5480620Z test_descendant_cannot_outlive_timed_out_parent (test_diagnostics.DeadlineControls.test_descendant_cannot_outlive_timed_out_parent) ... ok
+2026-10-26T04:41:11.9974130Z test_failed_child_does_not_cancel_other_evidence (test_diagnostics.DeadlineControls.test_failed_child_does_not_cancel_other_evidence) ... ok
+2026-10-26T04:41:12.0064560Z test_prior_log_is_not_overwritten (test_diagnostics.DeadlineControls.test_prior_log_is_not_overwritten) ... ok
+2026-10-26T04:41:12.9577810Z test_short_child_deadline_is_enforced_while_waiting_for_long_sibling (test_diagnostics.DeadlineControls.test_short_child_deadline_is_enforced_while_waiting_for_long_sibling) ... ok
+2026-10-26T04:41:14.0954160Z test_sigterm_ignoring_child_is_killed_and_reaped (test_diagnostics.DeadlineControls.test_sigterm_ignoring_child_is_killed_and_reaped) ... ok
+2026-10-26T04:41:14.1150700Z test_gap_timing_and_callback_work_are_separate_observations (test_diagnostics.DiagnosticControls.test_gap_timing_and_callback_work_are_separate_observations) ... ok
+2026-10-26T04:41:14.1352680Z test_malformed_timing_or_original_csv_mismatch_is_rejected (test_diagnostics.DiagnosticControls.test_malformed_timing_or_original_csv_mismatch_is_rejected) ... ok
+2026-10-26T04:41:14.1360320Z test_missing_current_timestamp_is_preserved_not_fabricated (test_diagnostics.DiagnosticControls.test_missing_current_timestamp_is_preserved_not_fabricated) ... ok
+2026-10-26T04:41:14.8909610Z test_native_notification_storage_is_bounded_and_concurrent (test_diagnostics.DiagnosticControls.test_native_notification_storage_is_bounded_and_concurrent) ... ok
+2026-10-26T04:41:14.8986350Z test_overflow_uncommitted_and_listener_failures_remain_failures (test_diagnostics.DiagnosticControls.test_overflow_uncommitted_and_listener_failures_remain_failures) ... ok
+2026-10-26T04:41:14.9089460Z test_repeated_notification_index_is_rejected (test_diagnostics.DiagnosticControls.test_repeated_notification_index_is_rejected) ... ok
+2026-10-26T04:41:31.1153280Z test_bad_independent_clock_cannot_pass_with_good_pcm (test_multioutput.ProtocolControls.test_bad_independent_clock_cannot_pass_with_good_pcm) ... ok
+2026-10-26T04:41:41.4012360Z test_both_native_submissions_and_all_cleanup_slots_required (test_multioutput.ProtocolControls.test_both_native_submissions_and_all_cleanup_slots_required) ... ok
+2026-10-26T04:41:50.6600700Z test_complete_two_output_protocol_passes (test_multioutput.ProtocolControls.test_complete_two_output_protocol_passes) ... ok
+2026-10-26T04:41:59.4470700Z test_earlier_fault_and_failed_lifecycle_cannot_be_erased_by_clean_final (test_multioutput.ProtocolControls.test_earlier_fault_and_failed_lifecycle_cannot_be_erased_by_clean_final) ... ok
+2026-10-26T04:42:08.0180200Z test_ignored_route_control_and_stale_stop_audio_fail (test_multioutput.ProtocolControls.test_ignored_route_control_and_stale_stop_audio_fail) ... ok
+2026-10-26T04:42:08.2408120Z test_incomplete_duplicate_or_reordered_protocol_rejected (test_multioutput.ProtocolControls.test_incomplete_duplicate_or_reordered_protocol_rejected) ... ok
+2026-10-26T04:42:17.0533170Z test_late_route_ack_and_delayed_restore_fail_fixed_request_deadline (test_multioutput.ProtocolControls.test_late_route_ack_and_delayed_restore_fail_fixed_request_deadline) ... ok
+2026-10-26T04:42:17.1080590Z test_missing_native_packets_or_progress_cannot_pass_on_product_summary (test_multioutput.ProtocolControls.test_missing_native_packets_or_progress_cannot_pass_on_product_summary) ... ok
+2026-10-26T04:42:26.5097980Z test_one_channel_dropout_inside_gain_margin_fails (test_multioutput.ProtocolControls.test_one_channel_dropout_inside_gain_margin_fails) ... ok
+2026-10-26T04:42:31.2751570Z test_wrong_identity_or_interior_partial_capture_is_not_normalized (test_multioutput.ProtocolControls.test_wrong_identity_or_interior_partial_capture_is_not_normalized) ... ok
+2026-10-26T04:42:31.2844080Z test_first_reader_failure_still_finishes_every_started_participant (test_multioutput.RunnerControls.test_first_reader_failure_still_finishes_every_started_participant) ... ok
+2026-10-26T04:42:31.2854740Z test_mutating_harness_rejects_non_ci_execution (test_multioutput.RunnerControls.test_mutating_harness_rejects_non_ci_execution) ... ok
+2026-10-26T04:42:33.2798700Z test_fixed_and_bounded_independent_clock_drift_pass (test_multioutput.ToneControls.test_fixed_and_bounded_independent_clock_drift_pass) ... ok
+2026-10-26T04:42:37.3966680Z test_wrong_route_mixed_route_gain_stereo_and_discontinuity_fail (test_multioutput.ToneControls.test_wrong_route_mixed_route_gain_stereo_and_discontinuity_fail) ... ok
+2026-10-26T04:42:37.3996990Z test_existing_second_uid_prevents_install (test_runtime.OwnershipControls.test_existing_second_uid_prevents_install) ... ok
+2026-10-26T04:42:37.4008770Z test_runtime_evidence_is_not_overwritten_or_launched (test_runtime.OwnershipControls.test_runtime_evidence_is_not_overwritten_or_launched) ... ok
+2026-10-26T04:42:40.7453830Z test_complete_fixed_sequence_passes (test_runtime.ProtocolControls.test_complete_fixed_sequence_passes) ... ok
+2026-10-26T04:42:42.2688730Z test_delayed_mute_is_measured_and_fails (test_runtime.ProtocolControls.test_delayed_mute_is_measured_and_fails) ... ok
+2026-10-26T04:42:43.1770350Z test_delayed_restore_is_measured_and_fails (test_runtime.ProtocolControls.test_delayed_restore_is_measured_and_fails) ... ok
+2026-10-26T04:42:44.1749730Z test_delayed_stop_and_stale_tail_fail (test_runtime.ProtocolControls.test_delayed_stop_and_stale_tail_fail) ... ok
+2026-10-26T04:42:45.1546100Z test_gain_handoff_margin_cannot_hide_silent_packet (test_runtime.ProtocolControls.test_gain_handoff_margin_cannot_hide_silent_packet) ... ok
+2026-10-26T04:42:48.7753870Z test_late_valid_ack_does_not_extend_output_response_deadline (test_runtime.ProtocolControls.test_late_valid_ack_does_not_extend_output_response_deadline) ... ok
+2026-10-26T04:42:49.8255930Z test_report_cannot_redefine_expected_gain_or_ack_deadline (test_runtime.ProtocolControls.test_report_cannot_redefine_expected_gain_or_ack_deadline) ... ok
+2026-10-26T04:42:50.7708400Z test_fixed_and_valid_continuous_asrc_drift_pass (test_runtime.SignalControls.test_fixed_and_valid_continuous_asrc_drift_pass) ... ok
+2026-10-26T04:42:50.9932180Z test_outside_declared_drift_fails_frequency_bound (test_runtime.SignalControls.test_outside_declared_drift_fails_frequency_bound) ... ok
+2026-10-26T04:42:51.0035890Z test_timeline_uses_actual_callback_clock_without_whole_capture_drift (test_runtime.SignalControls.test_timeline_uses_actual_callback_clock_without_whole_capture_drift) ... ok
+2026-10-26T04:42:51.7015560Z test_wrong_gain_channels_silence_and_single_sample_skip_fail (test_runtime.SignalControls.test_wrong_gain_channels_silence_and_single_sample_skip_fail) ... ok
+2026-10-26T04:42:51.8766110Z test_correct_distinct_stereo_tone_and_nonzero_phase_pass (test_system.AnalysisControls.test_correct_distinct_stereo_tone_and_nonzero_phase_pass) ... ok
+2026-10-26T04:42:52.0179540Z test_exact_zero_packet_hole_is_rejected (test_system.AnalysisControls.test_exact_zero_packet_hole_is_rejected) ... ok
+2026-10-26T04:42:52.1326710Z test_generator_metadata_cannot_change_acceptance_signal (test_system.AnalysisControls.test_generator_metadata_cannot_change_acceptance_signal) ... ok
+2026-10-26T04:42:52.2658790Z test_half_amplitude_is_rejected (test_system.AnalysisControls.test_half_amplitude_is_rejected) ... ok
+2026-10-26T04:42:52.2946160Z test_nonfinite_or_truncated_pcm_is_observer_failure (test_system.AnalysisControls.test_nonfinite_or_truncated_pcm_is_observer_failure) ... ok
+2026-10-26T04:42:52.4133380Z test_phase_discontinuity_without_zeros_is_rejected (test_system.AnalysisControls.test_phase_discontinuity_without_zeros_is_rejected) ... ok
+2026-10-26T04:42:52.5176700Z test_probe_failure_and_partial_counts_are_not_promoted (test_system.AnalysisControls.test_probe_failure_and_partial_counts_are_not_promoted) ... ok
+2026-10-26T04:42:52.5726140Z test_stale_audio_after_restart_is_rejected (test_system.AnalysisControls.test_stale_audio_after_restart_is_rejected) ... ok
+2026-10-26T04:42:52.6861850Z test_swapped_channels_fail (test_system.AnalysisControls.test_swapped_channels_fail) ... ok
+2026-10-26T04:42:52.8190630Z test_timestamp_gap_fails_even_with_valid_pcm (test_system.AnalysisControls.test_timestamp_gap_fails_even_with_valid_pcm) ... ok
+2026-10-26T04:42:52.8292860Z test_cleanup_refuses_foreign_bundle_without_mutating (test_system.EnvironmentControls.test_cleanup_refuses_foreign_bundle_without_mutating) ... ok
+2026-10-26T04:42:52.8396650Z test_cleanup_requires_matching_run_ownership (test_system.EnvironmentControls.test_cleanup_requires_matching_run_ownership) ... ok
+2026-10-26T04:42:52.8499350Z test_cleanup_target_is_exact_owned_bundle (test_system.EnvironmentControls.test_cleanup_target_is_exact_owned_bundle) ... ok
+2026-10-26T04:42:52.8567900Z test_existing_record_is_never_overwritten (test_system.EnvironmentControls.test_existing_record_is_never_overwritten) ... ok
+2026-10-26T04:42:52.8570310Z test_local_mutating_execution_is_refused (test_system.EnvironmentControls.test_local_mutating_execution_is_refused) ... ok
+2026-10-26T04:42:52.8571360Z test_manifest_retains_original_failed_bytes_and_hash (test_system.EnvironmentControls.test_manifest_retains_original_failed_bytes_and_hash) ... ok
+2026-10-26T04:42:52.8572450Z test_only_query_errors_expire_without_successful_absence (test_system.EnvironmentControls.test_only_query_errors_expire_without_successful_absence) ... ok
+2026-10-26T04:42:52.8573540Z test_restart_retries_query_error_without_calling_it_absence (test_system.EnvironmentControls.test_restart_retries_query_error_without_calling_it_absence) ... ok
+2026-10-26T04:42:52.8574710Z test_successful_cleanup_recheck_does_not_restart_daemon (test_system.EnvironmentControls.test_successful_cleanup_recheck_does_not_restart_daemon) ... ok
+2026-10-26T04:42:52.8575960Z test_archive_inspection_rejects_extra_payload_and_mutated_driver (test_test_package.LocalTestPackageTests.test_archive_inspection_rejects_extra_payload_and_mutated_driver) ... ok
+2026-10-26T04:42:52.8577070Z test_existing_build_output_is_never_overwritten (test_test_package.LocalTestPackageTests.test_existing_build_output_is_never_overwritten) ... ok
+2026-10-26T04:42:52.8715430Z test_first_install_allows_absent_destination (test_test_package.LocalTestPackageTests.test_first_install_allows_absent_destination) ... ok
+2026-10-26T04:42:52.8725250Z test_payload_manifest_rejects_symlink (test_test_package.LocalTestPackageTests.test_payload_manifest_rejects_symlink) ... ok
+2026-10-26T04:42:52.8834920Z test_refuses_every_existing_destination_including_own_bundle (test_test_package.LocalTestPackageTests.test_refuses_every_existing_destination_including_own_bundle) ... ok
+2026-10-26T04:42:52.9070380Z test_refuses_non_directory_and_external_volume (test_test_package.LocalTestPackageTests.test_refuses_non_directory_and_external_volume) ... ok
+2026-10-26T04:42:52.9494450Z test_refuses_own_identity_under_other_name_or_symlink (test_test_package.LocalTestPackageTests.test_refuses_own_identity_under_other_name_or_symlink) ... ok
+2026-10-26T04:42:52.9966170Z test_refuses_symlink_target_and_each_ancestor (test_test_package.LocalTestPackageTests.test_refuses_symlink_target_and_each_ancestor) ... ok
+2026-10-26T04:42:53.0117040Z test_unrelated_bundle_is_not_changed (test_test_package.LocalTestPackageTests.test_unrelated_bundle_is_not_changed) ... ok
+2026-10-26T04:42:53.0118510Z 
+2026-10-26T04:42:53.0119460Z ----------------------------------------------------------------------
+2026-10-26T04:42:53.0120620Z Ran 92 tests in 123.075s
+2026-10-26T04:42:53.0120980Z 
+2026-10-26T04:42:53.0121300Z OK
+2026-10-26T04:42:53.0771130Z ##[group]Run python3 drivers/macos/tests/run_runtime.py run
+2026-10-26T04:42:53.0771790Z [36;1mpython3 drivers/macos/tests/run_runtime.py run[0m
+2026-10-26T04:42:53.1138070Z shell: /bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-26T04:42:53.1138540Z env:
+2026-10-26T04:42:53.1138870Z   RAVELINK_OBSERVER_DIAGNOSTICS: 1
+2026-10-26T04:42:53.1139280Z ##[endgroup]
+2026-10-26T04:43:57.2905030Z ##[error]Process completed with exit code 1.
+2026-10-26T04:43:57.3079980Z ##[group]Run python3 drivers/macos/tests/run_runtime.py cleanup
+2026-10-26T04:43:57.3081610Z [36;1mpython3 drivers/macos/tests/run_runtime.py cleanup[0m
+2026-10-26T04:43:57.3190630Z shell: /bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-26T04:43:57.3191050Z env:
+2026-10-26T04:43:57.3315530Z   RAVELINK_OBSERVER_DIAGNOSTICS: 1
+2026-10-26T04:43:57.3315990Z ##[endgroup]
+2026-10-26T04:43:57.7757440Z ##[group]Run python3 drivers/macos/tests/run_runtime.py manifest
+2026-10-26T04:43:57.7758190Z [36;1mpython3 drivers/macos/tests/run_runtime.py manifest[0m
+2026-10-26T04:43:57.7816580Z shell: /bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-26T04:43:57.7818480Z env:
+2026-10-26T04:43:57.7818810Z   RAVELINK_OBSERVER_DIAGNOSTICS: 1
+2026-10-26T04:43:57.7819320Z ##[endgroup]
+2026-10-26T04:43:57.9246700Z ##[group]Run actions/upload-artifact@v4
+2026-10-26T04:43:57.9247040Z with:
+2026-10-26T04:43:57.9247450Z   name: original-rust-runtime-40270207703-1
+2026-10-26T04:43:57.9247700Z   path: build/rust-runtime-system/
+2026-10-26T04:43:57.9247920Z   if-no-files-found: error
+2026-10-26T04:43:57.9248100Z   retention-days: 30
+2026-10-26T04:43:57.9248280Z   compression-level: 6
+2026-10-26T04:43:57.9248490Z   overwrite: false
+2026-10-26T04:43:57.9248720Z   include-hidden-files: false
+2026-10-26T04:43:57.9248900Z env:
+2026-10-26T04:43:57.9249050Z   RAVELINK_OBSERVER_DIAGNOSTICS: 1
+2026-10-26T04:43:57.9249240Z ##[endgroup]
+2026-10-26T04:43:58.3229590Z (node:5065) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-26T04:43:58.3230410Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-26T04:43:58.3387560Z With the provided path, there will be 57 files uploaded
+2026-10-26T04:43:58.3388210Z Artifact name is valid!
+2026-10-26T04:43:58.3388420Z Root directory input is valid!
+2026-10-26T04:44:03.3953450Z Attempt 1 of 5 failed with error: Request timeout: /twirp/github.actions.results.api.v1.ArtifactService/CreateArtifact. Retrying request in 3000 ms...
+2026-10-26T04:44:11.4098620Z Attempt 2 of 5 failed with error: Request timeout: /twirp/github.actions.results.api.v1.ArtifactService/CreateArtifact. Retrying request in 5689 ms...
+2026-10-26T04:44:22.1252870Z Attempt 3 of 5 failed with error: Request timeout: /twirp/github.actions.results.api.v1.ArtifactService/CreateArtifact. Retrying request in 8932 ms...
+2026-10-26T04:44:36.0752590Z Attempt 4 of 5 failed with error: Request timeout: /twirp/github.actions.results.api.v1.ArtifactService/CreateArtifact. Retrying request in 14912 ms...
+2026-10-26T04:44:56.0139470Z ##[error]Failed to CreateArtifact: Failed to make request after 5 attempts: Request timeout: /twirp/github.actions.results.api.v1.ArtifactService/CreateArtifact
+2026-10-26T04:45:28.5604830Z Post job cleanup.
+2026-10-26T04:45:28.8796080Z [command]/opt/homebrew/bin/git version
+2026-10-26T04:45:28.9204970Z git version 2.55.0
+2026-10-26T04:45:28.9264040Z Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/21f67642-18d8-4503-9275-cd16257385dc/.gitconfig'
+2026-10-26T04:45:28.9276820Z Temporarily overriding HOME='/Users/runner/work/_temp/21f67642-18d8-4503-9275-cd16257385dc' before making global git config changes
+2026-10-26T04:45:28.9278700Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-26T04:45:28.9281570Z [command]/opt/homebrew/bin/git config --global --add safe.directory /Users/runner/work/relink/relink
+2026-10-26T04:45:28.9493180Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-26T04:45:28.9630130Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-26T04:45:29.1503850Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-26T04:45:29.1590160Z http.https://github.com/.extraheader
+2026-10-26T04:45:29.1600880Z [command]/opt/homebrew/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-10-26T04:45:29.1710390Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-26T04:45:29.3472500Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-26T04:45:29.4263570Z [command]/opt/homebrew/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-26T04:45:29.7379400Z Cleaning up orphan processes
+2026-10-26T04:45:33.1953840Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

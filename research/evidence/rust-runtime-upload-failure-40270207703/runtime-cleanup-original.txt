@@ -1,0 +1,6 @@
+﻿2026-10-26T04:43:57.3079960Z ##[group]Run python3 drivers/macos/tests/run_runtime.py cleanup
+2026-10-26T04:43:57.3081610Z [36;1mpython3 drivers/macos/tests/run_runtime.py cleanup[0m
+2026-10-26T04:43:57.3190610Z shell: /bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-26T04:43:57.3191050Z env:
+2026-10-26T04:43:57.3315490Z   RAVELINK_OBSERVER_DIAGNOSTICS: 1
+2026-10-26T04:43:57.3315990Z ##[endgroup]

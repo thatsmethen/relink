@@ -1,0 +1,1 @@
+usage: system-probe discover|play|record --uid UID --report JSON [--seconds 20 --events CSV --ready FILE --wav WAV --diagnostics JSON --amplitude .125 --left-amplitude .125 --right-amplitude .125 --left-hz 440 --right-hz 997]

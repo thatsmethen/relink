@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "result": "incomplete verification attempt",
+  "error": "Read-only discover invocation omitted required --report; C probe printed usage without querying devices. The wrapper then failed JSON parsing. Original empty stdout and stderr retained.",
+  "command": [
+    "system-probe",
+    "discover",
+    "--uid",
+    "au.textual.ravelink.cable.1"
+  ],
+  "audio_started": false
+}

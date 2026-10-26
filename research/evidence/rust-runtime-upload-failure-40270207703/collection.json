@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "collected_utc": "2026-10-26T04:52:57.757047+00:00",
+  "run_id": 40270207703,
+  "source": "dbab3fdeefe1c4833f8b56f3fb00cbe49cf3d0e1",
+  "records": [
+    {
+      "endpoint": "repos/thatsmethen/relink/actions/runs/40270207703",
+      "file": "research/evidence/rust-runtime-upload-failure-40270207703/original-run.json",
+      "exit_code": 0,
+      "stderr": "",
+      "bytes": 12135,
+      "sha256": "b81f37b2d2adbed38e92bc562849cf8926c794b2c101ed1f745afa457c4b067a"
+    },
+    {
+      "endpoint": "repos/thatsmethen/relink/actions/runs/40270207703/jobs?per_page=100",
+      "file": "research/evidence/rust-runtime-upload-failure-40270207703/original-jobs.json",
+      "exit_code": 0,
+      "stderr": "",
+      "bytes": 5836,
+      "sha256": "11356c2b92e1747563b9e6a4e5965351cda6bc514c0e6e2785107ff5e4c171ab"
+    },
+    {
+      "endpoint": "repos/thatsmethen/relink/actions/runs/40270207703/artifacts?per_page=100",
+      "file": "research/evidence/rust-runtime-upload-failure-40270207703/original-artifacts.json",
+      "exit_code": 0,
+      "stderr": "",
+      "bytes": 729,
+      "sha256": "46b2de2e45d62f96386a420b9e8854448f3d160a97e62959e57529d4c57d93c3"
+    },
+    {
+      "endpoint": "repos/thatsmethen/relink/actions/runs/40270207703/logs",
+      "file": "build/rust-runtime-upload-failure-40270207703/original-workflow-logs.zip",
+      "exit_code": 0,
+      "stderr": "",
+      "bytes": 37510,
+      "sha256": "88b01b98708c5ca58841db886895850a0a60f27cf745a634b09458c8217eadd6"
+    }
+  ],
+  "no_rerun": true,
+  "publication_performed": false
+}

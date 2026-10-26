@@ -1,0 +1,562 @@
+{
+  "schema": 1,
+  "run_id": 40270207703,
+  "run_attempt": 1,
+  "source_revision": "dbab3fdeefe1c4833f8b56f3fb00cbe49cf3d0e1",
+  "collected_utc": "2026-10-26T04:56:04.525845+00:00",
+  "archives": {
+    "original-hal.zip": {
+      "bytes": 10535212,
+      "sha256": "ef88974fca35490ef3d8544047435347a9806b1848d8773ee3fe114a1d5a5300",
+      "members": {
+        "before-cable-1-discovery.json": {
+          "bytes": 506,
+          "sha256": "53c4e9eb31e16164410cb4724c423b9955fe888af6853c0a8ae1e9983ab9a61f"
+        },
+        "before-cable-1-discovery.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "before-cable-2-discovery.json": {
+          "bytes": 506,
+          "sha256": "c8bcd7747209a2bd859ed42bf136300b095c212fe53d8d6a5a27f7d1306f4882"
+        },
+        "acceptance.json": {
+          "bytes": 16369,
+          "sha256": "d389b01cf14cc04e9b3530df178b6e1b8a2c3aa7eed26a62bf7bb686a2bcd520"
+        },
+        "before-cable-2-discovery.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "build-driver.log": {
+          "bytes": 576,
+          "sha256": "55ba4f01c8c3171f1b286ffbd3b37bc5eb6462b7997c48d8fe16eae9dfb5b815"
+        },
+        "build-sha256.txt": {
+          "bytes": 743,
+          "sha256": "8cf288bc295c50533c3f90ed58003558478bc0c4293e99e726a485793a5af535"
+        },
+        "cleanup-attempt-0-cable-1-0-discovery.json": {
+          "bytes": 506,
+          "sha256": "53c4e9eb31e16164410cb4724c423b9955fe888af6853c0a8ae1e9983ab9a61f"
+        },
+        "cleanup-attempt-0-cable-1-0-discovery.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "cleanup-attempt-0-cable-2-0-discovery.json": {
+          "bytes": 506,
+          "sha256": "c8bcd7747209a2bd859ed42bf136300b095c212fe53d8d6a5a27f7d1306f4882"
+        },
+        "cleanup-attempt-0-cable-2-0-discovery.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "cleanup-attempt-0-remove.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "cleanup-attempt-0-restart.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "cleanup-attempt-0.json": {
+          "bytes": 1647,
+          "sha256": "138b51bbc33a1bb0016438df7aa7dd87d98eb72acfc79f9398d20779165b1beb"
+        },
+        "cleanup-attempt-3-cable-1-0-discovery.json": {
+          "bytes": 506,
+          "sha256": "53c4e9eb31e16164410cb4724c423b9955fe888af6853c0a8ae1e9983ab9a61f"
+        },
+        "cleanup-attempt-3-cable-1-0-discovery.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "cleanup-attempt-3-cable-2-0-discovery.json": {
+          "bytes": 506,
+          "sha256": "c8bcd7747209a2bd859ed42bf136300b095c212fe53d8d6a5a27f7d1306f4882"
+        },
+        "cleanup-attempt-3-cable-2-0-discovery.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "cleanup-attempt-3.json": {
+          "bytes": 1647,
+          "sha256": "b6bdfb11bd07982f1cb4396ef159e9ffa85bc35d7df4cadaf3c3107ac31651e4"
+        },
+        "cleanup.json": {
+          "bytes": 1647,
+          "sha256": "b6bdfb11bd07982f1cb4396ef159e9ffa85bc35d7df4cadaf3c3107ac31651e4"
+        },
+        "custody-manifest.json": {
+          "bytes": 10551,
+          "sha256": "93fb94264a029db64f3871c356e7dd937c7b5ce52ad4ae38793cd2fc90eff5dc"
+        },
+        "environment.txt": {
+          "bytes": 464,
+          "sha256": "e497af7be7253226811fd387efc64da57bb100a7af794484246301eb1d340068"
+        },
+        "independent-readers.json": {
+          "bytes": 148,
+          "sha256": "0a0859fe73b729c776273b30dc145ce8cd7baf8d6035d60ea791f75d81eaee52"
+        },
+        "install-restart.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "install.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "installation-owner.json": {
+          "bytes": 2043,
+          "sha256": "bcfae66260680f93c87a9dbe068f85e9435eaec413cc3bd99fabfd5a8385ddb3"
+        },
+        "installed-cable-1-0-discovery.json": {
+          "bytes": 499,
+          "sha256": "c97fb9c305d5bea42e4554718962ef8e7f2dcc5be67af4cd816eb261a441678a"
+        },
+        "installed-cable-1-0-discovery.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "installed-cable-2-0-discovery.json": {
+          "bytes": 500,
+          "sha256": "5d41f46d553a13cc37848d567126f288d01740282299ee50b8a6dc98c7675267"
+        },
+        "installed-cable-2-0-discovery.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "installed-devices.json": {
+          "bytes": 1400,
+          "sha256": "9fa658f27544164c95723245ed9cadf212411e762a5f05cfb447ff174562d4ea"
+        },
+        "observer-controls.txt": {
+          "bytes": 13874,
+          "sha256": "991aeb26d66cfa5a7440815fa7690d760330c776ca8bbe4798b1a6844db050dc"
+        },
+        "ownership.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "permissions.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "reader-a-analysis.json": {
+          "bytes": 1111,
+          "sha256": "aa0e1299c44f61c006651eea9791622593d8cd2946d3f0a90b07532715043857"
+        },
+        "reader-a-diagnostics-analysis.json": {
+          "bytes": 2385,
+          "sha256": "c35159467b7a7c37a3c34f531d7f1056917e6182c12737bf56494cfcce7e6bf0"
+        },
+        "reader-a-diagnostics.json": {
+          "bytes": 394046,
+          "sha256": "cd2c4e98913c82ead12dd646e5f7df4c0ea7ff72fb1328138732992a92d5af2b"
+        },
+        "reader-a.csv": {
+          "bytes": 76819,
+          "sha256": "900fed3bbfe47569049a80682d2ca7901df7109ac9d8c0880328987c93b910a0"
+        },
+        "reader-a.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "reader-a.json": {
+          "bytes": 539,
+          "sha256": "a48fbaced3bc6c45352e2ca0ec7d9ba386b8528a2fa23a4f6c36a650868f71c8"
+        },
+        "reader-a.wav": {
+          "bytes": 7680044,
+          "sha256": "a483c0caa69e1e70eec9f4345194089f56af8e25fc2cdcb2c7877fe7bb5e4654"
+        },
+        "reader-b-analysis.json": {
+          "bytes": 1114,
+          "sha256": "276d0fe60032393845589d4eb1d86d41514cecfc7548988b42b36612ea497f90"
+        },
+        "reader-a.ready.json": {
+          "bytes": 57,
+          "sha256": "5bb154c3d0787a52e0d21882b8b5b1a5a8c35349be6c2a4a3e62448b2c358046"
+        },
+        "reader-b-diagnostics-analysis.json": {
+          "bytes": 2373,
+          "sha256": "485b71afdb6ec7b06dbcd6e56db0c7aaca073861f5b451d2026582752ad30cea"
+        },
+        "reader-b-diagnostics.json": {
+          "bytes": 394076,
+          "sha256": "725dfed4ce19d420ad574663f642ad7014075570c2dad3db0fc78517952f5613"
+        },
+        "reader-b.json": {
+          "bytes": 539,
+          "sha256": "1c81a73308475a967bf11fb39d22ebcc7fd8cd4bb8e26c5c5ae348a1adeba38d"
+        },
+        "reader-b.csv": {
+          "bytes": 76848,
+          "sha256": "6b56695135c07846b013f42bd5cf42aa863aaf9f6109c2aa6164cc5d2e9e98bb"
+        },
+        "reader-b.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "reader-b.ready.json": {
+          "bytes": 57,
+          "sha256": "4e8750e29970dfe369d23e6eb4fdce4112ca0256c64f177b4b65a24226db1f2d"
+        },
+        "reader-b.wav": {
+          "bytes": 7680044,
+          "sha256": "7684fa85aed1ae8b1ba86de032a7509d51b4e83842992ede8de9ba67a23a9a5b"
+        },
+        "restarted-silence-analysis.json": {
+          "bytes": 365,
+          "sha256": "06906b5e36a1bbd10b8e830ddcc590c87c864a061b4e8f7b33a96da389d14828"
+        },
+        "restarted-silence-diagnostics-analysis.json": {
+          "bytes": 2384,
+          "sha256": "940d1e8c36b2da7bb45cddcb011529742821738f318373fc5e3ccd0462640f9b"
+        },
+        "restarted-silence-diagnostics.json": {
+          "bytes": 60638,
+          "sha256": "ea5a64108704d9936cb71d7602076a27a684494cc06ae918a2061a90d8135398"
+        },
+        "restarted-silence.csv": {
+          "bytes": 11912,
+          "sha256": "1a12b1ff812896af281cfea00f5fbd6b9e02a244cdfd8f29695cbb5aaa419e3e"
+        },
+        "restarted-silence.json": {
+          "bytes": 538,
+          "sha256": "748c1783ad5a09d0698e373fcd07995cb4d9281f7bcedbb65a841aded6cef556"
+        },
+        "restarted-silence.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "restarted-silence.ready.json": {
+          "bytes": 57,
+          "sha256": "c0b25d2b0f2d938c9c2df68cffd546bceff4e0a70c65d97cf7ff3fd4c151651d"
+        },
+        "restarted-silence.wav": {
+          "bytes": 1152044,
+          "sha256": "db4049ff10a9b4097359dac7c8c8441f9f6a620176298fe95203edbd6037b755"
+        },
+        "system-probe": {
+          "bytes": 35760,
+          "sha256": "4f498615e3feea4d498d91d2b757137dc8a49e6542d62b841e445b6d6fd3b47f"
+        },
+        "tone-writer-analysis.json": {
+          "bytes": 333,
+          "sha256": "8f09c8f8642ed6a117ebb938225628ac9495f5b34882484e041a4d9db89b3e8d"
+        },
+        "tone-writer-diagnostics-analysis.json": {
+          "bytes": 2385,
+          "sha256": "962fdc8da775effaec9e65d4a9217e020f38c99a448cbd5ba49064407cda8aa7"
+        },
+        "tone-writer.csv": {
+          "bytes": 155516,
+          "sha256": "792f343a58a46819d2bf6108d369d669586e1fdf7e72d9c3096b8a09afedb527"
+        },
+        "tone-writer-diagnostics.json": {
+          "bytes": 789615,
+          "sha256": "d1eb5db8d57bb5c27d22db58fd8a3799887b66af4ff4610290996c1c6684e7a5"
+        },
+        "tone-writer.json": {
+          "bytes": 539,
+          "sha256": "ccec2ef8ea67ce23fbcf6519c066537d067477af6f229ce16118a88d085e26d3"
+        },
+        "tone-writer.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "tone-writer.ready.json": {
+          "bytes": 57,
+          "sha256": "da17d8d41fb8afad9870b747c0b920bff153d3bf4471a6dacb197e61000cbef4"
+        }
+      }
+    },
+    "original-workflow-logs.zip": {
+      "bytes": 37510,
+      "sha256": "88b01b98708c5ca58841db886895850a0a60f27cf745a634b09458c8217eadd6",
+      "members": {
+        "0_installed-hal.txt": {
+          "bytes": 33598,
+          "sha256": "75abd6fec90d3a60a364a42f3d73b25e6f0215b9d0e146a8a0e152e9549b0370"
+        },
+        "installed-hal/system.txt": {
+          "bytes": 576,
+          "sha256": "f988a9d9dc93b7a3bf058b2c9ff4b7d6a9ed7dbe94b6f1785949034a0296041b"
+        },
+        "installed-hal/1_Set up job.txt": {
+          "bytes": 2016,
+          "sha256": "6967b8a7a4efe06b3ff39193f343d5ecfb61a9b8e1d3f11edbd7cf3117c01892"
+        },
+        "installed-hal/2_Run actions_checkout@v4.txt": {
+          "bytes": 6130,
+          "sha256": "435104bbe4aa6640ce5ce318e249f5fd7bb3ad4e24e7b4fdc40e81b67c1977e7"
+        },
+        "installed-hal/3_Install pinned Rust.txt": {
+          "bytes": 1030,
+          "sha256": "f504313aca0a519ab38a16cd3572fc90e4a5fa03f03742f89271ded4a72ecfc7"
+        },
+        "installed-hal/4_Build original driver bundle and independent observer.txt": {
+          "bytes": 1448,
+          "sha256": "62f7dc08cac86d8a9a08403aa3f8bd42c84bfde03fb27f4eca7404e6bba605bf"
+        },
+        "installed-hal/5_Observer and analyzer controls without audio.txt": {
+          "bytes": 17246,
+          "sha256": "62a7f81993015344634ddd59734ce51cb1e193064009f0e982d58a989643cd76"
+        },
+        "installed-hal/6_Install, observe independent clients, verify silence after restart, remove.txt": {
+          "bytes": 401,
+          "sha256": "1c1d9008c4ed3a449c15873efc1da0805aeaec0c2b384b78897a2e9129b8a720"
+        },
+        "installed-hal/7_Ensure owned driver cleanup.txt": {
+          "bytes": 409,
+          "sha256": "9ee5de36d9e337904bfd34f2f5bbf370b25960bf19b53d34b12bb39a0866943f"
+        },
+        "installed-hal/8_Hash original evidence including failed observations.txt": {
+          "bytes": 411,
+          "sha256": "913f26d3d5296510c56a849bcef83a7d0525606c50e1fe5f3eb56db97c585258"
+        },
+        "installed-hal/9_Preserve original observations and failed results.txt": {
+          "bytes": 2229,
+          "sha256": "85f04e62109af125b1edd5c9e7d311a4aa4a75cb20ac195cd7163642a18fd9c7"
+        },
+        "installed-hal/18_Post Run actions_checkout@v4.txt": {
+          "bytes": 1932,
+          "sha256": "adb94f4200effce80496789850d02e460e3c2b6616b3a408df564f38e0910e27"
+        },
+        "installed-hal/19_Complete job.txt": {
+          "bytes": 376,
+          "sha256": "1469ddf34fb916aa582c07361cf4161476dbc7b0ff320288bbeaaa37acacfcec"
+        },
+        "1_installed-runtime-capture.txt": {
+          "bytes": 33908,
+          "sha256": "ebb0d24c7323228918e067e529ee990c84932d5a79a3a128b141819057d3b74f"
+        },
+        "installed-runtime-capture/system.txt": {
+          "bytes": 588,
+          "sha256": "ea18634f16d52b20b50cbe9055e01307f123f16f7bb7c11e333f1c6e8a96c9a4"
+        },
+        "installed-runtime-capture/1_Set up job.txt": {
+          "bytes": 2028,
+          "sha256": "7b9dd57bb69385e3b19ea7311b2e3bb5cac2c3883c9fb2b4e680752622a8228e"
+        },
+        "installed-runtime-capture/2_Run actions_checkout@v4.txt": {
+          "bytes": 6130,
+          "sha256": "f5900f99c623d2b5190e233c0319a06f2df4c19d9568fdea9a714728d0abcb1c"
+        },
+        "installed-runtime-capture/3_Install pinned Rust.txt": {
+          "bytes": 1030,
+          "sha256": "faedfbd236409dec6cb7caa43df99c0d7f42cbcb0825e95a235ba34fb404cab5"
+        },
+        "installed-runtime-capture/4_Build original dual-cable driver, actual runtime client and independent observer.txt": {
+          "bytes": 1874,
+          "sha256": "dd4732ef9065c3c50fe79711147b9feaaf21e266dfbf5050223eb73da6730a6b"
+        },
+        "installed-runtime-capture/6_Install, capture Cable1 through actual mixer into Cable2, verify live controls and stop.txt": {
+          "bytes": 477,
+          "sha256": "5d1ea3a20928ba4bde7ac06c88bbfdfc32d63e7174f7222981d4940d91205f6c"
+        },
+        "installed-runtime-capture/7_Ensure owned driver cleanup and both device UIDs absent.txt": {
+          "bytes": 411,
+          "sha256": "1a2258ddcb672c15c3b6a233725591aef7502f91998fba22f39073802af23e27"
+        },
+        "installed-runtime-capture/8_Hash original evidence including failed observations.txt": {
+          "bytes": 413,
+          "sha256": "b508d691552f1e522a1200fb400cb7232728c61bebb86b911252e3beff45227b"
+        },
+        "installed-runtime-capture/9_Preserve original runtime PCM, timestamps and failed results.txt": {
+          "bytes": 2013,
+          "sha256": "8afca4ca49b02b5c8b6e6969b3d05af007e249b8468d140ad4f1bdbe8032c156"
+        },
+        "installed-runtime-capture/18_Post Run actions_checkout@v4.txt": {
+          "bytes": 1932,
+          "sha256": "5c0024abc2dcb15421fa43e366d692875a37324d96c196a7ba65893cda0a7469"
+        },
+        "installed-runtime-capture/19_Complete job.txt": {
+          "bytes": 376,
+          "sha256": "ced3c1862701ca72899f02637ec91412625cfc39e923a1bdb57e016dcda168f6"
+        }
+      }
+    }
+  },
+  "compact_copies": {
+    "hal-acceptance.json": {
+      "archive": "original-hal.zip",
+      "member": "acceptance.json"
+    },
+    "hal-cleanup.json": {
+      "archive": "original-hal.zip",
+      "member": "cleanup.json"
+    },
+    "hal-custody-manifest.json": {
+      "archive": "original-hal.zip",
+      "member": "custody-manifest.json"
+    },
+    "hal-independent-readers.json": {
+      "archive": "original-hal.zip",
+      "member": "independent-readers.json"
+    },
+    "hal-reader-a-analysis.json": {
+      "archive": "original-hal.zip",
+      "member": "reader-a-analysis.json"
+    },
+    "hal-reader-b-analysis.json": {
+      "archive": "original-hal.zip",
+      "member": "reader-b-analysis.json"
+    },
+    "hal-tone-writer-analysis.json": {
+      "archive": "original-hal.zip",
+      "member": "tone-writer-analysis.json"
+    },
+    "hal-restarted-silence-analysis.json": {
+      "archive": "original-hal.zip",
+      "member": "restarted-silence-analysis.json"
+    },
+    "hal-environment.txt": {
+      "archive": "original-hal.zip",
+      "member": "environment.txt"
+    },
+    "hal-build-sha256.txt": {
+      "archive": "original-hal.zip",
+      "member": "build-sha256.txt"
+    },
+    "runtime-job-original.txt": {
+      "archive": "original-workflow-logs.zip",
+      "member": "1_installed-runtime-capture.txt"
+    },
+    "runtime-step-original.txt": {
+      "archive": "original-workflow-logs.zip",
+      "member": "installed-runtime-capture/6_Install, capture Cable1 through actual mixer into Cable2, verify live controls and stop.txt"
+    },
+    "runtime-upload-original.txt": {
+      "archive": "original-workflow-logs.zip",
+      "member": "installed-runtime-capture/9_Preserve original runtime PCM, timestamps and failed results.txt"
+    },
+    "runtime-cleanup-original.txt": {
+      "archive": "original-workflow-logs.zip",
+      "member": "installed-runtime-capture/7_Ensure owned driver cleanup and both device UIDs absent.txt"
+    },
+    "runtime-manifest-original.txt": {
+      "archive": "original-workflow-logs.zip",
+      "member": "installed-runtime-capture/8_Hash original evidence including failed observations.txt"
+    }
+  },
+  "compact_original_files": {
+    "runtime-job-original.txt": {
+      "bytes": 33908,
+      "sha256": "ebb0d24c7323228918e067e529ee990c84932d5a79a3a128b141819057d3b74f"
+    },
+    "hal-tone-writer-analysis.json": {
+      "bytes": 333,
+      "sha256": "8f09c8f8642ed6a117ebb938225628ac9495f5b34882484e041a4d9db89b3e8d"
+    },
+    "hal-acceptance.json": {
+      "bytes": 16369,
+      "sha256": "d389b01cf14cc04e9b3530df178b6e1b8a2c3aa7eed26a62bf7bb686a2bcd520"
+    },
+    "source-workflow.yml": {
+      "bytes": 5293,
+      "sha256": "47b932461cb6dd02e6a55780ceb9372c36308153edc9578951c6ea8be2ed576e"
+    },
+    "original-runtime-annotations.json": {
+      "bytes": 1604,
+      "sha256": "1cc75a7f3ecfefa72f99b66ab4b99f8c605672518fae094d7274af04eb071a78"
+    },
+    "hal-custody-manifest.json": {
+      "bytes": 10551,
+      "sha256": "93fb94264a029db64f3871c356e7dd937c7b5ce52ad4ae38793cd2fc90eff5dc"
+    },
+    "original-run.json": {
+      "bytes": 12135,
+      "sha256": "b81f37b2d2adbed38e92bc562849cf8926c794b2c101ed1f745afa457c4b067a"
+    },
+    "hal-reader-b-analysis.json": {
+      "bytes": 1114,
+      "sha256": "276d0fe60032393845589d4eb1d86d41514cecfc7548988b42b36612ea497f90"
+    },
+    "runtime-upload-original.txt": {
+      "bytes": 2013,
+      "sha256": "8afca4ca49b02b5c8b6e6969b3d05af007e249b8468d140ad4f1bdbe8032c156"
+    },
+    "runtime-cleanup-original.txt": {
+      "bytes": 411,
+      "sha256": "1a2258ddcb672c15c3b6a233725591aef7502f91998fba22f39073802af23e27"
+    },
+    "original-artifacts.json": {
+      "bytes": 729,
+      "sha256": "46b2de2e45d62f96386a420b9e8854448f3d160a97e62959e57529d4c57d93c3"
+    },
+    "runtime-manifest-original.txt": {
+      "bytes": 413,
+      "sha256": "b508d691552f1e522a1200fb400cb7232728c61bebb86b911252e3beff45227b"
+    },
+    "hal-independent-readers.json": {
+      "bytes": 148,
+      "sha256": "0a0859fe73b729c776273b30dc145ce8cd7baf8d6035d60ea791f75d81eaee52"
+    },
+    "hal-reader-a-analysis.json": {
+      "bytes": 1111,
+      "sha256": "aa0e1299c44f61c006651eea9791622593d8cd2946d3f0a90b07532715043857"
+    },
+    "runtime-step-original.txt": {
+      "bytes": 477,
+      "sha256": "5d1ea3a20928ba4bde7ac06c88bbfdfc32d63e7174f7222981d4940d91205f6c"
+    },
+    "original-jobs.json": {
+      "bytes": 5836,
+      "sha256": "11356c2b92e1747563b9e6a4e5965351cda6bc514c0e6e2785107ff5e4c171ab"
+    },
+    "hal-restarted-silence-analysis.json": {
+      "bytes": 365,
+      "sha256": "06906b5e36a1bbd10b8e830ddcc590c87c864a061b4e8f7b33a96da389d14828"
+    },
+    "hal-cleanup.json": {
+      "bytes": 1647,
+      "sha256": "b6bdfb11bd07982f1cb4396ef159e9ffa85bc35d7df4cadaf3c3107ac31651e4"
+    },
+    "collection.json": {
+      "bytes": 1570,
+      "sha256": "2a38c0ea1a0b9f66a81ca869182f2f4aa125eebbe8a4454ffe1c572a035fa919"
+    },
+    "hal-build-sha256.txt": {
+      "bytes": 743,
+      "sha256": "8cf288bc295c50533c3f90ed58003558478bc0c4293e99e726a485793a5af535"
+    },
+    "hal-environment.txt": {
+      "bytes": 464,
+      "sha256": "e497af7be7253226811fd387efc64da57bb100a7af794484246301eb1d340068"
+    },
+    "original-runtime-check-run.json": {
+      "bytes": 3067,
+      "sha256": "efbad8623b28aedbf50df46c1e2eb56cc85afc5ae6a32451102aeb3c5f7e2992"
+    }
+  },
+  "verified_listed_source_files": {
+    "drivers/macos/tests/system-probe.c": {
+      "bytes": 32596,
+      "sha256": "08e6d6cd133971d27d7bf9acf02a065864ae15b0f169d8723c66ce2e27b7e35f"
+    },
+    "drivers/macos/tests/probe-diagnostics.h": {
+      "bytes": 3366,
+      "sha256": "537076b08e81f7f626c39747480c990d438bb8a3c685819cdf78c906e0c977ff"
+    },
+    "drivers/macos/tests/analyze_diagnostics.py": {
+      "bytes": 6559,
+      "sha256": "39e626866d67400a18d328996ff45ef715b7e94e0c96f27b53de016546e9bc20"
+    },
+    "drivers/macos/tests/OBSERVER-DIAGNOSTICS.md": {
+      "bytes": 7186,
+      "sha256": "6b3c1a9aac5cab22beb21cf2a0e536d10ba82ea25b529bad9e8880888154fd6d"
+    },
+    "drivers/macos/tests/run_system.py": {
+      "bytes": 21702,
+      "sha256": "a2267be06fb6082baa7b8ea2e4a2dab075fa252c8277495193aad86f20c4fea4"
+    }
+  },
+  "runtime_artifact_available": false,
+  "runtime_artifact_not_reconstructed": true,
+  "publication_performed": false
+}

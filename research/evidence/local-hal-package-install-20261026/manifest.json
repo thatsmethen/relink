@@ -1,0 +1,77 @@
+{
+  "schema": 1,
+  "files": {
+    "README.md": {
+      "bytes": 2092,
+      "sha256": "bd11dc227b0676f44f57044a7b5616626d77762ce47c29909371015f503aee85"
+    },
+    "initial-query-error/attempt.json": {
+      "bytes": 394,
+      "sha256": "a70c5cf8dce674bb604ae74aa07949a497908d1dff4f0d6169711ed786317896"
+    },
+    "initial-query-error/cable1-stderr.txt": {
+      "bytes": 226,
+      "sha256": "b105e2b567d639424f6b9d3c6f0f1509c2ab096e091526b01b1dc2dd94f0b171"
+    },
+    "initial-query-error/cable1.json": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "initial-query-error/codesign.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "initial-query-error/receipt-stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "initial-query-error/receipt.plist": {
+      "bytes": 515,
+      "sha256": "2899e829b125549c9434e188f8bcbdf79c8a85d3a45d6397ce0a72795a0a85b6"
+    },
+    "verification/cable1-stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "verification/cable1-stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "verification/cable1.json": {
+      "bytes": 506,
+      "sha256": "53c4e9eb31e16164410cb4724c423b9955fe888af6853c0a8ae1e9983ab9a61f"
+    },
+    "verification/cable2-stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "verification/cable2-stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "verification/cable2.json": {
+      "bytes": 506,
+      "sha256": "c8bcd7747209a2bd859ed42bf136300b095c212fe53d8d6a5a27f7d1306f4882"
+    },
+    "verification/codesign-stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "verification/codesign-stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "verification/receipt-stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "verification/receipt-stdout.txt": {
+      "bytes": 515,
+      "sha256": "2899e829b125549c9434e188f8bcbdf79c8a85d3a45d6397ce0a72795a0a85b6"
+    },
+    "verification/verification.json": {
+      "bytes": 4715,
+      "sha256": "2c29956d8ef14cea71be2c51f1eb773f1339c6588e5b0649c3a7278364af3ab9"
+    }
+  }
+}
