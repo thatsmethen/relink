@@ -1,0 +1,80 @@
+{
+  "schema": 1,
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 3824,
+      "sha256": "fa6ab90ba6bc1d7e900ee19cb87f805cf3882372160e047c7c4c34c4c9cd509f"
+    },
+    {
+      "path": "SHA256SUMS.txt",
+      "bytes": 536,
+      "sha256": "990189cb63e87a69925dc7f6efb236f5d7323ab10febe4ac49cdb6f3dadc7f30"
+    },
+    {
+      "path": "artifacts.json",
+      "bytes": 1413,
+      "sha256": "a28c36971d43145d46809d44c671c6321bcac235cec61a2ff354c7e74ee29cb7"
+    },
+    {
+      "path": "earlier-preview.json",
+      "bytes": 3675,
+      "sha256": "d0d95d64c7e711464d80358a332c389d7d2f5427200c6ce542e818bcbe640083"
+    },
+    {
+      "path": "jobs.json",
+      "bytes": 7070,
+      "sha256": "b0bc77ea157d4ff44be09c21ae8d83245f734b4078c3146da99618b0880a3946"
+    },
+    {
+      "path": "macos-codesign.txt",
+      "bytes": 620,
+      "sha256": "871eaa27676160564b1af1e81565adc98d5c0a886ace12ee478f20a07d7dfa74"
+    },
+    {
+      "path": "package-manifest.json",
+      "bytes": 4807,
+      "sha256": "57acd1b16996bb1eddb58e66d2af398d05b07371488bf0106172e2d2909c7fa9"
+    },
+    {
+      "path": "preview-verification.json",
+      "bytes": 4233,
+      "sha256": "59b38e42a3eabc23c17c578ba6a159150c572b8a9cf403822664866a3f25f498"
+    },
+    {
+      "path": "public-download-verification.json",
+      "bytes": 3120,
+      "sha256": "7d04a5788bfaffc7aef6063570b78d8fd6d8f595c7be537a10ab1d4a7785d02f"
+    },
+    {
+      "path": "release-notes.md",
+      "bytes": 2030,
+      "sha256": "1c728d6f4b8bea9e42265479ed5e91e25056b54ad6b4483f9b61c0ec2983ff1b"
+    },
+    {
+      "path": "release-tag.json",
+      "bytes": 420,
+      "sha256": "5ec3a3aa9a794e7d1d6c70ea0cdb7fd71abb8142183086d5aa7db4f32726d6bf"
+    },
+    {
+      "path": "release.json",
+      "bytes": 14627,
+      "sha256": "72a98861b2b4b1c27bb0797cd4a0090e77b622ce20cf7d8caacb43ca0a4e09f4"
+    },
+    {
+      "path": "run.json",
+      "bytes": 12054,
+      "sha256": "e902bdc7f45116a81c3e1175f35dfcceb8b70cf6fdafc10fac4ea05e765e4753"
+    },
+    {
+      "path": "source-workflow.yml",
+      "bytes": 2627,
+      "sha256": "778e0e2647383d5211f0bffaa300a1db779f134fa26324fb8bd0390d07118280"
+    },
+    {
+      "path": "windows-icon-resource-verification.json",
+      "bytes": 2128,
+      "sha256": "f0cffe7c8ee5b621d2dd2e162499ad33fa1997fe4b707d1ba748a0ad4e886208"
+    }
+  ]
+}

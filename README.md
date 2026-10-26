@@ -8,7 +8,7 @@ The [current requirements and acceptance gates](research/RUST-MIGRATION.md) supe
 
 ## Preview
 
-The [pre-rename development preview](https://github.com/thatsmethen/relink/releases/tag/v0.1.0-preview.20261024) includes macOS Apple silicon and Windows x64 application ZIPs, screenshots and the original icon. [Package checks and download verification](research/evidence/rust-preview-40045963463/README.md) passed; production qualification remains incomplete. Installed-audio evidence is labelled separately.
+The [ReLink development preview](https://github.com/thatsmethen/relink/releases/tag/v0.1.0-preview.20261024-relink) includes macOS Apple silicon and Windows x64 application ZIPs, updated screenshots and the original icon. [Package checks and public download verification](research/evidence/relink-preview-40068367011/README.md) passed for source `25453d2`. These app-only packages are unsigned on Windows and ad-hoc signed on macOS, without notarization or a virtual-device installer. Production qualification remains incomplete; installed-audio evidence is labelled separately.
 
 ![ReLink on macOS with four test-tone sources and three mixes, audio stopped](docs/screenshots/mixer-macos.png)
 

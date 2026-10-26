@@ -1,0 +1,95 @@
+{
+  "schema": 1,
+  "verified_at_utc": "2026-10-26T00:29:49.878181+00:00",
+  "source_revision": "25453d2eb47891b43df19591b94b80c14eda4203",
+  "run_id": 40068367011,
+  "run_url": "https://github.com/thatsmethen/relink/actions/runs/40068367011",
+  "ci_status": "completed",
+  "ci_conclusion": "success",
+  "platforms": {
+    "macos": {
+      "architecture": "arm64",
+      "bundle": "ReLink.app",
+      "plist": {
+        "CFBundleDevelopmentRegion": "en",
+        "CFBundleDisplayName": "ReLink",
+        "CFBundleIconFile": "RaveLink.icns",
+        "CFBundleExecutable": "ravelink-app",
+        "CFBundleIdentifier": "au.textual.ravelink.rust",
+        "CFBundleInfoDictionaryVersion": "6.0",
+        "CFBundleName": "ReLink",
+        "CFBundlePackageType": "APPL",
+        "CFBundleShortVersionString": "0.1.0",
+        "CFBundleVersion": "1",
+        "LSMinimumSystemVersion": "13.0",
+        "NSHighResolutionCapable": true,
+        "NSMicrophoneUsageDescription": "ReLink captures the input devices you select to create your audio mixes.",
+        "NSSupportsAutomaticGraphicsSwitching": true
+      },
+      "strict_codesign_exit": 0,
+      "signature": "ad hoc; not notarized",
+      "executable_sha256": "d7adb3f3fea62adbc2f51c5a7ed7d4b5769758a77c305c1d36b8bc3f0effb842",
+      "executable_mode_preserved": true,
+      "icon_and_notices_match_exact_source": true,
+      "application_started_in_this_verification": false
+    },
+    "windows": {
+      "architecture": "x86_64",
+      "executable": "ReLink.exe",
+      "executable_sha256": "57a78a31975fdedbc26d1027213d316eec7633e38c65c2a1b389bfc8f6602848",
+      "native_icon_report_matches_exact_packaged_executable_and_source": true,
+      "icon_resources": 8,
+      "certificate_directory": [
+        0,
+        0
+      ],
+      "signature": "unsigned",
+      "application_started_in_this_verification": false,
+      "shell_rendering_verified": false
+    }
+  },
+  "screenshots": {
+    "source_revision": "9cd350fcae96c5043da877b718aac60f2e4366be",
+    "kind": "Stopped native macOS UI from isolated local debug build; separate from CI release packages",
+    "compared_build_inputs": 79,
+    "source_difference": "Only Rust line wrapping in the RE / LINK label differs among build inputs; screenshot and provenance documentation were added separately.",
+    "images": [
+      {
+        "path": "docs/screenshots/mixer-macos.png",
+        "bytes": 596114,
+        "sha256": "b2483d97e5e426ebba42a2785d6bd7c4de6234aed69ddb65ec04f84bee1aa2ec",
+        "width": 2560,
+        "height": 1704,
+        "captured_at_utc": "2026-10-24T04:12:49.618644+00:00",
+        "raw_capture": "research/evidence/relink-screenshots-9cd350f/mixer-macos-original.jpg",
+        "raw_capture_sha256": "51c483577aec684c3aed4cfe2cad3820f2fac160321d425a14bc2bcff2bd44ad",
+        "decoded_rgb_sha256": "d6fe5eee9ca4b5428b27b901dd58ed6b8a99dba61d63d81aca9cc1cdbfac46fe",
+        "decoded_pixels_identical": true
+      },
+      {
+        "path": "docs/screenshots/mix-effects-macos.png",
+        "bytes": 654698,
+        "sha256": "4528abfc46746e55028abbd6a434d3cc679ba558bddcae9b9d43838d756d881f",
+        "width": 2560,
+        "height": 1704,
+        "captured_at_utc": "2026-10-24T04:26:35.883667+00:00",
+        "raw_capture": "research/evidence/relink-screenshots-9cd350f/mix-effects-macos-original.jpg",
+        "raw_capture_sha256": "2a0cc6be3bd5dce6750fc3d54f99917148d31aae6588de2386aea2f79f489e3f",
+        "decoded_rgb_sha256": "bf856a08c096ebab82b6a0c29bcae571902ee17adbff99b011ee98c32880d62e",
+        "decoded_pixels_identical": true
+      }
+    ]
+  },
+  "standalone_icon": {
+    "path": "packaging/branding/ravelink.png",
+    "asset_name": "ReLink-icon.png",
+    "sha256": "1765e282640affab5d2e3e6173c41078bb3730efb8031341e65df81d5a0632df",
+    "bytes": 34168
+  },
+  "limitations": [
+    "Development preview; app-only packages contain no driver installer.",
+    "No installed driver or end-to-end audio qualification is inferred from these build and package checks.",
+    "Windows embedded icon bytes were checked natively in CI; Explorer/taskbar rendering and application interaction remain separate.",
+    "macOS signature is ad hoc, with no Developer ID signature or notarization."
+  ]
+}

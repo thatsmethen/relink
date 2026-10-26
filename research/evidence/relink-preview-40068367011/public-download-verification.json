@@ -1,0 +1,68 @@
+{
+  "verified_at_utc": "2026-10-26T00:32:07.385964+00:00",
+  "release_id": 423751752,
+  "release_url": "https://github.com/thatsmethen/relink/releases/tag/v0.1.0-preview.20261024-relink",
+  "tag": "v0.1.0-preview.20261024-relink",
+  "target_revision": "25453d2eb47891b43df19591b94b80c14eda4203",
+  "is_draft": false,
+  "is_prerelease": true,
+  "download_method": "curl without Authorization header or credentials; redirect following enabled",
+  "assets": [
+    {
+      "name": "mix-effects-macos.png",
+      "url": "https://github.com/thatsmethen/relink/releases/download/v0.1.0-preview.20261024-relink/mix-effects-macos.png",
+      "bytes": 654698,
+      "sha256": "4528abfc46746e55028abbd6a434d3cc679ba558bddcae9b9d43838d756d881f",
+      "public_unauthenticated_http_status": 200,
+      "exact_local_and_api_digest_match": true
+    },
+    {
+      "name": "mixer-macos.png",
+      "url": "https://github.com/thatsmethen/relink/releases/download/v0.1.0-preview.20261024-relink/mixer-macos.png",
+      "bytes": 596114,
+      "sha256": "b2483d97e5e426ebba42a2785d6bd7c4de6234aed69ddb65ec04f84bee1aa2ec",
+      "public_unauthenticated_http_status": 200,
+      "exact_local_and_api_digest_match": true
+    },
+    {
+      "name": "preview-verification.json",
+      "url": "https://github.com/thatsmethen/relink/releases/download/v0.1.0-preview.20261024-relink/preview-verification.json",
+      "bytes": 4233,
+      "sha256": "59b38e42a3eabc23c17c578ba6a159150c572b8a9cf403822664866a3f25f498",
+      "public_unauthenticated_http_status": 200,
+      "exact_local_and_api_digest_match": true
+    },
+    {
+      "name": "ReLink-icon.png",
+      "url": "https://github.com/thatsmethen/relink/releases/download/v0.1.0-preview.20261024-relink/ReLink-icon.png",
+      "bytes": 34168,
+      "sha256": "1765e282640affab5d2e3e6173c41078bb3730efb8031341e65df81d5a0632df",
+      "public_unauthenticated_http_status": 200,
+      "exact_local_and_api_digest_match": true
+    },
+    {
+      "name": "ReLink-macOS-development.zip",
+      "url": "https://github.com/thatsmethen/relink/releases/download/v0.1.0-preview.20261024-relink/ReLink-macOS-development.zip",
+      "bytes": 4243112,
+      "sha256": "23cd455b046445e1cda853759e026c4ce121bc97a51b148d356affc9a0b51830",
+      "public_unauthenticated_http_status": 200,
+      "exact_local_and_api_digest_match": true
+    },
+    {
+      "name": "ReLink-Windows-development.zip",
+      "url": "https://github.com/thatsmethen/relink/releases/download/v0.1.0-preview.20261024-relink/ReLink-Windows-development.zip",
+      "bytes": 4176056,
+      "sha256": "0edc46d871b9fe2412f6ea303e9d27b40ad4dcd9cf9dc1bad06635f826f13338",
+      "public_unauthenticated_http_status": 200,
+      "exact_local_and_api_digest_match": true
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "url": "https://github.com/thatsmethen/relink/releases/download/v0.1.0-preview.20261024-relink/SHA256SUMS.txt",
+      "bytes": 536,
+      "sha256": "990189cb63e87a69925dc7f6efb236f5d7323ab10febe4ac49cdb6f3dadc7f30",
+      "public_unauthenticated_http_status": 200,
+      "exact_local_and_api_digest_match": true
+    }
+  ]
+}
