@@ -12,7 +12,8 @@ remained stopped.** The captures show interface configuration, not hardware
 playback, driver installation, Windows interaction or multi-output qualification.
 The user's ordinary studio was unchanged byte-for-byte before and after.
 
-Original JPEG and accessibility captures are preserved. Repository PNGs encode
+Original JPEG captures and the accessibility API responses are preserved (some
+responses report no change rather than repeating the complete tree). Repository PNGs encode
 exactly the original decoded RGB pixels, without cropping, scaling or retouching.
 The macOS capture badge remains visible. `observation.json` records every image's
 sizes and hashes. The effects image shows the genuine scrollable inspector;
@@ -25,3 +26,7 @@ fixture allowed the captures above; no application source was modified to pass.
 
 The earlier [9cd350f screenshots](../relink-screenshots-9cd350f/README.md) remain
 preserved as historical evidence for the older development preview.
+
+Anonymous downloads of the committed README and all three PNGs matched local
+bytes exactly; see `public-verification.json`. Browser rendering could not be
+rechecked because local browser control was disabled in Work settings.

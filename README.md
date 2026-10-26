@@ -8,13 +8,13 @@ The [current requirements and acceptance gates](research/RUST-MIGRATION.md) supe
 
 ## Preview
 
-The [ReLink development preview](https://github.com/thatsmethen/relink/releases/tag/v0.1.0-preview.20261024-relink) includes macOS Apple silicon and Windows x64 application ZIPs, updated screenshots and the original icon. [Package checks and public download verification](research/evidence/relink-preview-40068367011/README.md) passed for source `25453d2`. These app-only packages are unsigned on Windows and ad-hoc signed on macOS, without notarization or a virtual-device installer. Production qualification remains incomplete; installed-audio evidence is labelled separately.
+The [ReLink development preview](https://github.com/thatsmethen/relink/releases/tag/v0.1.0-preview.20261026-relink) includes macOS Apple silicon and Windows x64 application ZIPs, updated screenshots and the original icon. [Package checks and public download verification](research/evidence/relink-preview-40254943747/README.md) passed for source `902118a`. These app-only packages are unsigned on Windows and ad-hoc signed on macOS, without notarization or a virtual-device installer. Production qualification remains incomplete; installed-audio evidence is labelled separately.
 
 ![ReLink on macOS with four test-tone sources and three mixes, audio stopped](docs/screenshots/mixer-macos.png)
 
 [Output routing screenshot](docs/screenshots/output-routing-macos.png) · [Mix effects screenshot](docs/screenshots/mix-effects-macos.png) · [Original app icon](packaging/branding/ravelink.svg)
 
-These actual macOS screenshots show the current source at `902118a`, including saved output routing, with audio stopped and an explicit test-tone fixture. They are newer than the packaged preview above and do not demonstrate live hardware capture or Windows interaction. [Screenshot provenance](research/evidence/relink-screenshots-902118a/README.md) records the committed source, original captures, exact image hashes and unchanged user studio.
+These actual macOS screenshots show the current source at `902118a`, including saved output routing, with audio stopped and an explicit test-tone fixture. They use the same source as the packaged preview above and do not demonstrate live hardware capture or Windows interaction. [Screenshot provenance](research/evidence/relink-screenshots-902118a/README.md) records the committed source, original captures, exact image hashes and unchanged user studio.
 
 ## Rust workspace
 

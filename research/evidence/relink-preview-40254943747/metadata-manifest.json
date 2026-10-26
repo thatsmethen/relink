@@ -1,0 +1,66 @@
+{
+  "README.md": {
+    "bytes": 2177,
+    "sha256": "8fb3c6d15477ec2c90998d0c763af7c79d64ab858c1003e5c0f88ea250b6d770"
+  },
+  "SHA256SUMS.txt": {
+    "bytes": 627,
+    "sha256": "5ac887ab7f440a0168e094d5b6725e9e92ecb565837434f0b15e5658173398ed"
+  },
+  "artifacts.json": {
+    "bytes": 1413,
+    "sha256": "92f6876de8a084531fefbcbd5341ed99205775d51d319641ebe3efdd84385ed6"
+  },
+  "jobs.json": {
+    "bytes": 7070,
+    "sha256": "1345957987b614909e140e5c57bd8c9ba87d2b303a2c19e6f6f65dfffc6f5675"
+  },
+  "macos-codesign.txt": {
+    "bytes": 620,
+    "sha256": "0490134186beade8478a30c6739845cddddc9946218cddd7365cadc7526b08b9"
+  },
+  "package-manifest.json": {
+    "bytes": 2931,
+    "sha256": "3a6d93a98fb93a3ca5642e9420577670b4073ed226b9d385c8132af237fc48b1"
+  },
+  "preview-verification.json": {
+    "bytes": 3010,
+    "sha256": "8bfcb26670177101116841b7985816daf9019288dd17d7fa44de0aa7e860ef81"
+  },
+  "public-download-verification.json": {
+    "bytes": 3650,
+    "sha256": "70b0c482aedf4f66c8821f5aa7c2e93f6f9e908988784ef6c1d77c72df734bed"
+  },
+  "release-notes.md": {
+    "bytes": 2372,
+    "sha256": "26353667763a91741682b3fb68cd3537b25eb49dd69b8c9ebb6642c5c8aa9e4a"
+  },
+  "release-tag.json": {
+    "bytes": 420,
+    "sha256": "c8e99fac139c1aea83ccb4f28d15772672ef72cc00e9c4b8f6335782df797114"
+  },
+  "release.json": {
+    "bytes": 16457,
+    "sha256": "d9572c0ff297e3393f56157d55b1f1d2f85077d89377e679f1d8e83b057a5fb5"
+  },
+  "run.json": {
+    "bytes": 12102,
+    "sha256": "44b946eb44912fd501bb2ea35660a86817b5894436ff44a0cd55d280c987601c"
+  },
+  "source-workflow.yml": {
+    "bytes": 2627,
+    "sha256": "778e0e2647383d5211f0bffaa300a1db779f134fa26324fb8bd0390d07118280"
+  },
+  "verify-packages.py": {
+    "bytes": 6557,
+    "sha256": "79eebd6ca809011543fe8bcd869c6da980b43c439e4d7edea39cfd4c9cbedd3c"
+  },
+  "verify-public.py": {
+    "bytes": 1895,
+    "sha256": "5e6ebff2fa4747366d1a606091faf9b19896c77c56b6ac4f75fc75988e2d17f3"
+  },
+  "windows-icon-resource-verification.json": {
+    "bytes": 2128,
+    "sha256": "73d66a47eba1da477d7dc1107a85a93ffcad13bdf8dc898fb8218bdb47aa5692"
+  }
+}

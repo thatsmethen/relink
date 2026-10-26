@@ -1,0 +1,30 @@
+{
+  "verified_at_utc": "2026-10-26T01:40:34.752552+00:00",
+  "commit": "e552ed967db17bb0096d9f03251d8d917a0ac85b",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 9677,
+      "sha256": "e3655b55ef495fb35db625913e2be25b762c0b1558f9e238dba7082d9cddb500",
+      "anonymous_public_exact": true
+    },
+    {
+      "path": "docs/screenshots/mixer-macos.png",
+      "bytes": 612267,
+      "sha256": "98c42abd62be8f08ed03cc94ce4e1e2c516819f84d8dcdfb45bb0a54ec74b2f4",
+      "anonymous_public_exact": true
+    },
+    {
+      "path": "docs/screenshots/mix-effects-macos.png",
+      "bytes": 663622,
+      "sha256": "710cd9964b925f975af2f288aebc23ca52739b163a1cd2d033ed2e1d80354bce",
+      "anonymous_public_exact": true
+    },
+    {
+      "path": "docs/screenshots/output-routing-macos.png",
+      "bytes": 658834,
+      "sha256": "79280ed1cd5e9b9fc57dfa770691eb6083f06cc973d952d31f6cc5a9517bc937",
+      "anonymous_public_exact": true
+    }
+  ]
+}
